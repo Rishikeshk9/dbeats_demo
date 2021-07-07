@@ -1,0 +1,62 @@
+.navbar{
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar_menuButton{
+  margin: 3px;
+  color: #00D3FF ;
+}
+
+.search{
+  position: relative;
+  border-radius: 20px;
+  background-color: #CCF2FE;
+  margin-right: 2px;
+  width: 50%;
+  display: flex;
+  align-items: center;
+}
+
+.inputInput{
+  padding-left: 15px;
+}
+
+.inputRoot{
+  width: 100%;
+  padding-left: 25px;
+}
+.searchIcon{
+  padding: 4px;
+  margin: 5px;
+  height: 100%;
+  pointer-events: none;
+  background-color: #00D3FF;
+  border-radius: 20px;
+}
+
+.navbar_meetId{
+  background-color: #00D3FF;
+  border-radius: 20px;
+}
+
+.navbar_meetId Button{
+  color: #fff;
+  padding: 4px;
+}
+
+.navbar_avatar{
+  font-size: 28px;
+}
+
+.navbar_meetId Button span{
+  padding-left: 4px;
+  padding-right: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+

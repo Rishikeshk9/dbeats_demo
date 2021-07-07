@@ -1,0 +1,124 @@
+.info_main_body{
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+}
+
+.info_main_body div{
+    padding: 10px;
+}
+
+.info_short_section{
+    background-color: #ccc;
+}
+
+.localVideo{
+    width: 95%;
+    height: 70%;
+    margin: 10px;
+    background: #000;
+}
+
+.info_localDisplay{
+    display: flex;
+    justify-content: center;
+}
+.info_localDisplay video{
+    height: 50%;
+    width: 94%;
+    margin-top: 2%;
+    border-radius: 5px;
+}
+
+video {
+  background: #fff;
+  box-shadow: 0px 5px 5px #cfcfcf;
+}
+
+.info_localDisplay_controls{
+    margin-top: -65px;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 50px;
+    z-index: 1;
+}
+
+.info_localDisplay_controls button{
+    z-index: 1;
+    margin-left: 15px;
+}
+
+
+.info_localDisplay_features{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.info_subscribe_button{
+    background-color: #00D3FF ;
+    font-size: 16px;
+    border: 0px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+.info_subscribe_button span{
+    padding: 5px;
+    color: white;
+    font-weight: 600;
+}
+
+.info_apprecite_button{
+    background: rgb(150,108,245);
+    background: linear-gradient(274deg, rgba(150,108,245,1) 0%, rgba(24,35,129,1) 65%, rgba(20,215,255,1) 100%);
+    font-size: 16px;
+    border: 0px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 20px;
+    margin-right: 20px;
+    color: white;
+}
+
+.info_apprecite_button span{
+    padding: 5px;
+    color: white;
+    font-weight: 600;
+}
+
+.info_localDisplay_icons{
+    font-size: 36px;
+}
+
+.info_localDisplay_icons i{
+    opacity: 0.5;
+    padding-left: 0.8vw;
+}
+
+.info_localDisplay_icons i:hover{
+    opacity: 1;
+}
+
+
+
+.info_remoteVideo{
+    width: 100%;
+    height: 100%;
+    margin: 10;
+}
+
+.info_short_section_details{
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+}
+
+.info_remoteVideo_text{
+    margin-left: 10px;
+    width: 100%;
+}

@@ -3,7 +3,7 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <div fluid className="main_footer">
+    <div className="main_footer">
         <p>footer</p>
     </div>
   );

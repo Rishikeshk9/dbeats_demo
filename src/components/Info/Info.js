@@ -1,14 +1,21 @@
 import React, { Fragment, useEffect, useState } from "react";
 import adapter from 'webrtc-adapter';
-import "./Info.css";
+import classes from "./Info.module.css";
 
 const Info = () => {
 
   const [localVideoRef, setLocalVideoRef] = useState(React.createRef());
   const [remoteVideoRef, setRemoteVideoRef] = useState(React.createRef())
   const [flag,setFlag] = useState(false)
+  const [counts,setCount] = useState([1,2,3,4,5])
+
+  
+
 
   let constraints = { video: true };
+
+  
+  //---------------- Video Permission
 
   // const success = (stream) => {
   //   localVideoRef.current.srcObject = stream;
@@ -28,6 +35,11 @@ const Info = () => {
 
   //navigator.mediaDevices.getUserMedia(constraints).then(success).catch(failure);
 
+  
+
+
+  //------------Screen Share 
+
   const handleSuccess = (stream) => {
     setFlag(true);
     const video = document.querySelector('video');
@@ -37,12 +49,6 @@ const Info = () => {
       errorMsg('The user has ended sharing the screen');
       setFlag(false);
     });
-
-    if ((navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia)) {
-      setFlag(false);
-    } else {
-      errorMsg('getDisplayMedia is not supported');
-    }
   }
 
   const handleError = (error) => {
@@ -50,11 +56,7 @@ const Info = () => {
   }
 
   const errorMsg = (msg, error) => {
-    const errorElement = document.querySelector('#errorMsg');
-    errorElement.innerHTML += `<p>${msg}</p>`;
-    if (typeof error !== 'undefined') {
       console.error(error);
-    }
   }
 
   const createShare =() =>{
@@ -65,33 +67,68 @@ const Info = () => {
 
     navigator.mediaDevices.getDisplayMedia(constraints)
         .then(handleSuccess,handleError);
+
+    if ((navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia)) {
+      setFlag(false);
+    } else {
+      errorMsg('getDisplayMedia is not supported');
+    }
   }  
 
   
 
   return (
     <Fragment>
-        <div className="main_body">
-          <div>              
-              <video 
-                id="gum-local" 
-                autoPlay playsInline muted></video>
-
-              <button onClick={createShare} disabled={flag}>Start</button>
-              <div id="errorMsg"></div>
-
-              <div>
-                <button onClick={createOffer}>Offer</button>
-                <button onClick={createAnswer}>Offer</button>
+        <div className={classes.info_main_body}>
+          <div> 
+              <div className={classes.info_localDisplay}>             
+                <video 
+                  id="gum-local" 
+                  autoPlay playsInline muted></video>
+              </div>
+              <div className={classes.info_localDisplay_controls}>
+                <button onClick={createShare} disabled={flag}>Start</button>
+                <button onClick={createShare} disabled={flag}>Start</button>
+                <button onClick={createShare} disabled={flag}>Start</button>
+                <button onClick={createShare} disabled={flag}>Start</button>
+              </div>
+              <div className={classes.info_localDisplay_features}>
+                <div>
+                  <button className={classes.info_subscribe_button} onClick={createOffer}>
+                    <span>Subscribe</span>
+                  </button>
+                  <button className={classes.info_apprecite_button} onClick={createAnswer}>
+                    <i class="fas fa-volleyball-ball"></i><span>Apprecite</span>
+                  </button>
+                </div>
+                <div className={classes.info_localDisplay_icons}>
+                  <i class="fas fa-share"></i>
+                  <i class="fas fa-heart"></i>
+                  <i class="fas fa-heart-broken"></i>
+                  <i class="far fa-laugh-squint"></i>
+                  <i class="far fa-angry"></i>
+                  <i class="fas fa-ellipsis-h"></i>
+                </div>
               </div> 
           </div>
-          <div className="short_section">
-              <div>
-                
+          <div className={classes.info_short_section}>
+
+            {counts.map((count,index) => (
+              <div id={index} className={classes.info_short_section_details}>
+                   <div>
+                     <video
+                       className={classes.info_remoteVideo}
+                       ref={remoteVideoRef}
+                       autoPlay
+                     ></video>
+                   </div>
+                   <div className={classes.info_remoteVideo_text}>
+                     <h4>Title</h4>
+                     <p>Description</p>
+                     <span>Tags</span>
+                   </div>
               </div>
-              <div>
-                
-              </div>
+            ))}
           </div>
         </div>
 
