@@ -1,0 +1,15 @@
+* {
+  font-family: "Arial", "Helvetica", "sans-serif" ;
+}
+
+.nav_body {
+  margin: 0px;
+  padding: 0px;
+  font-size: 16px;
+  background-color: blue;
+}
+
+.nav_body p{
+  margin: 0px;
+  padding: 10px;
+}
