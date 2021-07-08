@@ -7,7 +7,7 @@ const Info = () => {
   const [localVideoRef, setLocalVideoRef] = useState(React.createRef());
   const [remoteVideoRef, setRemoteVideoRef] = useState(React.createRef())
   const [flag,setFlag] = useState(false)
-  const [counts,setCount] = useState([1,2,3,4,5])
+  const [counts,setCount] = useState([1,2,3,4])
 
   
 

@@ -1,0 +1,55 @@
+
+.main_footer{
+    position:relative;
+   margin-bottom: 0px;
+  padding-bottom: 0px;
+  font-size: 16px;
+  background-color: #fff;
+  height: 100px;
+  width:100%;
+  box-shadow: 10px 10px 10px 10px #cfcfcf;
+}
+
+.main_footer{
+  padding: 10px;
+}
+
+.root{
+  width:200px;
+  position: absolute;
+  top:65%;
+  left:70%;
+  color:#00D3FF;
+}
+
+.slider{
+  color:#00D3FF;
+}
+
+.timeslider{
+  position: absolute;
+  top:65%;
+  left:30%;
+  width:30%;
+}
+
+.btn{
+  
+  margin-left: 41%;
+}
+
+.playbtn{
+  font-size: 3.5rem;
+  color:#00D3FF;
+}
+
+.skippreviousbtn{
+  font-size: 2rem;
+  color:#00D3FF;
+}
+
+.skipnextbtn{
+  font-size: 2rem;
+  color:#00D3FF;
+}
+
