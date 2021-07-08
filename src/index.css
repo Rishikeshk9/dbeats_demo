@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.rhap_time{
+  color: #00d3ff !important;
+}
+
+.rhap_container{
+  box-shadow: none !important;
+}
+
+.rhap_progress-bar{
+  background-color:#ccf2fe !important;
+}
+
+.rhap_progress-indicator{
+  background-color:#00d3ff !important;
+}
