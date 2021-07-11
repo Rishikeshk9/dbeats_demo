@@ -31,7 +31,7 @@ const Info = (props) => {
     const ref = useRef();
 
     useEffect(() => {
-        socketRef.current = io.connect("/");
+        socketRef.current = io.connect("https://dbeats-server.herokuapp.com/");
         navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true }).then(stream => {
             userVideo.current.srcObject = stream;
             socketRef.current.emit("join room", roomID);
