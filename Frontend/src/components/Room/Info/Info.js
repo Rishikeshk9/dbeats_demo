@@ -33,7 +33,6 @@ const Info = (props) => {
     useEffect(() => {
         socketRef.current = io.connect("https://dbeats-server.herokuapp.com/");
         navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true }).then(stream => {
-            userVideo.current.srcObject = stream;
             socketRef.current.emit("join room", roomID);
             socketRef.current.on("all users", users => {
                 const peers = [];
@@ -65,11 +64,10 @@ const Info = (props) => {
         })
     }, []);
 
-    const createPeer = (userToSignal, callerID, stream) => {
+    const createPeer = (userToSignal, callerID) => {
         const peer = new Peer({
             initiator: true,
-            trickle: false,
-            stream,
+            trickle: false
         });
 
         peer.on("signal", signal => {
@@ -79,16 +77,18 @@ const Info = (props) => {
         return peer;
     }
 
-    const addPeer = (incomingSignal, callerID, stream)=>{
+    const addPeer = (incomingSignal, callerID)=>{
         const peer = new Peer({
             initiator: false,
-            trickle: false,
-            stream,
+            trickle: false
         })
 
         peer.on("signal", signal => {
             socketRef.current.emit("returning signal", { signal, callerID })
         })
+        peer.ontrack = event => {
+          userVideo.current.srcObject = event.streams[0];
+        };
 
         peer.signal(incomingSignal);
 
