@@ -2,9 +2,10 @@ import React from 'react'
 import { Fragment } from 'react'
 import LandingBody from './LandingBody/LandingBody'
 import LandingFooter from './LandingFooter/LandingFooter'
-import earthImg from '../../images/earth.png'
-import logo from "../../images/logo.png"
-import Fade from 'react-reveal/Fade';
+import earthImg from '../../assests/images/earth.png'
+import logo from "../../assests/images/logo.png"
+import Particles from 'react-particles-js';
+
 
 import { 
     Nav,
@@ -14,15 +15,47 @@ import classes from './Landing.module.css'
 
 const LandingPage = () => {
     return (
-        <Fragment >
-            <div className={classes.main_body_vanta} id="main_body_vanta">
+        <Fragment>
+            <div style={{backgroundColor:"#000"}}>
+                <Particles
+                    width="100%"
+                    height="80vh"
+                    params={{
+                        "particles": {
+                            "number": {
+                                "value": 80,
+                                "density": {
+                                    "enable": false
+                                }
+                            },
+                            "size": {
+                                "value": 3,
+                                "random": true,
+                                "anim": {
+                                    "speed": 4,
+                                    "size_min": 0.3
+                                }
+                            },
+                            "line_linked": {
+                                "enable": false
+                            },
+                            "move": {
+                                "random": true,
+                                "speed": 1,
+                                "direction": "top",
+                                "out_mode": "out"
+                            }
+                        }
+                    }} 
+                    style={{position:"absolute"}}
+                />
                 <div className={classes.main_header_nav} id="main_header_nav">
-                    <Nav className="justify-content-between" activeKey="/home">
+                    <Nav className="justify-content-between" activeKey="/">
                         <div>
                             <Nav className={classes.main_header_navitems}>
                                 <Nav.Item>
-                                    <Nav.Link href="/home">
-                                        <div className="logo_style">
+                                    <Nav.Link href="/">
+                                        <div className={classes.nav_logo_style}>
                                             <Image src={logo} height="45px" width="auto"/>
                                         </div>
                                     </Nav.Link>
@@ -32,10 +65,10 @@ const LandingPage = () => {
                         <div>
                         <Nav>
                             <Nav.Item>
-                                <Nav.Link className={classes.main_header_navitem} href="/home">More Details</Nav.Link>
+                                <Nav.Link className={classes.main_header_navitem} href="/">More Details</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link className={classes.main_header_navitem}href="/home">Visit Us</Nav.Link>
+                                <Nav.Link className={classes.main_header_navitem}href="/">Visit Us</Nav.Link>
                             </Nav.Item>
                         </Nav>
                         </div>

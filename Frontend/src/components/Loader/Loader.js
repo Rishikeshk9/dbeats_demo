@@ -1,6 +1,6 @@
 import React from 'react'
 import {Image} from 'react-bootstrap'
-import logo from "../../images/logo2.png"
+import logo from "../../assests/images/logo2.png"
 import classes from './Loader.module.css'
 
 const Loader = () => {
