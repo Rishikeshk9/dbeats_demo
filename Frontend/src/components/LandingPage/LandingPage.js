@@ -46,7 +46,7 @@ const LandingPage = () => {
                       <p>INDEPENDENT NETWORK FOR INDEPENDENT CREATEOR</p>
                 </div>
                 </center>
-                <div style={{paddingTop:"100px"}}>
+                <div>
                     <div className={classes.main_header_body} id="main_header_body" style={{backgroundImage: `url(${earthImg})`}}>
                     </div>
                 </div>
