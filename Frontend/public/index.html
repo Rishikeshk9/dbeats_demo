@@ -59,13 +59,13 @@
       backgroundColor: 0x0,
       color1: 0xffffff,
       color2: 0xe3e3e3,
-      birdSize: 0.50,
+      birdSize: 0.70,
       wingSpan: 10.00,
-      speedLimit: 1.00,
+      speedLimit: 3.00,
       separation: 89.00,
       alignment: 72.00,
       cohesion: 38.00,
-      quantity: 4.00
+      quantity: 3.00
     })
   </script>
 
@@ -78,8 +78,19 @@
           reset: true
       });
 
-      sr.reveal('#header_title',{delay:200});
+      sr.reveal('',{delay:200});
 
+
+  </script>
+
+  <script type="text/javascript">
+      let title=document.getElementById("main_header_title");
+
+      window.addEventListener('scroll',function(){
+        var value =window.scrollY;
+
+        title.style.top = (-value*1) +450+ 'px';
+      })
 
   </script>
 

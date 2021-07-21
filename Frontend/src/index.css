@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth !important;
 }
 
 code {
@@ -26,3 +27,5 @@ code {
 .rhap_progress-indicator{
   background-color:#00d3ff !important;
 }
+
+
