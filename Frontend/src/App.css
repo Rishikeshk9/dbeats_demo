@@ -79,4 +79,24 @@
   width: auto;
 }
 
+.card{
+  width:18rem;
+  height: 20rem;
+  box-shadow: 0px 5px 5px #cfcfcf;;
+}
+
+.freedom-text{
+  color:#00d3ff;
+}
+
+.we-give{
+  color: 
+  #1B252F;
+  opacity: 0.8;
+  margin-bottom: 4rem;
+}
+
+.img-shadow{
+  box-shadow: 0px 5px 5px #cfcfcf;
+}
 
