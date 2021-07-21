@@ -3,7 +3,21 @@ import React from 'react'
 const LandingBody = () => {
     return (
         <div>
-            this is body
+            <p>this is body</p>
+            <p>this is body</p>
+            <p>this is body</p>
+            <p>this is body</p>
+            <p>this is body</p><p>this is body</p>
+            <p>this is body</p>
+            <p>this is body</p>
+            <p>this is body</p>
+            <p>this is body</p>
+            <p>this is body</p>
+            <p>this is body</p>
+            <p>this is body</p>
+            <p>this is body</p>
+            <p>this is body</p>
+            
         </div>
     )
 }

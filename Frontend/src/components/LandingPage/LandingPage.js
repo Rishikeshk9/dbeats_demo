@@ -16,7 +16,7 @@ const LandingPage = () => {
     return (
         <Fragment >
             <div className={classes.main_body_vanta} id="main_body_vanta">
-                <div className={classes.main_header_nav}>
+                <div className={classes.main_header_nav} id="main_header_nav">
                     <Nav className="justify-content-between" activeKey="/home">
                         <div>
                             <Nav className={classes.main_header_navitems}>
@@ -41,14 +41,15 @@ const LandingPage = () => {
                         </div>
                     </Nav>
                 </div>
-                <div className={classes.main_header_body}>
-                    <Image src={earthImg} className={classes.main_header_image}/>
-                </div>
                 <center>
-                <div className={classes.main_header_title} id="header_title">
+                <div className={classes.main_header_title} id="main_header_title">
                       <p>INDEPENDENT NETWORK FOR INDEPENDENT CREATEOR</p>
                 </div>
                 </center>
+                <div style={{paddingTop:"100px"}}>
+                    <div className={classes.main_header_body} id="main_header_body" style={{backgroundImage: `url(${earthImg})`}}>
+                    </div>
+                </div>
             </div>
             <LandingBody />
             <LandingFooter />
