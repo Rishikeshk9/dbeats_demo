@@ -100,3 +100,59 @@
   box-shadow: 0px 5px 5px #cfcfcf;
 }
 
+#example1 {
+	width: 1000px;
+	margin: 50px 0;
+	margin-left: 10px;
+	position: absolute;
+	margin-top: 10rem;
+	left: 50%;
+	transform: translateX(-50%);
+	cursor: pointer;
+  }
+  
+  
+  svg {
+	width: 80vw;
+	height: 200px;
+	position: absolute;
+	
+  }
+  
+  #wave1 path {
+	fill: transparent;
+	stroke: #fff;
+  }
+  #wave1 {
+	position: absolute;
+	top:20px
+  }
+  #wave2 {
+	position: absolute;
+	top:50px;
+	display: none;
+  }
+  #wave2 path {
+	fill: transparent;
+	
+  }
+  .desktop {
+	display: block;
+	font-size: 15px;
+  }
+  
+  text {
+	fill: #fff;
+  
+  }
+  
+  textPath{
+	  font-size: 0.8rem;
+  }
+  
+  .wavy{
+	width:100%;
+	margin: 5rem 0 5rem 0;
+	height:70vh;
+	background: linear-gradient(#fff,#00d3ff);
+  }

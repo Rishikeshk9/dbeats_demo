@@ -6,7 +6,7 @@ import twitter from '../../../assests/images/twitter.png';
 
 const LandingFooter = () => {
     return (
-        <div style={{paddingBottom:"50px",paddingTop:"50px"}}>
+        <div style={{paddingBottom:"50px"}}>
             <h5 className="text-center mt-5" style={{color:'#5e615f'}}>Livepeer Communities</h5>
             <h2 className="text-center join-text">Join the DBeats Community</h2>
             <p className="text-center" style={{color:'#5e615f'}}>DBeats is an open project that believes in open source code and <br/> creative contribution

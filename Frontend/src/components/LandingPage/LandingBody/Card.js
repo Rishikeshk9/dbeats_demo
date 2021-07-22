@@ -6,8 +6,7 @@ const Cards = (props) => {
   return (
     <>
 <Card  className={classes.info_card} >
-      <Card.Img  className="m-auto img-shadow" id={classes.card_images} src={props.imgsrc} roundedCircle />
-
+      <Card.Img  className="mx-auto img-shadow" id={classes.card_images} src={props.imgsrc} roundedCircle />
         <Card.Body>
           <Card.Title style={{color:'#00d3ff'}}>{props.title}</Card.Title>
         </Card.Body>
