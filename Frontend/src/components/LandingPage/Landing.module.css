@@ -39,3 +39,13 @@
 	z-index: 100;
 	font-weight: 600;
 }
+
+info_card{
+	padding-top: 15px;
+}
+
+#card_images{
+	border-radius:50%;
+	height:8rem;
+	width:8rem;
+}

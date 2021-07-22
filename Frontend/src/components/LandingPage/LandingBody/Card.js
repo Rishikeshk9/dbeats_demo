@@ -1,11 +1,13 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
+import classes from '../Landing.module.css'
 
 const Cards = (props) => {
   return (
     <>
-      <Card  className="card" >
-      <Card.Img  className="m-3 img-shadow" src={props.imgsrc} roundedCircle style={{borderRadius:'50%', height:'5rem', width:'5rem' }} />
+<Card  className={classes.info_card} >
+      <Card.Img  className="m-auto img-shadow" id={classes.card_images} src={props.imgsrc} roundedCircle />
+
         <Card.Body>
           <Card.Title style={{color:'#00d3ff'}}>{props.title}</Card.Title>
         </Card.Body>
