@@ -101,7 +101,7 @@
 }
 
 #example1 {
-	width: 1000px;
+	width: 100%;
 	margin: 50px 0;
 	margin-left: 10px;
 	position: absolute;
@@ -113,7 +113,7 @@
   
   
   svg {
-	width: 80vw;
+	width: 100%;
 	height: 200px;
 	position: absolute;
 	
@@ -147,7 +147,7 @@
   }
   
   textPath{
-	  font-size: 0.8rem;
+	  font-size: 0.6rem;
   }
   
   .wavy{
