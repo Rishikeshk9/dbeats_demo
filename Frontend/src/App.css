@@ -101,11 +101,11 @@
 }
 
 #example1 {
-	width: 100%;
+	width: 98%;
 	margin: 50px 0;
 	margin-left: 10px;
 	position: absolute;
-	margin-top: 10rem;
+	margin-top: 8rem;
 	left: 50%;
 	transform: translateX(-50%);
 	cursor: pointer;
@@ -121,7 +121,7 @@
   
   #wave1 path {
 	fill: transparent;
-	stroke: #fff;
+	stroke: #00d3ff;
   }
   #wave1 {
 	position: absolute;
@@ -142,7 +142,7 @@
   }
   
   text {
-	fill: #fff;
+	fill: #00d3ff;
   
   }
   
@@ -151,8 +151,6 @@
   }
   
   .wavy{
-	width:100%;
 	margin: 5rem 0 5rem 0;
 	height:70vh;
-	background: linear-gradient(#fff,#00d3ff);
   }
