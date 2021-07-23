@@ -47,7 +47,7 @@ const LandingPage = () => {
                             }
                         }
                     }} 
-                    style={{position:"absolute"}}
+                    style={{position:"fixed"}}
                 />
                 <div className={classes.main_header_nav} id="main_header_nav">
                     <Nav className="justify-content-between" activeKey="/">
