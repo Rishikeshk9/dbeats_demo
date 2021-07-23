@@ -105,7 +105,7 @@
 	margin: 50px 0;
 	margin-left: 10px;
 	position: absolute;
-	margin-top: 8rem;
+	margin-top: 5rem;
 	left: 50%;
 	transform: translateX(-50%);
 	cursor: pointer;
@@ -114,8 +114,10 @@
   
   svg {
 	width: 100%;
-	height: 200px;
+	height: 30vh;
 	position: absolute;
+  margin-left: auto;
+  margin-right: auto;
 	
   }
   
@@ -125,17 +127,10 @@
   }
   #wave1 {
 	position: absolute;
-	top:20px
+  top:20px;
   }
-  #wave2 {
-	position: absolute;
-	top:50px;
-	display: none;
-  }
-  #wave2 path {
-	fill: transparent;
-	
-  }
+
+  
   .desktop {
 	display: block;
 	font-size: 15px;
@@ -152,5 +147,6 @@
   
   .wavy{
 	margin: 5rem 0 5rem 0;
+  margin-left: auto;
 	height:70vh;
   }
