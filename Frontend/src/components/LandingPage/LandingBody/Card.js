@@ -15,7 +15,7 @@ const Cards = (props) => {
 
   return (
     <>
-<Card  className={classes.info_card} data-aos="zoom-in-up">
+<Card  className={classes.info_card} data-aos="zoom-in-up" data-aos-delay={props.delay}>
       <Card.Img  className="mx-auto img-shadow" id={classes.card_images} src={props.imgsrc} roundedCircle />
         <Card.Body>
           <Card.Title style={{color:'#00d3ff'}}>{props.title}</Card.Title>

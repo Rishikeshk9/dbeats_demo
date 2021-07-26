@@ -3,15 +3,18 @@ import imgback from './images/whitebackground.jpg';
 const Data = [
     {
         imgsrc:imgback,
-        title:"Create"
+        title:"Create",
+        delay:"100"
     },
     {
         imgsrc:imgback,
-        title:"Stream"
+        title:"Stream",
+        delay:"400"
     },
     {
         imgsrc:imgback,
-        title:"Broadcast"
+        title:"Broadcast",
+        delay:"700"
     },
 ]
 
