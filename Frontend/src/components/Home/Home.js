@@ -12,16 +12,18 @@ const Home = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [name, setName] = useState("");
-  const allStreams=[];
+  const [allStreams, setAllStreams] = useState([]);
   
 
   const getStreams = async() =>{
+    setAllStreams([])
     const streams = await livepeerObject.Stream.getAll(1,false,false);
     for (let i = 0; i < streams.length; i++) {
-      allStreams.push([streams[i].name,streams[i].id,streams[i].streamKey]);
+      setAllStreams((prevState) => [...prevState, streams[i]]);
     }
     console.log("sessions",allStreams)
   }
+
   
   useEffect(() => {
      getStreams();
@@ -61,7 +63,8 @@ const Home = (props) => {
     console.log(stream);
     var id = stream.id;
 
-    // props.history.push(`/room/${id}`);
+    props.history.push(`/room/${id}`);
+    getStreams();
   };
 
   const handleChange = (e) => {
@@ -88,13 +91,13 @@ const Home = (props) => {
         {allStreams.map((stream,i) => {
           return (
             <tr key={i}>
-              <td>2</td>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
+              <td>{stream.name}</td>
+              <td>{stream.id}</td>
+              <td>{stream.streamKey}</td>
             </tr>
           )
         })}
+
         </tbody>
       </Table>
 

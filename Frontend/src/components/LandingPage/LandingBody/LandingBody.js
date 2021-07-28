@@ -1,7 +1,7 @@
 import React from 'react';
 import Cards from './Card';
 import Data from '../../../assests/Data';
-
+import classes from '../Landing.module.css';
 
 
 const LandingBody = () => {
@@ -9,7 +9,7 @@ const LandingBody = () => {
         <>
         <div style={{paddingTop:"50px"}}>
             <div className="my-3">
-                <h1 className="text-center we-give">We give everyone the <br /><span className="freedom-text">Freedom to</span></h1>
+                <h1 className={classes.we_give}>We give everyone the <br /><span className={classes.freedom_text}>Freedom to</span></h1>
             </div>
             <div className="container-fluid" align="center">
                 <div classame="row ">
@@ -30,9 +30,9 @@ const LandingBody = () => {
                 </div>
             </div>
         </div>
-        <div className="wavy">
-        <div id="example1">
-        <svg id="wave1" viewBox="0 0 600 20">
+        <div className={classes.wavy}>
+        <div id={classes.example1}>
+        <svg id={classes.wave1} viewBox="0 0 600 20" className={classes.svg_body}>
           <path id="curve" d="M.35,56.81c53.28,0,53.28,22,106.57,22s53.28-22,106.57-22,53.28,22,106.57,22,53.28-22,106.56-22,53.29,22,106.58,22,53.28-22,106.57-22,53.29,22,106.58,22" transform="translate(0 -56)" />
           
           <text x="10%" className="desktop" text-anchor="middle" transform="translate(0,-20)">
