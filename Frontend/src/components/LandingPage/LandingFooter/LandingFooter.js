@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import discord from '../../../assests/images/discord.jpg';
 import telegram from '../../../assests/images/telegram.png';

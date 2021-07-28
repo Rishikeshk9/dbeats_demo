@@ -18,7 +18,8 @@ const  Room = lazy(() => {
   });
 });
 
-function App() {
+const App = () => {
+
   return (
     <Router>
         <Suspense fallback={<Loader/>}>

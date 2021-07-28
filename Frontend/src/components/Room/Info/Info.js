@@ -1,9 +1,8 @@
 import React, { useRef,Fragment, useEffect, useState } from "react";
-import adapter from 'webrtc-adapter';
 import classes from "./Info.module.css";
 import io from "socket.io-client";
 import Peer from "simple-peer";
-import {useDispatch, useSelector} from 'react-redux'
+import {useSelector} from 'react-redux'
 
 const videoConstraints = {
   height: window.innerHeight / 2,
@@ -20,9 +19,9 @@ const Info = (props) => {
 
   // const [localVideoRef, setLocalVideoRef] = useState(React.createRef());
   // const [remoteVideoRef, setRemoteVideoRef] = useState(React.createRef())
-    const [flag,setFlag] = useState(false)
+    // const [flag,setFlag] = useState(false)
   // const [counts,setCount] = useState([1,2,3,4])
-
+    const flag=false;
     const [peers, setPeers] = useState([]);
     const socketRef = useRef();
     const userVideo = useRef();
@@ -62,7 +61,7 @@ const Info = (props) => {
                 item.peer.signal(payload.signal);
             });
         })
-    }, []);
+    },[]);
 
     const createPeer = (userToSignal, callerID) => {
         const peer = new Peer({
@@ -119,16 +118,16 @@ const Info = (props) => {
                     <span>Subscribe</span>
                   </button>
                   <button className={classes.info_apprecite_button}>
-                    <i class="fas fa-volleyball-ball"></i><span>Apprecite</span>
+                    <i className="fas fa-volleyball-ball"></i><span>Apprecite</span>
                   </button>
                 </div>
                 <div className={classes.info_localDisplay_icons}>
-                  <i class="fas fa-share"></i>
-                  <i class="fas fa-heart"></i>
-                  <i class="fas fa-heart-broken"></i>
-                  <i class="far fa-laugh-squint"></i>
-                  <i class="far fa-angry"></i>
-                  <i class="fas fa-ellipsis-h"></i>
+                  <i className="fas fa-share"></i>
+                  <i className="fas fa-heart"></i>
+                  <i className="fas fa-heart-broken"></i>
+                  <i className="far fa-laugh-squint"></i>
+                  <i className="far fa-angry"></i>
+                  <i className="fas fa-ellipsis-h"></i>
                 </div>
               </div> 
           </div>

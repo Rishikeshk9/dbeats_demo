@@ -1,10 +1,8 @@
-import { useState,Fragment } from "react";
 import classes from "./Navbar.module.css";
 import {
   AppBar,
   Toolbar,
   IconButton,
-  Typography,
   Button,
   InputBase
 } from "@material-ui/core";
