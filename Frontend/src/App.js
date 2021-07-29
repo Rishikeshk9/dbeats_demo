@@ -12,11 +12,18 @@ const Home = lazy(() => {
   });
 });
 
-const  Room = lazy(() => {
+const  PublicRoom = lazy(() => {
   return new Promise(resolve => {
-    setTimeout(() => resolve(import("./components/Room/Room")), 1000);
+    setTimeout(() => resolve(import("./components/Room/PublicRoomPage")), 1000);
   });
 });
+
+const  UserRoom = lazy(() => {
+  return new Promise(resolve => {
+    setTimeout(() => resolve(import("./components/Room/UserRoomPage")), 1000);
+  });
+});
+
 
 const App = () => {
 
@@ -27,7 +34,8 @@ const App = () => {
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/loader" component={Loader} />
             <Route exact path="/home" component={Home} /> 
-            <Route exact path="/room/:roomID" component={Room} />            
+            <Route exact path="/streamer/:roomID" component={UserRoom} />    
+            <Route exact path="/public/:roomID" component={PublicRoom} />            
             {/* TODO: <Route exact path="*" component={PageNotFound} /> */}
           </Switch>
         </Suspense>

@@ -1,0 +1,15 @@
+.display_all_streamers{
+	margin-left: 2vw;
+	margin-right: 2vw;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.all_streams_list{
+	background: #ccc;
+	padding: 15px;
+	width: 25%;
+	border-radius: 20px;
+	margin: 10px;
+}

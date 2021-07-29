@@ -7,16 +7,16 @@ import logo from "../../assests/images/logo.png"
 import Particles from 'react-particles-js';
 
 
-import { 
+import {
     Nav,
-    Image 
+    Image
 } from 'react-bootstrap'
 import classes from './Landing.module.css'
 
 const LandingPage = () => {
     return (
         <Fragment>
-            <div style={{backgroundColor:"#000"}}>
+            <div style={{ backgroundColor: "#000" }}>
                 <Particles
                     width="100%"
                     height="80vh"
@@ -46,8 +46,8 @@ const LandingPage = () => {
                                 "out_mode": "out"
                             }
                         }
-                    }} 
-                    style={{position:"fixed"}}
+                    }}
+                    style={{ position: "fixed" }}
                 />
                 <div className={classes.main_header_nav} id="main_header_nav">
                     <Nav className="justify-content-between" activeKey="/">
@@ -56,31 +56,31 @@ const LandingPage = () => {
                                 <Nav.Item>
                                     <Nav.Link href="/">
                                         <div className={classes.nav_logo_style}>
-                                            <Image src={logo} height="45px" width="auto"/>
+                                            <Image src={logo} height="45px" width="auto" />
                                         </div>
                                     </Nav.Link>
-                                </Nav.Item>                        
+                                </Nav.Item>
                             </Nav>
                         </div>
                         <div>
-                        <Nav>
-                            <Nav.Item>
-                                <Nav.Link className={classes.main_header_navitem} href="/">More Details</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link className={classes.main_header_navitem}href="/">Visit Us</Nav.Link>
-                            </Nav.Item>
-                        </Nav>
+                            <Nav>
+                                <Nav.Item>
+                                    <Nav.Link className={classes.main_header_navitem} href="/">More Details</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item>
+                                    <Nav.Link className={classes.main_header_navitem} href="/">Visit Us</Nav.Link>
+                                </Nav.Item>
+                            </Nav>
                         </div>
                     </Nav>
                 </div>
                 <center>
-                <div className={classes.main_header_title} id="main_header_title">
-                      <p>INDEPENDENT NETWORK FOR INDEPENDENT CREATEOR</p>
-                </div>
+                    <div className={classes.main_header_title} id="main_header_title">
+                        <p>INDEPENDENT NETWORK FOR INDEPENDENT CREATEOR</p>
+                    </div>
                 </center>
                 <div>
-                    <div className={classes.main_header_body} id="main_header_body" style={{backgroundImage: `url(${earthImg})`}}>
+                    <div className={classes.main_header_body} id="main_header_body" style={{ backgroundImage: `url(${earthImg})` }}>
                     </div>
                 </div>
             </div>
