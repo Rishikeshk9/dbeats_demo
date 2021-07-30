@@ -25,40 +25,6 @@ const Public_Info = (props) => {
     const roomID = meetId;
     const ref = useRef();
 
-    // useEffect(() => {
-    //     socketRef.current = io.connect("https://dbeats-server.herokuapp.com/");
-    //     navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true }).then(stream => {
-    //         socketRef.current.emit("join room", roomID);
-    //         socketRef.current.on("all users", users => {
-    //             const peers = [];
-    //             users.forEach(userID => {
-    //                 const peer = createPeer(userID, socketRef.current.id, stream);
-    //                 peersRef.current.push({
-    //                     peerID: userID,
-    //                     peer,
-    //                 })
-    //                 peers.push(peer);
-    //             })
-    //             setPeers(peers);
-    //         })
-
-    //         socketRef.current.on("user joined", payload => {
-    //             const peer = addPeer(payload.signal, payload.callerID, stream);
-    //             peersRef.current.push({
-    //                 peerID: payload.callerID,
-    //                 peer,
-    //             })
-
-    //             setPeers(users => [...users, peer]);
-    //         });
-
-    //         socketRef.current.on("receiving returned signal", payload => {
-    //             const item = peersRef.current.find(p => p.peerID === payload.id);
-    //             item.peer.signal(payload.signal);
-    //         });
-    //     })
-    // },[]);
-
     const [userStreams, setUserStreams] = useState([]);
     const [playbackUrl, setPlaybackUrl] = useState("");
 
@@ -67,11 +33,11 @@ const Public_Info = (props) => {
         console.log(meetId)
         const streams = await livepeerObject.Stream.getAll(1, false, false);
         for (let i = 0; i < streams.length; i++) {
-            if(streams[i].id===props.stream_id){
+            if (streams[i].id === props.stream_id) {
                 setUserStreams(streams[i]);
                 break;
             }
-            
+
         }
         console.log("User", userStreams);
     };
@@ -85,41 +51,6 @@ const Public_Info = (props) => {
         setPlaybackUrl(`https://cdn.livepeer.com/hls/${userStreams.playbackId}/index.m3u8`)
     }, [userStreams]);
 
-    // const createPeer = (userToSignal, callerID) => {
-    //     const peer = new Peer({
-    //         initiator: true,
-    //         trickle: false,
-    //     });
-
-    //     peer.on("signal", (signal) => {
-    //         socketRef.current.emit("sending signal", {
-    //             userToSignal,
-    //             callerID,
-    //             signal,
-    //         });
-    //     });
-
-    //     return peer;
-    // };
-
-    // const addPeer = (incomingSignal, callerID) => {
-    //     const peer = new Peer({
-    //         initiator: false,
-    //         trickle: false,
-    //     });
-
-    //     peer.on("signal", (signal) => {
-    //         socketRef.current.emit("returning signal", { signal, callerID });
-    //     });
-    //     peer.ontrack = (event) => {
-    //         userVideo.current.srcObject = event.streams[0];
-    //     };
-
-    //     peer.signal(incomingSignal);
-
-    //     return peer;
-    // };
-
     return (
         <Fragment>
             <div className={classes.info_main_body}>
@@ -132,16 +63,7 @@ const Public_Info = (props) => {
                             controls={true}
                             width="100%"
                             height="auto"
-                          />
-
-                        {/*<video
-                            id="gum-local"
-                            autoPlay
-                            playsInline
-                            muted
-                        >
-                            <source src={playbackUrl} type="application/x-mpegURL" />
-                        </video>*/}
+                        />
                     </div>
                     <div className={classes.info_localDisplay_controls}>
                         <button disabled={flag}>Start</button>

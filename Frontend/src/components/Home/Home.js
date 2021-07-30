@@ -84,13 +84,13 @@ const Home = (props) => {
             <div className={classes.display_all_streamers}>
                 {allStreams.map((stream, i) => {
                     return (
-                            <div key={i} className={classes.all_streams_list}>
-                                <Link to={`./public/${stream.id}`} style = {{textDecoration: 'none',color:"inherit"}}>
+                        <div key={i} className={classes.all_streams_list}>
+                            <Link to={`./public/${stream.id}`} style={{ textDecoration: 'none', color: "inherit" }}>
                                 <p>Name : {stream.name}</p>
                                 <p>Id : {stream.id}</p>
                                 <p>Key : {stream.streamKey}</p>
-                                </Link>
-                            </div>
+                            </Link>
+                        </div>
                     )
                 })}
             </div>

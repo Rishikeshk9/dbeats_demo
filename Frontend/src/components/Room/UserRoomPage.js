@@ -7,7 +7,7 @@ import { meetRoomId } from '../../redux/action'
 
 const UserRoomPage = (props) => {
     const dispatch = useDispatch();
-    //console.log("hi", props.stream)
+    
     useEffect(() => {
         dispatch(meetRoomId(props.match.params.roomID))
     }, [])
