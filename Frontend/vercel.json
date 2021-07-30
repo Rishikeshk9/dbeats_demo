@@ -1,11 +1,11 @@
 {
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "*",
       "headers": [
         {
           "key": "access-control-allow-origin",
-          "value": "*"
+          "value": "true"
         }
       ]
     }
