@@ -5,41 +5,23 @@ import Peer from "simple-peer";
 import { useSelector } from "react-redux";
 import ReactHlsPlayer from 'react-hls-player';
 
-const videoConstraints = {
-    height: window.innerHeight / 2,
-    width: window.innerWidth / 2,
-};
 
 const Public_Info = (props) => {
     let key = "d98e11c9-2267-4993-80da-6215d73b42c1";
     const Livepeer = require("livepeer-nodejs");
     const livepeerObject = new Livepeer(key);
 
-    const meetId = useSelector((store) => store);
 
     const flag = false;
-    const [peers, setPeers] = useState([]);
-    const socketRef = useRef();
-    const userVideo = useRef();
-    const peersRef = useRef([]);
-    const roomID = meetId;
     const ref = useRef();
 
     const [userStreams, setUserStreams] = useState([]);
     const [playbackUrl, setPlaybackUrl] = useState("");
 
     const getStreams = async () => {
-        setUserStreams([]);
-        console.log(meetId)
-        const streams = await livepeerObject.Stream.getAll(1, false, false);
-        for (let i = 0; i < streams.length; i++) {
-            if (streams[i].id === props.stream_id) {
-                setUserStreams(streams[i]);
-                break;
-            }
-
-        }
-        console.log("User", userStreams);
+        console.log(props.stream_id)
+        const stream = await livepeerObject.Stream.get(props.stream_id);
+        setUserStreams(stream);
     };
 
 
@@ -92,7 +74,7 @@ const Public_Info = (props) => {
                     </div>
                 </div>
                 <div className={classes.info_short_section}>
-                    {peers.map((peer, index) => {
+                    {/* {peers.map((peer, index) => {
                         peer.on("stream", (stream) => {
                             ref.current.srcObject = stream;
                         });
@@ -113,7 +95,7 @@ const Public_Info = (props) => {
                                 </div>
                             </div>
                         );
-                    })}
+                    })} */}
                 </div>
             </div>
         </Fragment>

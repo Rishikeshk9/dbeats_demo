@@ -9,7 +9,7 @@ const PublicRoomPage = (props) => {
     const dispatch = useDispatch();
     
     useEffect(() => {
-        dispatch(meetRoomId(props.match.params.roomID))
+        dispatch(meetRoomId(props.match.params.roomID));
     }, [])
     return (
         <>

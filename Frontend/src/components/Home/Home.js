@@ -23,7 +23,6 @@ const Home = (props) => {
         for (let i = 0; i < streams.length; i++) {
             setAllStreams((prevState) => [...prevState, streams[i]]);
         }
-        console.log("sessions", allStreams)
     }
 
 
