@@ -1,49 +1,34 @@
 import classes from "./Navbar.module.css";
-import {
-    AppBar,
-    Toolbar,
-    IconButton,
-    Button,
-    InputBase
-} from "@material-ui/core";
+import {Row, Col,Navbar, Form,FormControl,Button} from "react-bootstrap";
 
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-const Navbar = () => {
+
+const BodyNavbar = () => {
 
     return (
-        <div>
-            <AppBar position="static" >
-                <Toolbar className={classes.navbar}>
-                    <div>
-                        <IconButton edge="start" aria-label="menu">
-                            <MenuIcon className={classes.navbar_menuButton} />
-                        </IconButton>
+        <Navbar expand="lg">
+              <Navbar.Toggle aria-controls="navbarScroll" />
+              <Navbar.Collapse id="navbarScroll" className={classes.body_navbar_style}>
+                <Form className="d-flex" className={classes.search}>
+                  <FormControl
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                    style={{borderRadius:"20px"}}
+                  />
+                  <div className={classes.searchIcon}>
+                        <SearchIcon />
                     </div>
-
-                    <div className={classes.search}>
-                        <InputBase
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
-                        </div>
-                    </div>
-
-                    <div className={classes.navbar_meetId}>
-                        <Button > <AccountCircleIcon className={classes.navbar_avatar} /> <span>ox84...6485 </span></Button>
-                    </div>
-
-                </Toolbar>
-            </AppBar>
-        </div>
+                </Form>
+                <div>
+                    <Button className={classes.navbar_meetId}> <AccountCircleIcon className={classes.navbar_avatar} /> <span>ox84...6485 </span></Button>
+                </div>
+              </Navbar.Collapse>
+        </Navbar>
     );
 };
 
-export default Navbar;
+export default BodyNavbar;

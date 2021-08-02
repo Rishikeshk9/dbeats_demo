@@ -62,3 +62,39 @@ profiles: (3) [{…}, {…}, {…}]
 streamKey: "5ccb-84ef-3dyv-fnac"
 _apiKey: "d98e11c9-2267-4993-80da-6215d73b42c1"
 _config: {baseUrl: "https://livepeer.com/api"}
+
+
+
+
+
+/*
+const Navbar = () => {
+
+    return (
+        <div>
+            <AppBar position="static" >
+                <Toolbar className={classes.navbar}>
+                    <div className={classes.search}>
+                        <InputBase
+                            classes={{
+                                root: classes.inputRoot,
+                                input: classes.inputInput,
+                            }}
+                            inputProps={{ 'aria-label': 'search' }}
+                        />
+                        <div className={classes.searchIcon}>
+                            <SearchIcon />
+                        </div>
+                    </div>
+
+                    <div className={classes.navbar_meetId}>
+                        <Button > <AccountCircleIcon className={classes.navbar_avatar} /> <span>ox84...6485 </span></Button>
+                    </div>
+
+                </Toolbar>
+            </AppBar>
+        </div>
+    );
+};
+
+export default Navbar;*/

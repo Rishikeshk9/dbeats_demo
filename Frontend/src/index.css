@@ -6,4 +6,6 @@
 body,html{
   font-family: 'Poppins', sans-serif !important;
   scroll-behavior: smooth;
+  --tw-bg-opacity: 1;
+  background-color: rgba(243, 244, 246, var(--tw-bg-opacity)) !important;
 }

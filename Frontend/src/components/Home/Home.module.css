@@ -13,3 +13,10 @@
 	border-radius: 20px;
 	margin: 10px;
 }
+
+.main_body_sections{
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}

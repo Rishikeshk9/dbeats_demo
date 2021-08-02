@@ -40,9 +40,9 @@ const Public_Info = (props) => {
                     <div className={classes.info_localDisplay}>
                         <ReactHlsPlayer
                             id="gum-local"
-                            src={playbackUrl}
+                            src="https://fra-cdn.livepeer.com/recordings/8d9baddf-40d7-482f-9def-8e6ae1a4269f/index.m3u8"
                             autoPlay={true}
-                            controls={true}
+                            controls={false}
                             width="100%"
                             height="auto"
                         />
@@ -55,6 +55,10 @@ const Public_Info = (props) => {
                     </div>
                     <div className={classes.info_localDisplay_features}>
                         <div>
+                            <div className={classes.info_remoteVideo_text} style={{padding:"0px"}}>
+                                    <h4>Drake Songs</h4>
+                                    <p>Rap Songs</p>
+                            </div>
                             <button className={classes.info_subscribe_button}>
                                 <span>Subscribe</span>
                             </button>

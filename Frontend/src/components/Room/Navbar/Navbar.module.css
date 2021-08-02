@@ -1,62 +1,57 @@
-.navbar{
-  background-color: #fff;
+.body_navbar_style{
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-}
-
-.navbar_menuButton{
-  margin: 3px;
-  color: #00D3FF ;
 }
 
 .search{
   position: relative;
   border-radius: 20px;
-  background-color: #CCF2FE;
-  margin-right: 2px;
-  width: 50%;
+  width: 35%;
   display: flex;
   align-items: center;
+  padding-left: 5px;
 }
 
-.inputInput{
-  padding-left: 15px;
-}
-
-.inputRoot{
-  width: 100%;
-  padding-left: 25px;
-}
 .searchIcon{
+  position: relative;
   padding: 4px;
-  margin: 5px;
+  margin: 2px;
+  margin-left: -40px;
   height: 100%;
   pointer-events: none;
-  background-color: #00D3FF;
   border-radius: 20px;
+  color: #ccc;
 }
 
 .navbar_meetId{
   background-color: #00D3FF;
   border-radius: 20px;
-}
-
-.navbar_meetId Button{
-  color: #fff;
-  padding: 4px;
+  border: none;
 }
 
 .navbar_avatar{
-  font-size: 28px;
+  font-size: 10%s;
 }
 
-.navbar_meetId Button span{
+.navbar_meetId span{
   padding-left: 4px;
   padding-right: 4px;
-  font-size: 13px;
+  font-size: 90%;
   font-weight: 600;
 }
 
+
+
+
+.sidebar_css{
+    background: rgb(63,81,181);
+    background: linear-gradient(180deg, rgba(63,81,181,1) 0%, rgba(33,150,243,1) 65%, rgba(20,215,255,1) 100%) !important;
+    border-radius: 20px;
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 18%;
+    z-index: 0;
+}
 
 
