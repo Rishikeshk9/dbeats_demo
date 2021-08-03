@@ -1,6 +1,5 @@
 import React, { useRef, Fragment, useEffect, useState } from "react";
 import classes from "./Info.module.css";
-import io from "socket.io-client";
 import Peer from "simple-peer";
 import { useSelector } from "react-redux";
 import ReactHlsPlayer from 'react-hls-player';
