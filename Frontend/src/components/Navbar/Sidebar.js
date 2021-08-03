@@ -1,6 +1,5 @@
 import {useState} from 'react'
 import classes from "./Navbar.module.css";
-import Sidebar from "react-sidebar";
 import NavBar from "./Navbar"
 import { scaleRotate as Menu } from 'react-burger-menu'
 
