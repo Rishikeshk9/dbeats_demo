@@ -4,6 +4,7 @@ import io from "socket.io-client";
 import Peer from "simple-peer";
 import { useSelector } from "react-redux";
 import ReactHlsPlayer from 'react-hls-player';
+import playimg from '../../../assests/images/telegram.png';
 
 
 const Public_Info = (props) => {
@@ -100,6 +101,107 @@ const Public_Info = (props) => {
                             </div>
                         );
                     })} */}
+                    <h5>Playlist</h5>
+                   <div className={classes.playlist}>
+                       <img src={playimg} className={classes.playlist_img} alt="img"></img>
+                       <div className={classes.playlist_name}>
+                           <h3>Drake Songs</h3>
+                           <p>Rap song</p>
+                       </div>
+                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
+                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
+                       </i>
+                   </div>
+                   <div className={classes.playlist}>
+                       <img className={classes.playlist_img} src={playimg} alt="img"></img>
+                       <div className={classes.playlist_name}>
+                           <h3>Drake Songs</h3>
+                           <p>Rap song</p>
+                       </div>
+                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
+                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
+                       </i>
+                   </div>
+                   <div className={classes.playlist}>
+                       <img className={classes.playlist_img} src={playimg} alt="img"></img>
+                       <div className={classes.playlist_name}>
+                           <h3>Drake Songs</h3>
+                           <p>Rap song</p>
+                       </div>
+                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
+                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
+                       </i>
+                   </div>
+                   <div className={classes.playlist}>
+                       <img className={classes.playlist_img}  src={playimg} alt="img"></img>
+                       <div className={classes.playlist_name}>
+                           <h3>Drake Songs</h3>
+                           <p>Rap song</p>
+                       </div>
+                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
+                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
+                       </i>
+                   </div>
+                   <div className={classes.playlist}>
+                       <img className={classes.playlist_img} src={playimg} alt="img"></img>
+                       <div className={classes.playlist_name}>
+                           <h3>Drake Songs</h3>
+                           <p>Rap song</p>
+                       </div>
+                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
+                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
+                       </i>
+                   </div>
+                   <div className={classes.playlist}>
+                       <img className={classes.playlist_img} src={playimg} alt="img"></img>
+                       <div className={classes.playlist_name}>
+                           <h3>Drake Songs</h3>
+                           <p>Rap song</p>
+                       </div>
+                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
+                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
+                       </i>
+                   </div>
+                   <div className={classes.playlist}>
+                       <img  className={classes.playlist_img} src={playimg} alt="img"></img>
+                       <div className={classes.playlist_name}>
+                           <h3>Drake Songs</h3>
+                           <p>Rap song</p>
+                       </div>
+                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
+                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
+                       </i>
+                   </div>
+                   <div className={classes.playlist}>
+                       <img className={classes.playlist_img} src={playimg} alt="img"></img>
+                       <div className={classes.playlist_name}>
+                           <h3>Drake Songs</h3>
+                           <p>Rap song</p>
+                       </div>
+                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
+                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
+                       </i>
+                   </div>
+                   <div className={classes.playlist}>
+                       <img className={classes.playlist_img} src={playimg} alt="img"></img>
+                       <div className={classes.playlist_name}>
+                           <h3>Drake Songs</h3>
+                           <p>Rap song</p>
+                       </div>
+                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
+                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
+                       </i>
+                   </div>
+                   <div className={classes.playlist}>
+                       <img className={classes.playlist_img} src={playimg} alt="img"></img>
+                       <div className={classes.playlist_name}>
+                           <h3>Drake Songs</h3>
+                           <p>Rap song</p>
+                       </div>
+                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
+                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
+                       </i>
+                   </div>
                 </div>
             </div>
         </Fragment>

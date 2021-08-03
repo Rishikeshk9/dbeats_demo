@@ -1,6 +1,7 @@
 .body_navbar_style{
   margin-top: 20px;
   display: flex;
+  margin-left: 10%;
   justify-content: space-between;
 }
 
@@ -43,7 +44,7 @@
 
 
 
-
+/*
 .sidebar_css{
     background: rgb(63,81,181);
     background: linear-gradient(180deg, rgba(63,81,181,1) 0%, rgba(33,150,243,1) 65%, rgba(20,215,255,1) 100%) !important;
@@ -53,5 +54,23 @@
     width: 18%;
     z-index: 0;
 }
+*/
 
+.menu_items{
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+#menu_item{
+  color: #fff;
+}
+
+.menu_item_name{
+  padding: 0;
+  color: #fff;
+  padding-left: 10px;
+  margin-top: -5px;
+  height: 20px;
+}

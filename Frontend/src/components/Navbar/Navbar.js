@@ -6,7 +6,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 
-const BodyNavbar = () => {
+const NavBar = () => {
 
     return (
         <Navbar expand="lg">
@@ -31,4 +31,4 @@ const BodyNavbar = () => {
     );
 };
 
-export default BodyNavbar;
+export default NavBar;

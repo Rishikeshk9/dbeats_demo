@@ -36,7 +36,7 @@ const User_Info = (props) => {
         <Fragment>
             <div className={classes.info_main_body}>
                 <div>
-                    <div>
+                    <div style={{marginLeft:"50px"}}>
                         <p>Streamer Name : {userStreams.name}</p>
                         <p>Streamer Id : {userStreams.id}</p>
                         <p>Streamer Key : {userStreams.streamKey}</p>

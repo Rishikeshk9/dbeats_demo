@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Spinner, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import classes from "./Home.module.css";
-import Sidebar from "../Room/Navbar/Sidebar"
+import SideBar from "../Navbar/Sidebar"
 import {Row, Col} from "react-bootstrap";
 
 const Home = (props) => {
@@ -76,32 +76,32 @@ const Home = (props) => {
 
     return (
         <>
-            <Row className={classes.main_body_sections}>
-                    <Col xs={2}>      
-                      <Sidebar />
-                    </Col>
-                    <Col  xs={10} style={{paddingTop:"20px"}}>
-                        <center>
-                            <Button variant="primary" onClick={handleShow}>
-                                Create Stream
-                            </Button>
-                        </center>
-                        <br />
-                        <div className={classes.display_all_streamers}>
-                            {allStreams.map((stream, i) => {
-                                return (
-                                    <div key={i} className={classes.all_streams_list}>
-                                        <Link to={`./public/${stream.id}`} style={{ textDecoration: 'none', color: "inherit" }}>
-                                            <p>Name : {stream.name}</p>
-                                            <p>Id : {stream.id}</p>
-                                            <p>Key : {stream.streamKey}</p>
-                                        </Link>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    </Col> 
-            </Row>
+
+            <div id="outer-container" style={{ height: '100vh' }}>
+                <SideBar />
+                <main id="page-wrap">
+                    <center>
+                    <Button variant="primary" onClick={handleShow}>
+                        Create Stream
+                    </Button>
+                    </center>
+                    <br />
+                    <div className={classes.display_all_streamers}>
+                        {allStreams.map((stream, i) => {
+                            return (
+                                <div key={i} className={classes.all_streams_list}>
+                                    <Link to={`./public/${stream.id}`} style={{ textDecoration: 'none', color: "inherit" }}>
+                                        <p>Name : {stream.name}</p>
+                                        <p>Id : {stream.id}</p>
+                                        <p>Key : {stream.streamKey}</p>
+                                    </Link>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </main>
+            </div>
+                               
             
 
             <Modal

@@ -120,3 +120,44 @@ video {
     padding: 0px;
     width: 100%;
 }
+
+
+.info_short_section{
+    height:55%;
+    background-color: #fff;
+    margin-top: 0.4rem;
+    overflow-y: auto;
+}
+
+.info_short_section h5{
+    margin: 0.8rem;
+    font-size: medium;
+}
+
+.playlist{
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0px 3px 3px #cfcfcf;
+    height: 4rem;
+    width:auto;
+    border-radius: 5px;
+    margin: 10px;
+    margin-top: 15px;
+}
+
+.playlist_img{
+    display: block;
+    height: 4rem;
+    width: 4rem;
+    background-color: aliceblue;
+    margin-right: 20px;
+}
+
+.playlist_name h3{
+    font-size: small;
+    margin-top: 10px;
+}
+
+.playlist_name p{
+    font-size: x-small;
+}
