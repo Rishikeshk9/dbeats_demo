@@ -35,9 +35,9 @@ const Home = (props) => {
         const AuthStr = 'Bearer '.concat(key); 
         
         axios.get(idleStreamUrl, { 
-            mode: 'no-cors',
+            mode: 'cors',
             headers: { 
-                crossDomain : true,
+                crossDomain : 'true',
                 "Access-Control-Allow-Origin" : "*",
                 "Access-Control-Allow-Methods":"GET,PUT,POST,DELETE,PATCH,OPTIONS",
                 Authorization: AuthStr
