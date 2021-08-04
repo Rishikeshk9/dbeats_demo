@@ -38,11 +38,12 @@ const Home = (props) => {
         axios.get(idleStreamUrl, { 
             headers: { 
                 crossDomain : true,
+                withCredentials: true,
                 Authorization: AuthStr,
                 'Access-Control-Allow-Origin' : '*',
-                'Access-Control-Expose-Headers': 'Content-Length, X-JSON',
-                'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-                'Access-Control-Allow-Headers': '*'
+                "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length",
+                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS'
+                'Access-Control-Allow-Credentials': 'true',
             } 
         })
         .then((repos) => {
