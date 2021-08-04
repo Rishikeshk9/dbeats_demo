@@ -24,10 +24,17 @@ const Public_Info = (props) => {
         console.log(props.stream_id)
         //const stream = await livepeerObject.Stream.get(props.stream_id);
         
-
+        const myInit = {
+            method: 'HEAD',
+            mode: 'no-cors',
+        };
         const apiUrl = `https://livepeer.com/api/stream/${props.stream_id}`;
         const AuthStr = 'Bearer '.concat(key); 
-        axios.get(apiUrl, { headers: { Authorization: AuthStr } })
+        axios.get(apiUrl, { 
+            headers: { 
+                Authorization: AuthStr, 
+            } 
+        })
         .then((res) => {
           setUserStreams(res.data);
         });
