@@ -38,7 +38,7 @@ const Home = (props) => {
             mode: 'no-cors',
             headers: { 
                 Authorization: AuthStr,
-                'Access-Control-Allow-Origin' : '*',
+                'Access-Control-Allow-Origin' : true,
                 'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
             } 
         })
