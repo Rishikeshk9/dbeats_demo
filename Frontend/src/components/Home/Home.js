@@ -32,7 +32,7 @@ const Home = (props) => {
 
         const idleStreamUrl = `https://livepeer.com/api/stream?streamsonly=1&filters=[{"id": "isActive", "value": false}]`;
         const AuthStr = 'Bearer '.concat(key); 
-        axios.get(idleStreamUrl, { headers: { Authorization: AuthStr } })
+        axios.get(idleStreamUrl, { headers: { Authorization: AuthStr,'Access-Control-Allow-Origin': '*' } })
         .then((repos) => {
           for (let i = 0; i < repos.data.length; i++) {
             setIdleStreams((prevState) => [...prevState, repos.data[i]]);
@@ -41,7 +41,7 @@ const Home = (props) => {
         });
 
         const activeStreamUrl = `https://livepeer.com/api/stream?streamsonly=1&filters=[{"id": "isActive", "value": true}]`;
-        axios.get(activeStreamUrl, { headers: { Authorization: AuthStr } })
+        axios.get(activeStreamUrl, { headers: { Authorization: AuthStr,'Access-Control-Allow-Origin': '*'} })
         .then((repos) => {
           for (let i = 0; i < repos.data.length; i++) {
             setActiveStreams((prevState) => [...prevState, repos.data[i]]);
