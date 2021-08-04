@@ -33,14 +33,16 @@ const Home = (props) => {
         const idleStreamUrl = `https://livepeer.com/api/stream?streamsonly=1&filters=[{"id": "isActive", "value": false}]`;
         
         const AuthStr = 'Bearer '.concat(key); 
+         
         
         axios.get(idleStreamUrl, { 
-            mode: 'cors',
             headers: { 
-                crossDomain : 'true',
-                "Access-Control-Allow-Origin" : "*",
-                "Access-Control-Allow-Methods":"GET,PUT,POST,DELETE,PATCH,OPTIONS",
-                Authorization: AuthStr
+                crossDomain : true,
+                Authorization: AuthStr,
+                'Access-Control-Allow-Origin' : '*',
+                'Access-Control-Expose-Headers': 'Content-Length, X-JSON',
+                'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                'Access-Control-Allow-Headers': '*'
             } 
         })
         .then((repos) => {
