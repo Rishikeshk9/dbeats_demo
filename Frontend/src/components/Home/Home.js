@@ -39,7 +39,7 @@ const Home = (props) => {
             headers: { 
                 crossDomain : true,
                 withCredentials: true,
-                'Authorization': AuthStr,
+                'authorization': `Bearer ${key}`,
                 'Access-Control-Allow-Origin' : '*',
                 "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length",
                 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS',
