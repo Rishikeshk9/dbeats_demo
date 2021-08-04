@@ -4,12 +4,14 @@ import Peer from "simple-peer";
 import { useSelector } from "react-redux";
 import ReactHlsPlayer from 'react-hls-player';
 import playimg from '../../../assests/images/telegram.png';
+import axios from 'axios'
+
 
 
 const Public_Info = (props) => {
     let key = "d98e11c9-2267-4993-80da-6215d73b42c1";
-    const Livepeer = require("livepeer-nodejs");
-    const livepeerObject = new Livepeer(key);
+    // const Livepeer = require("livepeer-nodejs");
+    // const livepeerObject = new Livepeer(key);
 
 
     const flag = false;
@@ -20,8 +22,15 @@ const Public_Info = (props) => {
 
     const getStreams = async () => {
         console.log(props.stream_id)
-        const stream = await livepeerObject.Stream.get(props.stream_id);
-        setUserStreams(stream);
+        //const stream = await livepeerObject.Stream.get(props.stream_id);
+        
+
+        const apiUrl = `https://livepeer.com/api/stream/${props.stream_id}`;
+        const AuthStr = 'Bearer '.concat(key); 
+        axios.get(apiUrl, { headers: { Authorization: AuthStr } })
+        .then((res) => {
+          setUserStreams(res.data);
+        });
     };
 
 
@@ -40,7 +49,7 @@ const Public_Info = (props) => {
                     <div className={classes.info_localDisplay}>
                         <ReactHlsPlayer
                             id="gum-local"
-                            src="https://fra-cdn.livepeer.com/recordings/8d9baddf-40d7-482f-9def-8e6ae1a4269f/index.m3u8"
+                            src={playbackUrl}
                             autoPlay={true}
                             controls={false}
                             width="100%"

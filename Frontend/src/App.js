@@ -1,5 +1,5 @@
 import {  Suspense, lazy } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Loader from "./components/Loader/Loader";
 import LandingPage from './components/LandingPage/LandingPage';
 

@@ -20,19 +20,19 @@ const SideBar = (props) => {
               outerContainerId={'outer-container'}
             >
                 <div className={classes.menu_items}>
-                    <a id="home" href="/home">
+                    <a id="home" href="#/home">
                         <i id={classes.menu_item} className="fa fa-fw fa-home" style={{ fontSize: '1em'}} />
                         <span className={classes.menu_item_name}> Home </span>
                     </a>
                 </div>
                 <div className={classes.menu_items}>
-                    <a id="about" href="/about">
+                    <a id="about" href="#/about">
                         <i id={classes.menu_item} className="fas fa-compass" style={{ fontSize: '1em' }} />
                         <span className={classes.menu_item_name} style={{ paddingLeft: '15px' }}> Explorer </span>
                     </a>
                 </div>
                 <div className={classes.menu_items}>
-                    <a id="contact"  href="/contact">    
+                    <a id="contact"  href="#/contact">    
                         <i id={classes.menu_item} className="fas fa-cogs" style={{ fontSize: '1em' }} />                    
                         <span className={classes.menu_item_name}> Setting </span>
                     </a>

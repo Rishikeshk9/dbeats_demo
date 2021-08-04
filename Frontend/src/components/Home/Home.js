@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import classes from "./Home.module.css";
 import SideBar from "../Navbar/Sidebar"
 import {Row, Col} from "react-bootstrap";
+import axios from 'axios'
 
 const Home = (props) => {
     let key = "d98e11c9-2267-4993-80da-6215d73b42c1";
@@ -16,15 +17,37 @@ const Home = (props) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [name, setName] = useState("");
-    const [allStreams, setAllStreams] = useState([]);
+    const [idleStreams, setIdleStreams] = useState([]);
+    const [activeStreams, setActiveStreams] = useState([]);
 
 
     const getStreams = async () => {
-        setAllStreams([])
-        const streams = await livepeerObject.Stream.getAll(1, false, false);
-        for (let i = 0; i < streams.length; i++) {
-            setAllStreams((prevState) => [...prevState, streams[i]]);
-        }
+        setIdleStreams([])
+        setActiveStreams([])
+
+        // const streams = await livepeerObject.Stream.getAll(1, false, false);
+        // for (let i = 0; i < streams.length; i++) {
+        //     setAllStreams((prevState) => [...prevState, streams[i]]);
+        // }
+
+        const idleStreamUrl = `https://livepeer.com/api/stream?streamsonly=1&filters=[{"id": "isActive", "value": false}]`;
+        const AuthStr = 'Bearer '.concat(key); 
+        axios.get(idleStreamUrl, { headers: { Authorization: AuthStr } })
+        .then((repos) => {
+          for (let i = 0; i < repos.data.length; i++) {
+            setIdleStreams((prevState) => [...prevState, repos.data[i]]);
+            }
+            console.log(repos)
+        });
+
+        const activeStreamUrl = `https://livepeer.com/api/stream?streamsonly=1&filters=[{"id": "isActive", "value": true}]`;
+        axios.get(activeStreamUrl, { headers: { Authorization: AuthStr } })
+        .then((repos) => {
+          for (let i = 0; i < repos.data.length; i++) {
+            setActiveStreams((prevState) => [...prevState, repos.data[i]]);
+            }
+            console.log(repos)
+        });
     }
 
 
@@ -86,8 +109,23 @@ const Home = (props) => {
                     </Button>
                     </center>
                     <br />
+                    <h2 align="center">Active Streams</h2>
                     <div className={classes.display_all_streamers}>
-                        {allStreams.map((stream, i) => {
+                        {activeStreams.map((stream, i) => {
+                            return (
+                                <div key={i} className={classes.all_streams_list}>
+                                    <Link to={`./public/${stream.id}`} style={{ textDecoration: 'none', color: "inherit" }}>
+                                        <p>Name : {stream.name}</p>
+                                        <p>Id : {stream.id}</p>
+                                        <p>Key : {stream.streamKey}</p>
+                                    </Link>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    <h2 align="center">Idle Streams</h2>
+                    <div className={classes.display_all_streamers}>
+                        {idleStreams.map((stream, i) => {
                             return (
                                 <div key={i} className={classes.all_streams_list}>
                                     <Link to={`./public/${stream.id}`} style={{ textDecoration: 'none', color: "inherit" }}>
