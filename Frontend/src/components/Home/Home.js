@@ -40,8 +40,7 @@ const Home = (props) => {
                 crossDomain : true,
                 "Access-Control-Allow-Origin" : "*",
                 "Access-Control-Allow-Methods":"GET,PUT,POST,DELETE,PATCH,OPTIONS",
-                Authorization: AuthStr,
-                Access-Control-Allow-Origin : "*"
+                Authorization: AuthStr
             } 
         })
         .then((repos) => {
