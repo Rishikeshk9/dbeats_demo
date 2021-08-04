@@ -37,9 +37,11 @@ const Home = (props) => {
         axios.get(idleStreamUrl, { 
             mode: 'no-cors',
             headers: { 
+                crossDomain : true,
+                "Access-Control-Allow-Origin" : "*",
+                "Access-Control-Allow-Methods":"GET,PUT,POST,DELETE,PATCH,OPTIONS",
                 Authorization: AuthStr,
-                'Access-Control-Allow-Origin' : true,
-                'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                Access-Control-Allow-Origin : "*"
             } 
         })
         .then((repos) => {
