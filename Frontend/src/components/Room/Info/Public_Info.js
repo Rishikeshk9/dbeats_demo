@@ -2,11 +2,14 @@ import React, { useRef, Fragment, useEffect, useState } from "react";
 import classes from "./Info.module.css";
 import Peer from "simple-peer";
 import { useSelector } from "react-redux";
+
 import ReactHlsPlayer from 'react-hls-player';
+import ReactPlayer from 'react-player'
+
 import playimg from '../../../assests/images/telegram.png';
 import axios from 'axios'
 
-
+import VideoPlayer from  '../VideoPlayer/VideoPlayer'
 
 const Public_Info = (props) => {
     let key = "d98e11c9-2267-4993-80da-6215d73b42c1";
@@ -14,9 +17,8 @@ const Public_Info = (props) => {
     // const livepeerObject = new Livepeer(key);
 
 
-    const flag = false;
     const ref = useRef();
-
+    const flag = false
     const [userStreams, setUserStreams] = useState([]);
     const [playbackUrl, setPlaybackUrl] = useState("");
 
@@ -49,26 +51,18 @@ const Public_Info = (props) => {
         setPlaybackUrl(`https://cdn.livepeer.com/hls/${userStreams.playbackId}/index.m3u8`)
     }, [userStreams]);
 
+
     return (
         <Fragment>
             <div className={classes.info_main_body}>
-                <div>
-                    <div className={classes.info_localDisplay}>
-                        <ReactHlsPlayer
-                            id="gum-local"
-                            src={playbackUrl}
-                            autoPlay={true}
-                            controls={false}
-                            width="100%"
-                            height="auto"
-                        />
+                <div id={classes.info_main_body_set}>
+                    <div>
+                        
+                            <VideoPlayer 
+                                playbackUrl="https://fra-cdn.livepeer.com/recordings/5a0bf957-ca7b-4d61-885f-fa24c27ca035/index.m3u8" 
+                            />
                     </div>
-                    <div className={classes.info_localDisplay_controls}>
-                        <button disabled={flag}>Start</button>
-                        <button disabled={flag}>Start</button>
-                        <button disabled={flag}>Start</button>
-                        <button disabled={flag}>Start</button>
-                    </div>
+                    
                     <div className={classes.info_localDisplay_features}>
                         <div>
                             <div className={classes.info_remoteVideo_text} style={{padding:"0px"}}>
@@ -137,88 +131,10 @@ const Public_Info = (props) => {
                         marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
                        </i>
                    </div>
-                   <div className={classes.playlist}>
-                       <img className={classes.playlist_img} src={playimg} alt="img"></img>
-                       <div className={classes.playlist_name}>
-                           <h3>Drake Songs</h3>
-                           <p>Rap song</p>
-                       </div>
-                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
-                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
-                       </i>
-                   </div>
-                   <div className={classes.playlist}>
-                       <img className={classes.playlist_img}  src={playimg} alt="img"></img>
-                       <div className={classes.playlist_name}>
-                           <h3>Drake Songs</h3>
-                           <p>Rap song</p>
-                       </div>
-                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
-                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
-                       </i>
-                   </div>
-                   <div className={classes.playlist}>
-                       <img className={classes.playlist_img} src={playimg} alt="img"></img>
-                       <div className={classes.playlist_name}>
-                           <h3>Drake Songs</h3>
-                           <p>Rap song</p>
-                       </div>
-                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
-                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
-                       </i>
-                   </div>
-                   <div className={classes.playlist}>
-                       <img className={classes.playlist_img} src={playimg} alt="img"></img>
-                       <div className={classes.playlist_name}>
-                           <h3>Drake Songs</h3>
-                           <p>Rap song</p>
-                       </div>
-                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
-                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
-                       </i>
-                   </div>
-                   <div className={classes.playlist}>
-                       <img  className={classes.playlist_img} src={playimg} alt="img"></img>
-                       <div className={classes.playlist_name}>
-                           <h3>Drake Songs</h3>
-                           <p>Rap song</p>
-                       </div>
-                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
-                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
-                       </i>
-                   </div>
-                   <div className={classes.playlist}>
-                       <img className={classes.playlist_img} src={playimg} alt="img"></img>
-                       <div className={classes.playlist_name}>
-                           <h3>Drake Songs</h3>
-                           <p>Rap song</p>
-                       </div>
-                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
-                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
-                       </i>
-                   </div>
-                   <div className={classes.playlist}>
-                       <img className={classes.playlist_img} src={playimg} alt="img"></img>
-                       <div className={classes.playlist_name}>
-                           <h3>Drake Songs</h3>
-                           <p>Rap song</p>
-                       </div>
-                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
-                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
-                       </i>
-                   </div>
-                   <div className={classes.playlist}>
-                       <img className={classes.playlist_img} src={playimg} alt="img"></img>
-                       <div className={classes.playlist_name}>
-                           <h3>Drake Songs</h3>
-                           <p>Rap song</p>
-                       </div>
-                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
-                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
-                       </i>
-                   </div>
+                   
                 </div>
             </div>
+
         </Fragment>
     );
 };

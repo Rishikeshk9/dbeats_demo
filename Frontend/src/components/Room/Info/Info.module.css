@@ -3,8 +3,8 @@
     grid-template-columns: 4fr 2fr;
 }
 
-.info_main_body div{
-    padding-bottom: 25px;
+#info_main_body_set{
+    padding-bottom: 15%;
 }
 
 .info_short_section{
@@ -21,8 +21,10 @@
     height: 30%;
     width: 94%;
     margin-top: 2%;
-    border-radius: 20px;
+    border-radius: 5px;
 }
+
+
 
 video {
   background: #fff;
@@ -109,6 +111,16 @@ video {
     margin-bottom: 0;
 }
 
+
+
+
+
+
+
+
+
+
+/*--------------- short section ---------------------*/
 .info_short_section_details{
     display: grid;
     grid-template-columns: 2fr 2fr;
@@ -133,6 +145,7 @@ video {
     margin: 0.8rem;
     font-size: medium;
 }
+
 
 .playlist{
     display: flex;
@@ -160,4 +173,47 @@ video {
 
 .playlist_name p{
     font-size: x-small;
+}
+
+
+
+
+
+/*---------- Footer -----------------*/
+
+.main_footer{
+  position:fixed;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  bottom: 0;
+  font-size: 16px;
+  background-color: #fff;
+  height: 100px;
+  width:100%;
+  box-shadow: 10px 10px 10px 10px #cfcfcf;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index:2;
+}
+
+.root{
+  width:40%;
+}
+
+.player{
+  height:100px;
+  box-shadow: none;
+}
+
+.player svg {
+  color:#00d3ff;
+  font-size: 2.6rem;
+}
+
+.volume{
+  width:200px;
+  margin-left: 100px;
+  display: block;
+  margin-top: auto;
 }

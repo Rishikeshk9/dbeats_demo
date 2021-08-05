@@ -25,7 +25,6 @@ const PublicRoomPage = (props) => {
                 <main id="page-wrap">
                     <NavBar />
                     <Public_Info stream_id={props.match.params.roomID}/>
-                    <Footer />
                 </main>
             </div>
         </>
