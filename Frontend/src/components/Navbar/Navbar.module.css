@@ -1,17 +1,9 @@
 .body_navbar_style{
-  margin-top: 20px;
-  display: flex;
-  margin-left: 10%;
-  justify-content: space-between;
-}
-
-.search{
-  position: relative;
-  border-radius: 20px;
-  width: 35%;
-  display: flex;
-  align-items: center;
-  padding-left: 5px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  display: grid;
+  grid-template-columns: 1fr 4fr 2fr;
+  margin-left: 3%;
 }
 
 .searchIcon{
@@ -43,20 +35,9 @@
 }
 
 
-
-/*
-.sidebar_css{
-    background: rgb(63,81,181);
-    background: linear-gradient(180deg, rgba(63,81,181,1) 0%, rgba(33,150,243,1) 65%, rgba(20,215,255,1) 100%) !important;
-    border-radius: 20px;
-    margin-left: 10px;
-    margin-top: 10px;
-    width: 18%;
-    z-index: 0;
-}
-*/
-
 .menu_items{
+  padding-top: 10px;
+  padding-left: 10px;
   padding-bottom: 10px;
   display: flex;
   justify-content: center;
@@ -71,6 +52,22 @@
   padding: 0;
   color: #fff;
   padding-left: 10px;
-  margin-top: -5px;
   height: 20px;
+}
+
+
+.nav_sidebar_button{
+  width: fit-content;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.nav_sidebar_button svg{
+  width: 50px;
+  height: 35px;
+}
+
+
+.nav_sidebar_button:hover {
+  border: 1px solid #ccc;
 }

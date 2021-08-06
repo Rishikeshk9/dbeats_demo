@@ -1,40 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
-import { findDOMNode } from "react-dom";
+import React, { useState, useRef } from "react";
 
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import ReactPlayer from "react-player";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
 
-import Slider from "@material-ui/core/Slider";
-import Tooltip from "@material-ui/core/Tooltip";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import VolumeUp from "@material-ui/icons/VolumeUp";
-import VolumeDown from "@material-ui/icons/VolumeDown";
-import VolumeMute from "@material-ui/icons/VolumeOff";
-import FullScreen from "@material-ui/icons/Fullscreen";
-import Popover from "@material-ui/core/Popover";
 import screenful from "screenfull";
 import Controls from "./Controls";
 import Footer from '../Footer/Footer';
-
-
-
-const useStyles = makeStyles((theme) => ({
-  playerWrapper: {
-    width: "100%",
-
-    position: "relative",
-    // "&:hover": {
-    //   "& $controlsWrapper": {
-    //     visibility: "visible",
-    //   },
-    // },
-  },
-}));
+import classes from "./videoPlayer.module.css";
 
 
 const format = (seconds) => {
@@ -54,10 +26,7 @@ const format = (seconds) => {
 let count = 0;
 
 function VideoPlayer(props) {
-  const classes = useStyles();
   const [showControls, setShowControls] = useState(false);
-  // const [count, setCount] = useState(0);
-  const [anchorEl, setAnchorEl] = React.useState(null);
   const [timeDisplayFormat, setTimeDisplayFormat] = React.useState("normal");
   const [state, setState] = useState({
     pip: false,
@@ -78,14 +47,12 @@ function VideoPlayer(props) {
   const controlsRef = useRef(null);
   const {
     playing,
-    controls,
     light,
     muted,
     loop,
     playbackRate,
     pip,
     played,
-    seeking,
     volume,
   } = state;
 
@@ -154,7 +121,7 @@ function VideoPlayer(props) {
 
   const handleDisplayFormat = () => {
     setTimeDisplayFormat(
-      timeDisplayFormat == "normal" ? "remaining" : "normal"
+      timeDisplayFormat === "normal" ? "remaining" : "normal"
     );
   };
 
@@ -189,7 +156,7 @@ function VideoPlayer(props) {
   const duration =
     playerRef && playerRef.current ? playerRef.current.getDuration() : "00:00";
   const elapsedTime =
-    timeDisplayFormat == "normal"
+    timeDisplayFormat === "normal"
       ? format(currentTime)
       : `-${format(duration - currentTime)}`;
 
@@ -216,6 +183,7 @@ function VideoPlayer(props) {
             ref={playerRef}
             width="100%"
             height="auto"
+            className={classes.video_player}
             url={props.playbackUrl}
             pip={pip}
             playing={playing}
@@ -226,7 +194,6 @@ function VideoPlayer(props) {
             volume={volume}
             muted={muted}
             onProgress={handleProgress}
-
           />
           {showControls ?
               <Controls

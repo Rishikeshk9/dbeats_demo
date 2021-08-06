@@ -1,9 +1,8 @@
 import { useEffect } from "react";
-import Navbar from '../Navbar/Navbar';
-import User_Info from './Info/User_Info';
+import NavBar from '../Navbar/Navbar';
+import UserInfo from './Info/User_Info';
 import Footer from './Footer/Footer';
 
-import SideBar from '../Navbar/Sidebar';
 import { useDispatch } from 'react-redux'
 import { meetRoomId } from '../../redux/action'
 
@@ -16,11 +15,9 @@ const UserRoomPage = (props) => {
     return (
         <>
             <div id="outer-container" style={{ height: '100%' }}>
-                <SideBar />
+                <NavBar />
                 <main id="page-wrap">
-                    <Navbar />
-                    <User_Info stream_id={props.match.params.roomID}/>
-                    <Footer />
+                    <UserInfo stream_id={props.match.params.roomID}/>
                 </main>
             </div>
         </>

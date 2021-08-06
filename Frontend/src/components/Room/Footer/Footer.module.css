@@ -4,7 +4,6 @@
   margin-bottom: 0px;
   padding-bottom: 0px;
   bottom: 0;
-  font-size: 16px;
   background-color: #fff;
   height: 100px;
   width:100%;
@@ -38,7 +37,7 @@
   margin-top: auto;
 }
 
-.volumeButton{
+.volumeButton .bottomIcons{
   color: #00d3ff;
 }
 
@@ -47,7 +46,7 @@
   width:5rem;
 }
 
-.Play_icon{
+.play_icon{
   background: linear-gradient(315.71deg, #00D3FF 6.42%, #2A3CFE 104.19%);
   height: 40px;
   width: 40px;
@@ -56,7 +55,7 @@
   color: #fff;
 }
 
-.Pause_icon{
+.pause_icon{
   background: linear-gradient(315.71deg, #00D3FF 6.42%, #2A3CFE 104.19%);
   height: 40px;
   width: 40px;
@@ -65,14 +64,17 @@
   color: #fff;
 }
 
+.fast_forward{
+  color: #00d3ff;
+}
 
-
-.Footer_h1{
+.footer_h1{
   font-size: 15px;
 }
 
-.Footer_person{
+.footer_person{
   margin-top: auto;
 }
+
 
 

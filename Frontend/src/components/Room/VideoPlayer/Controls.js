@@ -1,11 +1,9 @@
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import FastRewindIcon from "@material-ui/icons/FastRewind";
-import FastForwardIcon from "@material-ui/icons/FastForward";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
 import Slider from "@material-ui/core/Slider";
@@ -15,7 +13,6 @@ import VolumeUp from "@material-ui/icons/VolumeUp";
 import VolumeDown from "@material-ui/icons/VolumeDown";
 import VolumeMute from "@material-ui/icons/VolumeOff";
 import FullScreen from "@material-ui/icons/Fullscreen";
-import Popover from "@material-ui/core/Popover";
 
 import classes from "./videoPlayer.module.css";
 
@@ -58,10 +55,6 @@ function ValueLabelComponent(props) {
     </Tooltip>
   );
 }
-
-
-
-let count = 0;
 
 
 const Controls = forwardRef(

@@ -1,18 +1,14 @@
 import React from "react";
 import classes from "./Footer.module.css";
-import { withStyles,makeStyles } from '@material-ui/core/styles';
-import {Typography,Button,Grid,Slider,Tooltip,Paper,Popover,IconButton} from "@material-ui/core";
+import { withStyles } from '@material-ui/core/styles';
+import {Typography,Grid,Slider,Tooltip,IconButton} from "@material-ui/core";
 import playimg from '../../../assests/images/telegram.png';
-
-import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
-import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 
 import VolumeUp from "@material-ui/icons/VolumeUp";
 import VolumeDown from "@material-ui/icons/VolumeDown";
 import VolumeMute from "@material-ui/icons/VolumeOff";
 import FullScreen from "@material-ui/icons/Fullscreen";
 
-import BookmarkIcon from "@material-ui/icons/Bookmark";
 import FastRewindIcon from "@material-ui/icons/FastRewind";
 import FastForwardIcon from "@material-ui/icons/FastForward";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
@@ -65,8 +61,8 @@ const Footer = (props) => {
             <Grid container alignItems="center" style={{width:"70%",paddingTop:"10px"}}>
                     <div style={{ display:"flex"}}>
                        <img src={playimg} className={classes.footer_img} alt="img" style={{ padding:"20px"}}></img>
-                       <div className={classes.Footer_person}>
-                           <h3 className={classes.Footer_h1}>Drake Songs</h3>
+                       <div className={classes.footer_person}>
+                           <h3 className={classes.footer_h1}>Drake Songs</h3>
                            <p style={{fontSize:"10px"}}>Rap song</p>
                        </div>
                        <i className="fas fa-info-circle" style={{display:"block", marginLeft:"10px", 
@@ -87,19 +83,19 @@ const Footer = (props) => {
                       aria-label="rewind"
                     >
                       <FastRewindIcon
-                        className={classes.fast_rewind}
-                        fontSize="inherit"
+                        className={classes.fast_forward}
+                        style={{width:"40px",height:"40px"}}
                       />
                     </IconButton>
                     <IconButton
                       onClick={props.onPlayPause}
-                      className={classes.controlIcons}
+                      className={classes.control_icons}
                       aria-label="play"
                     >
                       {props.playing ? (
-                        <PauseIcon fontSize="inherit" className={classes.Pause_icon}/>
+                        <PauseIcon className={classes.pause_icon} style={{width:"40px",height:"40px"}}/>
                       ) : (
-                        <PlayArrowIcon fontSize="inherit" className={classes.Play_icon}/>
+                        <PlayArrowIcon className={classes.play_icon} style={{width:"40px",height:"40px"}}/>
                       )}
                     </IconButton>
                     <IconButton
@@ -107,12 +103,12 @@ const Footer = (props) => {
                       className={classes.controlIcons}
                       aria-label="forward"
                     >
-                      <FastForwardIcon fontSize="inherit" className={classes.fast_forward} />
+                      <FastForwardIcon fontSize="inherit" className={classes.fast_forward} style={{width:"40px",height:"40px"}}/>
                     </IconButton>
                 </Grid>
                 <Grid container direction="row" alignItems="center" justify="center">
                     <PrettoSlider
-                        style={{color: "#2451FF"
+                        style={{color: "#00d3ff"
                         }}
                         min={0}
                         max={100}
@@ -146,9 +142,9 @@ const Footer = (props) => {
             <Grid align="right" style={{width:"70%"}}>
 
                 <IconButton
-                  // onClick={() => props.setState({ ...state, muted: !state.muted })}
                   onClick={props.onMute}
                   className={`${classes.bottomIcons} ${classes.volumeButton}`}
+                  style={{color: "#00d3ff"}}
                 >
                   {props.muted ? (
                     <VolumeMute fontSize="large" />

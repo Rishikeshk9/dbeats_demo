@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Form, Spinner, Table } from "react-bootstrap";
+import { Modal, Button, Form, Spinner} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import classes from "./Home.module.css";
-import SideBar from "../Navbar/Sidebar"
-import {Row, Col} from "react-bootstrap";
+import NavBar from "../Navbar/Navbar";
 import axios from 'axios'
 
 const Home = (props) => {
@@ -21,14 +20,9 @@ const Home = (props) => {
     const [activeStreams, setActiveStreams] = useState([]);
 
 
-    const getStreams = async () => {
+    useEffect(() => {
         setIdleStreams([])
         setActiveStreams([])
-
-        // const streams = await livepeerObject.Stream.getAll(1, false, false);
-        // for (let i = 0; i < streams.length; i++) {
-        //     setAllStreams((prevState) => [...prevState, streams[i]]);
-        // }
 
         const idleStreamUrl = `https://livepeer.com/api/stream?streamsonly=1&filters=[{"id": "isActive", "value": false}]`;
         
@@ -61,11 +55,6 @@ const Home = (props) => {
             }
             console.log(repos)
         });
-    }
-
-
-    useEffect(() => {
-        getStreams();
     }, [])
 
     const createStream = async () => {
@@ -103,7 +92,6 @@ const Home = (props) => {
         var id = stream.id;
 
         props.history.push(`/streamer/${id}`);
-        getStreams();
     };
 
     const handleChange = (e) => {
@@ -114,14 +102,14 @@ const Home = (props) => {
         <>
 
             <div id="outer-container" style={{ height: '100vh' }}>
-                <SideBar />
+                <NavBar />
                 <main id="page-wrap">
-                    <center>
-                    <Button variant="primary" onClick={handleShow}>
-                        Create Stream
-                    </Button>
-                    </center>
-                    <br />
+                    <div align="center" className={classes.create_stream_url}>
+                        <Button variant="primary" onClick={handleShow}>
+                            Create Stream
+                        </Button>
+                    </div>
+                    
                     <h2 align="center">Active Streams</h2>
                     <div className={classes.display_all_streamers}>
                         {activeStreams.map((stream, i) => {

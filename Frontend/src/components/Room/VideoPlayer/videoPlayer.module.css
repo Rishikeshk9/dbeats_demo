@@ -1,3 +1,12 @@
+.playerWrapper {
+    width: 100%;
+    position: relative;
+}
+
+.video_player video{
+  border-radius:5px;
+}
+
 .controlsWrapper{
     visibility: hidden;
     position: absolute;

@@ -1,35 +1,19 @@
-import React, { useRef, Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import classes from "./Info.module.css";
-import Peer from "simple-peer";
-import { useSelector } from "react-redux";
-
-import ReactHlsPlayer from 'react-hls-player';
-import ReactPlayer from 'react-player'
-
 import playimg from '../../../assests/images/telegram.png';
 import axios from 'axios'
-
 import VideoPlayer from  '../VideoPlayer/VideoPlayer'
 
-const Public_Info = (props) => {
+
+const PublicInfo = (props) => {
     let key = "d98e11c9-2267-4993-80da-6215d73b42c1";
-    // const Livepeer = require("livepeer-nodejs");
-    // const livepeerObject = new Livepeer(key);
 
-
-    const ref = useRef();
-    const flag = false
     const [userStreams, setUserStreams] = useState([]);
     const [playbackUrl, setPlaybackUrl] = useState("");
 
-    const getStreams = async () => {
+    useEffect(() => {
         console.log(props.stream_id)
-        //const stream = await livepeerObject.Stream.get(props.stream_id);
         
-        const myInit = {
-            method: 'HEAD',
-            mode: 'no-cors',
-        };
         const apiUrl = `https://livepeer.com/api/stream/${props.stream_id}`;
         const AuthStr = 'Bearer '.concat(key); 
         axios.get(apiUrl, { 
@@ -40,12 +24,8 @@ const Public_Info = (props) => {
         .then((res) => {
           setUserStreams(res.data);
         });
-    };
-
-
-    useEffect(() => {
-        getStreams();
     }, []);
+
 
     useEffect(() => {
         setPlaybackUrl(`https://cdn.livepeer.com/hls/${userStreams.playbackId}/index.m3u8`)
@@ -56,18 +36,18 @@ const Public_Info = (props) => {
         <Fragment>
             <div className={classes.info_main_body}>
                 <div id={classes.info_main_body_set}>
-                    <div>
-                        
-                            <VideoPlayer 
-                                playbackUrl="https://fra-cdn.livepeer.com/recordings/5a0bf957-ca7b-4d61-885f-fa24c27ca035/index.m3u8" 
-                            />
+                    <div>                        
+                        <VideoPlayer 
+                            playbackUrl="https://fra-cdn.livepeer.com/recordings/5a0bf957-ca7b-4d61-885f-fa24c27ca035/index.m3u8"
+                           
+                        />
                     </div>
                     
                     <div className={classes.info_localDisplay_features}>
                         <div>
                             <div className={classes.info_remoteVideo_text} style={{padding:"0px"}}>
-                                    <h4>Drake Songs</h4>
-                                    <p>Rap Songs</p>
+                                <h4>Drake Songs</h4>
+                                <p>Rap Songs</p>
                             </div>
                             <button className={classes.info_subscribe_button}>
                                 <span>Subscribe</span>
@@ -139,4 +119,4 @@ const Public_Info = (props) => {
     );
 };
 
-export default Public_Info;
+export default PublicInfo;

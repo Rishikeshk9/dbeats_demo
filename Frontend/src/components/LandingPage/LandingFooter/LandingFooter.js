@@ -21,11 +21,11 @@ const LandingFooter = () => {
                                 <div className={classes.socials}>
                                     <div className={[classes.social, classes.discord].join(' ')}>
                                         <img className="img-fluid" src={discord} alt="discord-social" />
-                                        <p>Join us on <a href="#">Discord</a></p>
+                                        <p>Join us on <a href="#/">Discord</a></p>
                                     </div>
                                     <div className={[classes.social, classes.telegram].join(' ')}>
                                         <img className="img-fluid" src={telegram} alt="telegram-social" />
-                                        <p>Contact us on <a href="#">Telegram</a></p>
+                                        <p>Contact us on <a href="#/">Telegram</a></p>
                                     </div>
                                 </div>
                             </Row>
@@ -33,7 +33,7 @@ const LandingFooter = () => {
                                 <div className={classes.socials}>
                                     <div className={[classes.social, classes.twitter].join(' ')}>
                                         <img className="img-fluid" src={twitter} alt="twitter-social" />
-                                        <p>twitter.com/<a href="#">DBeats</a></p>
+                                        <p>twitter.com/<a href="#/">DBeats</a></p>
                                     </div>
                                 </div>
                             </Row>
