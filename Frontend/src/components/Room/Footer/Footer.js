@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Footer.module.css";
 import { withStyles,makeStyles } from '@material-ui/core/styles';
 import {Typography,Button,Grid,Slider,Tooltip,Paper,Popover,IconButton} from "@material-ui/core";
-
+import playimg from '../../../assests/images/telegram.png';
 
 import PauseCircleFilledIcon from '@material-ui/icons/PauseCircleFilled';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
@@ -64,13 +64,13 @@ const Footer = (props) => {
         <div className={classes.main_footer}>
             <Grid container alignItems="center" style={{width:"70%",paddingTop:"10px"}}>
                     <div style={{ display:"flex"}}>
-                       <img src={props.playimg} alt="img" style={{ padding:"20px"}}></img>
-                       <div>
-                           <h3>Drake Songs</h3>
-                           <p>Rap song</p>
+                       <img src={playimg} className={classes.footer_img} alt="img" style={{ padding:"20px"}}></img>
+                       <div className={classes.Footer_person}>
+                           <h3 className={classes.Footer_h1}>Drake Songs</h3>
+                           <p style={{fontSize:"10px"}}>Rap song</p>
                        </div>
-                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
-                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
+                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"10px", 
+                        marginTop:"25px", marginRight:"10px", fontSize:"medium", color:"#00d3ff"} }>
                        </i>
                    </div>
             </Grid>
@@ -87,7 +87,7 @@ const Footer = (props) => {
                       aria-label="rewind"
                     >
                       <FastRewindIcon
-                        className={classes.controlIcons}
+                        className={classes.fast_rewind}
                         fontSize="inherit"
                       />
                     </IconButton>
@@ -97,9 +97,9 @@ const Footer = (props) => {
                       aria-label="play"
                     >
                       {props.playing ? (
-                        <PauseIcon fontSize="inherit" />
+                        <PauseIcon fontSize="inherit" className={classes.Pause_icon}/>
                       ) : (
-                        <PlayArrowIcon fontSize="inherit" />
+                        <PlayArrowIcon fontSize="inherit" className={classes.Play_icon}/>
                       )}
                     </IconButton>
                     <IconButton
@@ -107,11 +107,13 @@ const Footer = (props) => {
                       className={classes.controlIcons}
                       aria-label="forward"
                     >
-                      <FastForwardIcon fontSize="inherit" />
+                      <FastForwardIcon fontSize="inherit" className={classes.fast_forward} />
                     </IconButton>
                 </Grid>
                 <Grid container direction="row" alignItems="center" justify="center">
                     <PrettoSlider
+                        style={{color: "#2451FF"
+                        }}
                         min={0}
                         max={100}
                         ValueLabelComponent={(tim) => (
@@ -132,7 +134,9 @@ const Footer = (props) => {
                     >
                       <Typography
                         variant="body1"
-                        style={{ color: "#000" ,paddingLeft:"15px",marginTop:"-6px"}}
+                        style={{color: 
+                          "#1B252F",
+                          opacity: "0.8" ,paddingLeft:"15px",marginTop:"-6px"}}
                       >
                         {props.elapsedTime}/{props.totalDuration}
                       </Typography>
@@ -163,14 +167,14 @@ const Footer = (props) => {
                   aria-labelledby="input-slider"
                   onMouseDown={props.onSeekMouseDown}
                   onChangeCommitted={props.onVolumeSeekDown}
-                  style={{width:"150px",marginBottom:"-8px"}}
+                  style={{width:"150px",marginBottom:"-8px", color:"#00d3ff"}}
                 />
             </Grid>
             <Grid alignItems="right">
               <IconButton
                 onClick={props.onToggleFullScreen}
                 className={classes.bottomIcons}
-                style={{paddingLeft:"40px"}}    
+                style={{paddingLeft:"40px", color:"#00d3ff"}}    
               >
                 <FullScreen fontSize="large" />
               </IconButton>

@@ -11,9 +11,11 @@
   box-shadow: 10px 10px 10px 10px #cfcfcf;
   display: flex;
   justify-content: center;
+  flex-direction: row;
   align-items: center;
   z-index:2;
 }
+
 
 .root{
   width:40%;
@@ -36,8 +38,41 @@
   margin-top: auto;
 }
 
+.volumeButton{
+  color: #00d3ff;
+}
+
+.footer_img{
+  height: 5rem;
+  width:5rem;
+}
+
+.Play_icon{
+  background: linear-gradient(315.71deg, #00D3FF 6.42%, #2A3CFE 104.19%);
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  padding: 3px;
+  color: #fff;
+}
+
+.Pause_icon{
+  background: linear-gradient(315.71deg, #00D3FF 6.42%, #2A3CFE 104.19%);
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  padding: 5px;
+  color: #fff;
+}
 
 
 
+.Footer_h1{
+  font-size: 15px;
+}
+
+.Footer_person{
+  margin-top: auto;
+}
 
 

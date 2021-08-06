@@ -135,7 +135,7 @@ video {
 
 
 .info_short_section{
-    height:55%;
+    height:100vh;
     background-color: #fff;
     margin-top: 0.4rem;
     overflow-y: auto;
