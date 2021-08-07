@@ -1,6 +1,6 @@
 import imgback from './images/whitebackground.jpg';
 
-const Data = [
+export const Data = [
     {
         imgsrc:imgback,
         title:"Create",
@@ -18,4 +18,20 @@ const Data = [
     },
 ]
 
-export default Data;
+export const CommentData = [
+    {
+        authorUrl: '#',
+        avatarUrl: '#avatarUrl',
+        createdAt: new Date(),
+        fullName: 'Akash Salvi',
+        text:"Hello everyone",
+    },
+    {
+        authorUrl: '#',
+        avatarUrl: '#avatarUrl',
+        createdAt: new Date(),
+        fullName: 'Sahil Punjabi',
+        text:"Yes Guys,Hello everyone",
+    }
+]
+

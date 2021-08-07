@@ -1,6 +1,6 @@
 import React from 'react';
 import Cards from './Card';
-import Data from '../../../assests/Data';
+import {Data} from '../../../assests/Data';
 import classes from '../Landing.module.css';
 
 

@@ -3,6 +3,8 @@ import classes from "./Info.module.css";
 import playimg from '../../../assests/images/telegram.png';
 import axios from 'axios'
 import VideoPlayer from  '../VideoPlayer/VideoPlayer'
+import CommentsBlock from 'simple-react-comments';
+import {CommentData} from '../../../assests/Data';
 
 
 const PublicInfo = (props) => {
@@ -66,6 +68,15 @@ const PublicInfo = (props) => {
                             <i className="fas fa-ellipsis-h"></i>
                         </div>
                     </div>
+
+                     <div className={classes.comment_section}>
+                        <CommentsBlock
+                          comments={CommentData}
+                          signinUrl={'/signin'}
+                          isLoggedIn
+                          
+                        />
+                    </div>    
                 </div>
                 <div className={classes.info_short_section}>
                     {/* {peers.map((peer, index) => {
