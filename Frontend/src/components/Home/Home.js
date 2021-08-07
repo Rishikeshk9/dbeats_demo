@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Form, Spinner} from "react-bootstrap";
+import { Modal, Button, Form, Spinner,Row,Col} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import classes from "./Home.module.css";
 import NavBar from "../Navbar/Navbar";
 import axios from 'axios'
+import {Carousel} from '3d-react-carousal';
+
+import ReactPlayer from "react-player";
+
 
 const Home = (props) => {
+
+
     let key = "d98e11c9-2267-4993-80da-6215d73b42c1";
+    const AuthStr = 'Bearer '.concat(key); 
     const Livepeer = require("livepeer-nodejs");
     const livepeerObject = new Livepeer(key);
 
@@ -18,49 +25,78 @@ const Home = (props) => {
     const [name, setName] = useState("");
     const [idleStreams, setIdleStreams] = useState([]);
     const [activeStreams, setActiveStreams] = useState([]);
+    const [slides, setSlides] = useState([]);
+
+
+    const CarouselStreams = ({stream_data}) =>{
+        return(
+            <Row className={classes.cards_main_body}>                 
+                    <Col className={classes.cards_video_body}>
+                        <ReactPlayer 
+                            width="auto"
+                            height="100%"
+                            playing={true}
+                            muted={true} 
+                            url="https://fra-cdn.livepeer.com/recordings/5a0bf957-ca7b-4d61-885f-fa24c27ca035/index.m3u8" 
+                            controls={true}  
+                        />
+                    </Col>
+                    <Col>
+                        <p>Streamer Name : {stream_data.name}</p>
+                        <p>Streamer Id : {stream_data.id}</p>
+                        <p>Streamer Key : {stream_data.streamKey}</p>
+
+                        <Button 
+                            onClick={() => {props.history.push(`/public/${stream_data.id}`) } } 
+                            align="right"
+                        > Watch Stream </Button>
+                    </Col>
+            </Row>
+        );
+    }
 
 
     useEffect(() => {
         setIdleStreams([])
         setActiveStreams([])
+        setSlides([])
 
         const idleStreamUrl = `https://livepeer.com/api/stream?streamsonly=1&filters=[{"id": "isActive", "value": false}]`;
-        
-        const AuthStr = 'Bearer '.concat(key); 
-         
+        const activeStreamUrl = `https://livepeer.com/api/stream?streamsonly=1&filters=[{"id": "isActive", "value": true}]`;
         
         axios.get(idleStreamUrl, { 
             headers: { 
-                crossDomain : true,
-                withCredentials: true,
-                'authorization': `Bearer ${key}`,
+                Authorization: AuthStr,
                 'Access-Control-Allow-Origin' : '*',
-                "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length",
-                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS',
-                'Access-Control-Allow-Credentials': true
             } 
         })
         .then((repos) => {
           for (let i = 0; i < repos.data.length; i++) {
             setIdleStreams((prevState) => [...prevState, repos.data[i]]);
+            setSlides((prevState) => [...prevState, <CarouselStreams stream_data={repos.data[i]} />])
             }
             console.log(repos)
         });
 
-        const activeStreamUrl = `https://livepeer.com/api/stream?streamsonly=1&filters=[{"id": "isActive", "value": true}]`;
-        axios.get(activeStreamUrl, { headers: { Authorization: AuthStr,'Access-Control-Allow-Origin': '*'} })
+        
+        axios.get(activeStreamUrl, { 
+            headers: { 
+                Authorization: AuthStr,
+                'Access-Control-Allow-Origin': '*'
+            } 
+        })
         .then((repos) => {
-          for (let i = 0; i < repos.data.length; i++) {
-            setActiveStreams((prevState) => [...prevState, repos.data[i]]);
+            for (let i = 0; i < repos.data.length; i++) {
+                setActiveStreams((prevState) => [...prevState, repos.data[i]]);
             }
             console.log(repos)
         });
+
     }, [])
 
     const createStream = async () => {
-        console.log(name);
         setLoader(false);
-        const stream = await livepeerObject.Stream.create({
+        let streamData = {
             name: `${name}`,
             profiles: [
                 {
@@ -85,11 +121,20 @@ const Home = (props) => {
                     height: 360,
                 },
             ],
-        });
-        setLoader(true);
+        }
 
-        console.log(stream);
-        var id = stream.id;
+        const stream = await axios({
+            method: 'post',
+            url: 'https://livepeer.com/api/stream',
+            data: streamData,
+            headers: {
+                'content-type': 'application/json',
+                Authorization: AuthStr
+            },
+        });
+
+        setLoader(true);
+        var id = stream.data.id;
 
         props.history.push(`/streamer/${id}`);
     };
@@ -109,38 +154,41 @@ const Home = (props) => {
                             Create Stream
                         </Button>
                     </div>
-                    
-                    <h2 align="center">Active Streams</h2>
-                    <div className={classes.display_all_streamers}>
-                        {activeStreams.map((stream, i) => {
-                            return (
-                                <div key={i} className={classes.all_streams_list}>
-                                    <Link to={`./public/${stream.id}`} style={{ textDecoration: 'none', color: "inherit" }}>
-                                        <p>Name : {stream.name}</p>
-                                        <p>Id : {stream.id}</p>
-                                        <p>Key : {stream.streamKey}</p>
-                                    </Link>
-                                </div>
-                            )
-                        })}
+                    <div>
+                        <h2 align="center">Active Streams</h2>
+                        <div className={classes.display_all_streamers}>
+                            {activeStreams.map((stream, i) => {
+                                return (
+                                    <div key={i} className={classes.all_streams_list}>
+                                        <Link to={`./public/${stream.id}`} style={{ textDecoration: 'none', color: "inherit" }}>
+                                            <p>Name : {stream.name}</p>
+                                            <p>Id : {stream.id}</p>
+                                            <p>Key : {stream.streamKey}</p>
+                                        </Link>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        <Carousel slides={slides} autoplay={false}/>
                     </div>
-                    <h2 align="center">Idle Streams</h2>
-                    <div className={classes.display_all_streamers}>
-                        {idleStreams.map((stream, i) => {
-                            return (
-                                <div key={i} className={classes.all_streams_list}>
-                                    <Link to={`./public/${stream.id}`} style={{ textDecoration: 'none', color: "inherit" }}>
-                                        <p>Name : {stream.name}</p>
-                                        <p>Id : {stream.id}</p>
-                                        <p>Key : {stream.streamKey}</p>
-                                    </Link>
-                                </div>
-                            )
-                        })}
+                    <div>
+                        <h2 align="center" style={{marginTop:"25px"}}>Idle Streams</h2>
+                        <div className={classes.display_all_streamers}>
+                            {idleStreams.map((stream, i) => {
+                                return (
+                                    <div key={i} className={classes.all_streams_list}>
+                                        <Link to={`./public/${stream.id}`} style={{ textDecoration: 'none', color: "inherit" }}>
+                                            <p>Name : {stream.name}</p>
+                                            <p>Id : {stream.id}</p>
+                                            <p>Key : {stream.streamKey}</p>
+                                        </Link>
+                                    </div>
+                                )
+                            })}
+                        </div>
                     </div>
                 </main>
-            </div>
-                               
+            </div>                    
             
 
             <Modal

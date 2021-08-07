@@ -24,3 +24,20 @@
 .create_stream_url{
 	padding-bottom: 20px;
 }
+
+.cards_main_body{
+    padding: 20px;
+    background-color: #00D3FF;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.cards_video_body{
+	height: 40vh;
+}
+
+.cards_video_body video{
+	border-radius: 5px;
+	background-color: transparent;
+	box-shadow: 0px 0px 0px #fff;
+}
