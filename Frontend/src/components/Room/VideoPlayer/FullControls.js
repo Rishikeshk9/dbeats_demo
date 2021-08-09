@@ -57,7 +57,7 @@ function ValueLabelComponent(props) {
 }
 
 
-const Controls = forwardRef(
+const FullControls = forwardRef(
   (
     {
       onSeek,
@@ -197,7 +197,7 @@ const Controls = forwardRef(
   }
 );
 
-Controls.propTypes = {
+FullControls.propTypes = {
   onSeek: PropTypes.func,
   onSeekMouseDown: PropTypes.func,
   onSeekMouseUp: PropTypes.func,
@@ -217,4 +217,4 @@ Controls.propTypes = {
   muted: PropTypes.bool,
   playbackRate: PropTypes.number,
 };
-export default Controls;
+export default FullControls;

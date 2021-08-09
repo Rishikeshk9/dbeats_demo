@@ -4,7 +4,8 @@ import Container from "@material-ui/core/Container";
 import ReactPlayer from "react-player";
 
 import screenful from "screenfull";
-import Controls from "./Controls";
+import FullControls from "./FullControls";
+import PlayControls from "./PlayControls";
 import Footer from '../Footer/Footer';
 import classes from "./videoPlayer.module.css";
 
@@ -136,15 +137,14 @@ function VideoPlayer(props) {
 
   const handleMouseMove = () => {
     console.log("mousemove");
-    if(showControls){ 
       controlsRef.current.style.visibility = "visible";
-    }
+    
   };
 
   const hanldeMouseLeave = () => {
-    if(showControls){ 
+
       controlsRef.current.style.visibility = "hidden";
-    }
+
   };
 
 
@@ -169,6 +169,7 @@ function VideoPlayer(props) {
   }
 
   window.addEventListener('keydown', escFunction);
+
 
   return (
     <>
@@ -196,7 +197,7 @@ function VideoPlayer(props) {
             onProgress={handleProgress}
           />
           {showControls ?
-              <Controls
+              <FullControls
                 ref={controlsRef}
                 onSeek={handleSeekChange}
                 onSeekMouseDown={handleSeekMouseDown}
@@ -220,7 +221,12 @@ function VideoPlayer(props) {
                 volume={volume}
                 videoPara={playerRef}
               />
-            : <> </>
+            :  <PlayControls
+                ref={controlsRef}
+                onPlayPause={handlePlayPause}
+                playing={playing}
+                played={played}
+            />
           }
           </div>
       </Container>
