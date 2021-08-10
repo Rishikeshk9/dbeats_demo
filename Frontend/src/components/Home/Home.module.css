@@ -1,8 +1,24 @@
+.main_homepage_body{
+	height: 100vh;
+	display: grid;
+	grid-template-columns: 1.2fr 5fr;
+}
+
+.display_videos_section{
+	padding: 30px;
+	padding-top: 5%;
+}
+
+
+.display_livestreamers{
+	margin-top: 4% ;
+}
+
+
 .display_all_streamers{
 	margin-left: 2vw;
 	margin-right: 2vw;
 	display: flex;
-	justify-content: center;
 	flex-wrap: wrap;
 }
 
@@ -26,18 +42,47 @@
 }
 
 .cards_main_body{
-    padding: 20px;
-    background-color: #00D3FF;
+    padding: 10px;
+    background-color: #c5ecf8;
     border-radius: 8px;
     width: 100%;
+    display: grid;
+    grid-template-columns: 5fr 3fr;
+    grid-gap: 20px;
 }
 
 .cards_video_body{
-	height: 40vh;
+	height: fit-content;	
 }
 
 .cards_video_body video{
 	border-radius: 5px;
 	background-color: transparent;
 	box-shadow: 0px 0px 0px #fff;
+}
+
+
+
+
+
+
+
+.recommended_channel_section{
+	background-color:#c5ecf8;
+	padding: 20px;
+}
+
+.recommended_title{
+
+}
+
+.channel_style{
+	display: grid;
+	grid-template-columns: 1.2fr 3fr 1fr;
+	padding-top: 20px;
+}
+
+.channel_avatar{
+	min-height: 4rem;
+	min-width: 4rem;
 }
