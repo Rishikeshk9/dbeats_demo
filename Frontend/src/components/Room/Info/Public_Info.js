@@ -70,12 +70,7 @@ const PublicInfo = (props) => {
                     </div>
 
                      <div className={classes.comment_section}>
-                        <CommentsBlock
-                          comments={CommentData}
-                          signinUrl={'/signin'}
-                          isLoggedIn
-                          
-                        />
+                        <iframe className={classes.convo_frame} src="https://theconvo.space/embed/t/KIGZUnR4RzXDFheXoOwo" allowtransparency="true"/>
                     </div>    
                 </div>
                 <div className={classes.info_short_section}>

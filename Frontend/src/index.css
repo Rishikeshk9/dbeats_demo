@@ -3,13 +3,60 @@
   padding: 0;
 }
 
+
+@font-face {
+    font-family: 'Proxima Thin';
+    font-weight: 700;
+    src: local('Proxima'), url(./font/proxima_thin/Proxima Nova Thin.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Proxima Light';
+    font-weight: 700;
+    src: local('Proxima'), url(./font/proxima_light/Proxima Nova Alt Light.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Proxima Alt Reg';
+    src: local('Proxima'), url(./font/proxima_reg/Proxima Nova Alt Regular.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Proxima Alt Bold';
+  src: local('Proxima'), url(./font/proxima_bold/Proxima Nova Alt Bold.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Proxima Bold';
+  src: local('Proxima'), url(./font/proxima_bold/Proxima Nova Bold.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Proxima SBold';
+  src: local('Proxima'), url(./font/proxima_bold/Proxima Nova ScOsf Bold.otf) format('opentype');
+}
+
+
+@font-face {
+    font-family: 'Proxima';
+    src: local('Proxima'), url(./font/proxima_reg/ProximaNova-Regular.otf) format('opentype');
+}
+
+
 body,html{
-  font-family: 'Poppins', sans-serif !important;
+  font-family: 'Proxima', sans-serif !important;
   scroll-behavior: smooth;
   --tw-bg-opacity: 1;
   background-color: rgba(243, 244, 246, var(--tw-bg-opacity)) !important;
 }
 
+
+
+
+
+
+
+/*------------------------ Sidebar ----------------------------*/
 
 .bm-burger-button {
   position: fixed;

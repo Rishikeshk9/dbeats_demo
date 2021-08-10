@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: 3fr 2fr;
     height: 100vh;
+    padding-top: 40px;
 }
 
 #info_main_body_set{
@@ -121,35 +122,19 @@ video {
     width: 93%;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 20px;
     margin-top: 20px;
-    background-color: #fff;
+    background: rgb(63,81,181);
+    background: linear-gradient(180deg, rgba(63,81,181,1) 0%, rgba(33,150,243,1) 65%, rgba(20,215,255,1) 100%);
     border-radius: 10px;
+    margin-bottom: 200px;
 }
 
-.comment_section form{
-   display: flex;
-   justify-content: space-between;
-
-    align-items: center;
-}
-
-.comment_section div textarea{
-    margin-left: 10px;
-    margin-right: 10px;
-    width: 90%;
+.convo_frame{
+    height: 21.8rem;
     padding: 0;
-    padding-left: 10px;
-    padding-top: 5px;
+    margin: 0;
+    width:100%;
 }
-
-.comment_section form button{
-    height: 20%;
-    margin-right: 10px;
-    margin-bottom: 10px;
-}
-
-
 
 
 /*--------------- short section ---------------------*/
