@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Form, Spinner,Row,Col} from "react-bootstrap";
+import { Button} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import classes from "./Home.module.css";
 import NavBar from "../Navbar/Navbar";
 import axios from 'axios'
-import {Carousel} from '3d-react-carousal';
+import {Carousel as LiveStreamVideos} from '3d-react-carousal';
+import Carousel from 'react-grid-carousel'
 import personImg from "../../assests/images/person.jpg"
 import {Avatar} from "@material-ui/core"
- 
+import CarouselCard from './CarouselCard';
 import ReactPlayer from "react-player";
-
 
 const Home = (props) => {
 
@@ -22,6 +22,7 @@ const Home = (props) => {
     const [slides, setSlides] = useState([]);
 
     const recommend_channels=[{name:"shroud"},{name:"shroud"},{name:"shroud"},{name:"shroud"},{name:"shroud"}]
+
 
     
     const CarouselStreams = ({stream_data}) =>{
@@ -117,7 +118,7 @@ const Home = (props) => {
 
                         <div id="display_videos" className={classes.display_videos_section}>
                             <div>
-                                <Carousel slides={slides} autoplay={false}/>
+                                <LiveStreamVideos slides={slides} autoplay={false}/>
                             </div>
                             <div>
                                 <h4 className={classes.display_livestreamers}> Live channels we think you'll like </h4>
@@ -139,7 +140,7 @@ const Home = (props) => {
                             <div>
                                 <h4 className={classes.display_livestreamers}> Idle Streams </h4>
                                 <div className={classes.display_all_streamers}>
-                                      {idleStreams.map((stream, i) => {
+                                      {/*{idleStreams.map((stream, i) => {
                                             return (
                                                 <div key={i} className={classes.all_streams_list}>
                                                     <Link to={`./public/${stream.id}`} style={{ textDecoration: 'none', color: "inherit" }}>
@@ -149,8 +150,18 @@ const Home = (props) => {
                                                     </Link>
                                                 </div>
                                             )
-                                        })}
-                                </div>
+                                        })}*/}
+                                        <Carousel cols={4}>
+                                            {idleStreams.map((stream, i) => {
+                                                return (
+                                                    <Carousel.Item key={i} className={classes.all_streams_list}>
+                                                        <CarouselCard streamdata={stream}/>
+                                                    </Carousel.Item>
+                                                )
+                                            })}
+                                        </Carousel>
+                                    </div>
+                                    
                             </div>
                         </div>
                     </main>

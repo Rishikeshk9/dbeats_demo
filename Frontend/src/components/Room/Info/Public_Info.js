@@ -3,15 +3,28 @@ import classes from "./Info.module.css";
 import playimg from '../../../assests/images/telegram.png';
 import axios from 'axios'
 import VideoPlayer from  '../VideoPlayer/VideoPlayer'
-import CommentsBlock from 'simple-react-comments';
-import {CommentData} from '../../../assests/Data';
-
+import { Button, Modal, } from 'react-bootstrap';
+import { WhatsappIcon, WhatsappShareButton} from 'react-share';
+import { FacebookShareButton, FacebookIcon } from 'react-share';
+import { EmailShareButton, EmailIcon } from 'react-share';
+import { PinterestShareButton, PinterestIcon } from 'react-share';
+import { TelegramShareButton, TelegramIcon } from 'react-share';
+import { Container, Row, Col } from 'react-bootstrap';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const PublicInfo = (props) => {
     let key = "d98e11c9-2267-4993-80da-6215d73b42c1";
 
     const [userStreams, setUserStreams] = useState([]);
     const [playbackUrl, setPlaybackUrl] = useState("");
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const text = "Copy Link To Clipboard"
+    const [buttonText, setButtonText] = useState(text);
 
     useEffect(() => {
         console.log(props.stream_id)
@@ -32,6 +45,13 @@ const PublicInfo = (props) => {
     useEffect(() => {
         setPlaybackUrl(`https://cdn.livepeer.com/hls/${userStreams.playbackId}/index.m3u8`)
     }, [userStreams]);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setButtonText(text);
+        }, 2000);
+        return () => clearTimeout(timer);
+    }, [buttonText])
 
 
     return (
@@ -60,13 +80,55 @@ const PublicInfo = (props) => {
                             </button>
                         </div>
                         <div className={classes.info_localDisplay_icons}>
-                            <i className="fas fa-share"></i>
+                        <button  className={classes.share_btn}
+                        onClick={handleShow}><i className="fas fa-share"></i></button>
                             <i className="fas fa-heart"></i>
                             <i className="fas fa-heart-broken"></i>
                             <i className="far fa-laugh-squint"></i>
                             <i className="far fa-angry"></i>
                             <i className="fas fa-ellipsis-h"></i>
                         </div>
+                        <Modal show={show}
+        onHide={handleClose} 
+        animation={false}
+        centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Share link on</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <Container>
+                <Row>
+                    <Col className={classes.share_icons} >
+                <WhatsappShareButton className={classes.icon}
+                url="https://www.youtube.com/watch?v=2BnTYEafRQc&t=498s">
+                    <WhatsappIcon iconFillColor="white" size={60} round={true}/>
+                </WhatsappShareButton>
+                <FacebookShareButton className={classes.icon}>
+                    <FacebookIcon iconFillColor="white" size={60} round={true}/>
+                </FacebookShareButton>
+                <EmailShareButton className={classes.icon}>
+                    <EmailIcon iconFillColor="white" size={60} round={true} />
+                </EmailShareButton>
+                <PinterestShareButton className={classes.icon}>
+                    <PinterestIcon iconFillColor="white" size={60} round={true} />
+                </PinterestShareButton>
+                <TelegramShareButton className={classes.icon}>
+                    <TelegramIcon iconFillColor="white" size={60} round={true}/>
+                </TelegramShareButton>
+                </Col>
+                </Row>
+                <Row>
+                <CopyToClipboard text={`https://dbeats.live/#/public/${props.stream_id}`} className={classes.link_copy_btn}>
+                <button
+                    type="submit"
+                    onClick={() => setButtonText("Link Copied!")}>
+                    {buttonText}
+                </button>
+            </CopyToClipboard>
+                </Row>
+            </Container>
+        </Modal.Body>
+      </Modal>
                     </div>
 
                      <div className={classes.comment_section}>

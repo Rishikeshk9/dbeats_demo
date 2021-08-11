@@ -191,3 +191,28 @@ video {
 .playlist_name p{
     font-size: x-small;
 }
+
+
+.share_icons{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.share_btn{
+    border: none;
+    background: none;
+}
+
+.link_copy_btn{
+    display: block;
+    margin: auto;
+    padding: 8px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    width: 87%;
+    background-color: #00D3FF;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+}
