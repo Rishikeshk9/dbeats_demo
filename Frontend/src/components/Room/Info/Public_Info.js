@@ -15,6 +15,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 const PublicInfo = (props) => {
     let key = "d98e11c9-2267-4993-80da-6215d73b42c1";
 
+    let sharable_data = `Come Visit : https://dbeats-demo.vercel.app/#/public/${props.stream_id}`
+
     const [userStreams, setUserStreams] = useState([]);
     const [playbackUrl, setPlaybackUrl] = useState("");
 
@@ -100,25 +102,26 @@ const PublicInfo = (props) => {
                 <Row>
                     <Col className={classes.share_icons} >
                 <WhatsappShareButton className={classes.icon}
-                url="https://www.youtube.com/watch?v=2BnTYEafRQc&t=498s">
+                url={sharable_data}>
                     <WhatsappIcon iconFillColor="white" size={60} round={true}/>
                 </WhatsappShareButton>
-                <FacebookShareButton className={classes.icon}>
+                <FacebookShareButton className={classes.icon}
+                url={sharable_data}>
                     <FacebookIcon iconFillColor="white" size={60} round={true}/>
                 </FacebookShareButton>
-                <EmailShareButton className={classes.icon}>
+                <EmailShareButton className={classes.icon} url={sharable_data}>
                     <EmailIcon iconFillColor="white" size={60} round={true} />
                 </EmailShareButton>
-                <PinterestShareButton className={classes.icon}>
+                <PinterestShareButton className={classes.icon} url={sharable_data}>
                     <PinterestIcon iconFillColor="white" size={60} round={true} />
                 </PinterestShareButton>
-                <TelegramShareButton className={classes.icon}>
+                <TelegramShareButton className={classes.icon} url={sharable_data}>
                     <TelegramIcon iconFillColor="white" size={60} round={true}/>
                 </TelegramShareButton>
                 </Col>
                 </Row>
                 <Row>
-                <CopyToClipboard text={`https://dbeats.live/#/public/${props.stream_id}`} className={classes.link_copy_btn}>
+                <CopyToClipboard text={sharable_data} className={classes.link_copy_btn}>
                 <button
                     type="submit"
                     onClick={() => setButtonText("Link Copied!")}>
