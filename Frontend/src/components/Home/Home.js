@@ -23,21 +23,20 @@ const Home = (props) => {
 
     const recommend_channels=[{name:"shroud"},{name:"shroud"},{name:"shroud"},{name:"shroud"},{name:"shroud"}]
 
-
+    
     const CarouselStreams = ({stream_data}) =>{
         return(
             <div className={classes.cards_main_body}>                 
-                    <div className={classes.cards_video_body}>
-                        <ReactPlayer 
-                            width="100%"
-                            height="auto"
-                            playing={true}
-                            muted={true} 
-                            url="https://fra-cdn.livepeer.com/recordings/5a0bf957-ca7b-4d61-885f-fa24c27ca035/index.m3u8" 
-                            controls={true}  
-                        />
-                    </div>
-                    <div className={classes.cards_video_body}>
+                    <ReactPlayer 
+                        width="100%"
+                        height="auto"
+                        playing={true}
+                        muted={true} 
+                        url="https://fra-cdn.livepeer.com/recordings/5a0bf957-ca7b-4d61-885f-fa24c27ca035/index.m3u8" 
+                        controls={true}
+                        className={classes.cards_video_body} 
+                    />
+                    <div className={classes.cards_text_body}>
                         <p>Streamer Name : {stream_data.name}</p>
                         <p>Streamer Id : {stream_data.id}</p>
                         <p>Streamer Key : {stream_data.streamKey}</p>
@@ -51,7 +50,7 @@ const Home = (props) => {
         );
     }
 
-
+    
     useEffect(() => {
         setIdleStreams([])
         setActiveStreams([])
@@ -140,17 +139,17 @@ const Home = (props) => {
                             <div>
                                 <h4 className={classes.display_livestreamers}> Idle Streams </h4>
                                 <div className={classes.display_all_streamers}>
-                                    {idleStreams.map((stream, i) => {
-                                        return (
-                                            <div key={i} className={classes.all_streams_list}>
-                                                <Link to={`./public/${stream.id}`} style={{ textDecoration: 'none', color: "inherit" }}>
-                                                    <p>Name : {stream.name}</p>
-                                                    <p>Id : {stream.id}</p>
-                                                    <p>Key : {stream.streamKey}</p>
-                                                </Link>
-                                            </div>
-                                        )
-                                    })}
+                                      {idleStreams.map((stream, i) => {
+                                            return (
+                                                <div key={i} className={classes.all_streams_list}>
+                                                    <Link to={`./public/${stream.id}`} style={{ textDecoration: 'none', color: "inherit" }}>
+                                                        <p>Name : {stream.name}</p>
+                                                        <p>Id : {stream.id}</p>
+                                                        <p>Key : {stream.streamKey}</p>
+                                                    </Link>
+                                                </div>
+                                            )
+                                        })}
                                 </div>
                             </div>
                         </div>
