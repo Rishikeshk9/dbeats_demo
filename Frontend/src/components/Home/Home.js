@@ -7,9 +7,10 @@ import axios from 'axios'
 import {Carousel as LiveStreamVideos} from '3d-react-carousal';
 import Carousel from 'react-grid-carousel'
 import personImg from "../../assests/images/person.jpg"
-import {Avatar} from "@material-ui/core"
+import {Avatar,Sk} from "@material-ui/core"
 import CarouselCard from './CarouselCard';
 import ReactPlayer from "react-player";
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const Home = (props) => {
 
@@ -42,7 +43,6 @@ const Home = (props) => {
                         height="auto"
                         playing={playing}
                         muted={true} 
-                        previewTabIndex={1}
                         url={"https://ipfs.io/ipfs/QmZgQUgyVidCU5KVanQYvPPt3k27cYbQhXF9fcFiCgrZkx"}
                         controls={showControls}
                         className={classes.cards_video_body} 
@@ -129,7 +129,10 @@ const Home = (props) => {
 
                         <div id="display_videos" className={classes.display_videos_section}>
                             <div>
-                                <LiveStreamVideos slides={slides} autoplay={false}/>
+                                {idleStreams[0] ?
+                                    <LiveStreamVideos slides={slides} autoplay={false}/>
+                                    :<Skeleton animation="wave" variant="rect" height="35vh" />
+                                }
                             </div>
                             <div>
                                 <h4 className={classes.display_livestreamers}> Live channels we think you'll like </h4>
