@@ -87,71 +87,80 @@ const PublicInfo = (props) => {
                             </button>
                         </div>
                         <div className={classes.info_localDisplay_icons}>
-                        <button  className={classes.share_btn}
-                        onClick={handleShow}><i className="fas fa-share"></i></button>
+                            <button  
+                                className={classes.share_btn}
+                                onClick={handleShow}
+                            >
+                                <i className="fas fa-share"></i>
+                            </button>
                             <i className="fas fa-heart"></i>
                             <i className="fas fa-heart-broken"></i>
                             <i className="far fa-laugh-squint"></i>
                             <i className="far fa-angry"></i>
-                            <button  className={classes.more_options}
-                        onClick={handleShowMore}><i className="fas fa-ellipsis-h"></i></button>
+                            <button  
+                                className={classes.more_options}
+                                onClick={handleShowMore}
+                            >
+                                <i className="fas fa-ellipsis-h"></i>
+                            </button>
                         </div>
                         <Modal show={show}
-        onHide={handleClose} 
-        animation={true}
-        centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Share link on</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            <Container>
-                <Row>
-                    <Col className={classes.share_icons} >
-                <WhatsappShareButton className={classes.icon}
-                url={sharable_data}>
-                    <WhatsappIcon iconFillColor="white" size={60} round={true}/>
-                </WhatsappShareButton>
-                <FacebookShareButton className={classes.icon}
-                url={sharable_data}>
-                    <FacebookIcon iconFillColor="white" size={60} round={true}/>
-                </FacebookShareButton>
-                <EmailShareButton className={classes.icon} url={sharable_data}>
-                    <EmailIcon iconFillColor="white" size={60} round={true} />
-                </EmailShareButton>
-                <PinterestShareButton className={classes.icon} url={sharable_data}>
-                    <PinterestIcon iconFillColor="white" size={60} round={true} />
-                </PinterestShareButton>
-                <TelegramShareButton className={classes.icon} url={sharable_data}>
-                    <TelegramIcon iconFillColor="white" size={60} round={true}/>
-                </TelegramShareButton>
-                </Col>
-                </Row>
-                <Row>
-                <CopyToClipboard text={sharable_data} className={classes.link_copy_btn}>
-                <button
-                    type="submit"
-                    onClick={() => setButtonText("Link Copied!")}>
-                    {buttonText}
-                </button>
-            </CopyToClipboard>
-                </Row>
-            </Container>
-        </Modal.Body>
-      </Modal>
+                            onHide={handleClose} 
+                            animation={true}
+                            centered
+                        >
+                            <Modal.Header closeButton>
+                              <Modal.Title>Share link on</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Container>
+                                    <Row>
+                                        <Col className={classes.share_icons} >
+                                    <WhatsappShareButton className={classes.icon}
+                                    url={sharable_data}>
+                                        <WhatsappIcon iconFillColor="white" size={60} round={true}/>
+                                    </WhatsappShareButton>
+                                    <FacebookShareButton className={classes.icon}
+                                    url={sharable_data}>
+                                        <FacebookIcon iconFillColor="white" size={60} round={true}/>
+                                    </FacebookShareButton>
+                                    <EmailShareButton className={classes.icon} url={sharable_data}>
+                                        <EmailIcon iconFillColor="white" size={60} round={true} />
+                                    </EmailShareButton>
+                                    <PinterestShareButton className={classes.icon} url={sharable_data}>
+                                        <PinterestIcon iconFillColor="white" size={60} round={true} />
+                                    </PinterestShareButton>
+                                    <TelegramShareButton className={classes.icon} url={sharable_data}>
+                                        <TelegramIcon iconFillColor="white" size={60} round={true}/>
+                                    </TelegramShareButton>
+                                    </Col>
+                                    </Row>
+                                    <Row>
+                                    <CopyToClipboard text={sharable_data} className={classes.link_copy_btn}>
+                                    <button
+                                        type="submit"
+                                        onClick={() => setButtonText("Link Copied!")}>
+                                        {buttonText}
+                                    </button>
+                                </CopyToClipboard>
+                                    </Row>
+                                </Container>
+                            </Modal.Body>
+                        </Modal>
 
-      <Modal show={showMore} onHide={handleCloseMore} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>More Options</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        <ListGroup>
-            <ListGroup.Item active>demo 1</ListGroup.Item>
-            <ListGroup.Item>demo 2</ListGroup.Item>
-            <ListGroup.Item>demo 3</ListGroup.Item>
-            <ListGroup.Item>demo 4</ListGroup.Item>
-        </ListGroup>
-        </Modal.Body>
-      </Modal>
+                        <Modal show={showMore} onHide={handleCloseMore} centered>
+                            <Modal.Header closeButton>
+                              <Modal.Title>More Options</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                            <ListGroup>
+                                <ListGroup.Item active>demo 1</ListGroup.Item>
+                                <ListGroup.Item>demo 2</ListGroup.Item>
+                                <ListGroup.Item>demo 3</ListGroup.Item>
+                                <ListGroup.Item>demo 4</ListGroup.Item>
+                            </ListGroup>
+                            </Modal.Body>
+                        </Modal>
                     </div>
 
                      <div className={classes.comment_section}>

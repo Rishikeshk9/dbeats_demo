@@ -20,6 +20,7 @@ const Home = (props) => {
     const [idleStreams, setIdleStreams] = useState([]);
     const [activeStreams, setActiveStreams] = useState([]);
     const [slides, setSlides] = useState([]);
+    
 
     const recommend_channels=[{name:"shroud"},{name:"shroud"},{name:"shroud"},{name:"shroud"},{name:"shroud"}]
 
@@ -31,7 +32,7 @@ const Home = (props) => {
                     <ReactPlayer 
                         width="100%"
                         height="auto"
-                        playing={true}
+                        playing={false}
                         muted={true} 
                         url="https://fra-cdn.livepeer.com/recordings/5a0bf957-ca7b-4d61-885f-fa24c27ca035/index.m3u8" 
                         controls={true}

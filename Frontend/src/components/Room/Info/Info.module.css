@@ -204,12 +204,6 @@ video {
     background: none;
 }
 
-.more_options{
-    border: none;
-    background: none;
-}
-
-
 .link_copy_btn{
     display: block;
     margin: auto;
@@ -221,4 +215,16 @@ video {
     color: #fff;
     border: none;
     border-radius: 6px;
+}
+
+
+
+
+
+
+
+
+.more_options{
+    border: none;
+    background: none;
 }

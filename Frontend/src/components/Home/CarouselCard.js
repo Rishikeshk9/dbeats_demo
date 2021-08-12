@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -21,20 +21,16 @@ import { useHistory } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
+    overflow: 'visible',
+    backgroundColor:"#eeeeee"
   },
   media: {
     height: 0,
     cursor: "pointer",
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
+    "&:hover": {
+      transform:'scale(1.1)',
+      transform: 'translate(5px,5px)',
+    },
   },
   avatar: {
     backgroundColor: red[500],
@@ -42,8 +38,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
  const CarouselCard = (props) => {
+  
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [playing, setPlaying] = useState(false);
 
   let history = useHistory();
 
@@ -51,18 +50,31 @@ const useStyles = makeStyles((theme) => ({
     setExpanded(!expanded);
   };
 
+  const handleMouseMove = () => {
+    setPlaying(true)
+  };
+
+  const hanldeMouseLeave = () => {
+    setPlaying(false)    
+  };
+
   console.log(props);
   return (
     <Card className={classes.root} >
-      <ReactPlayer onClick={() => {history.push(`/public/${props.streamdata.id}`) } }
-                        width="100%"
-                        height="auto"
-                        playing={true}
-                        muted={true} 
-                        url="https://fra-cdn.livepeer.com/recordings/5a0bf957-ca7b-4d61-885f-fa24c27ca035/index.m3u8" 
-                        controls={false}
-                        className={classes.media} 
-                    />
+      <div className={classes.media_back}>
+        <ReactPlayer 
+          onClick={() => {history.push(`/public/${props.streamdata.id}`) } }
+          width="100%"
+          height="auto"
+          playing={playing}
+          muted={true} 
+          url="https://fra-cdn.livepeer.com/recordings/5a0bf957-ca7b-4d61-885f-fa24c27ca035/index.m3u8" 
+          controls={false}
+          className={classes.media} 
+          onMouseMove={handleMouseMove}
+          onMouseLeave={hanldeMouseLeave}
+        />
+      </div>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
