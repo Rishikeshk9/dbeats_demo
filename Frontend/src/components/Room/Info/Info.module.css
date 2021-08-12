@@ -204,6 +204,12 @@ video {
     background: none;
 }
 
+.more_options{
+    border: none;
+    background: none;
+}
+
+
 .link_copy_btn{
     display: block;
     margin: auto;

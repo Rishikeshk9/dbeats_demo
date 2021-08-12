@@ -3,7 +3,7 @@ import classes from "./Info.module.css";
 import playimg from '../../../assests/images/telegram.png';
 import axios from 'axios'
 import VideoPlayer from  '../VideoPlayer/VideoPlayer'
-import { Button, Modal, } from 'react-bootstrap';
+import { Button, Modal, ListGroup } from 'react-bootstrap';
 import { WhatsappIcon, WhatsappShareButton} from 'react-share';
 import { FacebookShareButton, FacebookIcon } from 'react-share';
 import { EmailShareButton, EmailIcon } from 'react-share';
@@ -24,6 +24,11 @@ const PublicInfo = (props) => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const [showMore, setShowMore] = useState(false);
+
+    const handleCloseMore = () => setShowMore(false);
+    const handleShowMore = () => setShowMore(true);
 
     const text = "Copy Link To Clipboard"
     const [buttonText, setButtonText] = useState(text);
@@ -88,11 +93,12 @@ const PublicInfo = (props) => {
                             <i className="fas fa-heart-broken"></i>
                             <i className="far fa-laugh-squint"></i>
                             <i className="far fa-angry"></i>
-                            <i className="fas fa-ellipsis-h"></i>
+                            <button  className={classes.more_options}
+                        onClick={handleShowMore}><i className="fas fa-ellipsis-h"></i></button>
                         </div>
                         <Modal show={show}
         onHide={handleClose} 
-        animation={false}
+        animation={true}
         centered>
         <Modal.Header closeButton>
           <Modal.Title>Share link on</Modal.Title>
@@ -130,6 +136,20 @@ const PublicInfo = (props) => {
             </CopyToClipboard>
                 </Row>
             </Container>
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={showMore} onHide={handleCloseMore} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>More Options</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <ListGroup>
+            <ListGroup.Item active>demo 1</ListGroup.Item>
+            <ListGroup.Item>demo 2</ListGroup.Item>
+            <ListGroup.Item>demo 3</ListGroup.Item>
+            <ListGroup.Item>demo 4</ListGroup.Item>
+        </ListGroup>
         </Modal.Body>
       </Modal>
                     </div>
