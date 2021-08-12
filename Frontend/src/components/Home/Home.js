@@ -24,19 +24,29 @@ const Home = (props) => {
 
     const recommend_channels=[{name:"shroud"},{name:"shroud"},{name:"shroud"},{name:"shroud"},{name:"shroud"}]
 
-
     
     const CarouselStreams = ({stream_data}) =>{
+        const [playing, setPlaying] = useState(false);
+        const [showControls, setShowControls] = useState(false);
+
+        const handleMouseMove = () => {
+            setPlaying(true)
+            setShowControls(true)
+        };
+
         return(
-            <div className={classes.cards_main_body}>                 
+            <div className={classes.cards_main_body} >                 
+                    
                     <ReactPlayer 
                         width="100%"
                         height="auto"
-                        playing={false}
+                        playing={playing}
                         muted={true} 
-                        url="https://fra-cdn.livepeer.com/recordings/5a0bf957-ca7b-4d61-885f-fa24c27ca035/index.m3u8" 
-                        controls={true}
+                        previewTabIndex={1}
+                        url={"https://ipfs.io/ipfs/QmZgQUgyVidCU5KVanQYvPPt3k27cYbQhXF9fcFiCgrZkx"}
+                        controls={showControls}
                         className={classes.cards_video_body} 
+                        onMouseMove={handleMouseMove}
                     />
                     <div className={classes.cards_text_body}>
                         <p>Streamer Name : {stream_data.name}</p>
@@ -139,7 +149,7 @@ const Home = (props) => {
                             </div>
 
                             <div>
-                                <h4 className={classes.display_livestreamers}> Idle Streams </h4>
+                                <h4 className={classes.display_livestreamers}> Playback Videos </h4>
                                 <div className={classes.display_all_streamers}>
                                       {/*{idleStreams.map((stream, i) => {
                                             return (

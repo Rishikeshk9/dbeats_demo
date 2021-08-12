@@ -135,8 +135,9 @@ function VideoPlayer(props) {
   };
 
 
+  
+
   const handleMouseMove = () => {
-    console.log("mousemove");
       controlsRef.current.style.visibility = "visible";
     
   };
@@ -146,6 +147,10 @@ function VideoPlayer(props) {
       controlsRef.current.style.visibility = "hidden";
 
   };
+
+  const handleClickEvent = () =>{
+      setState({ ...state, playing: !state.playing });
+  }
 
 
   const currentTime =
@@ -177,6 +182,8 @@ function VideoPlayer(props) {
           <div
               onMouseMove={handleMouseMove}
               onMouseLeave={hanldeMouseLeave} 
+              onClick={handleClickEvent}
+              onDoubleClick={toggleFullScreen}
               ref={playerContainerRef}
               className={classes.playerWrapper}
           > 

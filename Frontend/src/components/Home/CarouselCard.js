@@ -67,8 +67,8 @@ const useStyles = makeStyles((theme) => ({
           width="100%"
           height="auto"
           playing={playing}
-          muted={true} 
-          url="https://fra-cdn.livepeer.com/recordings/5a0bf957-ca7b-4d61-885f-fa24c27ca035/index.m3u8" 
+          muted={false} 
+          url="https://ipfs.io/ipfs/QmNQrX7k9cRSbfzGdhGjMRt8HUp33aAG4UjVCUNjhniVtF" 
           controls={false}
           className={classes.media} 
           onMouseMove={handleMouseMove}

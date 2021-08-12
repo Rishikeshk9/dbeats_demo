@@ -67,7 +67,7 @@ const PublicInfo = (props) => {
                 <div id={classes.info_main_body_set}>
                     <div>                        
                         <VideoPlayer 
-                            playbackUrl="https://fra-cdn.livepeer.com/recordings/5a0bf957-ca7b-4d61-885f-fa24c27ca035/index.m3u8"
+                            playbackUrl="https://ipfs.io/ipfs/QmNQrX7k9cRSbfzGdhGjMRt8HUp33aAG4UjVCUNjhniVtF"
                            
                         />
                     </div>
