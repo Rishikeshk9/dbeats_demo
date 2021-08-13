@@ -16,13 +16,16 @@ const PlayControls = forwardRef(
     {
       onPlayPause,
       playing,
-      played,
+      played
     },
     ref
   ) => {
 
     return (
-      <div ref={ref} className={classes.playcontrolsWrapper}>
+        <div 
+          ref={ref} 
+          className={classes.playcontrolsWrapper} 
+        >
 
             <Grid  className={classes.playbtn_position}
             container

@@ -35,6 +35,11 @@ const Home = (props) => {
             setShowControls(true)
         };
 
+        const hanldeMouseLeave = () => {
+            setPlaying(false) 
+            setShowControls(false)   
+        };
+
         return(
             <div className={classes.cards_main_body} >                 
                     
@@ -42,11 +47,13 @@ const Home = (props) => {
                         width="100%"
                         height="auto"
                         playing={playing}
-                        muted={true} 
+                        muted={false} 
+                        volume={0.3}
                         url={"https://ipfs.io/ipfs/QmZgQUgyVidCU5KVanQYvPPt3k27cYbQhXF9fcFiCgrZkx"}
                         controls={showControls}
                         className={classes.cards_video_body} 
                         onMouseMove={handleMouseMove}
+                        onMouseLeave={hanldeMouseLeave}
                     />
                     <div className={classes.cards_text_body}>
                         <p>Streamer Name : {stream_data.name}</p>
@@ -168,7 +175,7 @@ const Home = (props) => {
                                         <Carousel cols={4}>
                                             {idleStreams.map((stream, i) => {
                                                 return (
-                                                    <Carousel.Item key={i} className={classes.all_streams_list}>
+                                                    <Carousel.Item key={i}>
                                                         <CarouselCard streamdata={stream}/>
                                                     </Carousel.Item>
                                                 )

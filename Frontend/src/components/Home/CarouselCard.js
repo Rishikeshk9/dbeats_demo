@@ -21,20 +21,25 @@ import { useHistory } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
-    overflow: 'visible',
-    backgroundColor:"#eeeeee"
+    backgroundColor:"#eeeeee",
+    borderRadius:'8px'
   },
   media: {
     height: 0,
     cursor: "pointer",
+    backgroundColor:"blue",
+    marginBottom:"20px",
     "&:hover": {
       transform:'scale(1.1)',
-      transform: 'translate(5px,5px)',
+      transform: 'translate(0,8px)',
     },
   },
   avatar: {
     backgroundColor: red[500],
   },
+  media_back: {
+    backgroundColor:"yellow",
+  }
 }));
 
  const CarouselCard = (props) => {
@@ -68,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
           height="auto"
           playing={playing}
           muted={false} 
+          volume={0.5}
           url="https://ipfs.io/ipfs/QmNQrX7k9cRSbfzGdhGjMRt8HUp33aAG4UjVCUNjhniVtF" 
           controls={false}
           className={classes.media} 

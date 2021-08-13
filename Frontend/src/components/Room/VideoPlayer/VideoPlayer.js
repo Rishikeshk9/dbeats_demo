@@ -34,11 +34,11 @@ function VideoPlayer(props) {
     playing: true,
     controls: false,
     light: false,
-    muted: true,
+    muted: false,
     played: 0,
     duration: 0,
     playbackRate: 1.0,
-    volume: 1,
+    volume: 0.3,
     loop: false,
     seeking: false,
   });
@@ -205,7 +205,7 @@ function VideoPlayer(props) {
           />
           {showControls ?
               <FullControls
-                ref={controlsRef}
+                ref={controlsRef} 
                 onSeek={handleSeekChange}
                 onSeekMouseDown={handleSeekMouseDown}
                 onSeekMouseUp={handleSeekMouseUp}
@@ -226,7 +226,6 @@ function VideoPlayer(props) {
                 onPlaybackRateChange={handlePlaybackRate}
                 onToggleFullScreen={toggleFullScreen}
                 volume={volume}
-                videoPara={playerRef}
               />
             :  <PlayControls
                 ref={controlsRef}

@@ -56,7 +56,6 @@ function ValueLabelComponent(props) {
   );
 }
 
-
 const FullControls = forwardRef(
   (
     {
@@ -79,13 +78,22 @@ const FullControls = forwardRef(
       onPlaybackRateChange,
       onToggleFullScreen,
       volume,
-      onVolumeChange,
+      onVolumeChange
     },
     ref
   ) => {
 
+
+    const handleOnClick = () => {
+        ref.current.style.visibility = "hidden";
+    };
+
+    const handleOnControlClick = () => {
+        ref.current.style.visibility = "visibile";
+    };
+
     return (
-      <div ref={ref} className={classes.controlsWrapper}>
+      <div ref={ref} className={classes.controlsWrapper} onClick={handleOnClick}>
         <Grid
           container
           direction="column"
@@ -95,6 +103,7 @@ const FullControls = forwardRef(
               paddingBottom: '0px',
               bottom: -15,
           }}
+          onMouseMove={handleOnControlClick}
         >
           <Grid
             container
