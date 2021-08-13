@@ -24,7 +24,6 @@ const Home = (props) => {
     
 
     const recommend_channels=[{name:"shroud"},{name:"shroud"},{name:"shroud"},{name:"shroud"},{name:"shroud"}]
-
     
     const CarouselStreams = ({stream_data}) =>{
         const [playing, setPlaying] = useState(false);
@@ -49,7 +48,7 @@ const Home = (props) => {
                         playing={playing}
                         muted={false} 
                         volume={0.3}
-                        url={"https://ipfs.io/ipfs/QmZgQUgyVidCU5KVanQYvPPt3k27cYbQhXF9fcFiCgrZkx"}
+                        url={`https://cdn.livepeer.com/hls/${stream_data.playbackId}/index.m3u8`}
                         controls={showControls}
                         className={classes.cards_video_body} 
                         onMouseMove={handleMouseMove}
@@ -85,9 +84,8 @@ const Home = (props) => {
             } 
         })
         .then((repos) => {
-          for (let i = 0; i < repos.data.length; i++) {
-            setIdleStreams((prevState) => [...prevState, repos.data[i]]);
-            setSlides((prevState) => [...prevState, <CarouselStreams stream_data={repos.data[i]} />])
+            for (let i = 0; i < repos.data.length; i++) {
+                setIdleStreams((prevState) => [...prevState, repos.data[i]]);
             }
             console.log(repos)
         });
@@ -102,10 +100,11 @@ const Home = (props) => {
         .then((repos) => {
             for (let i = 0; i < repos.data.length; i++) {
                 setActiveStreams((prevState) => [...prevState, repos.data[i]]);
+                setSlides((prevState) => [...prevState, <CarouselStreams stream_data={repos.data[i]} />])
             }
             console.log(repos)
         });
-
+        
     }, [])
     
 
@@ -136,12 +135,15 @@ const Home = (props) => {
 
                         <div id="display_videos" className={classes.display_videos_section}>
                             <div>
-                                {idleStreams[0] ?
+                                {activeStreams[0] ?
                                     <LiveStreamVideos slides={slides} autoplay={false}/>
-                                    :<Skeleton animation="wave" variant="rect" height="35vh" />
+                                    : <>
+                                        <Skeleton animation="wave" variant="rect" height="35vh" />
+                                        <h4 align="center">Waiting for Live Streamers</h4>
+                                      </>
                                 }
                             </div>
-                            <div>
+                            {/*<div>
                                 <h4 className={classes.display_livestreamers}> Live channels we think you'll like </h4>
                                 <div className={classes.display_all_streamers}>
                                     {activeStreams.map((stream, i) => {
@@ -156,7 +158,7 @@ const Home = (props) => {
                                         )
                                     })}
                                 </div>
-                            </div>
+                            </div>*/}
 
                             <div>
                                 <h4 className={classes.display_livestreamers}> Playback Videos </h4>
