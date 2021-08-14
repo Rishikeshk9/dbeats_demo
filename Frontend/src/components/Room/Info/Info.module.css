@@ -114,6 +114,14 @@ video {
     margin-bottom: 0;
 }
 
+.multistream_form_button{
+    margin-top: 10px;
+}
+
+.multistream_form_spinner{
+    padding-left: 10px;
+    padding-top: 10px;
+}
 
 
 

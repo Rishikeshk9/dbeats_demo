@@ -81,7 +81,7 @@ const NavBar = (props) => {
                     width: 640,
                     height: 360,
                 },
-            ],
+            ]
         }
 
         const stream = await axios({
@@ -95,7 +95,7 @@ const NavBar = (props) => {
         });
 
         setLoader(true);
-        var id = stream.data.id;
+        let id = stream.data.id;
 
         history.push(`/streamer/${id}`);
     };
