@@ -95,7 +95,7 @@ const UserInfo = (props) => {
             <div className={classes.info_main_body}>                 
                     <div>
                         <VideoPlayer 
-                            playbackUrl="https://fra-cdn.livepeer.com/recordings/5a0bf957-ca7b-4d61-885f-fa24c27ca035/index.m3u8" 
+                            playbackUrl={`https://cdn.livepeer.com/hls/${userStreams.playbackId}/index.m3u8`}
                         />
                     </div>
                     <div>
