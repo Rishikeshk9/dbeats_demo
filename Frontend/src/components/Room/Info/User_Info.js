@@ -89,8 +89,7 @@ const UserInfo = (props) => {
             url: apiUrl,
             data: patchStreamData,
             headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, PUT, POST, PATCH',
+                'Access-Control-Allow-Methods': 'PATCH',
                 'content-type': 'application/json',
                 Authorization: AuthStr,
                 crossdomain: true
