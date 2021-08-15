@@ -25,8 +25,9 @@ const UserInfo = (props) => {
         axios.get(apiUrl, 
          { 
             headers: { 
-                Authorization: AuthStr,
                 'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, PUT, POST, PATCH',
+                Authorization: AuthStr,
                 crossdomain: true
             } 
         })
@@ -61,9 +62,10 @@ const UserInfo = (props) => {
             url: 'https://livepeer.com//api/multistream/target/',
             data: streamData,
             headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, PUT, POST, PATCH',
                 'content-type': 'application/json',
                 Authorization: AuthStr,
-                'Access-Control-Allow-Origin': '*',
                 crossdomain: true
             },
         });
@@ -87,9 +89,10 @@ const UserInfo = (props) => {
             url: apiUrl,
             data: patchStreamData,
             headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, PUT, POST, PATCH',
                 'content-type': 'application/json',
                 Authorization: AuthStr,
-                'Access-Control-Allow-Origin': '*',
                 crossdomain: true
             },
         });
