@@ -69,7 +69,7 @@ const PublicInfo = (props) => {
                     <div>     
                         {console.log(playbackUrl)}                   
                         <VideoPlayer 
-                            playbackUrl="https://ipfs.io/ipfs/QmNQrX7k9cRSbfzGdhGjMRt8HUp33aAG4UjVCUNjhniVtF"
+                            playbackUrl={`https://cdn.livepeer.com/hls/${userStreams.playbackId}/index.m3u8`}
                            
                         />
                     </div>
