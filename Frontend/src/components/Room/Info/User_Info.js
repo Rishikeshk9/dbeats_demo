@@ -22,7 +22,15 @@ const UserInfo = (props) => {
         console.log(props.stream_id)
 
         const AuthStr = 'Bearer '.concat(key); 
-        axios.get(apiUrl, { headers: { Authorization: AuthStr } })
+        axios.get(apiUrl, 
+         { 
+            headers: { 
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, PUT, POST, PATCH',
+                Authorization: AuthStr,
+                crossdomain: true
+            } 
+        })
         .then((res) => {
           setUserStreams(res.data);
         });
@@ -54,8 +62,11 @@ const UserInfo = (props) => {
             url: 'https://livepeer.com//api/multistream/target/',
             data: streamData,
             headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, PUT, POST, PATCH',
                 'content-type': 'application/json',
-                Authorization: AuthStr
+                Authorization: AuthStr,
+                crossdomain: true
             },
         });
 
@@ -78,8 +89,10 @@ const UserInfo = (props) => {
             url: apiUrl,
             data: patchStreamData,
             headers: {
+                'Access-Control-Allow-Methods': 'PATCH',
                 'content-type': 'application/json',
-                Authorization: AuthStr
+                Authorization: AuthStr,
+                crossdomain: true
             },
         });
 
