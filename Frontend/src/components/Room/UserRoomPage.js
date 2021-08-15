@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import NavBar from '../Navbar/Navbar';
 import UserInfo from './Info/User_Info';
-import Footer from './Footer/Footer';
 
 import { useDispatch } from 'react-redux'
 import { meetRoomId } from '../../redux/action'
@@ -11,6 +10,7 @@ const UserRoomPage = (props) => {
     
     useEffect(() => {
         dispatch(meetRoomId(props.match.params.roomID))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
         <>

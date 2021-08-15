@@ -1,8 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import classes from "./Info.module.css";
 import axios from 'axios'
-import {FormControl,Button, Form, Spinner} from "react-bootstrap";
-import Alert from '@material-ui/lab/Alert';
+import {Button, Form, Spinner} from "react-bootstrap";
 
 
 import VideoPlayer from  '../VideoPlayer/VideoPlayer'
@@ -27,6 +26,7 @@ const UserInfo = (props) => {
         .then((res) => {
           setUserStreams(res.data);
         });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 

@@ -3,7 +3,7 @@ import classes from "./Info.module.css";
 import playimg from '../../../assests/images/telegram.png';
 import axios from 'axios'
 import VideoPlayer from  '../VideoPlayer/VideoPlayer'
-import { Button, Modal, ListGroup } from 'react-bootstrap';
+import { Modal, ListGroup } from 'react-bootstrap';
 import { WhatsappIcon, WhatsappShareButton} from 'react-share';
 import { FacebookShareButton, FacebookIcon } from 'react-share';
 import { EmailShareButton, EmailIcon } from 'react-share';
@@ -46,6 +46,7 @@ const PublicInfo = (props) => {
         .then((res) => {
           setUserStreams(res.data);
         });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 
@@ -65,7 +66,8 @@ const PublicInfo = (props) => {
         <Fragment>
             <div className={classes.info_main_body}>
                 <div id={classes.info_main_body_set}>
-                    <div>                        
+                    <div>     
+                        {console.log(playbackUrl)}                   
                         <VideoPlayer 
                             playbackUrl="https://ipfs.io/ipfs/QmNQrX7k9cRSbfzGdhGjMRt8HUp33aAG4UjVCUNjhniVtF"
                            
@@ -164,7 +166,7 @@ const PublicInfo = (props) => {
                     </div>
 
                      <div className={classes.comment_section}>
-                        <iframe className={classes.convo_frame} src="https://theconvo.space/embed/t/KIGZUnR4RzXDFheXoOwo" allowtransparency="true"/>
+                        <iframe className={classes.convo_frame} title="comment_section" src="https://theconvo.space/embed/t/KIGZUnR4RzXDFheXoOwo" allowtransparency="true"/>
                     </div>    
                 </div>
                 <div className={classes.info_short_section}>

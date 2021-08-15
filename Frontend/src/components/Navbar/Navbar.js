@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import classes from "./Navbar.module.css";
-import {Navbar, FormControl,Modal, Button, Form, Spinner,Row,Col,Image} from "react-bootstrap";
+import {Navbar, FormControl,Modal, Button, Form, Spinner,Image} from "react-bootstrap";
 import { scaleRotate as Menu } from 'react-burger-menu'
 import axios from 'axios'
 import { useHistory } from "react-router-dom";

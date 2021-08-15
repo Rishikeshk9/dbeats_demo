@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Button} from "react-bootstrap";
-import { Link } from "react-router-dom";
 import classes from "./Home.module.css";
 import NavBar from "../Navbar/Navbar";
 import axios from 'axios'
 import {Carousel as LiveStreamVideos} from '3d-react-carousal';
 import Carousel from 'react-grid-carousel'
 import personImg from "../../assests/images/person.jpg"
-import {Avatar,Sk} from "@material-ui/core"
+import {Avatar} from "@material-ui/core"
 import CarouselCard from './CarouselCard';
 import ReactPlayer from "react-player";
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -104,7 +103,8 @@ const Home = (props) => {
             }
             console.log(repos)
         });
-        
+
+        //eslint-disable-next-line react-hooks/exhaustive-deps 
     }, [])
     
 

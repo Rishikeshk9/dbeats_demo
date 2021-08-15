@@ -11,6 +11,7 @@ const PublicRoomPage = (props) => {
     
     useEffect(() => {
         dispatch(meetRoomId(props.match.params.roomID));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
