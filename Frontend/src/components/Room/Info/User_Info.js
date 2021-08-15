@@ -22,7 +22,14 @@ const UserInfo = (props) => {
         console.log(props.stream_id)
 
         const AuthStr = 'Bearer '.concat(key); 
-        axios.get(apiUrl, { headers: { Authorization: AuthStr } })
+        axios.get(apiUrl, 
+         { 
+            headers: { 
+                Authorization: AuthStr,
+                'Access-Control-Allow-Origin': '*',
+                crossdomain: true
+            } 
+        })
         .then((res) => {
           setUserStreams(res.data);
         });
@@ -55,7 +62,9 @@ const UserInfo = (props) => {
             data: streamData,
             headers: {
                 'content-type': 'application/json',
-                Authorization: AuthStr
+                Authorization: AuthStr,
+                'Access-Control-Allow-Origin': '*',
+                crossdomain: true
             },
         });
 
@@ -79,7 +88,9 @@ const UserInfo = (props) => {
             data: patchStreamData,
             headers: {
                 'content-type': 'application/json',
-                Authorization: AuthStr
+                Authorization: AuthStr,
+                'Access-Control-Allow-Origin': '*',
+                crossdomain: true
             },
         });
 
