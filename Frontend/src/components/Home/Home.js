@@ -20,6 +20,8 @@ const Home = (props) => {
     const [idleStreams, setIdleStreams] = useState([]);
     const [activeStreams, setActiveStreams] = useState([]);
     const [slides, setSlides] = useState([]);
+
+    const [arrayData, setArrayData] = useState([]);
     
 
     const recommend_channels=[{name:"shroud"},{name:"shroud"},{name:"shroud"},{name:"shroud"},{name:"shroud"}]
@@ -72,6 +74,7 @@ const Home = (props) => {
         setIdleStreams([])
         setActiveStreams([])
         setSlides([])
+        setArrayData([])
 
         const idleStreamUrl = `https://livepeer.com/api/stream?streamsonly=1&filters=[{"id": "isActive", "value": false}]`;
         const activeStreamUrl = `https://livepeer.com/api/stream?streamsonly=1&filters=[{"id": "isActive", "value": true}]`;
@@ -86,7 +89,7 @@ const Home = (props) => {
             for (let i = 0; i < repos.data.length; i++) {
                 setIdleStreams((prevState) => [...prevState, repos.data[i]]);
             }
-            console.log(repos)
+            
         });
 
         
@@ -101,16 +104,24 @@ const Home = (props) => {
                 setActiveStreams((prevState) => [...prevState, repos.data[i]]);
                 setSlides((prevState) => [...prevState, <CarouselStreams stream_data={repos.data[i]} />])
             }
-            console.log(repos)
+            
         });
         fetchData();
         //eslint-disable-next-line react-hooks/exhaustive-deps 
     }, [])
 
     const fetchData = async()=>{
-        const fileRes = await axios.get('http://localhost:8000/');
+        setArrayData([]);
+        const fileRes = await axios.get('http://localhost:8000/')
+            for(let i = 0; i < fileRes.data.array.length; i++){
+                if(fileRes.data.array[i].videos){
+                setArrayData((prevState)=>[...prevState, fileRes.data.array[i]]);
+                }
+            }
         console.log(fileRes, "Hi");
+
     }
+    console.log(arrayData, "hello");
 
     
 
@@ -181,10 +192,10 @@ const Home = (props) => {
                                             )
                                         })}*/}
                                         <Carousel cols={4}>
-                                            {idleStreams.map((stream, i) => {
+                                            {arrayData.map((playbackUser, i) => {
                                                 return (
                                                     <Carousel.Item key={i}>
-                                                        <CarouselCard streamdata={stream}/>
+                                                        <CarouselCard playbackUserData={playbackUser}/>
                                                     </Carousel.Item>
                                                 )
                                             })}

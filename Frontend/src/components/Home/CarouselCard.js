@@ -50,18 +50,19 @@ const useStyles = makeStyles((theme) => ({
     setPlaying(false)    
   };
 
-  console.log(props);
+  console.log(props.playbackUserData)
+
   return (
     <Card className={classes.root} >
       <div className={classes.media_back}>
         <ReactPlayer 
-          onClick={() => {history.push(`/public/${props.streamdata.id}`) } }
+          onClick={() => {history.push(`/public/${props.playbackUserData.id}`) } }
           width="100%"
           height="auto"
           playing={playing}
           muted={false} 
           volume={0.5}
-          url="https://ipfs.io/ipfs/QmNQrX7k9cRSbfzGdhGjMRt8HUp33aAG4UjVCUNjhniVtF" 
+          url={props.playbackUserData.videos[0].link}
           controls={false}
           className={classes.media} 
           onMouseMove={handleMouseMove}
@@ -74,8 +75,6 @@ const useStyles = makeStyles((theme) => ({
             R
           </Avatar>
         }
-        title={props.streamdata.name}
-        subheader={props.streamdata.streamKey}
       />
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
