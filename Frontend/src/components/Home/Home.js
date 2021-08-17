@@ -103,9 +103,15 @@ const Home = (props) => {
             }
             console.log(repos)
         });
-
+        fetchData();
         //eslint-disable-next-line react-hooks/exhaustive-deps 
     }, [])
+
+    const fetchData = async()=>{
+        const fileRes = await axios.get('http://localhost:8000/');
+        console.log(fileRes, "Hi");
+    }
+
     
 
     return (
