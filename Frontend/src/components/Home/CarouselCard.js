@@ -14,6 +14,7 @@ import { useHistory } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
+    maxHeight:400,
     backgroundColor:"#eeeeee",
     borderRadius:'8px'
   },
@@ -75,15 +76,9 @@ const useStyles = makeStyles((theme) => ({
             R
           </Avatar>
         }
+        title = {props.playbackUserData.videos[0].videoName}
+        subheader = {props.playbackUserData.videos[0].description}
       />
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-      </CardActions>
     </Card>
   );
 }
