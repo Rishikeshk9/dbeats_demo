@@ -112,7 +112,7 @@ const Home = (props) => {
 
     const fetchData = async()=>{
         setArrayData([]);
-        const fileRes = await axios.get('http://localhost:8000/')
+        const fileRes = await axios.get('https://dbeats-host-heroku.herokuapp.com/')
             for(let i = 0; i < fileRes.data.array.length; i++){
                 if(fileRes.data.array[i].videos){
                 setArrayData((prevState)=>[...prevState, fileRes.data.array[i]]);
