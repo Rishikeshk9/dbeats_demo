@@ -2,7 +2,7 @@
   "name": "demo",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://dbeats-host-heroku.herokuapp.com/",
+  "proxy":"https://dbeats-host-heroku.herokuapp.com/",
   "dependencies": {
     "@craco/craco": "^6.2.0",
     "@ethersproject/providers": "^5.4.3",
@@ -71,10 +71,8 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.8.6",
-    "eslint": "^7.32.0",
-    "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.24.0",
     "postcss": "^7.0.36",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7
   }
 }
