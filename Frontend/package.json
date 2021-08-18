@@ -2,15 +2,17 @@
   "name": "demo",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8000",
+  "proxy": "https://dbeats-host-heroku.herokuapp.com/",
   "dependencies": {
     "@craco/craco": "^6.2.0",
+    "@ethersproject/providers": "^5.4.3",
     "@material-ui/core": "^4.12.0",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@walletconnect/web3-provider": "^1.6.2",
     "3d-react-carousal": "^4.0.2",
     "aos": "^2.3.4",
     "axios": "^0.21.1",
@@ -22,6 +24,7 @@
     "react-burger-menu": "^3.0.6",
     "react-copy-to-clipboard": "^5.0.3",
     "react-dom": "^17.0.2",
+    "react-dotenv": "^0.1.3",
     "react-grid-carousel": "^1.0.1",
     "react-h5-audio-player": "^3.7.1",
     "react-hls-player": "^3.0.7",
@@ -38,7 +41,8 @@
     "screenfull": "^5.1.0",
     "tsparticles": "^1.32.0",
     "uuid": "^7.0.3",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "web3modal": "^1.9.4"
   },
   "scripts": {
     "start": "craco start",
