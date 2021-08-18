@@ -56,13 +56,19 @@ const Home = (props) => {
                         onMouseLeave={hanldeMouseLeave}
                     />
                     <div className={classes.cards_text_body}>
-                        <p>Streamer Name : {stream_data.name}</p>
+
+                        <div className="flex ">
+                        <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/feba598d-00c2-499b-829d-66429f273afa-profile_image-70x70.png" className="h-20 w-20  my-auto"></img>
+                        <p className=" my-auto font-bold text-xl align-middle ">{stream_data.name}</p>
+
+                        </div>
                         <p>Streamer Id : {stream_data.id}</p>
                         <p>Streamer Key : {stream_data.streamKey}</p>
 
                         <Button 
                             onClick={() => {props.history.push(`/public/${stream_data.id}`) } } 
-                            align="right"
+                            align="right" 
+                            className=""
                         > Watch Stream </Button>
                     </div>
             </div>
