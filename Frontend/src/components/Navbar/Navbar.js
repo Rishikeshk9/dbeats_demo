@@ -7,8 +7,7 @@ import {
   Button,
   Form,
   Spinner,
-  Image,
-  Col
+  Image
 } from "react-bootstrap";
 import { scaleRotate as Menu } from "react-burger-menu";
 import axios from "axios";
@@ -20,7 +19,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import MenuIcon from "@material-ui/icons/Menu";
 import logo from "../../assests/images/logo2.png";
-import { ethers } from "ethers";
+//import { ethers } from "ethers";
 import useWeb3Modal from "../../hooks/useWeb3Modal";
 
 const NavBar = (props) => {
@@ -56,7 +55,6 @@ const NavBar = (props) => {
 
   // Modal functions
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   // Sidebar functions
   const handleOnOpen = () => setOnOpen(true);
@@ -111,7 +109,6 @@ const NavBar = (props) => {
       },
     });
 
-    let id = stream.data.id;
     console.log(stream)
     
     const userData={
@@ -129,7 +126,7 @@ const NavBar = (props) => {
 
     
     setLoader(true);
-    //history.push(`/streamer/${id}`);
+    history.push(`/profile/${form_username}`);
   };
 
 

@@ -15,7 +15,7 @@ const Home = (props) => {
   let key = "d98e11c9-2267-4993-80da-6215d73b42c1";
   const AuthStr = "Bearer ".concat(key);
 
-  const [idleStreams, setIdleStreams] = useState([]);
+  //const [idleStreams, setIdleStreams] = useState([]);
   const [activeStreams, setActiveStreams] = useState([]);
   const [slides, setSlides] = useState([]);
 
@@ -58,6 +58,7 @@ const Home = (props) => {
             <img
               src="https://static-cdn.jtvnw.net/jtv_user_pictures/feba598d-00c2-499b-829d-66429f273afa-profile_image-70x70.png"
               className="h-20 w-20  my-auto"
+              alt="stream_img"
             ></img>
             <p className=" my-auto font-bold text-xl align-middle ">
               {stream_data.name}
@@ -82,15 +83,15 @@ const Home = (props) => {
   };
 
   useEffect(() => {
-    setIdleStreams([]);
+    //setIdleStreams([]);
     setActiveStreams([]);
     setSlides([]);
     setArrayData([]);
 
-    const idleStreamUrl = `https://livepeer.com/api/stream?streamsonly=1&filters=[{"id": "isActive", "value": false}]`;
+    //const idleStreamUrl = `https://livepeer.com/api/stream?streamsonly=1&filters=[{"id": "isActive", "value": false}]`;
     const activeStreamUrl = `https://livepeer.com/api/stream?streamsonly=1&filters=[{"id": "isActive", "value": true}]`;
 
-    axios
+    /*axios
       .get(idleStreamUrl, {
         headers: {
           Authorization: AuthStr,
@@ -102,6 +103,7 @@ const Home = (props) => {
           setIdleStreams((prevState) => [...prevState, repos.data[i]]);
         }
       });
+    */
 
     axios
       .get(activeStreamUrl, {
