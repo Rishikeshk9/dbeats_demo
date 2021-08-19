@@ -56,7 +56,7 @@ const LandingPage = () => {
                                 <Nav.Item>
                                     <Nav.Link href="/">
                                         <div className={classes.nav_logo_style}>
-                                            <Image src={logo} height="45px" width="auto" />
+                                            <Image src={logo} height="auto" width="130px" />
                                         </div>
                                     </Nav.Link>
                                 </Nav.Item>

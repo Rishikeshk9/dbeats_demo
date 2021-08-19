@@ -8,6 +8,7 @@ import {
   Form,
   Spinner,
   Image,
+  Col
 } from "react-bootstrap";
 import { scaleRotate as Menu } from "react-burger-menu";
 import axios from "axios";
@@ -23,49 +24,58 @@ import { ethers } from "ethers";
 import useWeb3Modal from "../../hooks/useWeb3Modal";
 
 const NavBar = (props) => {
+
+  // Web3
   const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
 
+
+  //stream key and history elements
   let key = "d98e11c9-2267-4993-80da-6215d73b42c1";
+  let history = useHistory();
   const AuthStr = "Bearer ".concat(key);
 
+  
+  // redux
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
-  let history = useHistory();
+  
+  
+  //  Modal 
   const [showOpen, setOnOpen] = useState(false);
   const [show, setShow] = useState(false);
-
   const [loader, setLoader] = useState(true);
-  const [name, setName] = useState("");
 
+
+  // Form varibles
+  const [form_name, setName] = useState("");
+  const [form_username, setUsername] = useState("");
+  const [form_password, setPassword] = useState("");
+  const [form_confirmPassword, setConfirmPassword] = useState("");
+
+
+  // Modal functions
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleOnOpen = () => {
-    setOnOpen(true);
-  };
+  // Sidebar functions
+  const handleOnOpen = () => setOnOpen(true);
+  const isMenuOpen = (state) => setOnOpen(state.isOpen);
 
-  const isMenuOpen = (state) => {
-    setOnOpen(state.isOpen);
-  };
-
-  const handleChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleLogin = () => {
-    dispatch(userSignIn("test_user"));
-  };
+  
+  // Auth functions
 
   const handleLogout = () => {
     dispatch(userLogout());
     history.push("/home");
   };
 
+
+  // Create a LivePeer Stream Profile
   const createStream = async () => {
     setLoader(false);
     let streamData = {
-      name: `${name}`,
+      name: `${form_name}`,
       profiles: [
         {
           name: "720p",
@@ -101,48 +111,72 @@ const NavBar = (props) => {
       },
     });
 
-    setLoader(true);
     let id = stream.data.id;
+    console.log(stream)
+    
+    const userData={
+      name:form_name,
+      username:form_username,
+      password:form_password,
+      confirm_password:form_confirmPassword,
+      meta_mask_id:provider.provider.selectedAddress,
+      livepeer_data:stream.data,
+    };
+    console.log(userData);
 
-    history.push(`/streamer/${id}`);
+    dispatch(userSignIn(provider.provider.selectedAddress));
+
+
+    
+    setLoader(true);
+    //history.push(`/streamer/${id}`);
   };
 
+
+  // Metamask Auth 
   function WalletButton({ provider, loadWeb3Modal, logoutOfWeb3Modal }) {
-    // A Web3Provider wraps a standard Web3 provider, which is
-    // what Metamask injects as window.ethereum into each page
-
-    //provider = new ethers.providers.Web3Provider(window.ethereum);
-
-    // The Metamask plugin also allows signing transactions to
-    // send ether and pay to change state within the blockchain.
-    // For this, you need the account signer...
-    //const signer = provider.getSigner();
-
-    //const connectedWallet = await signer.getAddress();
-    //console.log(connectedWallet);
-    // console.log(signer);
 
     return (
-      <div>
-        <button
-          className="btn"
-          style={{ margin: "20px" }}
+      <div className="d-grid">
+        <Button
+          variant="primary" 
+          type="button"
+          size="lg"
           onClick={() => {
             if (!provider) {
               loadWeb3Modal();
-              createStream();
             } else {
               logoutOfWeb3Modal();
             }
           }}
         >
           {!provider ? "Connect Wallet" : "Disconnect Wallet"}
-        </button>
+        </Button>
 
         {provider ? <p>{provider.provider.selectedAddress}</p> : <div></div>}
       </div>
     );
   }
+
+
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+  
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+  
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
+
   return (
     <>
       <Menu
@@ -213,7 +247,7 @@ const NavBar = (props) => {
             onClick={() => history.push("/home")}
           >
             <Image src={logo} className={classes.logo_image} />
-            <span className={classes.logo_name}></span>
+            <span className={classes.logo_name}>DBeats</span>
           </div>
         </div>
         <div>
@@ -233,30 +267,34 @@ const NavBar = (props) => {
           </div>
         </Form>
         <div align="right">
-          {user ? (
-            <>
-              <Button
-                variant="primary"
-                className={classes.create_stream_url}
-                onClick={handleShow}
-              >
-                Create Stream
-              </Button>
-              <Button className={classes.navbar_meetId}>
-                {" "}
-                <AccountCircleIcon className={classes.navbar_avatar} />{" "}
-                <span>ox84...6485 </span>
-              </Button>
-            </>
+          {user
+            ? (
+                <>
+                  <Button
+                    variant="primary"
+                    className={classes.create_stream_url}
+                  >
+                    Go Live
+                  </Button>
+                  <Button className={classes.navbar_meetId}>
+                    {" "}
+                    <AccountCircleIcon className={classes.navbar_avatar} />{" "}
+                    <span>{provider.provider.selectedAddress.slice(0,4)+'...'+provider.provider.selectedAddress.slice(-4)}</span>
+                  </Button>
+                </>
           ) : (
-            <WalletButton
-              provider={provider}
-              loadWeb3Modal={loadWeb3Modal}
-              logoutOfWeb3Modal={logoutOfWeb3Modal}
-            />
+              <Button variant="primary" className={classes.create_stream_url} onClick={handleShow}>
+                  Login
+              </Button>
           )}
         </div>
       </Navbar>
+
+      
+
+
+
+
 
       <Modal
         show={show}
@@ -266,31 +304,72 @@ const NavBar = (props) => {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title>Get Ready</Modal.Title>
+          <Modal.Title>Let's SignUp</Modal.Title>
         </Modal.Header>
         <Form>
           <Modal.Body>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Enter Streamer's Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Name"
-                onChange={(e) => handleChange(e)}
-              />
-            </Form.Group>
+              <Form.Group className="mb-3"controlId="formGridEmail">
+                <Form.Label>Name</Form.Label>
+                <Form.Control 
+                  type="text" 
+                  placeholder="Enter your name" 
+                  onChange={(e) => handleNameChange(e)}
+                />
+              </Form.Group>
+
+              <Form.Group controlId="formGridPassword">
+                <Form.Label>Username</Form.Label>
+                <Form.Control 
+                  type="text" 
+                  placeholder="Enter username" 
+                  onChange={(e) => handleUsernameChange(e)}
+                />
+              </Form.Group>
+
+              <Form.Group controlId="formGridPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control 
+                  type="password" 
+                  placeholder="Enter Password"
+                  onChange={(e) => handlePasswordChange(e)} 
+                />
+              </Form.Group>
+
+              <Form.Group controlId="formGridPassword">
+                <Form.Label>Confirm Password</Form.Label>
+                <Form.Control 
+                  type="password" 
+                  placeholder="Confirm your Password" 
+                  onChange={(e) => handleConfirmPasswordChange(e)}
+                />
+              </Form.Group>
+
+              <div className="d-grid">
+              {!provider 
+                ? <WalletButton
+                    provider={provider}
+                    loadWeb3Modal={loadWeb3Modal}
+                    logoutOfWeb3Modal={logoutOfWeb3Modal}
+                  />
+                : <> 
+                    <Button variant="primary" type="button" size="lg" width="100%" onClick={createStream}>
+                      Continue
+                    </Button>
+                    <Spinner
+                      animation="border"
+                      variant="info"
+                      role="status"
+                      hidden={loader}
+                    >
+                      <span className="visually-hidden">Loading...</span>
+                    </Spinner>  
+                  </>
+
+              }
+              </div>
+
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" type="button" onClick={createStream}>
-              Start Streaming
-            </Button>
-            <Spinner
-              animation="border"
-              variant="info"
-              role="status"
-              hidden={loader}
-            >
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
           </Modal.Footer>
         </Form>
       </Modal>

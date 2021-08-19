@@ -2,7 +2,7 @@
   padding-top: 20px;
   padding-bottom: 20px;
   display: grid;
-  grid-template-columns: 1fr  1fr 4fr 2fr;
+  grid-template-columns: 0.8fr  1fr 4fr 2fr;
   padding-left: 2%;
   box-shadow: 0px 2px 5px #ccc;
   height: fit-content;
@@ -96,15 +96,16 @@
 
 .logo_image{
   height: auto;
-  width: 2rem;
+  width: 2.6rem;
 }
 
 .logo_name{
-  font-size: 20px;
-  padding-left: 5px;
-  font-weight: 500;
+  font-size: 25px;
+  padding-left: 20px;
+  font-weight: 700;
 }
 
 .logo_details{
   cursor: pointer;
+  display: flex;
 }

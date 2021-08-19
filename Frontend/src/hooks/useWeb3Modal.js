@@ -10,10 +10,10 @@ const INFURA_ID =  "https://polygon-mumbai.infura.io/v3/a186bf6fba224d889e3facc6
 
 const NETWORK_NAME = "polygon-mumbai";
 
-function useWeb3Modal(config = {}) {
+const useWeb3Modal = (config = {}) => {
   const [provider, setProvider] = useState();
   const [autoLoaded, setAutoLoaded] = useState(false);
-  const { autoLoad = true, infuraId = INFURA_ID, NETWORK = NETWORK_NAME } = config;
+  const { autoLoad = false, infuraId = INFURA_ID, NETWORK = NETWORK_NAME } = config;
 
   // Web3Modal also supports many other wallets.
   // You can see other options at https://github.com/Web3Modal/web3modal

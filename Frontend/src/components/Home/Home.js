@@ -21,6 +21,10 @@ const Home = (props) => {
 
   const [arrayData, setArrayData] = useState([]);
 
+  const recommend_channels=[{name:"shroud"},{name:"shroud"},{name:"shroud"},{name:"shroud"},{name:"shroud"}]
+
+  
+
   const CarouselStreams = ({ stream_data }) => {
     const [playing, setPlaying] = useState(false);
     const [showControls, setShowControls] = useState(false);
