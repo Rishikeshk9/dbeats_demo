@@ -145,15 +145,13 @@ const NavBar = (props) => {
           onClick={() => {
             if (!provider) {
               loadWeb3Modal();
-            } else {
-              logoutOfWeb3Modal();
-            }
+            } 
           }}
         >
-          {!provider ? "Connect Wallet" : "Disconnect Wallet"}
+          Connect Your Wallet 
         </Button>
 
-        {provider ? <p>{provider.provider.selectedAddress}</p> : <div></div>}
+        {provider ? logoutOfWeb3Modal() : <div></div>}
       </div>
     );
   }
