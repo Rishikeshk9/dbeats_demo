@@ -137,21 +137,24 @@ const NavBar = (props) => {
   function WalletButton({ provider, loadWeb3Modal, logoutOfWeb3Modal }) {
 
     return (
-      <div className="d-grid">
+      <div>
         <Button
           variant="primary" 
           type="button"
           size="lg"
-          onClick={() => {
+          onClick={async() => {
             if (!provider) {
-              loadWeb3Modal();
+              let variable=await loadWeb3Modal();
+              console.log(variable);
+              setShow(true)
             } 
+            else{
+              setShow(true) 
+            }
           }}
         >
-          Connect Your Wallet 
+          {!provider ? "Connect Your Wallet " : "Wallet Connected (Complete SignUp)"}
         </Button>
-
-        {provider ? logoutOfWeb3Modal() : <div></div>}
       </div>
     );
   }
@@ -281,9 +284,11 @@ const NavBar = (props) => {
                   </Button>
                 </>
           ) : (
-              <Button variant="primary" className={classes.create_stream_url} onClick={handleShow}>
-                  Login
-              </Button>
+              <WalletButton
+                  provider={provider}
+                  loadWeb3Modal={loadWeb3Modal}
+                  logoutOfWeb3Modal={logoutOfWeb3Modal}
+              />
           )}
         </div>
       </Navbar>
