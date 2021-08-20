@@ -161,7 +161,12 @@ const NavBar = (props) => {
                 </>
           ) : (
               <>
-                login
+                <Button
+                    variant="primary"
+                    className={classes.create_stream_url} onClick= {()=> {history.push(`/login`)}}
+                  >
+                    Login
+                  </Button>
               </>
           )}
         </div>

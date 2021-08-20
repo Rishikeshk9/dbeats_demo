@@ -32,7 +32,36 @@ const Login = (props) => {
   const [form_password, setPassword] = useState("");
   const [form_confirmPassword, setConfirmPassword] = useState("");
   const [login,setLogin]=useState(true)
-  const [loader, setLoader] = useState(true);
+  const [loader, setLoader] = useState(true); 
+
+
+  const handleLogin = () =>{
+
+    const userData={
+      username:form_username,
+      password:form_password
+    };
+
+    console.log(userData, "user");
+
+    axios({
+      method: 'post',
+      url: 'http://localhost:8000/user/login',
+      data: userData
+  })
+  .then(function (response) {
+    if(response){
+      console.log(response);
+      dispatch(userSignIn(response.data.wallet_id));
+      history.push(`/home`)
+    }else{
+      alert("Invalid Login");
+    }
+  })
+  .catch(function (error) {
+      console.log(error);
+  });
+  }
 
 
   
@@ -85,17 +114,29 @@ const Login = (props) => {
       username:form_username,
       password:form_password,
       confirm_password:form_confirmPassword,
-      meta_mask_id:provider.provider.selectedAddress,
+      wallet_id:provider.provider.selectedAddress,
       livepeer_data:stream.data,
     };
     console.log(userData);
+
+    axios({
+      method: 'post',
+      url: 'http://localhost:8000/user/add',
+      data: userData
+  })
+  .then(function (response) {
+      console.log(response);
+  })
+  .catch(function (error) {
+      console.log(error);
+  });
 
     dispatch(userSignIn(provider.provider.selectedAddress));
 
 
     
     setLoader(true);
-    //history.push(`/profile/${form_username}`);
+    history.push(`/home`)
   };
 
 
@@ -226,7 +267,7 @@ const Login = (props) => {
                       </div>
                     
                     : <div className={`${classes.form_container} ${classes.sign_in_container}`}>
-                        <form className={classes.login_form} action="#">
+                        <form className={classes.login_form}>
                           <h1>Sign in</h1>
                           <div className={classes.social_container}>
                             <div className={classes.social_container}>
@@ -239,9 +280,9 @@ const Login = (props) => {
                           </div>
                           <span className={classes.login_span}>or use your account</span>
                           <input type="text" placeholder="Username"  onChange={(e) => handleUsernameChange(e)}/>
-                          <input type="password" placeholder="Password" />
+                          <input type="password" placeholder="Password" onChange={(e) => handlePasswordChange(e)} />
                           <a className={classes.social} href="/#">Forgot your password?</a>
-                          <button className={classes.login_button}>Sign In</button>
+                          <button onClick={handleLogin} className={classes.login_button}>Sign In</button>
                         </form>
                       </div>
                 }

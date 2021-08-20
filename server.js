@@ -59,12 +59,14 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const {MongoClient} = require("mongodb");
 const router= express.Router(); 
+const userRouter = require("./routes/userRoutes");
 
 const Mongo_URI = "mongodb+srv://root:supersapiens@cluster0.p80zj.mongodb.net/dbeats?authSource=admin&replicaSet=atlas-4259e6-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
 const dbName = "dbeats";
 
 app.use(cors());
 app.use(express.json());
+app.use("/user", userRouter);
 
 //Connect to mongoose
 mongoose.connect(Mongo_URI, {useNewUrlParser: true,
