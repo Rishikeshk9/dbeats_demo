@@ -1,0 +1,273 @@
+import React, { useState, useEffect } from "react";
+import { Button,Spinner } from "react-bootstrap";
+import classes from "./Login.module.css";
+import NavBar from "../Navbar/Navbar";
+import axios from "axios";
+
+import useWeb3Modal from "../../hooks/useWeb3Modal";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogout, userSignIn } from "../../redux/action";
+
+const Login = (props) => {
+
+  // Web3
+  const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
+
+
+  // redux
+  const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+
+  
+  //stream key and history elements
+  let key = "d98e11c9-2267-4993-80da-6215d73b42c1";
+  let history = useHistory();
+  const AuthStr = "Bearer ".concat(key);
+
+
+  // Form varibles
+  const [form_name, setName] = useState("");
+  const [form_username, setUsername] = useState("");
+  const [form_password, setPassword] = useState("");
+  const [form_confirmPassword, setConfirmPassword] = useState("");
+  const [login,setLogin]=useState(true)
+  const [loader, setLoader] = useState(true);
+
+
+  
+
+  // Create a LivePeer Stream Profile
+  const createStream = async () => {
+    setLoader(false);
+    console.log(form_name," ",form_username," ",form_password)
+    let streamData = {
+      name: `${form_name}`,
+      profiles: [
+        {
+          name: "720p",
+          bitrate: 2000000,
+          fps: 30,
+          width: 1280,
+          height: 720,
+        },
+        {
+          name: "480p",
+          bitrate: 1000000,
+          fps: 30,
+          width: 854,
+          height: 480,
+        },
+        {
+          name: "36p",
+          bitrate: 500000,
+          fps: 30,
+          width: 640,
+          height: 360,
+        },
+      ],
+    };
+
+    const stream = await axios({
+      method: "post",
+      url: "https://livepeer.com/api/stream",
+      data: streamData,
+      headers: {
+        "content-type": "application/json",
+        Authorization: AuthStr,
+      },
+    });
+
+    console.log(stream)
+    
+    const userData={
+      name:form_name,
+      username:form_username,
+      password:form_password,
+      confirm_password:form_confirmPassword,
+      meta_mask_id:provider.provider.selectedAddress,
+      livepeer_data:stream.data,
+    };
+    console.log(userData);
+
+    dispatch(userSignIn(provider.provider.selectedAddress));
+
+
+    
+    setLoader(true);
+    //history.push(`/profile/${form_username}`);
+  };
+
+
+
+  // Metamask Auth 
+  function WalletButton({ provider, loadWeb3Modal, logoutOfWeb3Modal }) {
+
+    return (
+      <div>
+        <Button
+          variant="primary" 
+          type="button"
+          size="lg"
+          onClick={async() => {
+            if (!provider) {
+              loadWeb3Modal();
+            } 
+            else{
+              logoutOfWeb3Modal()
+            }
+          }}
+        >
+          {!provider ? "Connect Your Wallet " : `Wallet Connected (${provider.provider.selectedAddress.slice(0,4)+'...'+provider.provider.selectedAddress.slice(-4)})`}
+        </Button>
+      </div>
+    );
+  }
+
+  function LoginWalletButton({ provider, loadWeb3Modal, logoutOfWeb3Modal }) {
+
+    return (
+      <div>
+        <Button
+          variant="primary" 
+          type="button"
+          size="lg"
+          onClick={async()=>{
+            let variable=await loadWeb3Modal();
+            console.log(variable);
+            if(provider){
+              dispatch(userSignIn(provider.provider.selectedAddress));
+              history.push(`/home`);
+            }
+          }}
+        >
+          {!provider ? "Login Using Wallet " : `Wallet Connected (Click)`}
+        </Button>
+      </div>
+    );
+  }
+
+
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+  
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+  
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
+
+  const handleSignIn = () =>{
+      setLogin(true)
+  } 
+
+  const handleSignUp = () =>{
+      setLogin(false)
+  }
+
+
+
+  return (
+    <>
+      <div>
+        <NavBar />
+        <div id="outer-container" style={{ height: "100vh" }}>
+          <main id="page-wrap" className={classes.main_homepage_body}>
+
+              <div className={classes.login_container} id="loginPage_container">
+                {login
+                    ? <div className={`${classes.form_container} ${classes.sign_up_container}`}>
+                        <form className={classes.login_form}>
+                          <h1>Create Account</h1>
+                          <div className={classes.social_container}>
+                            <WalletButton
+                                provider={provider}
+                                loadWeb3Modal={loadWeb3Modal}
+                                logoutOfWeb3Modal={logoutOfWeb3Modal}
+                            />
+                          </div>
+                          <span className={classes.login_span}>First connect your Wallet</span>
+
+                          <input type="text" placeholder="Name"  onChange={(e) => handleNameChange(e)}/>
+                          <input type="text" placeholder="Username"  onChange={(e) => handleUsernameChange(e)}/>
+                          <input type="password" placeholder="Password" onChange={(e) => handlePasswordChange(e)} />
+                          <input type="password" placeholder="Confirm Password" onChange={(e) => handleConfirmPasswordChange(e)} />
+                          <div className="d-flex">
+                            <Button 
+                              variant="primary" 
+                              type="button"
+                              className={classes.login_button} 
+                              onClick={createStream}
+                            >
+                              Sign Up
+                            </Button>
+                            <div style={{marginTop:"16px"}}>
+                              <Spinner
+                                animation="border"
+                                variant="info"
+                                role="status"
+                                hidden={loader}
+                                className={classes.login_spinner}
+                              >
+                                <span className="visually-hidden">Loading...</span>
+                              </Spinner>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    
+                    : <div className={`${classes.form_container} ${classes.sign_in_container}`}>
+                        <form className={classes.login_form} action="#">
+                          <h1>Sign in</h1>
+                          <div className={classes.social_container}>
+                            <div className={classes.social_container}>
+                            <LoginWalletButton
+                                provider={provider}
+                                loadWeb3Modal={loadWeb3Modal}
+                                logoutOfWeb3Modal={logoutOfWeb3Modal}
+                            />
+                          </div>
+                          </div>
+                          <span className={classes.login_span}>or use your account</span>
+                          <input type="text" placeholder="Username"  onChange={(e) => handleUsernameChange(e)}/>
+                          <input type="password" placeholder="Password" />
+                          <a className={classes.social} href="/#">Forgot your password?</a>
+                          <button className={classes.login_button}>Sign In</button>
+                        </form>
+                      </div>
+                }
+                <div className={classes.overlay_container}>
+                <div className={classes.overlay}>
+                  {login
+                    ? <div className={[classes.overlay_panel, classes.overlay_right].join(' ')}>
+                        <h1>Welcome Back!</h1>
+                        <p>To keep connected with us please login with your personal info</p>
+                        <button className={classes.login_button} id="signIn" onClick={handleSignUp}>Sign In</button>
+                      </div>
+                    : <div className={[classes.overlay_panel, classes.overlay_right].join(' ')}>
+                        <h1>Hello, Friend!</h1>
+                        <p>Enter your personal details and start journey with us</p>
+                        <button className={classes.login_button} id="signUp" onClick={handleSignIn}>Sign Up</button>
+                      </div> 
+                  }
+                  </div>
+              </div>
+              </div>
+
+          </main>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Login;
