@@ -32,6 +32,7 @@ const NavBar = (props) => {
   // redux
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
+ // console.log(user, "userData");
 
   
   
@@ -53,7 +54,7 @@ const NavBar = (props) => {
     history.push("/home");
   };
 
-
+ // console.log(user, "from navbar")
   return (
     <>
       <Menu
@@ -156,7 +157,7 @@ const NavBar = (props) => {
                   <Button className={classes.navbar_meetId}>
                     {" "}
                     <AccountCircleIcon className={classes.navbar_avatar} />{" "}
-                    <span>{user.slice(0,4)+'...'+user.slice(-4)}</span>
+                    <span>{user.wallet_id.slice(0,4)+'...'+user.wallet_id.slice(-4)}</span>
                   </Button>
                 </>
           ) : (

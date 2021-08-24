@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Str = require("@supercharge/strings");
+const bcrypt = require("bcryptjs");
 
 let User = require("../models/user.model");
 
@@ -43,13 +44,13 @@ router.route("/login").post( async (req,res)=>{
       const password = req.body.password;
 
       const user_username = await User.findOne({username:username});
-      //const isMatch = bcrypt.compare(password, useremail.password);
+      const isMatch = bcrypt.compare(password, user_username.password);
 
       //const token = await useremail.generateAuthToken();
       //console.log("token is " + token);
 
       console.log(user_username);
-      if(user_username.password === password){
+      if(isMatch){    //if(user_username.password === password){
           res.send(user_username);
       }else{
           res.send(false);
@@ -59,6 +60,50 @@ router.route("/login").post( async (req,res)=>{
       res.status(400).send("Invalid Login");
   }
 })
+
+router.route("/subscribe").post( async (req,res)=>{
+  try{
+    const subscriberName = req.body.name;
+    const subscriberUsername = req.body.username;
+    const toSubscribeName = req.body.video_name;
+    const toSubscribeUsername = req.body.video_username;
+    // const SubscriberName = await User.findOne({username:subscriber})
+    // console.log(SubscriberName);
+    const subscribers = {
+      name:toSubscribeName, username: toSubscribeUsername,
+    };
+
+    User.findOneAndUpdate(
+      {username:subscriberUsername }, 
+      { $push: { subscribers: subscribers} },
+     function (error, success) {
+           if (error) {
+               console.log(error);
+           } else {
+               console.log(success);
+           }
+       });
+
+       const subscribed = {
+        name:subscriberName, username: subscriberUsername,
+      };
+  
+      User.findOneAndUpdate(
+        {username: toSubscribeUsername }, 
+        { $push: { subscribed: subscribed} },
+       function (error, success) {
+             if (error) {
+                 console.log(error);
+             } else {
+                 console.log(success);
+             }
+         });
+  }
+  catch(err){
+    res.send("Try Again");
+  }
+})
+
 
 
 /*router.route("/:id").get((req, res) => {

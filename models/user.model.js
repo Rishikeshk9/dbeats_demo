@@ -41,6 +41,22 @@ const userSchema = new Schema(
             required:true,
             default:false
         },
+        subscribers:{
+            type:Object,
+            default:{},
+        },
+        subscribed :{
+            type:Object,
+            default:{},
+        },
+        tracks:{
+            type:Object,
+            default:{},
+        },
+        videos :{
+            type:Object,
+            default:{},
+        },
         album_count: { type: Number, default: 0 },
         bio: { type: String, default: '', trim: true },
         cover_photo: { type: String, trim: true },
@@ -61,6 +77,15 @@ const userSchema = new Schema(
         timestamps: true,
     }
 );
+
+userSchema.pre("save", async function(next){
+    if(this.isModified("password")){
+        this.password = await bcrypt.hash(this.password, 10);
+        this.confirm_password = await bcrypt.hash(this.confirm_password, 10);
+    }
+
+    next();
+})
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;

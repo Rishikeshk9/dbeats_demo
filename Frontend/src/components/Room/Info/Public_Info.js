@@ -33,6 +33,26 @@ const PublicInfo = (props) => {
     const text = "Copy Link To Clipboard"
     const [buttonText, setButtonText] = useState(text);
 
+    const handleSubscribe = ()=>{
+        const SubscribeData = {name:"sahil", username: "sahil", video_name:"akash", video_username:"akash"};
+        console.log(SubscribeData);
+        axios({
+            method: 'post',
+            url: 'http://localhost:8000/user/subscribe',
+            data: SubscribeData
+        })
+        .then(function (response) {
+          if(response){
+            console.log(response);
+          }else{
+            alert("Invalid Login");
+          }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });  
+    }
+
     useEffect(() => {
         console.log(props.stream_id)
         
@@ -80,12 +100,12 @@ const PublicInfo = (props) => {
                                 <h4>Drake Songs</h4>
                                 <p>Rap Songs</p>
                             </div>
-                            <button className={classes.info_subscribe_button}>
+                            <button className={classes.info_subscribe_button} onClick={handleSubscribe}>
                                 <span>Subscribe</span>
                             </button>
                             <button className={classes.info_apprecite_button}>
                                 <i className="fas fa-volleyball-ball"></i>
-                                <span>Apprecite</span>
+                                <span>Appreciate</span>
                             </button>
                         </div>
                         <div className={classes.info_localDisplay_icons}>

@@ -51,8 +51,8 @@ const Login = (props) => {
   })
   .then(function (response) {
     if(response){
-      console.log(response);
-      dispatch(userSignIn(response.data.wallet_id));
+      console.log(response.data, "resData");
+      dispatch(userSignIn(response.data));
       history.push(`/home`)
     }else{
       alert("Invalid Login");
@@ -125,13 +125,13 @@ const Login = (props) => {
       data: userData
   })
   .then(function (response) {
-      console.log(response);
+      console.log("esponse", response.data);
   })
   .catch(function (error) {
       console.log(error);
   });
 
-    dispatch(userSignIn(provider.provider.selectedAddress));
+    dispatch(userSignIn(userData));
 
 
     
