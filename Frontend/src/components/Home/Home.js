@@ -25,7 +25,7 @@ const Home = (props) => {
 
   
 
-  const CarouselStreams = ({ stream_data }) => {
+  const CarouselStreams = ({ stream_data,userData }) => {
     const [playing, setPlaying] = useState(false);
     const [showControls, setShowControls] = useState(false);
 
@@ -69,7 +69,7 @@ const Home = (props) => {
 
           <Button
             onClick={() => {
-              props.history.push(`/public/${stream_data.id}`);
+              props.history.push(`/public/${userData.username}`);
             }}
             align="right"
             className=""
@@ -112,18 +112,22 @@ const Home = (props) => {
           "Access-Control-Allow-Origin": "*",
         },
       })
-      .then((repos) => {
+      .then(async (repos) => {
         for (let i = 0; i < repos.data.length; i++) {
           setActiveStreams((prevState) => [...prevState, repos.data[i]]);
+
+          const value=await axios.get(`http://localhost:8000/user/get_user_by_id/${repos.data[i].id}`)
+
           setSlides((prevState) => [
             ...prevState,
-            <CarouselStreams stream_data={repos.data[i]} />,
+            <CarouselStreams stream_data={repos.data[i]} userData={value.data}/>,
           ]);
         }
       });
     fetchData();
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   const fetchData = async () => {
     setArrayData([]);

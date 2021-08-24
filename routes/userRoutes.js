@@ -109,10 +109,8 @@ router.route("/subscribe").post( async (req,res)=>{
 router.route("/:username").get( async (req,res)=>{
   try{
     const getuserData = req.params.username;
-    console.log(getuserData)
     
     const userData=await User.findOne({username:getuserData });
-    console.log(userData);
     res.send(userData)
   }
   catch(err){
@@ -120,6 +118,20 @@ router.route("/:username").get( async (req,res)=>{
     res.send("Try Again");
   }
 })
+
+router.route("/get_user_by_id/:streamID").get( async (req,res)=>{
+  try{
+    const stream_id = req.params.streamID;
+
+    const userData=await User.findOne({'livepeer_data.id':stream_id });
+    res.send(userData)
+  }
+  catch(err){
+    //console.log(err)
+    res.send("Try Again");
+  }
+})
+
 
 /*router.route("/:id").get((req, res) => {
   User.findById(req.params.id)

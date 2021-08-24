@@ -16,8 +16,8 @@ const PublicInfo = (props) => {
     let key = "d98e11c9-2267-4993-80da-6215d73b42c1";
 
     let sharable_data = `Come Visit : https://dbeats-demo.vercel.app/#/public/${props.stream_id}`
-
-    const [userStreams, setUserStreams] = useState([]);
+    
+    let userData={};
     const [playbackUrl, setPlaybackUrl] = useState("");
 
     const [show, setShow] = useState(false);
@@ -33,11 +33,9 @@ const PublicInfo = (props) => {
     const text = "Copy Link To Clipboard"
     const [buttonText, setButtonText] = useState(text);
 
-    const [getUser, getuserData] = useState({});
-
 
     const handleSubscribe = ()=>{
-        const SubscribeData = {name:"sahil", username: "sahil", video_name:"akash", video_username:"akash"};
+        const SubscribeData = {name:"sahil", username: "Sahil04", video_name:`${userData.name}`, video_username:`${userData.username}`};
         console.log(SubscribeData);
         axios({
             method: 'post',
@@ -56,39 +54,22 @@ const PublicInfo = (props) => {
         });  
     }
 
+
     const get_User = async() =>{
-        console.log(props.stream_id)
-        const userData = await axios.get(
-            `https://localhost:8000/user/`, {params:{username:`${props.stream_id}`}}
-          )
+        const value=await axios.get(`http://localhost:8000/user/${props.stream_id}`)
+        //console.log(value.data)
+        //setUserData(value.data)
+        userData=value.data
+        setPlaybackUrl(`https://cdn.livepeer.com/hls/${userData.livepeer_data.playbackId}/index.m3u8`)
+        console.log(userData)
     }
 
     useEffect(() => {
+        
         get_User();
-        /*let userData = {};
-        axios.get(`https://localhost:8000/user/${props.stream_id}`)
-        .then((res) => {
-            console.log(res.data)
-          userData = res.data;
-        });*/
-        //console.log(props.stream_id)
-        const apiUrl = `https://livepeer.com/api/stream/${props.stream_id}`;
-        const AuthStr = 'Bearer '.concat(key); 
-        axios.get(apiUrl, { 
-            headers: { 
-                Authorization: AuthStr, 
-            } 
-        })
-        .then((res) => {
-          setUserStreams(res.data);
-        });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-
-    useEffect(() => {
-        setPlaybackUrl(`https://cdn.livepeer.com/hls/${userStreams.playbackId}/index.m3u8`)
-    }, [userStreams]);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -105,8 +86,7 @@ const PublicInfo = (props) => {
                     <div>     
                         {console.log(playbackUrl)}                   
                         <VideoPlayer 
-                            playbackUrl={`https://cdn.livepeer.com/hls/${userStreams.playbackId}/index.m3u8`}
-                           
+                            playbackUrl={playbackUrl}          
                         />
                     </div>
                     
