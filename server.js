@@ -84,7 +84,7 @@ app.get("/", async (req,res)=>{
     await client.connect();
 console.log("Connected successfully to server");
 const db = client.db(dbName);
-var cursor = db.collection("data").find();
+var cursor = db.collection("data").find({username:"Sahil04"});
 cursor.forEach(function(doc,error){
     array.push(doc);
 } ,function(){

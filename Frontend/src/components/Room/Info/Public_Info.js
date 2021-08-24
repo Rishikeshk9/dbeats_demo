@@ -33,6 +33,9 @@ const PublicInfo = (props) => {
     const text = "Copy Link To Clipboard"
     const [buttonText, setButtonText] = useState(text);
 
+    const [getUser, getuserData] = useState({});
+
+
     const handleSubscribe = ()=>{
         const SubscribeData = {name:"sahil", username: "sahil", video_name:"akash", video_username:"akash"};
         console.log(SubscribeData);
@@ -53,9 +56,22 @@ const PublicInfo = (props) => {
         });  
     }
 
-    useEffect(() => {
+    const get_User = async() =>{
         console.log(props.stream_id)
-        
+        const userData = await axios.get(
+            `https://localhost:8000/user/`, {params:{username:`${props.stream_id}`}}
+          )
+    }
+
+    useEffect(() => {
+        get_User();
+        /*let userData = {};
+        axios.get(`https://localhost:8000/user/${props.stream_id}`)
+        .then((res) => {
+            console.log(res.data)
+          userData = res.data;
+        });*/
+        //console.log(props.stream_id)
         const apiUrl = `https://livepeer.com/api/stream/${props.stream_id}`;
         const AuthStr = 'Bearer '.concat(key); 
         axios.get(apiUrl, { 

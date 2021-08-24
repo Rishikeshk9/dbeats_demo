@@ -47,7 +47,7 @@ const App = () => {
             <Route exact path="/loader" component={Loader} />
             <Route exact path="/home" component={Home} /> 
             <Route exact path="/streamer/:roomID" component={UserRoom} />    
-            <Route exact path="/public/:roomID" component={PublicRoom} />            
+            <Route exact path="/public/:username" component={PublicRoom} />            
             <Route exact path="/profile/:username" component={Profile} />            
             <Route exact path="/login" component={Login} />            
             {/* TODO: <Route exact path="*" component={PageNotFound} /> */}

@@ -135,9 +135,9 @@ const Home = (props) => {
         setArrayData((prevState) => [...prevState, fileRes.data.array[i]]);
       }
     }
-    console.log(fileRes, "Hi");
+    //console.log(fileRes, "Hi");
   };
-  console.log(arrayData, "hello");
+  //console.log(arrayData, "hello");
 
   return (
     <>

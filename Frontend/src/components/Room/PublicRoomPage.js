@@ -10,7 +10,7 @@ const PublicRoomPage = (props) => {
     const dispatch = useDispatch();
     
     useEffect(() => {
-        dispatch(meetRoomId(props.match.params.roomID));
+        dispatch(meetRoomId(props.match.params.username));
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -20,7 +20,7 @@ const PublicRoomPage = (props) => {
             <div id="outer-container" style={{ height: '100%' }}>
                 <NavBar />
                 <main id="page-wrap">
-                    <PublicInfo stream_id={props.match.params.roomID}/>
+                    <PublicInfo stream_id={props.match.params.username}/>
                 </main>
             </div>
         </>

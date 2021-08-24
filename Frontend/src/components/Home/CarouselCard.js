@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     <Card className={classes.root} >
       <div className={classes.media_back}>
         <ReactPlayer 
-          onClick={() => {history.push(`/public/${props.playbackUserData.id}`) } }
+          onClick={() => {history.push(`/public/${props.playbackUserData.username}`) } }
           width="100%"
           height="auto"
           playing={playing}

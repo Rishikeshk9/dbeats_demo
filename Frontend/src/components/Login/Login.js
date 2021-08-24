@@ -42,7 +42,7 @@ const Login = (props) => {
       password:form_password
     };
 
-    console.log(userData, "user");
+    //console.log(userData, "user");
 
     axios({
       method: 'post',
@@ -69,7 +69,7 @@ const Login = (props) => {
   // Create a LivePeer Stream Profile
   const createStream = async () => {
     setLoader(false);
-    console.log(form_name," ",form_username," ",form_password)
+    //console.log(form_name," ",form_username," ",form_password)
     let streamData = {
       name: `${form_name}`,
       profiles: [
@@ -107,7 +107,7 @@ const Login = (props) => {
       },
     });
 
-    console.log(stream)
+    //console.log(stream)
     
     const userData={
       name:form_name,
@@ -117,7 +117,7 @@ const Login = (props) => {
       wallet_id:provider.provider.selectedAddress,
       livepeer_data:stream.data,
     };
-    console.log(userData);
+   // console.log(userData);
 
     axios({
       method: 'post',
@@ -126,12 +126,12 @@ const Login = (props) => {
   })
   .then(function (response) {
       console.log("esponse", response.data);
+      dispatch(userSignIn(response.data));
   })
   .catch(function (error) {
       console.log(error);
   });
 
-    dispatch(userSignIn(userData));
 
 
     
@@ -175,7 +175,7 @@ const Login = (props) => {
           size="lg"
           onClick={async()=>{
             let variable=await loadWeb3Modal();
-            console.log(variable);
+            //console.log(variable);
             if(provider){
               dispatch(userSignIn(provider.provider.selectedAddress));
               history.push(`/home`);

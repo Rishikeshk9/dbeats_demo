@@ -11,7 +11,7 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/add").post((req, res) => {
-console.log(req.body);
+//console.log(req.body);
 
   const walletID = req.body.wallet_id;
   const fullName = req.body.name;
@@ -34,8 +34,10 @@ console.log(req.body);
 
   newUser
     .save()
-    .then(() => res.json("User added!"))
-    .catch((err) => res.status(400).json("Error: " + err));
+    .then(() => res.json(newUser))
+    .catch((err) => {
+      //console.log(err);
+      res.status(400).json("Error: " + err)});
 });
 
 router.route("/login").post( async (req,res)=>{
@@ -49,7 +51,7 @@ router.route("/login").post( async (req,res)=>{
       //const token = await useremail.generateAuthToken();
       //console.log("token is " + token);
 
-      console.log(user_username);
+      //console.log(user_username);
       if(isMatch){    //if(user_username.password === password){
           res.send(user_username);
       }else{
@@ -104,7 +106,20 @@ router.route("/subscribe").post( async (req,res)=>{
   }
 })
 
-
+router.route("/:username").get( async (req,res)=>{
+  try{
+    const getuserData = req.params.username;
+    console.log(getuserData)
+    
+    const userData=await User.findOne({username:getuserData });
+    console.log(userData);
+    res.send(userData)
+  }
+  catch(err){
+    //console.log(err)
+    res.send("Try Again");
+  }
+})
 
 /*router.route("/:id").get((req, res) => {
   User.findById(req.params.id)
