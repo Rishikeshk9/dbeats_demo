@@ -11,8 +11,9 @@ import CarouselCard from "./CarouselCard";
 import ReactPlayer from "react-player";
 import Skeleton from "@material-ui/lab/Skeleton";
 
+const key = process.env.REACT_APP_LIVEPEER_KEY;
+
 const Home = (props) => {
-  let key = "d98e11c9-2267-4993-80da-6215d73b42c1";
   const AuthStr = "Bearer ".concat(key);
 
   //const [idleStreams, setIdleStreams] = useState([]);
@@ -21,11 +22,15 @@ const Home = (props) => {
 
   const [arrayData, setArrayData] = useState([]);
 
-  const recommend_channels=[{name:"shroud"},{name:"shroud"},{name:"shroud"},{name:"shroud"},{name:"shroud"}]
+  const recommend_channels = [
+    { name: "shroud" },
+    { name: "shroud" },
+    { name: "shroud" },
+    { name: "shroud" },
+    { name: "shroud" },
+  ];
 
-  
-
-  const CarouselStreams = ({ stream_data,userData }) => {
+  const CarouselStreams = ({ stream_data, userData }) => {
     const [playing, setPlaying] = useState(false);
     const [showControls, setShowControls] = useState(false);
 
@@ -116,18 +121,22 @@ const Home = (props) => {
         for (let i = 0; i < repos.data.length; i++) {
           setActiveStreams((prevState) => [...prevState, repos.data[i]]);
 
-          const value=await axios.get(`http://localhost:8000/user/get_user_by_id/${repos.data[i].id}`)
+          const value = await axios.get(
+            `http://localhost:8000/user/get_user_by_id/${repos.data[i].id}`
+          );
 
           setSlides((prevState) => [
             ...prevState,
-            <CarouselStreams stream_data={repos.data[i]} userData={value.data}/>,
+            <CarouselStreams
+              stream_data={repos.data[i]}
+              userData={value.data}
+            />,
           ]);
         }
       });
     fetchData();
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   const fetchData = async () => {
     setArrayData([]);

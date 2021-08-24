@@ -101,26 +101,21 @@ Note: Beware of modifying this element as it can break the animations - you shou
   border-radius: 15px;
 }*/
 
-::-webkit-scrollbar
-{
-    width: 10px;
-    background-color: #00d3ff ;
-    border-radius:10px ;
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: #00d3ff;
+  border-radius: 10px;
 }
 
-::-webkit-scrollbar-track
-{
-    border-radius: 10px;
-    background-color: #00d3ff ;
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #00d3ff;
 
-    border-left: 4px solid white;
-    border-right: 4px solid white;
-
+  border-left: 4px solid white;
+  border-right: 4px solid white;
 }
 
-::-webkit-scrollbar-thumb
-{
-    border-radius: 20px;
-    background: linear-gradient(315.71deg, #00D3FF 6.42%, #2A3CFE 104.19%);
-
+::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: linear-gradient(315.71deg, #5f5f5f 6.42%, #1a1a1a 104.19%);
 }
