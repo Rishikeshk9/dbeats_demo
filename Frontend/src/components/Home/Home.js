@@ -15,7 +15,7 @@ const key = process.env.REACT_APP_LIVEPEER_KEY;
 
 const Home = (props) => {
   const AuthStr = "Bearer ".concat(key);
-
+  console.log(key);
   //const [idleStreams, setIdleStreams] = useState([]);
   const [activeStreams, setActiveStreams] = useState([]);
   const [slides, setSlides] = useState([]);
