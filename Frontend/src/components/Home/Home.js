@@ -18,6 +18,7 @@ const Home = (props) => {
   const [slides, setSlides] = useState([]);
 
   const [arrayData, setArrayData] = useState([]);
+  //console.log(process.env.REACT_APP_SERVER_URL);
 
   const recommend_channels = [
     { name: "shroud" },
@@ -89,13 +90,13 @@ const Home = (props) => {
     setSlides([]);
     setArrayData([]);
 
-    axios.get('http://localhost:8000/get_activeusers')
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/get_activeusers`)
       .then(async (repos) => {
         for (let i = 0; i < repos.data.length; i++) {
           setActiveStreams((prevState) => [...prevState, repos.data[i]]);
 
           const value = await axios.get(
-            `http://localhost:8000/user/get_user_by_id/${repos.data[i].id}`
+            `${process.env.REACT_APP_SERVER_URL}/user/get_user_by_id/${repos.data[i].id}`
           );
 
           setSlides((prevState) => [

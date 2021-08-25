@@ -22,7 +22,7 @@ const Profile = (props) => {
   const fetchData = async () => {
     setArrayData([]);
     const userData = await axios.get(
-      `https://dbeats-host-heroku.herokuapp.com/user/${userName}`
+      `${process.env.REACT_APP_SERVER_URL}/user/${userName}`
     );
     setArrayData((prevState) => [...prevState, userData]);
     

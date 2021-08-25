@@ -47,6 +47,7 @@ app.get("/", async (req,res)=>{
 
 
 
+
 //Livepeer routes
 app.post("/create_stream", async (req,res)=>{
     let streamData = {
@@ -69,7 +70,7 @@ app.post("/create_stream", async (req,res)=>{
 
 
 app.get("/get_activeusers", async (req,res)=>{
-    const value=await axios.get(activeStreamUrl,{
+    const value=await axios.get(idleStreamUrl,{
         headers: {
           Authorization: AuthStr
         }

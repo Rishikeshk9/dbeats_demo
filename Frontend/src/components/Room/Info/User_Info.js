@@ -17,7 +17,7 @@ const UserInfo = (props) => {
     const [name, setName] = useState("");
 
      const get_User = async() =>{
-        const value=await axios.get(`http://localhost:8000/user/${props.stream_id}`)
+        const value=await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`)
         //console.log(value.data)
         //setUserData(value.data)
         userData=value.data
@@ -52,7 +52,7 @@ const UserInfo = (props) => {
 
         const stream = await axios({
           method:'POST',
-          url: 'http://localhost:8000/create_multistream',
+          url: `${process.env.REACT_APP_SERVER_URL}/create_multistream`,
           data: streamData,
         })
 
@@ -78,7 +78,7 @@ const UserInfo = (props) => {
 
         const patchingStream = await axios({
           method:'POST',
-          url: 'http://localhost:8000/patch_multistream',
+          url: `${process.env.REACT_APP_SERVER_URL}/patch_multistream`,
           data: patchStreamData,
         })
 

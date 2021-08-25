@@ -38,7 +38,7 @@ const PublicInfo = (props) => {
         console.log(SubscribeData);
         axios({
             method: 'post',
-            url: 'http://localhost:8000/user/subscribe',
+            url: `${process.env.REACT_APP_SERVER_URL}/user/subscribe`,
             data: SubscribeData
         })
         .then(function (response) {
@@ -55,7 +55,7 @@ const PublicInfo = (props) => {
 
 
     const get_User = async() =>{
-        const value=await axios.get(`http://localhost:8000/user/${props.stream_id}`)
+        const value=await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`)
         //console.log(value.data)
         //setUserData(value.data)
         userData=value.data

@@ -42,7 +42,7 @@ const Login = (props) => {
 
   axios({
     method: 'post',
-    url: 'http://localhost:8000/user/login',
+    url: `${process.env.REACT_APP_SERVER_URL}/user/login`,
     data: userData
   })
   .then(function (response) {
@@ -95,7 +95,7 @@ const Login = (props) => {
 
     const stream = await axios({
       method:'POST',
-      url: 'http://localhost:8000/create_stream',
+      url: `${process.env.REACT_APP_SERVER_URL}/create_stream`,
       data: streamData
     })
 
@@ -113,7 +113,7 @@ const Login = (props) => {
 
     axios({
       method: 'post',
-      url: 'http://localhost:8000/user/add',
+      url: `${process.env.REACT_APP_SERVER_URL}/user/add`,
       data: userData
   })
   .then(function (response) {
