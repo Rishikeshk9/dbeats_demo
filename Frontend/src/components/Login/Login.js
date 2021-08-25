@@ -20,10 +20,7 @@ const Login = (props) => {
   const dispatch = useDispatch();
 
   
-  //stream key and history elements
-  let key = "d98e11c9-2267-4993-80da-6215d73b42c1";
   let history = useHistory();
-  const AuthStr = "Bearer ".concat(key);
 
 
   // Form varibles
@@ -37,17 +34,16 @@ const Login = (props) => {
 
   const handleLogin = () =>{
 
-    const userData={
-      username:form_username,
-      password:form_password
-    };
+  const userData={
+    username:form_username,
+    password:form_password
+  };
 
-    //console.log(userData, "user");
 
-    axios({
-      method: 'post',
-      url: 'http://localhost:8000/user/login',
-      data: userData
+  axios({
+    method: 'post',
+    url: 'http://localhost:8000/user/login',
+    data: userData
   })
   .then(function (response) {
     if(response){
@@ -66,7 +62,7 @@ const Login = (props) => {
 
   
 
-  // Create a LivePeer Stream Profile
+  // Create a Stream Profile
   const createStream = async () => {
     setLoader(false);
     //console.log(form_name," ",form_username," ",form_password)
@@ -88,7 +84,7 @@ const Login = (props) => {
           height: 480,
         },
         {
-          name: "36p",
+          name: "360p",
           bitrate: 500000,
           fps: 30,
           width: 640,
@@ -98,14 +94,10 @@ const Login = (props) => {
     };
 
     const stream = await axios({
-      method: "post",
-      url: "https://livepeer.com/api/stream",
-      data: streamData,
-      headers: {
-        "content-type": "application/json",
-        Authorization: AuthStr,
-      },
-    });
+      method:'POST',
+      url: 'http://localhost:8000/create_stream',
+      data: streamData
+    })
 
     //console.log(stream)
     
@@ -125,7 +117,7 @@ const Login = (props) => {
       data: userData
   })
   .then(function (response) {
-      console.log("esponse", response.data);
+      //console.log("esponse", response.data);
       dispatch(userSignIn(response.data));
   })
   .catch(function (error) {

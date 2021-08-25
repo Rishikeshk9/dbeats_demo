@@ -11,12 +11,9 @@ import CarouselCard from "./CarouselCard";
 import ReactPlayer from "react-player";
 import Skeleton from "@material-ui/lab/Skeleton";
 
-const key = process.env.REACT_APP_LIVEPEER_KEY;
 
 const Home = (props) => {
-  const AuthStr = "Bearer ".concat(key);
-  console.log(key);
-  //const [idleStreams, setIdleStreams] = useState([]);
+  
   const [activeStreams, setActiveStreams] = useState([]);
   const [slides, setSlides] = useState([]);
 
@@ -88,35 +85,11 @@ const Home = (props) => {
   };
 
   useEffect(() => {
-    //setIdleStreams([]);
     setActiveStreams([]);
     setSlides([]);
     setArrayData([]);
 
-    //const idleStreamUrl = `https://livepeer.com/api/stream?streamsonly=1&filters=[{"id": "isActive", "value": false}]`;
-    const activeStreamUrl = `https://livepeer.com/api/stream?streamsonly=1&filters=[{"id": "isActive", "value": true}]`;
-
-    /*axios
-      .get(idleStreamUrl, {
-        headers: {
-          Authorization: AuthStr,
-          "Access-Control-Allow-Origin": "*",
-        },
-      })
-      .then((repos) => {
-        for (let i = 0; i < repos.data.length; i++) {
-          setIdleStreams((prevState) => [...prevState, repos.data[i]]);
-        }
-      });
-    */
-
-    axios
-      .get(activeStreamUrl, {
-        headers: {
-          Authorization: AuthStr,
-          "Access-Control-Allow-Origin": "*",
-        },
-      })
+    axios.get('http://localhost:8000/get_activeusers')
       .then(async (repos) => {
         for (let i = 0; i < repos.data.length; i++) {
           setActiveStreams((prevState) => [...prevState, repos.data[i]]);
@@ -137,6 +110,7 @@ const Home = (props) => {
     fetchData();
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   const fetchData = async () => {
     setArrayData([]);

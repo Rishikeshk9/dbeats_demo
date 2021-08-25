@@ -13,8 +13,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const PublicInfo = (props) => {
-    let key = "d98e11c9-2267-4993-80da-6215d73b42c1";
-
+    
     let sharable_data = `Come Visit : https://dbeats-demo.vercel.app/#/public/${props.stream_id}`
     
     let userData={};
@@ -65,8 +64,7 @@ const PublicInfo = (props) => {
     }
 
     useEffect(() => {
-        
-        get_User();
+         get_User();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

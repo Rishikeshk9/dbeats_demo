@@ -7,10 +7,8 @@ import {Button, Form, Spinner} from "react-bootstrap";
 import VideoPlayer from  '../VideoPlayer/VideoPlayer'
 
 const UserInfo = (props) => {
-    let key = "d98e11c9-2267-4993-80da-6215d73b42c1";
-    
-    const AuthStr = 'Bearer '.concat(key); 
-    const apiUrl = `https://livepeer.com/api/stream/${props.stream_id}`;
+   
+    let userData={};
 
     const [userStreams, setUserStreams] = useState([]);
     const [playbackUrl, setPlaybackUrl] = useState("");
@@ -18,30 +16,25 @@ const UserInfo = (props) => {
     const [loader, setLoader] = useState(true);
     const [name, setName] = useState("");
 
+     const get_User = async() =>{
+        const value=await axios.get(`http://localhost:8000/user/${props.stream_id}`)
+        //console.log(value.data)
+        //setUserData(value.data)
+        userData=value.data
+        
+        setPlaybackUrl(`https://cdn.livepeer.com/hls/${userData.livepeer_data.playbackId}/index.m3u8`)
+        setName(userData.livepeer_data.name)
+        
+        setUserStreams(userData.livepeer_data);
+        console.log(userStreams)
+    }
+
     useEffect(() => {
         console.log(props.stream_id)
-
-        const AuthStr = 'Bearer '.concat(key); 
-        axios.get(apiUrl, 
-         { 
-            headers: { 
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, PUT, POST, PATCH',
-                Authorization: AuthStr,
-                crossdomain: true
-            } 
-        })
-        .then((res) => {
-          setUserStreams(res.data);
-        });
+        get_User();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-
-    useEffect(() => {
-        setPlaybackUrl(`https://cdn.livepeer.com/hls/${userStreams.playbackId}/index.m3u8`)
-        setName(userStreams.name)
-    }, [userStreams]);
 
 
     const handleChange = (e) => {
@@ -58,43 +51,36 @@ const UserInfo = (props) => {
         }
 
         const stream = await axios({
-            method: 'post',
-            url: 'https://livepeer.com//api/multistream/target/',
-            data: streamData,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, PUT, POST, PATCH',
-                'content-type': 'application/json',
-                Authorization: AuthStr,
-                crossdomain: true
-            },
-        });
+          method:'POST',
+          url: 'http://localhost:8000/create_multistream',
+          data: streamData,
+        })
 
 
         let patchId = stream.data.id;
         console.log(patchId)
+        
         let patchStreamData = {
             multistream: {
                 targets: [
                     {
                         id: `${patchId}`,
                         profile: "720p",
+                    },
+                    {
+                        id: `${patchId}`,
+                        profile: "480p",
                     }
                 ]
-            }
+            },
+            stream_id:userStreams.id
         }
 
         const patchingStream = await axios({
-            method: 'PATCH',
-            url: apiUrl,
-            data: patchStreamData,
-            headers: {
-                'Access-Control-Allow-Methods': 'PATCH',
-                'content-type': 'application/json',
-                Authorization: AuthStr,
-                crossdomain: true
-            },
-        });
+          method:'POST',
+          url: 'http://localhost:8000/patch_multistream',
+          data: patchStreamData,
+        })
 
         console.log(patchingStream)
 
@@ -103,12 +89,13 @@ const UserInfo = (props) => {
         alert(" Multistream Creation Successfull !!!");
     };
 
+
     return (
         <Fragment>
             <div className={classes.info_main_body}>                 
                     <div>
                         <VideoPlayer 
-                            playbackUrl={`https://cdn.livepeer.com/hls/${userStreams.playbackId}/index.m3u8`}
+                            playbackUrl={playbackUrl}
                         />
                     </div>
                     <div>
