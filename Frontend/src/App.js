@@ -18,6 +18,12 @@ const  PublicRoom = lazy(() => {
   });
 });
 
+const  PlaybackRoom = lazy(() => {
+  return new Promise(resolve => {
+    setTimeout(() => resolve(import("./components/Room/PlaybackRoomPage")), 1000);
+  });
+});
+
 const  UserRoom = lazy(() => {
   return new Promise(resolve => {
     setTimeout(() => resolve(import("./components/Room/UserRoomPage")), 1000);
@@ -48,6 +54,7 @@ const App = () => {
             <Route exact path="/home" component={Home} /> 
             <Route exact path="/streamer/:roomID" component={UserRoom} />    
             <Route exact path="/public/:username" component={PublicRoom} />            
+            <Route exact path="/playback/:username/:video_id" component={PlaybackRoom} />            
             <Route exact path="/profile/:username" component={Profile} />            
             <Route exact path="/login" component={Login} />            
             {/* TODO: <Route exact path="*" component={PageNotFound} /> */}

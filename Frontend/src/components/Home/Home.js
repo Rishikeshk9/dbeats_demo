@@ -116,7 +116,7 @@ const Home = (props) => {
   const fetchData = async () => {
     setArrayData([]);
     const fileRes = await axios.get(
-      "https://dbeats-host-heroku.herokuapp.com/"
+      `${process.env.REACT_APP_SERVER_URL}/`
     );
     for (let i = 0; i < fileRes.data.array.length; i++) {
       if (fileRes.data.array[i].videos) {

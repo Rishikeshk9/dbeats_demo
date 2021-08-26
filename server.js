@@ -36,7 +36,7 @@ app.get("/", async (req,res)=>{
     await client.connect();
     console.log("Connected successfully to server");
     const db = client.db(dbName);
-    var cursor = db.collection("data").find();
+    var cursor = db.collection("users").find();
     cursor.forEach(function(doc,error){
         array.push(doc);
     } ,function(){
@@ -70,7 +70,7 @@ app.post("/create_stream", async (req,res)=>{
 
 
 app.get("/get_activeusers", async (req,res)=>{
-    const value=await axios.get(idleStreamUrl,{
+    const value=await axios.get(activeStreamUrl,{
         headers: {
           Authorization: AuthStr
         }
@@ -91,11 +91,8 @@ app.post("/create_multistream", async (req,res)=>{
         url: 'https://livepeer.com//api/multistream/target/',
         data: streamData,
         headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, PUT, POST, PATCH',
             'content-type': 'application/json',
-            Authorization: AuthStr,
-            crossdomain: true
+            Authorization: AuthStr
         },
     });
     console.log("Lets do :",value.data);
@@ -119,10 +116,8 @@ app.post("/patch_multistream", async (req,res)=>{
         url: apiUrl,
         data: patchStreamData,
         headers: {
-            'Access-Control-Allow-Methods': 'PATCH',
             'content-type': 'application/json',
-            Authorization: AuthStr,
-            crossdomain: true
+            Authorization: AuthStr
         },
     });
     console.log("Lets do :",value.data);
