@@ -12,19 +12,17 @@ import { TelegramShareButton, TelegramIcon } from 'react-share';
 import { Container, Row, Col } from 'react-bootstrap';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-//redux
-import { useDispatch, useSelector } from "react-redux";
 
 const Playback = (props) => {
     
     let sharable_data = `Come Visit : https://dbeats-demo.vercel.app/#/public/${props.stream_id}`
 
-    const user = useSelector((store) => store.user);
-    
-    
+    const user = JSON.parse(window.sessionStorage.getItem("user"));
+
     const [playbackUrl, setPlaybackUrl] = useState("");
-    //const [userData, setUserData] = useState({});
-    let userData;
+    
+
+    const [userData, setUserData] = useState(null);
 
     const [show, setShow] = useState(false);
 
@@ -41,47 +39,41 @@ const Playback = (props) => {
 
 
     const handleSubscribe = ()=>{
-        console.log("hello",userData)
-        console.log(user)
         const SubscribeData = {name:`${user.name}`, username: `${user.username}`, video_name:`${userData.name}`, video_username:`${userData.username}`};
         console.log(SubscribeData);
-        // axios({
-        //     method: 'post',
-        //     url: `${process.env.REACT_APP_SERVER_URL}/user/subscribe`,
-        //     data: SubscribeData
-        // })
-        // .then(function (response) {
-        //   if(response){
-        //     console.log(response);
-        //   }else{
-        //     alert("Invalid Login");
-        //   }
-        // })
-        // .catch(function (error) {
-        //     console.log(error);
-        // });  
+        axios({
+            method: 'post',
+            url: `${process.env.REACT_APP_SERVER_URL}/user/subscribe`,
+            data: SubscribeData
+        })
+        .then(function (response) {
+          if(response){
+            console.log(response);
+          }else{
+            alert("Invalid Login");
+          }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });  
     }
 
 
     const get_User = async() =>{
-        //setUserData([])
-        const value=await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`)
-       
-        userData=value.data
-        //setUserData(value.data);
-
-        console.log(userData)
-        setPlaybackUrl(`${userData.videos[props.video_id].link}`)
+        await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`)
+        .then((value)=>{
+            setUserData(value.data)
+            setPlaybackUrl(`${value.data.videos[props.video_id].link}`)
+        })      
+        //console.log(value.data)
+        
     }
 
     useEffect(() => {
-        //const timer = setTimeout(() => {
-            get_User();
-        //}, 1000);
-         
-
+        get_User(); 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
 
     useEffect(() => {
         const timer = setTimeout(() => {

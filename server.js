@@ -7,6 +7,8 @@ const router= express.Router();
 const userRouter = require("./routes/userRoutes");
 const axios = require("axios")
 
+const port = process.env.PORT || 8000;
+
 
 const Mongo_URI = "mongodb+srv://root:supersapiens@cluster0.p80zj.mongodb.net/dbeats?authSource=admin&replicaSet=atlas-4259e6-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
 const dbName = "dbeats";
@@ -75,7 +77,6 @@ app.get("/get_activeusers", async (req,res)=>{
           Authorization: AuthStr
         }
     })
-    //console.log("Lets do :",value.data);
     res.json(value.data)
 })
 
@@ -95,7 +96,6 @@ app.post("/create_multistream", async (req,res)=>{
             Authorization: AuthStr
         },
     });
-    console.log("Lets do :",value.data);
     res.json(value.data)
 })
 
@@ -107,9 +107,6 @@ app.post("/patch_multistream", async (req,res)=>{
     };  
 
     let apiUrl = `https://livepeer.com/api/stream/${req.body.stream_id}`;
-
-    console.log(patchStreamData)
-    console.log(apiUrl)
     
     const value=await axios({
         method: 'PATCH',
@@ -117,15 +114,15 @@ app.post("/patch_multistream", async (req,res)=>{
         data: patchStreamData,
         headers: {
             'content-type': 'application/json',
+            'Access-Control-Allow-Methods': 'PATCH',
             Authorization: AuthStr
         },
     });
-    console.log("Lets do :",value.data);
     res.json(value.data)
 })
 
 
 
-app.listen(8000, function(){
+app.listen(port, function(){
     console.log("Listening on port 8000");
 })

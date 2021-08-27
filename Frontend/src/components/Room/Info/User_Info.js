@@ -8,7 +8,8 @@ import VideoPlayer from  '../VideoPlayer/VideoPlayer'
 
 const UserInfo = (props) => {
    
-    let userData={};
+    const [userData, setUserData] = useState(null);
+    
 
     const [userStreams, setUserStreams] = useState([]);
     const [playbackUrl, setPlaybackUrl] = useState("");
@@ -17,15 +18,14 @@ const UserInfo = (props) => {
     const [name, setName] = useState("");
 
      const get_User = async() =>{
-        const value=await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`)
-        //console.log(value.data)
-        //setUserData(value.data)
-        userData=value.data
+        await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`)
+        .then((value)=>{
+            setUserData(value.data)
+            setPlaybackUrl(`https://cdn.livepeer.com/hls/${value.data.livepeer_data.playbackId}}/index.m3u8`)
+            setName(value.data.livepeer_data.name)
+            setUserStreams(value.data.livepeer_data);
+        })  
         
-        setPlaybackUrl(`https://cdn.livepeer.com/hls/${userData.livepeer_data.playbackId}/index.m3u8`)
-        setName(userData.livepeer_data.name)
-        
-        setUserStreams(userData.livepeer_data);
         console.log(userStreams)
     }
 

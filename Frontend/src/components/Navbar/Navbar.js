@@ -12,14 +12,11 @@ import {
 import { scaleRotate as Menu } from "react-burger-menu";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { userLogout, userSignIn } from "../../redux/action";
 
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import MenuIcon from "@material-ui/icons/Menu";
 import logo from "../../assests/images/logo2.png";
-//import { ethers } from "ethers";
 import useWeb3Modal from "../../hooks/useWeb3Modal";
 
 const NavBar = (props) => {
@@ -29,11 +26,7 @@ const NavBar = (props) => {
 
   let history = useHistory();
   
-  // redux
-  const user = useSelector((store) => store.user);
-  const dispatch = useDispatch();
- // console.log(user, "userData");
-
+  const user = JSON.parse(window.sessionStorage.getItem("user"));
   
   
   //  Modal 
@@ -49,10 +42,18 @@ const NavBar = (props) => {
   // Auth functions
 
   const handleLogout = () => {
-    dispatch(userLogout());
+    window.sessionStorage.removeItem("user");
     logoutOfWeb3Modal()
     history.push("/home");
   };
+
+  const handleStreamOnClick = () =>{
+    history.push(`/streamer/${user.username}`)
+  }
+
+  const handleProfileOnClick = () =>{
+    history.push(`/profile/${user.username}`)
+  }
 
  // console.log(user, "from navbar")
   return (
@@ -151,10 +152,14 @@ const NavBar = (props) => {
                   <Button
                     variant="primary"
                     className={classes.create_stream_url}
+                    onClick={handleStreamOnClick}
                   >
                     Go Live
                   </Button>
-                  <Button className={classes.navbar_meetId}>
+                  <Button 
+                    className={classes.navbar_meetId}
+                    onClick={handleProfileOnClick}
+                  >
                     {" "}
                     <AccountCircleIcon className={classes.navbar_avatar} />{" "}
                     <span>{user.wallet_id.slice(0,4)+'...'+user.wallet_id.slice(-4)}</span>

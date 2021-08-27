@@ -12,11 +12,16 @@ import { TelegramShareButton, TelegramIcon } from 'react-share';
 import { Container, Row, Col } from 'react-bootstrap';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
+
 const PublicInfo = (props) => {
     
     let sharable_data = `Come Visit : https://dbeats-demo.vercel.app/#/public/${props.stream_id}`
     
-    let userData={};
+    const [userData, setUserData] = useState(null);
+
+    const user = JSON.parse(window.sessionStorage.getItem("user"));
+    
+
     const [playbackUrl, setPlaybackUrl] = useState("");
 
     const [show, setShow] = useState(false);
@@ -34,7 +39,8 @@ const PublicInfo = (props) => {
 
 
     const handleSubscribe = ()=>{
-        const SubscribeData = {name:"sahil", username: "Sahil04", video_name:`${userData.name}`, video_username:`${userData.username}`};
+        const SubscribeData = {name:`${user.name}`, username: `${user.username}`, video_name:`${userData.name}`, video_username:`${userData.username}`};
+        
         console.log(SubscribeData);
         axios({
             method: 'post',
@@ -55,11 +61,11 @@ const PublicInfo = (props) => {
 
 
     const get_User = async() =>{
-        const value=await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`)
-        //console.log(value.data)
-        //setUserData(value.data)
-        userData=value.data
-        setPlaybackUrl(`https://cdn.livepeer.com/hls/${userData.livepeer_data.playbackId}/index.m3u8`)
+        await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`)
+        .then((value)=>{
+            setUserData(value.data)
+            setPlaybackUrl(`https://cdn.livepeer.com/hls/${value.data.livepeer_data.playbackId}}/index.m3u8`)
+        })  
         console.log(userData)
     }
 

@@ -53,28 +53,39 @@ const useStyles = makeStyles((theme) => ({
     <Card className={classes.root} >
       <div className={classes.media_back}>
         <ReactPlayer 
-          onClick={() => {history.push(`/playback/${props.playbackUserData.username}/0`) } }
+          onClick={() => {history.push(`/playback/${props.username}/${props.index}`) } }
           width="100%"
           height="auto"
           playing={playing}
           muted={false} 
           volume={0.5}
-          url={props.playbackUserData.videos[props.index].link}
+          url={props.playbackUserData.link}
           controls={false}
           className={classes.media} 
           onMouseMove={handleMouseMove}
           onMouseLeave={hanldeMouseLeave}
         />
       </div>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
-        }
-        title = {props.playbackUserData.videos[props.index].videoName}
-        subheader = {props.playbackUserData.videos[props.index].description}
-      />
+      {props.type==="video"
+        ? <CardHeader
+            avatar={
+              <Avatar aria-label="recipe" className={classes.avatar}>
+                R
+              </Avatar>
+            }
+            title = {props.playbackUserData.videoName}
+            subheader = {props.playbackUserData.description}
+          />
+        : <CardHeader
+            avatar={
+              <Avatar aria-label="recipe" className={classes.avatar}>
+                R
+              </Avatar>
+            }
+            title = {props.playbackUserData.videoName}
+            subheader = {props.playbackUserData.description}
+          />
+      }
     </Card>
   );
 }

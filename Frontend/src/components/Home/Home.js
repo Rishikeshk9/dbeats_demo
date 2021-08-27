@@ -168,45 +168,17 @@ const Home = (props) => {
                   </>
                 )}
               </div>
-              {/*<div>
-                                <h4 className={classes.display_livestreamers}> Live channels we think you'll like </h4>
-                                <div className={classes.display_all_streamers}>
-                                    {activeStreams.map((stream, i) => {
-                                        return (
-                                            <div key={i} className={classes.all_streams_list}>
-                                                <Link to={`./public/${stream.id}`} style={{ textDecoration: 'none', color: "inherit" }}>
-                                                    <p>Name : {stream.name}</p>
-                                                    <p>Id : {stream.id}</p>
-                                                    <p>Key : {stream.streamKey}</p>
-                                                </Link>
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-                            </div>*/}
-
               <div>
                 <h4 className={classes.display_livestreamers}>
                   {" "}
                   Playback Videos{" "}
                 </h4>
                 <div className={classes.display_all_streamers}>
-                  {/*{idleStreams.map((stream, i) => {
-                                            return (
-                                                <div key={i} className={classes.all_streams_list}>
-                                                    <Link to={`./public/${stream.id}`} style={{ textDecoration: 'none', color: "inherit" }}>
-                                                        <p>Name : {stream.name}</p>
-                                                        <p>Id : {stream.id}</p>
-                                                        <p>Key : {stream.streamKey}</p>
-                                                    </Link>
-                                                </div>
-                                            )
-                                        })}*/}
                   <Carousel cols={4}>
                     {arrayData.map((playbackUser, i) => {
                       return (
                         <Carousel.Item key={i}>
-                          <CarouselCard playbackUserData={playbackUser} />
+                          <CarouselCard playbackUserData={playbackUser} index={0}/>
                         </Carousel.Item>
                       );
                     })}

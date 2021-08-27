@@ -1,19 +1,8 @@
 import { useEffect } from "react";
 import NavBar from '../Navbar/Navbar';
 import PublicInfo from './Info/Public_Info';
-import { useDispatch } from 'react-redux'
-import { meetRoomId } from '../../redux/action'
 
 const PublicRoomPage = (props) => {
-    
-
-    const dispatch = useDispatch();
-    
-    useEffect(() => {
-        dispatch(meetRoomId(props.match.params.username));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
 
     return (
         <>

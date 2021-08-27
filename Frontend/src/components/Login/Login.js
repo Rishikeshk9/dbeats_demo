@@ -6,8 +6,6 @@ import axios from "axios";
 
 import useWeb3Modal from "../../hooks/useWeb3Modal";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { userLogout, userSignIn } from "../../redux/action";
 
 const Login = (props) => {
 
@@ -15,11 +13,6 @@ const Login = (props) => {
   const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
 
 
-  // redux
-  const user = useSelector((store) => store.user);
-  const dispatch = useDispatch();
-
-  
   let history = useHistory();
 
 
@@ -34,29 +27,29 @@ const Login = (props) => {
 
   const handleLogin = () =>{
 
-  const userData={
-    username:form_username,
-    password:form_password
-  };
+      const userData={
+        username:form_username,
+        password:form_password
+      };
 
 
-  axios({
-    method: 'post',
-    url: `${process.env.REACT_APP_SERVER_URL}/user/login`,
-    data: userData
-  })
-  .then(function (response) {
-    if(response){
-      console.log(response.data, "resData");
-      dispatch(userSignIn(response.data));
-      history.push(`/home`)
-    }else{
-      alert("Invalid Login");
-    }
-  })
-  .catch(function (error) {
-      console.log(error);
-  });
+      axios({
+        method: 'post',
+        url: `${process.env.REACT_APP_SERVER_URL}/user/login`,
+        data: userData
+      })
+      .then(function (response) {
+        if(response){
+          console.log(response.data, "resData");
+          window.sessionStorage.setItem("user", JSON.stringify(response.data));
+          history.push(`/home`)
+        }else{
+          alert("Invalid Login");
+        }
+      })
+      .catch(function (error) {
+          console.log(error);
+      });
   }
 
 
@@ -115,16 +108,14 @@ const Login = (props) => {
       method: 'post',
       url: `${process.env.REACT_APP_SERVER_URL}/user/add`,
       data: userData
-  })
-  .then(function (response) {
-      //console.log("esponse", response.data);
-      dispatch(userSignIn(response.data));
-  })
-  .catch(function (error) {
-      console.log(error);
-  });
-
-
+    })
+    .then(function (response) {
+        //console.log("esponse", response.data);
+        window.sessionStorage.setItem("user", JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
 
     
     setLoader(true);
@@ -169,8 +160,12 @@ const Login = (props) => {
             let variable=await loadWeb3Modal();
             //console.log(variable);
             if(provider){
-              dispatch(userSignIn(provider.provider.selectedAddress));
-              history.push(`/home`);
+              await axios.get(
+                `${process.env.REACT_APP_SERVER_URL}/user/getuser_by_wallet/${provider.provider.selectedAddress}`
+              ).then((value)=>{
+                window.sessionStorage.setItem("user", JSON.stringify(value.data));
+                history.push(`/home`);
+              })
             }
           }}
         >

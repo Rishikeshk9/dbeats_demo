@@ -11,7 +11,6 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/add").post((req, res) => {
-//console.log(req.body);
 
   const walletID = req.body.wallet_id;
   const fullName = req.body.name;
@@ -48,11 +47,7 @@ router.route("/login").post( async (req,res)=>{
       const user_username = await User.findOne({username:username});
       const isMatch = bcrypt.compare(password, user_username.password);
 
-      //const token = await useremail.generateAuthToken();
-      //console.log("token is " + token);
-
-      //console.log(user_username);
-      if(isMatch){    //if(user_username.password === password){
+      if(isMatch){ 
           res.send(user_username);
       }else{
           res.send(false);
@@ -69,8 +64,7 @@ router.route("/subscribe").post( async (req,res)=>{
     const subscriberUsername = req.body.username;
     const toSubscribeName = req.body.video_name;
     const toSubscribeUsername = req.body.video_username;
-    // const SubscriberName = await User.findOne({username:subscriber})
-    // console.log(SubscriberName);
+    
     const subscribers = {
       name:toSubscribeName, username: toSubscribeUsername,
     };
@@ -84,22 +78,22 @@ router.route("/subscribe").post( async (req,res)=>{
            } else {
                console.log(success);
            }
-       });
+        });
 
-       const subscribed = {
+        const subscribed = {
         name:subscriberName, username: subscriberUsername,
       };
   
       User.findOneAndUpdate(
         {username: toSubscribeUsername }, 
         { $push: { subscribed: subscribed} },
-       function (error, success) {
+        function (error, success) {
              if (error) {
                  console.log(error);
              } else {
                  console.log(success);
              }
-         });
+        });
   }
   catch(err){
     res.send("Try Again");
@@ -114,7 +108,6 @@ router.route("/:username").get( async (req,res)=>{
     res.send(userData)
   }
   catch(err){
-    //console.log(err)
     res.send("Try Again");
   }
 })
@@ -124,6 +117,18 @@ router.route("/get_user_by_id/:streamID").get( async (req,res)=>{
     const stream_id = req.params.streamID;
 
     const userData=await User.findOne({'livepeer_data.id':stream_id });
+    res.send(userData)
+  }
+  catch(err){
+    res.send("Try Again");
+  }
+})
+
+router.route("/getuser_by_wallet/:walletId").get( async (req,res)=>{
+  try{
+    const wallet_id = req.params.walletId;
+
+    const userData=await User.findOne({'wallet_id':wallet_id });
     res.send(userData)
   }
   catch(err){
