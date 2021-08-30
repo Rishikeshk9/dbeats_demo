@@ -99,7 +99,8 @@ const UserInfo = (props) => {
                         />
                     </div>
                     <div>
-                        <p>Streamer Name : {userStreams.name}</p>
+                        <p>Streamer Name : {userData.name}</p>
+                        <p>Streamer Username : {userData.username}</p>
                         <p>Streamer Id : {userStreams.id}</p>
                         <p>Streamer Key : {userStreams.streamKey}</p>
                         <p>Playback URL : {playbackUrl}</p>

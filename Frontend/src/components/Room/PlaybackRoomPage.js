@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import NavBar from '../Navbar/Navbar';
 import Playback from './Info/Playback_Info';
 

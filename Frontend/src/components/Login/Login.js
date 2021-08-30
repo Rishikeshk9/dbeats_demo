@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { Button,Spinner } from "react-bootstrap";
 import classes from "./Login.module.css";
 import NavBar from "../Navbar/Navbar";

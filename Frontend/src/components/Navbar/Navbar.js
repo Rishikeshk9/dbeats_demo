@@ -2,15 +2,12 @@ import { useState } from "react";
 import classes from "./Navbar.module.css";
 import {
   Navbar,
-  FormControl,
-  Modal,
+  FormControl,  
   Button,
   Form,
-  Spinner,
   Image
 } from "react-bootstrap";
 import { scaleRotate as Menu } from "react-burger-menu";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 import SearchIcon from "@material-ui/icons/Search";
@@ -21,7 +18,7 @@ import useWeb3Modal from "../../hooks/useWeb3Modal";
 
 const NavBar = (props) => {
 
-  const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
+  const [logoutOfWeb3Modal] = useWeb3Modal();
   
 
   let history = useHistory();
@@ -31,8 +28,6 @@ const NavBar = (props) => {
   
   //  Modal 
   const [showOpen, setOnOpen] = useState(false);
-  const [show, setShow] = useState(false);
-  const [loader, setLoader] = useState(true);
 
   // Sidebar functions
   const handleOnOpen = () => setOnOpen(true);

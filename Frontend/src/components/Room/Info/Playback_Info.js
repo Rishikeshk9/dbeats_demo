@@ -42,9 +42,13 @@ const Playback = (props) => {
         const SubscribeData = {name:`${user.name}`, username: `${user.username}`, video_name:`${userData.name}`, video_username:`${userData.username}`};
         console.log(SubscribeData);
         axios({
-            method: 'post',
+            method: 'POST',
             url: `${process.env.REACT_APP_SERVER_URL}/user/subscribe`,
-            data: SubscribeData
+            headers: {
+                "content-type": "application/json",
+                "Access-Control-Allow-Origin": '*',
+            },
+            data: SubscribeData,
         })
         .then(function (response) {
           if(response){
