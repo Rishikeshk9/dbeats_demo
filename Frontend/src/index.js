@@ -6,10 +6,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 //For Redux
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
-import allReducers from './redux/allReducer';
+import rootReducer from './redux/Reducers/index';
  
 
-let store=createStore(allReducers,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+let store=createStore(rootReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 
 

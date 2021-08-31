@@ -79,3 +79,36 @@
 
 
 </html>
+
+
+<div align="right">
+  {user
+    ? (
+        <>
+          <Button
+            variant="primary"
+            className={classes.create_stream_url}
+            onClick={handleStreamOnClick}
+          >
+            Go Live
+          </Button>
+          <Button 
+            className={classes.navbar_meetId}
+            onClick={handleProfileOnClick}
+          >
+            {" "}
+            <AccountCircleIcon className={classes.navbar_avatar} />{" "}
+            <span>{user.wallet_id.slice(0,4)+'...'+user.wallet_id.slice(-4)}</span>
+          </Button>
+        </>
+  ) : (
+      <>
+        <Button
+            variant="primary"
+            className={classes.create_stream_url} onClick= {()=> {history.push(`/login`)}}
+          >
+            Login
+          </Button>
+      </>
+  )}
+</div>

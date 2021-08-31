@@ -1,11 +1,55 @@
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-  darkMode: false, // or 'media' or 'class'
+  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  darkMode: "class", // or 'media' or 'class'
   theme: {
-    extend: {},
+    scale: {
+      0: "0",
+      25: ".25",
+      50: ".5",
+      75: ".75",
+      90: ".9",
+      95: ".95",
+      99: ".99",
+      100: "1",
+      101: "1.01",
+      105: "1.05",
+      110: "1.1",
+      125: "1.25",
+      150: "1.5",
+      200: "2",
+    },
+    zIndex: {
+      0: 0,
+      10: 10,
+      20: 20,
+      30: 30,
+      40: 40,
+      50: 50,
+      25: 25,
+      75: 75,
+      100: 100,
+      auto: "auto",
+    },
+    extend: {
+      grayscale: { 50: "50%", 75: "75%" },
+      width: {
+        250: "250px",
+      },
+      fontFamily: {
+        "proxima-reg": ["Proxima Nova", "Arial", "sans-serif"],
+      },
+      colors: {
+        "dbeats-dark": "#0b1019",
+        "dbeats-light": "#00d3ff",
+        "dbeats-alt": "#061720",
+      },
+    },
   },
   variants: {
     extend: {},
   },
-  plugins: [],
-}
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/aspect-ratio"),
+  ],
+};

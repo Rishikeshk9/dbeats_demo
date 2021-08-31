@@ -16,6 +16,9 @@ import MenuIcon from "@material-ui/icons/Menu";
 import logo from "../../assests/images/logo2.png";
 import useWeb3Modal from "../../hooks/useWeb3Modal";
 
+import {useDispatch, useSelector} from 'react-redux';
+import {toggleDarkMode} from '../../redux/Actions/index'
+
 const NavBar = (props) => {
 
   const [logoutOfWeb3Modal] = useWeb3Modal();
@@ -24,6 +27,9 @@ const NavBar = (props) => {
   let history = useHistory();
   
   const user = JSON.parse(window.sessionStorage.getItem("user"));
+
+  const dispatch=useDispatch();
+  const darkMode= useSelector((state)=> state.toggleDarkMode);
   
   
   //  Modal 
@@ -110,68 +116,39 @@ const NavBar = (props) => {
         )}
       </Menu>
 
-      <Navbar
-        expand="lg"
-        id="navbarScroll"
-        className={classes.body_navbar_style}
-      >
-        <div>
-          <div
-            className={classes.logo_details}
-            onClick={() => history.push("/home")}
-          >
-            <Image src={logo} className={classes.logo_image} />
-            <span className={classes.logo_name}>DBeats</span>
+      
+
+      <div expand="lg" id="navbarScroll" className={` w-full ${darkMode && "dark"}`}>
+        <div
+          className={`bg-white  shadow-sm w-full relative flex  p-4 dark:bg-dbeats-dark dark:text-blue-300`}
+        >
+
+          <div className='flex w-full'>
+            <div id="side-bar" className="mx-5 mr-5">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6 mx-auto"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+            </div>
+            <div id="logo">
+                <img src={logo} alt="dbeats_logo" className="h-9 w-max"></img>
+            </div>
           </div>
-        </div>
-        <div>
-          <div className={classes.nav_sidebar_button}>
-            <MenuIcon onClick={handleOnOpen} />
-          </div>
-        </div>
-        <Form className="d-flex">
-          <FormControl
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-            style={{ borderRadius: "20px", width: "100%" }}
-          />
-          <div className={classes.searchIcon}>
-            <SearchIcon />
-          </div>
-        </Form>
-        <div align="right">
-          {user
-            ? (
-                <>
-                  <Button
-                    variant="primary"
-                    className={classes.create_stream_url}
-                    onClick={handleStreamOnClick}
-                  >
-                    Go Live
-                  </Button>
-                  <Button 
-                    className={classes.navbar_meetId}
-                    onClick={handleProfileOnClick}
-                  >
-                    {" "}
-                    <AccountCircleIcon className={classes.navbar_avatar} />{" "}
-                    <span>{user.wallet_id.slice(0,4)+'...'+user.wallet_id.slice(-4)}</span>
-                  </Button>
-                </>
-          ) : (
-              <>
-                <Button
-                    variant="primary"
-                    className={classes.create_stream_url} onClick= {()=> {history.push(`/login`)}}
-                  >
-                    Login
-                  </Button>
-              </>
-          )}
-        </div>
-      </Navbar>
+
+
+
+        </div>        
+      </div>
     </>
   );
 };
