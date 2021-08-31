@@ -8,33 +8,24 @@ import VideoPlayer from  '../VideoPlayer/VideoPlayer'
 
 const UserInfo = (props) => {
    
-    const [userData, setUserData] = useState(null);
     
 
     const [userStreams, setUserStreams] = useState([]);
+    const user = JSON.parse(window.sessionStorage.getItem("user"));
     const [playbackUrl, setPlaybackUrl] = useState("");
     const [twitchKey, setTwitchKey] = useState("");
     const [loader, setLoader] = useState(true);
     const [name, setName] = useState("");
 
-     const get_User = async() =>{
-        await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`)
-        .then((value)=>{
-            setUserData(value.data)
-            setPlaybackUrl(`https://cdn.livepeer.com/hls/${value.data.livepeer_data.playbackId}}/index.m3u8`)
-            setName(value.data.livepeer_data.name)
-            setUserStreams(value.data.livepeer_data);
-        })  
-        
-        console.log(userStreams)
-    }
+     
 
     useEffect(() => {
         console.log(props.stream_id)
-        get_User();
+            setPlaybackUrl(`https://cdn.livepeer.com/hls/${user.livepeer_data.playbackId}/index.m3u8`)
+            setName(user.livepeer_data.name)
+            setUserStreams(user.livepeer_data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
 
 
     const handleChange = (e) => {
@@ -99,8 +90,8 @@ const UserInfo = (props) => {
                         />
                     </div>
                     <div>
-                        <p>Streamer Name : {userData.name}</p>
-                        <p>Streamer Username : {userData.username}</p>
+                        <p>Streamer Name : {user.name}</p>
+                        <p>Streamer Username : {user.username}</p>
                         <p>Streamer Id : {userStreams.id}</p>
                         <p>Streamer Key : {userStreams.streamKey}</p>
                         <p>Playback URL : {playbackUrl}</p>

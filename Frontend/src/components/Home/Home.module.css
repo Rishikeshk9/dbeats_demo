@@ -79,3 +79,7 @@
 	min-height: 4rem;
 	min-width: 4rem;
 }
+
+.cards_videos video{
+	border-radius: 10px;
+}

@@ -1,40 +1,11 @@
 import React, {useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import Avatar from '@material-ui/core/Avatar';
-import { red } from '@material-ui/core/colors';
 import ReactPlayer from "react-player";
 import { useHistory } from "react-router-dom";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: 345,
-    maxHeight:400,
-    backgroundColor:"#eeeeee",
-    borderRadius:'8px'
-  },
-  media: {
-    height: 0,
-    cursor: "pointer",
-    backgroundColor:"blue",
-    marginBottom:"20px",
-    "&:hover": {      
-      transform: 'translate(0,8px) scale(1.1)',
-    },
-  },
-  avatar: {
-    backgroundColor: red[500],
-  },
-  media_back: {
-    backgroundColor:"yellow",
-  }
-}));
+import person from "../../assests/images/person.jpg";
+import classes from "./Home.module.css";
 
  const CarouselCard = (props) => {
-  
 
-  const classes = useStyles();
   const [playing, setPlaying] = useState(false);
 
   let history = useHistory();
@@ -50,8 +21,8 @@ const useStyles = makeStyles((theme) => ({
   //console.log(props.playbackUserData)
 
   return (
-    <Card className={classes.root} >
-      <div className={classes.media_back}>
+<div className="w-full h-auto" >
+      <div className={`cursor-pointer`}>
         <ReactPlayer 
           onClick={() => {history.push(`/playback/${props.playbackUserData.username}/0`) } }
           width="100%"
@@ -61,21 +32,23 @@ const useStyles = makeStyles((theme) => ({
           volume={0.5}
           url={props.playbackUserData.videos[props.index].link}
           controls={false}
-          className={classes.media} 
+          className={classes.cards_videos}
           onMouseMove={handleMouseMove}
           onMouseLeave={hanldeMouseLeave}
         />
       </div>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
-        }
-        title = {props.playbackUserData.videos[props.index].videoName}
-        subheader = {props.playbackUserData.videos[props.index].description}
-      />
-    </Card>
+      <div className="col-start-1 row-start-3  px-2 pt-6">
+        <p className="flex items-center text-black text-sm font-medium">
+          <img src={person} alt="" className="w-10 h-10 rounded-full mr-2 bg-gray-100" />
+          <div>
+            <span className="text-sm font-semibold">{props.playbackUserData.videos[props.index].videoName.slice(0,30)+"..."}</span>
+            <br/>
+            <span className="text-xs text-gray-500">{props.playbackUserData.videos[props.index].description.slice(0,30)+"..."}</span>
+          </div>
+        </p>
+        
+      </div>
+    </div>
   );
 }
 

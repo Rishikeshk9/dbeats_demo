@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
 import classes from "./Home.module.css";
 import NavBar from "../Navbar/Navbar";
 import axios from "axios";
@@ -18,7 +17,6 @@ const Home = (props) => {
   const [slides, setSlides] = useState([]);
 
   const [arrayData, setArrayData] = useState([]);
-  //console.log(process.env.REACT_APP_SERVER_URL);
 
   const recommend_channels = [
     { name: "shroud" },
@@ -43,24 +41,23 @@ const Home = (props) => {
     };
 
     return (
-      <div className={classes.cards_main_body}>
+      <div className="bg-white w-full h-70 md:h-50 flex">
         <ReactPlayer
           width="100%"
-          height="auto"
+          height="100%"
           playing={playing}
           muted={false}
           volume={0.3}
           url={`https://cdn.livepeer.com/hls/${stream_data.playbackId}/index.m3u8`}
           controls={showControls}
-          className={classes.cards_video_body}
           onMouseMove={handleMouseMove}
           onMouseLeave={hanldeMouseLeave}
         />
-        <div className={classes.cards_text_body}>
-          <div className="flex ">
+        <div className="h-70 md:h-60 px-5 py-3 md:px-1 md:py-2 md:text-md">
+          <div className="flex">
             <img
               src="https://static-cdn.jtvnw.net/jtv_user_pictures/feba598d-00c2-499b-829d-66429f273afa-profile_image-70x70.png"
-              className="h-20 w-20  my-auto"
+              className="h-15 md:h-10 w-15 md:w-10 my-auto"
               alt="stream_img"
             ></img>
             <p className=" my-auto font-bold text-xl align-middle ">
@@ -69,17 +66,9 @@ const Home = (props) => {
           </div>
           <p>Streamer Id : {stream_data.id}</p>
           <p>Streamer Key : {stream_data.streamKey}</p>
-
-          <Button
-            onClick={() => {
+          <button className="shadow-sm px-3 py-2 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded font-bold " onClick={() => {
               props.history.push(`/public/${userData.username}`);
-            }}
-            align="right"
-            className=""
-          >
-            {" "}
-            Watch Stream{" "}
-          </Button>
+            }}>Watch Stream</button>
         </div>
       </div>
     );
@@ -174,7 +163,7 @@ const Home = (props) => {
                   Playback Videos{" "}
                 </h4>
                 <div className={classes.display_all_streamers}>
-                  <Carousel cols={4}>
+                  <Carousel cols={5}>
                     {arrayData.map((playbackUser, i) => {
                       return (
                         <Carousel.Item key={i}>

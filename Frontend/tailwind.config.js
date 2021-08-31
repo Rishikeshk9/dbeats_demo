@@ -42,6 +42,7 @@ module.exports = {
         "dbeats-dark": "#0b1019",
         "dbeats-light": "#00d3ff",
         "dbeats-alt": "#061720",
+        "dbeats-secondary-light":"#3EAEFF",
       },
     },
   },
