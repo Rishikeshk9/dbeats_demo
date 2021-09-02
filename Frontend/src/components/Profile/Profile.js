@@ -5,6 +5,7 @@ import NavBar from "../Navbar/Navbar";
 import Carousel from "react-grid-carousel";
 import CarouselCard from "./CarouselCard";
 import wallpaper from '../../assests/images/wallpaper.jpeg'
+import person from '../../assests/images/person.jpg'
 
 
 const Profile = (props) => {
@@ -21,10 +22,15 @@ const Profile = (props) => {
                 <div className="w-250 bg-gray-300">
 
                 </div>
-                <div id="display_videos" className="px-10 py-5">
-                  <div>
-                    <div className="h-10 w-100">
-                      <img class="w-auto rounded-t-xl" src={wallpaper} alt="avatar" />
+                <div id="display_videos" className="px-10 py-5 ">
+                  <div className="z-0">
+                    <div className="z-0">
+                      <img className="rounded-xl" src={wallpaper} alt="avatar" style={{width:"100%",height:"300px"}}/>
+                    </div>
+                    <div className={classes.profile_pic}>
+                      <div className="rounded-full">
+                         <img src={person} alt="" className="w-40 h-40 rounded-full ring-4 ring-black"/>
+                      </div>
                     </div>
                   </div>
                   <div>
