@@ -6,7 +6,8 @@ import { Carousel as LiveStreamVideos } from "3d-react-carousal";
 import Carousel from "react-grid-carousel";
 import personImg from "../../assests/images/person.jpg";
 import { Avatar } from "@material-ui/core";
-import CarouselCard from "./CarouselCard";
+import PlayBackCard from "./PlayBackCard";
+import LiveCard from "./LiveCard";
 import ReactPlayer from "react-player";
 import Skeleton from "@material-ui/lab/Skeleton";
 
@@ -42,6 +43,7 @@ const Home = (props) => {
 
     return (
       <div className="bg-white w-full h-70 md:h-50 flex">
+        <span className="fixed bg-red-600 text-white px-4 py-1 mx-2 my-2 rounded font-semibold"> Live </span>
         <ReactPlayer
           width="100%"
           height="100%"
@@ -73,28 +75,30 @@ const Home = (props) => {
       </div>
     );
   };
+  console.log(activeStreams)
 
   useEffect(() => {
-    setActiveStreams([]);
-    setSlides([]);
-    setArrayData([]);
-
     axios.get(`${process.env.REACT_APP_SERVER_URL}/get_activeusers`)
       .then(async (repos) => {
         for (let i = 0; i < repos.data.length; i++) {
-          setActiveStreams((prevState) => [...prevState, repos.data[i]]);
-
-          const value = await axios.get(
+          
+          await axios.get(
             `${process.env.REACT_APP_SERVER_URL}/user/get_user_by_id/${repos.data[i].id}`
-          );
+          ).then((value)=>{
+            if(value.data!=="")
+              setActiveStreams((prevState) => [...prevState, value.data]);
 
-          setSlides((prevState) => [
-            ...prevState,
-            <CarouselStreams
-              stream_data={repos.data[i]}
-              userData={value.data}
-            />,
-          ]);
+              if(i<=2){
+                setSlides((prevState) => [
+                  ...prevState,
+                  <CarouselStreams
+                    stream_data={repos.data[i]}
+                    userData={value.data}
+                  />,
+                ]);
+              }
+          })
+          
         }
       });
     fetchData();
@@ -103,7 +107,7 @@ const Home = (props) => {
 
 
   const fetchData = async () => {
-    setArrayData([]);
+
     const fileRes = await axios.get(
       `${process.env.REACT_APP_SERVER_URL}/`
     );
@@ -120,25 +124,22 @@ const Home = (props) => {
     <>
       <div>
         <NavBar />
-        <div id="outer-container" style={{ height: "100vh" }}>
+        <div id="outer-container" className="h-100">
           <main id="page-wrap" className={classes.main_homepage_body}>
             <div
               id="recommended_channel"
-              className={classes.recommended_channel_section}
+              className="w-100 bg-blue-100"
             >
-              <div className={classes.recommended_title}>
-                <h5> RECOMMENDED CHANNELS ...</h5>
+              <div className="px-3 pt-4">
+                <h5 className="font-semibold text-base"> RECOMMENDED CHANNELS ...</h5>
                 {recommend_channels.map((channel, i) => {
                   return (
-                    <div key={i} className={classes.channel_style}>
-                      <Avatar
-                        className={classes.channel_avatar}
-                        alt={channel.name}
-                        src={personImg}
-                      />
+                    <div key={i} className="flex pb-2 pt-2">
+                      <img src={personImg} alt="" className="w-14 h-14 rounded-full mr-2 bg-gray-100" />
                       <div>
-                        <h6> {channel.name} </h6>
-                        <span> Counter Strike... </span>
+                        <span className="font-semibold text-sm"> {channel.name} </span>
+                        <br/>
+                        <span className="text-gray-400 text-sm"> Counter Strike... </span>
                       </div>
                     </div>
                   );
@@ -146,32 +147,57 @@ const Home = (props) => {
               </div>
             </div>
 
-            <div id="display_videos" className={classes.display_videos_section}>
-              <div>
-                {activeStreams[0] ? (
-                  <LiveStreamVideos slides={slides} autoplay={false} />
-                ) : (
-                  <>
-                    <Skeleton animation="wave" variant="rect" height="35vh" />
-                    <h4 align="center">Waiting for Live Streamers</h4>
-                  </>
-                )}
+            <div className={classes.other_videos}>
+              <div id="display_videos" className="mt-4 px-4">
+                <div className="pt-4 px-4">
+                  {activeStreams[0] ? (
+                    <LiveStreamVideos slides={slides} autoplay={false} />
+                  ) : (
+                    <>
+                      <Skeleton animation="wave" variant="rect" height="35vh" />
+                      <h4 className="font-bold py-2" align="center">Waiting for Live Streamers</h4>
+                    </>
+                  )}
+                </div>
               </div>
               <div>
-                <h4 className={classes.display_livestreamers}>
-                  {" "}
-                  Playback Videos{" "}
-                </h4>
-                <div className={classes.display_all_streamers}>
-                  <Carousel cols={5}>
-                    {arrayData.map((playbackUser, i) => {
-                      return (
-                        <Carousel.Item key={i}>
-                          <CarouselCard playbackUserData={playbackUser} index={0}/>
-                        </Carousel.Item>
-                      );
-                    })}
-                  </Carousel>
+                <div id="display_playback_videos" className="pt-2 px-4">
+                  <div>
+                    <h4 className=" font-bold pl-2 pt-5 pb-4">
+                      Live Videos
+                    </h4>
+                    <div className="">
+                      <Carousel cols={5}>
+                        {activeStreams.map((liveUser, i) => {
+                          if(i>2){
+                              return (
+                                <Carousel.Item key={i}>
+                                  <LiveCard liveUserData={liveUser}/>
+                                </Carousel.Item>
+                              );
+                          }})
+                        }
+                      </Carousel>
+                    </div>
+                  </div>
+                </div>
+                <div id="display_playback_videos" className="px-4">
+                  <div>
+                    <h4 className=" font-bold pl-2 pt-3 pb-4">
+                      Playback Videos
+                    </h4>
+                    <div className="">
+                      <Carousel cols={5}>
+                        {arrayData.map((playbackUser, i) => {
+                          return (
+                            <Carousel.Item key={i}>
+                              <PlayBackCard playbackUserData={playbackUser} index={0}/>
+                            </Carousel.Item>
+                          );
+                        })}
+                      </Carousel>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

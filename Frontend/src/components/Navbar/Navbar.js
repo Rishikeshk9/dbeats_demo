@@ -9,7 +9,7 @@ import { toggleDarkMode } from '../../redux/Actions/index'
 
 const NavBar = (props) => {
 
-  const [logoutOfWeb3Modal] = useWeb3Modal();
+  const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
 
 
   let history = useHistory();
@@ -53,6 +53,7 @@ const NavBar = (props) => {
         outerContainerId={"outer-container"}
         isOpen={showOpen}
         onStateChange={isMenuOpen}
+        className="w-250"
       >
         <div className={classes.menu_items}>
           <a id="home" href="#/home">
@@ -132,7 +133,7 @@ const NavBar = (props) => {
             {user
               ? (
                 <div id="login-btn" className="flex">
-                  <button className="shadow-sm px-3 py-1 border-dbeats-light border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mx-2 flex"
+                  <button className="px-3 py-1 border-dbeats-light border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mx-2 flex"
                   onClick={handleStreamOnClick}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 self-center mr-2" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
