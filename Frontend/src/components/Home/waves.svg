@@ -112,3 +112,76 @@
       </>
   )}
 </div>
+
+<div>
+                      <h4>My Subscribers :</h4>
+                      {user.subscriberss
+                        ? <div>
+                              {user.subscribers.map((sub_name, i) => {
+                                //console.log(playbackUser)
+                                return (
+                                  <div>
+                                    Username : {sub_name.username}
+                                  </div>
+                                );
+                              })}
+                          </div>
+                        : <p>No Subscribers</p>
+                      }
+                      
+                    </div>
+                    <hr />
+                    <div>
+                      <h4>I Subscribed :</h4>
+                      {user.subscribed
+                        ? <div>
+                              {user.subscribed.map((sub_name, i) => {
+                                //console.log(playbackUser)
+                                return (
+                                  <div>
+                                    Username : {sub_name.username}
+                                  </div>
+                                );
+                              })}
+                          </div>
+                        : <p>Not Subscribed any user</p>
+                      }
+                      
+                    </div>
+                    <hr />
+
+                    <div>
+                      <h4>My videos </h4>
+                      {user.videos
+                        ? <Carousel cols={4}>
+                                {user.videos.map((playbackUser, i) => {
+                                  //console.log(playbackUser)
+                                  return (
+                                    <Carousel.Item key={i}>
+                                      <CarouselCard playbackUserData={playbackUser} index={i} username={user.username} type="video"/>
+                                    </Carousel.Item>
+                                  );
+                                })}
+                          </Carousel>
+                        : <p>No Videos till now</p>
+                      }
+                      
+                    </div>
+                    <hr />
+
+                    <div>
+                      <h4>My Tracks </h4>
+                      {user.tracks
+                        ? <Carousel cols={4}>
+                                {user.videos.map((playbackUser, i) => {
+                                  //console.log(playbackUser)
+                                  return (
+                                    <Carousel.Item key={i}>
+                                      <CarouselCard playbackUserData={playbackUser} index={i} username={user.username} type="track"/>
+                                    </Carousel.Item>
+                                  );
+                                })}
+                          </Carousel>
+                        : <p>No Tracks till now</p>
+                      }
+                    </div>

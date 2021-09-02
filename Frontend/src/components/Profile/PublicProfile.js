@@ -1,11 +1,12 @@
-import React,{useState} from "react";
+import React,{useState, useEffect} from 'react';
 import classes from "./Profile.module.css";
 import NavBar from "../Navbar/Navbar";
-//import axios from "axios";
+import axios from "axios";
 import Carousel from "react-grid-carousel";
 import CarouselCard from "./CarouselCard";
 import wallpaper from '../../assests/images/wallpaper.jpeg'
 import person from '../../assests/images/person.jpg'
+
 
 import { Modal, ListGroup } from 'react-bootstrap';
 import { WhatsappIcon, WhatsappShareButton} from 'react-share';
@@ -16,44 +17,46 @@ import { TelegramShareButton, TelegramIcon } from 'react-share';
 import { Container, Row, Col } from 'react-bootstrap';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { Tab } from '@headlessui/react'
 
+const PublicProfile = (props) => {
 
-const Profile = (props) => {
+  const username = props.match.params.username;
 
-  const user = JSON.parse(window.sessionStorage.getItem("user"));
+  let sharable_data = `http://localhost:3000/#/public_profile/${username}`
 
-  let sharable_data = `http://localhost:3000/#/public_profile/${user.username}`
+  // const [show, setShow] = useState(false);
+  const [user, setUser] = useState([]);
 
-  const [show, setShow] = useState(false);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const text = "Copy Link To Clipboard"
+  // const [buttonText, setButtonText] = useState(text);
 
-  const text = "Copy Link To Clipboard"
-  const [buttonText, setButtonText] = useState(text);
+  useEffect(() => {
+    console.log(`${process.env.REACT_APP_SERVER_URL}/user/${props.match.params.username}`)
+    
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
  
   return (
     <>
       <div>
         <NavBar />
-        <div id="outer-container">
-          <main id="page-wrap">
-            <div className="flex" style={{ height: "100vh" }}>
+        <div id="outer-container" style={{ height: "100vh" }}>
+          <main id="page-wrap" className="">
+            <div className="flex">
                 <div className="w-250 bg-gray-300">
 
                 </div>
-                <div id="display_videos" className="px-10 pt-5 ">
+                <div id="display_videos" className="px-10 py-5 ">
                   
                   <div className="bg-white p-4">
                     <div className="">
                       <img className="rounded-xl" src={wallpaper} alt="avatar" style={{width:"100%",height:"300px"}}/>
                     </div>
-                    <div className="w-100">
+                    <div>
                       <div className="w-100 flex -mt-28 ml-5">
                           <div className="w-56 ">
                             <div className="shadow-lg rounded-full bg-white py-1">
@@ -78,74 +81,102 @@ const Profile = (props) => {
                                 <span className="font-bold text-4xl text-gray-700">{user.followee_count} </span>
                                 Followers
                                 </div>
-                              <button className="font-bold mx-auto  px-4" onClick={handleShow}> 
+                              <button className="font-bold mx-auto  px-4"> 
                                 <span className="font-bold text-4xl text-gray-700"><i class="fas fa-share"></i> </span>
                                 Share
                               </button>
                               <div className="font-bold text-white bg-dbeats-light rounded-full mx-auto py-2 px-4"> 
-                                <span className="font-bold pr-2 text-lg">+</span> 
+                                <span className="font-bold">{user.followee_count}</span> 
                                 Follow
                               </div>
                             </div>
                          </div>
                       </div>
+                      
                     </div>
-                  </div>
-                  <div className="w-full">
-                        <Tab.Group>
-                          <Tab.List className="flex p-1 space-x-1 bg-white">
-                            <Tab className={({ selected }) =>
-                              classNames(
-                                'w-full py-2.5 text-sm leading-5 font-semibold text-gray-500 text-md rounded-lg',
-                                selected
-                                  ? 'text-gray-900 bg-white shadow'
-                                  : 'hover:bg-black/[0.12]  hover:text-gray-900'
-                              )
-                            }>Tab 1</Tab>
-
-                            <Tab className={({ selected }) =>
-                              classNames(
-                                'w-full py-2.5 text-sm leading-5 font-semibold text-gray-500 text-md rounded-lg',
-                                selected
-                                  ? 'text-gray-900 bg-white shadow'
-                                  : 'hover:bg-black/[0.12]  hover:text-gray-900'
-                              )
-                            }>Tab 2</Tab>
-
-                            <Tab className={({ selected }) =>
-                              classNames(
-                                'w-full py-2.5 text-sm leading-5 font-semibold text-gray-500 text-md rounded-lg',
-                                selected
-                                  ? 'text-gray-900 bg-white shadow'
-                                  : 'hover:bg-black/[0.12]  hover:text-gray-900'
-                              )
-                            }>Tab 3</Tab>
-
-                            <Tab className={({ selected }) =>
-                              classNames(
-                                'w-full py-2.5 text-sm leading-5 font-semibold text-gray-500 text-md rounded-lg',
-                                selected
-                                  ? 'text-gray-900 bg-white shadow'
-                                  : 'hover:bg-black/[0.12]  hover:text-gray-900'
-                              )
-                            }>Tab 4</Tab>
-                          </Tab.List>
-                          <Tab.Panels className="bg-transparent">
-                            <Tab.Panel>
-                              <div className="px-5 pt-10">
-                                Hello ! videos will be here
-                              </div>
-                            </Tab.Panel>
-                            <Tab.Panel>Content 2</Tab.Panel>
-                            <Tab.Panel>Content 3</Tab.Panel>
-                            <Tab.Panel>Content 4</Tab.Panel>
-                          </Tab.Panels>
-                        </Tab.Group>
                   </div>
 
                   <div>
 
-                    
+                    <p>Username : </p>
+                    <p>Name : </p>
+                    <p>Wallet Id : {user.wallet_id}</p>
+                    <p>Following : {user.followee_count}</p>
+                    <p>Followers : {user.follower_count}</p>
+                    <hr />
+
+                    <div>
+                      <h4>My Subscribers :</h4>
+                      {user.subscriberss
+                        ? <div>
+                              {user.subscribers.map((sub_name, i) => {
+                                //console.log(playbackUser)
+                                return (
+                                  <div>
+                                    Username : {sub_name.username}
+                                  </div>
+                                );
+                              })}
+                          </div>
+                        : <p>No Subscribers</p>
+                      }
+                      
+                    </div>
+                    <hr />
+                    <div>
+                      <h4>I Subscribed :</h4>
+                      {user.subscribed
+                        ? <div>
+                              {user.subscribed.map((sub_name, i) => {
+                                //console.log(playbackUser)
+                                return (
+                                  <div>
+                                    Username : {sub_name.username}
+                                  </div>
+                                );
+                              })}
+                          </div>
+                        : <p>Not Subscribed any user</p>
+                      }
+                      
+                    </div>
+                    <hr />
+
+                    <div>
+                      <h4>My videos </h4>
+                      {user.videos
+                        ? <Carousel cols={4}>
+                                {user.videos.map((playbackUser, i) => {
+                                  //console.log(playbackUser)
+                                  return (
+                                    <Carousel.Item key={i}>
+                                      <CarouselCard playbackUserData={playbackUser} index={i} username={user.username} type="video"/>
+                                    </Carousel.Item>
+                                  );
+                                })}
+                          </Carousel>
+                        : <p>No Videos till now</p>
+                      }
+                      
+                    </div>
+                    <hr />
+
+                    <div>
+                      <h4>My Tracks </h4>
+                      {user.tracks
+                        ? <Carousel cols={4}>
+                                {user.videos.map((playbackUser, i) => {
+                                  //console.log(playbackUser)
+                                  return (
+                                    <Carousel.Item key={i}>
+                                      <CarouselCard playbackUserData={playbackUser} index={i} username={user.username} type="track"/>
+                                    </Carousel.Item>
+                                  );
+                                })}
+                          </Carousel>
+                        : <p>No Tracks till now</p>
+                      }
+                    </div>
 
                   </div>
                   
@@ -153,7 +184,7 @@ const Profile = (props) => {
 
             </div>
           </main>
-          <Modal show={show}
+          {/*<Modal show={show}
               onHide={handleClose} 
               animation={true}
               centered
@@ -195,11 +226,11 @@ const Profile = (props) => {
                       </Row>
                   </Container>
               </Modal.Body>
-          </Modal>
+          </Modal>*/}
         </div>
       </div>
     </>
   );
 };
 
-export default Profile;
+export default PublicProfile;

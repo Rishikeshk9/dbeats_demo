@@ -43,7 +43,7 @@ const Home = (props) => {
 
     return (
       <div className="bg-white w-full h-70 md:h-50 flex">
-        <span className="fixed bg-red-600 text-white px-4 py-1 mx-2 my-2 rounded font-semibold"> Live </span>
+        <span className="fixed bg-red-600 text-white px-4 py-1 mx-2 my-2 rounded font-semibold z-50"> Live </span>
         <ReactPlayer
           width="100%"
           height="100%"
