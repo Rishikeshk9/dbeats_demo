@@ -6,7 +6,7 @@
 
 .other_videos{
 	display: grid;
-	grid-template-rows: 2.4fr 5fr;
+	grid-template-rows: 3fr 5fr;
 }
 
 

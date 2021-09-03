@@ -42,16 +42,16 @@ const Profile = (props) => {
       <div>
         <NavBar />
         <div id="outer-container">
-          <main id="page-wrap">
-            <div className="flex" style={{ height: "100vh" }}>
+          <main id="page-wrap" >
+            <div className="flex w-full">
                 <div className="w-250 bg-gray-300">
 
                 </div>
-                <div id="display_videos" className="px-10 pt-5 ">
+                <div id="display_details" className="px-10 pt-3 w-full">
                   
-                  <div className="bg-white p-4">
+                  <div className="bg-white p-4 rounded-t-lg">
                     <div className="">
-                      <img className="rounded-xl" src={wallpaper} alt="avatar" style={{width:"100%",height:"300px"}}/>
+                      <img className="rounded-xl" src={wallpaper} alt="avatar" style={{width:"100%",height:"22rem"}}/>
                     </div>
                     <div className="w-100">
                       <div className="w-100 flex -mt-28 ml-5">
@@ -91,9 +91,9 @@ const Profile = (props) => {
                       </div>
                     </div>
                   </div>
-                  <div className="w-full">
+                  <div className="w-full relative mb-20">
                         <Tab.Group>
-                          <Tab.List className="flex p-1 space-x-1 bg-white">
+                          <Tab.List className="flex p-1 space-x-1 bg-white rounded-b-lg">
                             <Tab className={({ selected }) =>
                               classNames(
                                 'w-full py-2.5 text-sm leading-5 font-semibold text-gray-500 text-md rounded-lg',
@@ -101,7 +101,7 @@ const Profile = (props) => {
                                   ? 'text-gray-900 bg-white shadow'
                                   : 'hover:bg-black/[0.12]  hover:text-gray-900'
                               )
-                            }>Tab 1</Tab>
+                            }>Videos</Tab>
 
                             <Tab className={({ selected }) =>
                               classNames(
@@ -110,7 +110,7 @@ const Profile = (props) => {
                                   ? 'text-gray-900 bg-white shadow'
                                   : 'hover:bg-black/[0.12]  hover:text-gray-900'
                               )
-                            }>Tab 2</Tab>
+                            }>Albums</Tab>
 
                             <Tab className={({ selected }) =>
                               classNames(
@@ -119,7 +119,7 @@ const Profile = (props) => {
                                   ? 'text-gray-900 bg-white shadow'
                                   : 'hover:bg-black/[0.12]  hover:text-gray-900'
                               )
-                            }>Tab 3</Tab>
+                            }>Playlists</Tab>
 
                             <Tab className={({ selected }) =>
                               classNames(
@@ -128,25 +128,69 @@ const Profile = (props) => {
                                   ? 'text-gray-900 bg-white shadow'
                                   : 'hover:bg-black/[0.12]  hover:text-gray-900'
                               )
-                            }>Tab 4</Tab>
+                            }>Reports</Tab>
                           </Tab.List>
+                          
                           <Tab.Panels className="bg-transparent">
-                            <Tab.Panel>
+                            
+                            <Tab.Panel className="">
                               <div className="px-5 pt-10">
-                                Hello ! videos will be here
+                                {user.videos
+                                  ? <div>{user.videos.map((playbackUser, i) => {
+                                      //console.log(playbackUser)
+                                      return (
+                                        <div key={i}>
+                                          <CarouselCard playbackUserData={playbackUser} index={i} username={user.username} type="video"/>
+                                        </div>
+                                      );
+                                    })}
+                                    </div>
+                                  : <p>No Videos till now</p>
+                                }
                               </div>
                             </Tab.Panel>
-                            <Tab.Panel>Content 2</Tab.Panel>
-                            <Tab.Panel>Content 3</Tab.Panel>
-                            <Tab.Panel>Content 4</Tab.Panel>
+                            
+                            <Tab.Panel className="">
+                              <div className="px-5 pt-10">
+                                {user.videos
+                                  ? <div>{user.videos.map((playbackUser, i) => {
+                                      //console.log(playbackUser)
+                                      return (
+                                        <div key={i}>
+                                          <CarouselCard playbackUserData={playbackUser} index={i} username={user.username} type="video"/>
+                                        </div>
+                                      );
+                                    })}
+                                    </div>
+                                  : <p>No Videos till now</p>
+                                }
+                              </div>
+                            </Tab.Panel>
+                            
+                            <Tab.Panel className="">
+                              <div className="px-5 pt-10">
+                                {user.videos
+                                  ? <div>{user.videos.map((playbackUser, i) => {
+                                      //console.log(playbackUser)
+                                      return (
+                                        <div key={i}>
+                                          <CarouselCard playbackUserData={playbackUser} index={i} username={user.username} type="video"/>
+                                        </div>
+                                      );
+                                    })}
+                                    </div>
+                                  : <p>No Videos till now</p>
+                                }
+                              </div>
+                            </Tab.Panel>
+                            
+                            <Tab.Panel>
+                              <div className="px-5 pt-10 h-72">
+                                Reports
+                              </div>
+                            </Tab.Panel>
                           </Tab.Panels>
                         </Tab.Group>
-                  </div>
-
-                  <div>
-
-                    
-
                   </div>
                   
                 </div>

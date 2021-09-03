@@ -184,4 +184,29 @@
                           </Carousel>
                         : <p>No Tracks till now</p>
                       }
-                    </div>
+                    </div
+
+
+
+
+
+const PublicProfile = (props) => {
+
+  const username = props.match.params.username;
+
+  let sharable_data = `http://localhost:3000/#/public_profile/${username}`
+
+  // const [show, setShow] = useState(false);
+  const [user, setUser] = useState([]);
+
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
+
+  // const text = "Copy Link To Clipboard"
+  // const [buttonText, setButtonText] = useState(text);
+
+  useEffect(() => {
+    console.log(`${process.env.REACT_APP_SERVER_URL}/user/${props.match.params.username}`)
+    
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
