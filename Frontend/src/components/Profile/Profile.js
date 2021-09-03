@@ -23,7 +23,7 @@ const Profile = (props) => {
 
   const user = JSON.parse(window.sessionStorage.getItem("user"));
 
-  let sharable_data = `http://localhost:3000/#/public_profile/${user.username}`
+  let sharable_data = `https://dbeats-demo.vercel.app/#/public_profile/${user.username}`
 
   const [show, setShow] = useState(false);
 
