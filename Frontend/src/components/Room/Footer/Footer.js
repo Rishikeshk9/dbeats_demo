@@ -57,16 +57,15 @@ const Footer = (props) => {
 
     return (
         
-        <div className={classes.main_footer}>
-            <Grid container alignItems="center" style={{width:"70%",paddingTop:"10px"}}>
-                    <div style={{ display:"flex"}}>
-                       <img src={playimg} className={classes.footer_img} alt="img" style={{ padding:"20px"}}></img>
-                       <div className={classes.footer_person}>
-                           <h3 className={classes.footer_h1}>Drake Songs</h3>
-                           <p style={{fontSize:"10px"}}>Rap song</p>
+        <div className="fixed bottom-0 bg-white w-full h-32 mb-0 pb-0 shadow flex flex-rows justify-center align-center z-10">
+            <Grid container alignItems="center">
+                    <div className="flex">
+                       <img src={playimg} className="h-20 w-20 p-3 ml-4 my-auto" alt="img" ></img>
+                       <div className="my-auto pt-3">
+                           <span className="text-xl font-semibold">Drake Songs</span> 
+                           <p className="">Rap song</p>
                        </div>
-                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"10px", 
-                        marginTop:"25px", marginRight:"10px", fontSize:"medium", color:"#00d3ff"} }>
+                       <i className="fas fa-info-circle block mt-3 ml-3 text-lg text-dbeats-light">
                        </i>
                    </div>
             </Grid>
@@ -139,7 +138,7 @@ const Footer = (props) => {
                     </span>
                 </Grid>
             </Grid>
-            <Grid align="right" style={{width:"70%"}}>
+            <Grid  className="my-auto w-4/5" align="right">
 
                 <IconButton
                   onClick={props.onMute}
@@ -166,11 +165,11 @@ const Footer = (props) => {
                   style={{width:"150px",marginBottom:"-8px", color:"#00d3ff"}}
                 />
             </Grid>
-            <Grid alignItems="right">
+            <Grid className="my-auto mr-5" alignItems="right">
               <IconButton
                 onClick={props.onToggleFullScreen}
                 className={classes.bottomIcons}
-                style={{paddingLeft:"40px", color:"#00d3ff"}}    
+                style={{paddingLeft:"10px", color:"#00d3ff"}}    
               >
                 <FullScreen fontSize="large" />
               </IconButton>

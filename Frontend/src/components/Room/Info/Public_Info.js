@@ -86,7 +86,7 @@ const PublicInfo = (props) => {
     return (
         <Fragment>
             <div className={classes.info_main_body}>
-                <div id={classes.info_main_body_set}>
+                <div className="pb-52">
                     <div>     
                         {console.log(playbackUrl)}                   
                         <VideoPlayer 
@@ -94,77 +94,77 @@ const PublicInfo = (props) => {
                         />
                     </div>
                     
-                    <div className={classes.info_localDisplay_features}>
+                    <div className="flex justify-between mx-auto py-3 px-14">
                         <div>
-                            <div className={classes.info_remoteVideo_text} style={{padding:"0px"}}>
+                            <div className=" w-full p-0 text-left mt-0" style={{ padding: "0px" }}>
                                 <h4>Drake Songs</h4>
                                 <p>Rap Songs</p>
                             </div>
-                            <button className={classes.info_subscribe_button} onClick={handleSubscribe}>
+                            <button className="bg-dbeats-light p-1 text-lg rounded-full px-4 mr-3 font-semibold text-white " onClick={handleSubscribe}>
                                 <span>Subscribe</span>
                             </button>
-                            <button className={classes.info_apprecite_button}>
-                                <i className="fas fa-volleyball-ball"></i>
+                            <button className="bg-gradient-to-r from-dbeats-light  to-purple-900  p-1 text-lg rounded-full px-4 mr-3 font-semibold text-white ">
+                                <i className="fas fa-volleyball-ball mr-1"></i>
                                 <span>Appreciate</span>
                             </button>
                         </div>
-                        <div className={classes.info_localDisplay_icons}>
-                            <button  
-                                className={classes.share_btn}
+                        <div className="text-4xl">
+                            <button
+                                className="border-0 bg-transparent"
                                 onClick={handleShow}
                             >
-                                <i className="fas fa-share"></i>
+                                <i className="fas fa-share opacity-50 mx-2"></i>
                             </button>
-                            <i className="fas fa-heart"></i>
-                            <i className="fas fa-heart-broken"></i>
-                            <i className="far fa-laugh-squint"></i>
-                            <i className="far fa-angry"></i>
-                            <button  
+                            <i className="fas fa-heart opacity-50 mx-2"></i>
+                            <i className="fas fa-heart-broken opacity-50 mx-2"></i>
+                            <i className="far fa-laugh-squint opacity-50 mx-2"></i>
+                            <i className="far fa-angry opacity-50 mx-2"></i>
+                            <button
                                 className={classes.more_options}
                                 onClick={handleShowMore}
                             >
-                                <i className="fas fa-ellipsis-h"></i>
+                                <i className="fas fa-ellipsis-h opacity-50 mx-2"></i>
                             </button>
                         </div>
                         <Modal show={show}
-                            onHide={handleClose} 
+                            onHide={handleClose}
                             animation={true}
                             centered
                         >
                             <Modal.Header closeButton>
-                              <Modal.Title>Share link on</Modal.Title>
+                                <Modal.Title>Share link on</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                                 <Container>
                                     <Row>
-                                        <Col className={classes.share_icons} >
-                                    <WhatsappShareButton className={classes.icon}
-                                    url={sharable_data}>
-                                        <WhatsappIcon iconFillColor="white" size={60} round={true}/>
-                                    </WhatsappShareButton>
-                                    <FacebookShareButton className={classes.icon}
-                                    url={sharable_data}>
-                                        <FacebookIcon iconFillColor="white" size={60} round={true}/>
-                                    </FacebookShareButton>
-                                    <EmailShareButton className={classes.icon} url={sharable_data}>
-                                        <EmailIcon iconFillColor="white" size={60} round={true} />
-                                    </EmailShareButton>
-                                    <PinterestShareButton className={classes.icon} url={sharable_data}>
-                                        <PinterestIcon iconFillColor="white" size={60} round={true} />
-                                    </PinterestShareButton>
-                                    <TelegramShareButton className={classes.icon} url={sharable_data}>
-                                        <TelegramIcon iconFillColor="white" size={60} round={true}/>
-                                    </TelegramShareButton>
-                                    </Col>
+                                        <Col className="flex justify-around align-center" >
+                                            <WhatsappShareButton 
+                                                url={sharable_data}>
+                                                <WhatsappIcon iconFillColor="white" size={60} round={true} />
+                                            </WhatsappShareButton>
+                                            <FacebookShareButton 
+                                                url={sharable_data}>
+                                                <FacebookIcon iconFillColor="white" size={60} round={true} />
+                                            </FacebookShareButton>
+                                            <EmailShareButton  url={sharable_data}>
+                                                <EmailIcon iconFillColor="white" size={60} round={true} />
+                                            </EmailShareButton>
+                                            <PinterestShareButton  url={sharable_data}>
+                                                <PinterestIcon iconFillColor="white" size={60} round={true} />
+                                            </PinterestShareButton>
+                                            <TelegramShareButton  url={sharable_data}>
+                                                <TelegramIcon iconFillColor="white" size={60} round={true} />
+                                            </TelegramShareButton>
+                                        </Col>
                                     </Row>
                                     <Row>
-                                    <CopyToClipboard text={sharable_data} className={classes.link_copy_btn}>
-                                    <button
-                                        type="submit"
-                                        onClick={() => setButtonText("Link Copied!")}>
-                                        {buttonText}
-                                    </button>
-                                </CopyToClipboard>
+                                        <CopyToClipboard text={sharable_data} className="block mx-auto p-2 mt-4 mb-2 w-96 text-white font-semibold rounded-lg bg-dbeats-light">
+                                            <button
+                                                type="submit"
+                                                onClick={() => setButtonText("Link Copied!")}>
+                                                {buttonText}
+                                            </button>
+                                        </CopyToClipboard>
                                     </Row>
                                 </Container>
                             </Modal.Body>
@@ -172,24 +172,24 @@ const PublicInfo = (props) => {
 
                         <Modal show={showMore} onHide={handleCloseMore} centered>
                             <Modal.Header closeButton>
-                              <Modal.Title>More Options</Modal.Title>
+                                <Modal.Title>More Options</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                            <ListGroup>
-                                <ListGroup.Item active>demo 1</ListGroup.Item>
-                                <ListGroup.Item>demo 2</ListGroup.Item>
-                                <ListGroup.Item>demo 3</ListGroup.Item>
-                                <ListGroup.Item>demo 4</ListGroup.Item>
-                            </ListGroup>
+                                <ListGroup>
+                                    <ListGroup.Item active>demo 1</ListGroup.Item>
+                                    <ListGroup.Item>demo 2</ListGroup.Item>
+                                    <ListGroup.Item>demo 3</ListGroup.Item>
+                                    <ListGroup.Item>demo 4</ListGroup.Item>
+                                </ListGroup>
                             </Modal.Body>
                         </Modal>
                     </div>
 
-                     <div className={classes.comment_section}>
-                        <iframe className={classes.convo_frame} title="comment_section" src="https://theconvo.space/embed/t/KIGZUnR4RzXDFheXoOwo" allowtransparency="true"/>
-                    </div>    
+                    <div className="ml-5 w-11/12 mt-4 bg-gradient-to-r from-dbeats-light  to-purple-900 rounded-xl">
+                        <iframe className="w-full h-92" src="https://theconvo.space/embed/dt?threadId=KIGZUnR4RzXDFheXoOwo" allowtransparency="true" loading="eager" />
+                    </div>   
                 </div>
-                <div className={classes.info_short_section}>
+                <div className="bg-white mt-1.5 mr-4 rounded-2xl">
                     {/* {peers.map((peer, index) => {
                         peer.on("stream", (stream) => {
                             ref.current.srcObject = stream;
@@ -212,28 +212,26 @@ const PublicInfo = (props) => {
                             </div>
                         );
                     })} */}
-                    <h5>Playlist</h5>
-                   <div className={classes.playlist}>
-                       <img src={playimg} className={classes.playlist_img} alt="img"></img>
-                       <div className={classes.playlist_name}>
-                           <h3>Drake Songs</h3>
-                           <p>Rap song</p>
-                       </div>
-                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
-                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
-                       </i>
-                   </div>
-                   <div className={classes.playlist}>
-                       <img className={classes.playlist_img} src={playimg} alt="img"></img>
-                       <div className={classes.playlist_name}>
-                           <h3>Drake Songs</h3>
-                           <p>Rap song</p>
-                       </div>
-                       <i className="fas fa-info-circle" style={{display:"block", marginLeft:"auto", 
-                        marginTop:"10px", marginRight:"10px", fontSize:"medium"} }>
-                       </i>
-                   </div>
-                   
+                    <h5 className="p-3 text-2xl font-semibold">Playlist</h5>
+                    <div className="flex flex-rows shadow p-3 w-auto rounded-xl m-3">
+                        <img src={playimg} className="h-16" alt="img"></img>
+                        <div className="pl-3 text-sm">
+                            <span className="text-2xl font-semibold">Drake Songs</span>
+                            <p>Rap song</p>
+                        </div>
+                        <i className="fas fa-info-circle block ml-auto mt-2 mr-1 text-lg">
+                        </i>
+                    </div>
+                    <div className="flex flex-rows shadow p-3 w-auto rounded-xl m-3">
+                        <img src={playimg} className="h-16" alt="img"></img>
+                        <div className="pl-3 text-sm">
+                            <span className="text-2xl font-semibold">Drake Songs</span>
+                            <p>Rap song</p>
+                        </div>
+                        <i className="fas fa-info-circle block ml-auto mt-2 mr-1 text-lg">
+                        </i>
+                    </div>
+
                 </div>
             </div>
 

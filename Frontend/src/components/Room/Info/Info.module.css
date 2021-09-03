@@ -131,7 +131,6 @@ video {
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
-    background: rgb(63,81,181);
     background: linear-gradient(180deg, rgba(63,81,181,1) 0%, rgba(33,150,243,1) 65%, rgba(20,215,255,1) 100%);
     border-radius: 10px;
     margin-bottom: 200px;

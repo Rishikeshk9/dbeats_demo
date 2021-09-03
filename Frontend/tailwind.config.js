@@ -38,6 +38,9 @@ module.exports = {
       fontFamily: {
         "proxima-reg": ["Proxima Nova", "Arial", "sans-serif"],
       },
+      height:{
+        92: "21.8rem"
+      },
       colors: {
         "dbeats-dark": "#0b1019",
         "dbeats-light": "#00d3ff",
