@@ -24,7 +24,7 @@ const Profile = (props) => {
   const [user, setUser] = useState(null);
 
 
-  let sharable_data = `http://localhost:3000/#/public_profile/${props.match.params.username}`
+  let sharable_data = `https://dbeats-demo.vercel.app/#/public_profile/${props.match.params.username}`
 
   const [show, setShow] = useState(false);
 
