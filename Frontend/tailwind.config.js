@@ -18,6 +18,12 @@ module.exports = {
       150: "1.5",
       200: "2",
     },
+    aspectRatio: {
+      1: "1",
+      2: "2",
+      3: "3",
+      4: "4",
+    },
     zIndex: {
       0: 0,
       10: 10,
@@ -35,17 +41,20 @@ module.exports = {
       width: {
         250: "250px",
       },
+      backgroundImage: (theme) => ({
+        "profile-cover": "url('./assests/images/wallpaper.jpg')",
+      }),
       fontFamily: {
         "proxima-reg": ["Proxima Nova", "Arial", "sans-serif"],
       },
-      height:{
-        92: "21.8rem"
+      height: {
+        92: "21.8rem",
       },
       colors: {
         "dbeats-dark": "#0b1019",
         "dbeats-light": "#00d3ff",
         "dbeats-alt": "#061720",
-        "dbeats-secondary-light":"#3EAEFF",
+        "dbeats-secondary-light": "#3EAEFF",
       },
     },
   },

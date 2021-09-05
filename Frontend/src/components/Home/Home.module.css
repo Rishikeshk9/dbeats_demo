@@ -1,16 +1,15 @@
-.main_homepage_body{
-	height: 100vh;
-	display: grid;
-	grid-template-columns: 1fr 5fr;
+.main_homepage_body {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
 }
 
-.other_videos{
-	display: grid;
-	grid-template-rows: 3fr 5fr;
+.other_videos {
+  display: grid;
+  grid-template-rows: 3fr 5fr;
 }
 
-
-.cards_videos video{
-	border-radius: 10px;
-	background-color: #ccc;
+.cards_videos video {
+  border-radius: 2px;
+  background-color: #ccc;
 }
