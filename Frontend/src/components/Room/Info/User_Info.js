@@ -54,7 +54,7 @@ const UserInfo = (props) => {
             url: `${props}`
         }
         console.log(streamData)
-        {/*const stream = await axios({
+        const stream = await axios({
           method:'POST',
           url: `${process.env.REACT_APP_SERVER_URL}/create_multistream`,
           data: streamData,
@@ -84,7 +84,6 @@ const UserInfo = (props) => {
 
         console.log(patchingStream)
 
-*/}
         setLoader(true);
         alert(" Multistream Creation Successfull !!!");
         setShowStreamModal(false);

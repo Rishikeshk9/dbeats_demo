@@ -203,7 +203,7 @@ const Home = (props) => {
                       Playback Videos
                     </h4>
                     <div className="">
-                      <Carousel cols={5}>
+                      <Carousel cols={4}>
                         {arrayData.map((playbackUser, i) => {
                           return (
                             <Carousel.Item key={i}>

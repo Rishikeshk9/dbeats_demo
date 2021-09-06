@@ -25,7 +25,7 @@ export const Data = [
 export const MultiStreamData = [
     {
         title:"Youtube",
-        rtmp:"rtmp://rtmp.youtube.tv/live/",
+        rtmp:"rtmp://a.rtmp.youtube.com/live2/",
         image:youtube,
         logo:youtube_logo
 
