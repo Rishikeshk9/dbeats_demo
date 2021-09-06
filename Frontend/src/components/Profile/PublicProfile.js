@@ -97,13 +97,13 @@ const Profile = (props) => {
                             </div>
                             <div className="font-bold mx-auto  px-4">
                               <span className="font-bold text-4xl text-gray-700">
-                                {user ? <>{user.subscribed.length}</> : 0}
+                                {user.subscribers ? <>{user.subscribers.length}</> : 0}{" "}
                               </span>
                               Subscribers
                             </div>
                             <div className="font-bold mx-auto  px-4">
                               <span className="font-bold text-4xl text-gray-700">
-                                {user ? <>{user.subscribed.length}</> : 0}{" "}
+                                {user.subscribed ? <>{user.subscribed.length}</> : 0}{" "}
                               </span>
                               Subscribed
                             </div>

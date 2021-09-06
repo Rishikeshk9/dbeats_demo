@@ -9,8 +9,7 @@ const axios = require("axios");
 
 const port = process.env.PORT || 8000;
 
-const Mongo_URI =
-  "mongodb+srv://root:supersapiens@cluster0.p80zj.mongodb.net/dbeats?authSource=admin&replicaSet=atlas-4259e6-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
+const Mongo_URI = "mongodb+srv://root:supersapiens@cluster0.p80zj.mongodb.net/dbeats?authSource=admin&replicaSet=atlas-4259e6-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
 const dbName = "dbeats";
 
 const livepeerKey = "d98e11c9-2267-4993-80da-6215d73b42c1";

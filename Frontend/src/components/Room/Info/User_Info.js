@@ -35,12 +35,12 @@ const UserInfo = (props) => {
 
     const createMultiStream = async () => {
         setLoader(false);
-        console.log(name)
+        console.log("heelo",twitchKey)
         let streamData = {
             name: `${userStreams.name}`,
             url: `rtmp://rtmp.twitch.tv/live/${twitchKey}`
         }
-
+        console.log(streamData)
         const stream = await axios({
           method:'POST',
           url: `${process.env.REACT_APP_SERVER_URL}/create_multistream`,
@@ -87,37 +87,43 @@ const UserInfo = (props) => {
                     <div>
                         <VideoPlayer 
                             playbackUrl={playbackUrl}
+                            className="rounded"
                         />
                     </div>
                     <div>
-                        <p>Streamer Name : {user.name}</p>
-                        <p>Streamer Username : {user.username}</p>
-                        <p>Streamer Id : {userStreams.id}</p>
-                        <p>Streamer Key : {userStreams.streamKey}</p>
-                        <p>Playback URL : {playbackUrl}</p>
-                        <hr width="95%"/>
-                        <div>
-                            <Form>                                
-                                <Form.Group className="mb-3" controlId="formBasicKey">
-                                    <Form.Label><b>To Simultaneously Stream on Twitch Enter Twitch-Stream-Key </b></Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Enter SECRET Key"
-                                        onChange={(e) => handleChange(e)}
-                                        style={{width:"80%"}}
-                                    />
-                                    
-                                    <div style={{display:"flex"}}>
-                                        <Button variant="primary" className={classes.multistream_form_button} type="button" onClick={createMultiStream}>
-                                            Start MultiStreaming
-                                        </Button>
-                                        <div className={classes.multistream_form_spinner}>
-                                            <Spinner animation="border"  variant="info" role="status" hidden={loader}>   
-                                            </Spinner>
-                                        </div>
+                        <div className="bg-white py-3 pl-4 mr-3 rounded text-xl shadow">
+                            <div className="pb-2">
+                                <span className="font-semibold">Streamer Name : </span>
+                                <span>{user.name}</span>
+                            </div>
+                            <div className="pb-2">
+                                <span className="font-semibold">Streamer Username : </span>
+                                <span>{user.username}</span>
+                            </div>
+                            <div className="pb-2">
+                                <span className="font-semibold">Streamer Id : </span>
+                                <span>{userStreams.id}</span>
+                            </div>
+                            <div className="pb-2">
+                                <span className="font-semibold">Streamer Key : </span>
+                                <span>{userStreams.streamKey}</span>
+                            </div>
+                            <div className="pb-2 text-lg">
+                                <span className="font-semibold">Playback URL : </span>
+                                <span>{playbackUrl}</span>
+                            </div>
+                            <hr width="95%"/>
+                            <div>
+                                <div className="flex">
+                                    <button variant="primary" className="bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded font-bold px-4 py-2" type="button" onClick={createMultiStream}>
+                                        Start MultiStreaming
+                                    </button>
+                                    <div className={classes.multistream_form_spinner}>
+                                        <Spinner animation="border"  variant="info" role="status" hidden={loader}>   
+                                        </Spinner>
                                     </div>
-                                </Form.Group>
-                            </Form>
+                                </div>
+                            </div>
                         </div>
                     </div>
             </div>

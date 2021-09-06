@@ -18,20 +18,16 @@ export const Data = [
     },
 ]
 
-export const CommentData = [
+export const MultiStreamData = [
     {
-        authorUrl: '#',
-        avatarUrl: '#avatarUrl',
-        createdAt: new Date(),
-        fullName: 'Akash Salvi',
-        text:"Hello everyone",
+        title:"Youtube",
+        rtmp:"rtmp://rtmp.youtube.tv/live/",
+
     },
     {
-        authorUrl: '#',
-        avatarUrl: '#avatarUrl',
-        createdAt: new Date(),
-        fullName: 'Sahil Punjabi',
-        text:"Yes Guys,Hello everyone",
+        title:"Twitch",
+        rtmp:"rtmp://rtmp.twitch.tv/live/",
     }
 ]
+
 

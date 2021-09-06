@@ -210,3 +210,30 @@ const PublicProfile = (props) => {
     
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+
+
+
+
+
+  <Form>                                
+    <Form.Group className="mb-3" controlId="formBasicKey">
+        <Form.Label><b>To Simultaneously Stream on Twitch Enter Twitch-Stream-Key </b></Form.Label>
+        <Form.Control
+            type="text"
+            placeholder="Enter SECRET Key"
+            onChange={(e) => handleChange(e)}
+            style={{width:"80%"}}
+        />
+        
+        <div style={{display:"flex"}}>
+            <Button variant="primary" className={classes.multistream_form_button} type="button" onClick={createMultiStream}>
+                Start MultiStreaming
+            </Button>
+            <div className={classes.multistream_form_spinner}>
+                <Spinner animation="border"  variant="info" role="status" hidden={loader}>   
+                </Spinner>
+            </div>
+        </div>
+    </Form.Group>
+</Form>

@@ -52,9 +52,9 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 98.8%;
+    height: 100%;
     width: 100%;
-    border-radius: 5px;
+    border-radius: 10px;
     background: rgb(255,255,255);
     background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(221,221,221,0) 55%, rgba(0,0,0,0.896796218487395) 100%);
 }

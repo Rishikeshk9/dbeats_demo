@@ -52,67 +52,60 @@ const Profile = (props) => {
                     />
                   </div>
                   <div className="w-100">
-                    <div className="w-100 flex -mt-28 ml-5">
-                      <div className="w-56 ">
-                        <div className="px-1 py-1 shadow-sm w-44 h-44   bg-white rounded-full   ">
-                          <img
-                            src={person}
-                            alt=""
-                            className="relative w-42 h-42 align-middle items-center  rounded-full "
-                          />
-                        </div>
-                      </div>
-                      <div className="w-100 flex flex-col ml-3 mr-5">
-                        <div className="text-white pb-5">
-                          <div className="flex w-max">
-                            <span className="font-bold text-3xl mr-3">
-                              {user.name}
-                            </span>
-                            <button
-                              href="#"
-                              className="no-underline cursor-pointer border-dbeats-light border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mr-1 flex self-center   py-1 px-3"
-                            >
-                              <i class="fas fa-plus self-center"></i>
-                              &nbsp;FOLLOW
-                            </button>
-                            <button
-                              onClick={handleShow}
-                              className="no-underline cursor-pointer border-white border-1  text-blue-50 hover:bg-white hover:text-dbeats-light rounded font-bold mr-1 flex self-center   py-1 px-3"
-                            >
-                              <i className="fas fa-share-alt self-center mr-2 "></i>{" "}
-                              SHARE
-                            </button>
+                      <div className="w-100 flex -mt-28 ml-5">
+                        <div className="w-56 ">
+                          <div className="shadow-lg rounded  bg-white py-1">
+                            <img
+                              src={person}
+                              alt=""
+                              className="relative w-40 h-40 rounded-full mx-auto my-1"
+                            />
                           </div>
-
-                          <span className="font-semibold">
-                            @{user.username}
-                          </span>
                         </div>
-                        <div className="flex text-gray-400 py-3 ">
-                          <div class="grid grid-flow-rows grid-cols-5   gap-4">
-                            <div className="font-bold mx-auto   px-4">
-                              <span className="font-bold text-lg text-gray-700">
+                        <div className="w-100 flex flex-col ml-3 mr-5">
+                          <div className="text-white pb-5 shadow">
+                            <span className="font-bold text-4xl shadow  ">
+                              {user.name}
+                            </span>{" "}
+                            <br />
+                            <span>@{user.username}</span>
+                          </div>
+                          <div className="flex text-gray-400 py-3">
+                            <div className="font-bold mx-auto  px-4">
+                              <span className="font-bold text-4xl text-gray-700">
                                 {user.videos.length}{" "}
                               </span>
-                              VIDEOS
+                              Videos
                             </div>
-                            <div className="font-bold mx-auto   px-4">
-                              <span className="font-bold text-lg text-gray-700">
-                                {user ? <>{user.subscribers.length}</> : 0}{" "}
+                            <div className="font-bold mx-auto  px-4">
+                              <span className="font-bold text-4xl text-gray-700">
+                                {user.subscribers ? <>{user.subscribers.length}</> : 0}{" "}
                               </span>
-                              FOLLOWERS
+                              Subscribers
                             </div>
-                            <div className="font-bold  mx-auto  px-4">
-                              <span className="font-bold text-lg text-gray-700">
-                                {user ? <>{user.subscribed.length}</> : 0}{" "}
+                            <div className="font-bold mx-auto  px-4">
+                              <span className="font-bold text-4xl text-gray-700">
+                                {user.subscribed ? <>{user.subscribed.length}</> : 0}{" "}
                               </span>
-                              FOLLOWING
+                              Subscribed
+                            </div>
+                            <button
+                              className="font-bold mx-auto  px-4"
+                              onClick={handleShow}
+                            >
+                              <span className="font-bold text-4xl text-gray-700">
+                                <i class="fas fa-share"></i>{" "}
+                              </span>
+                              Share
+                            </button>
+                            <div className="font-bold text-white bg-dbeats-light rounded-full mx-auto py-2 px-4">
+                              <span className="font-bold pr-2 text-lg">+</span>
+                              Follow
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                 </div>
                 <div className="w-full relative mb-20 ">
                   <Tab.Group>
