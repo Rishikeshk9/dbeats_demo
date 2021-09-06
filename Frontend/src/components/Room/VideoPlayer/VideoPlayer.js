@@ -6,9 +6,8 @@ import ReactPlayer from "react-player";
 import screenful from "screenfull";
 import FullControls from "./FullControls";
 import PlayControls from "./PlayControls";
-import Footer from '../Footer/Footer';
+import Footer from "../Footer/Footer";
 import classes from "./videoPlayer.module.css";
-
 
 const format = (seconds) => {
   if (isNaN(seconds)) {
@@ -46,18 +45,8 @@ function VideoPlayer(props) {
   const playerRef = useRef(null);
   const playerContainerRef = useRef(null);
   const controlsRef = useRef(null);
-  const {
-    playing,
-    light,
-    muted,
-    loop,
-    playbackRate,
-    pip,
-    played,
-    volume,
-  } = state;
-
-
+  const { playing, light, muted, loop, playbackRate, pip, played, volume } =
+    state;
 
   const handlePlayPause = () => {
     setState({ ...state, playing: !state.playing });
@@ -118,8 +107,6 @@ function VideoPlayer(props) {
     setShowControls(!showControls);
   };
 
-
-
   const handleDisplayFormat = () => {
     setTimeDisplayFormat(
       timeDisplayFormat === "normal" ? "remaining" : "normal"
@@ -134,24 +121,17 @@ function VideoPlayer(props) {
     setState({ ...state, muted: !state.muted });
   };
 
-
-  
-
   const handleMouseMove = () => {
-      controlsRef.current.style.visibility = "visible";
-    
+    controlsRef.current.style.visibility = "visible";
   };
 
   const hanldeMouseLeave = () => {
-
-      controlsRef.current.style.visibility = "hidden";
-
+    controlsRef.current.style.visibility = "hidden";
   };
 
-  const handleClickEvent = () =>{
-      setState({ ...state, playing: !state.playing });
-  }
-
+  const handleClickEvent = () => {
+    setState({ ...state, playing: !state.playing });
+  };
 
   const currentTime =
     playerRef && playerRef.current
@@ -167,31 +147,30 @@ function VideoPlayer(props) {
 
   const totalDuration = format(duration);
 
-  function escFunction(event){
-    if(event.keyCode === 27) {
-      setShowControls(false)
+  function escFunction(event) {
+    if (event.keyCode === 27) {
+      setShowControls(false);
     }
   }
 
-  window.addEventListener('keydown', escFunction);
-
+  window.addEventListener("keydown", escFunction);
 
   return (
     <>
-      <Container style={{width:"95%",height:"auto"}}>
-          <div
-              onMouseMove={handleMouseMove}
-              onMouseLeave={hanldeMouseLeave} 
-              onClick={handleClickEvent}
-              onDoubleClick={toggleFullScreen}
-              ref={playerContainerRef}
-              className={classes.playerWrapper}
-          > 
+      <Container style={{ width: "100%", height: "auto" }}>
+        <div
+          onMouseMove={handleMouseMove}
+          onMouseLeave={hanldeMouseLeave}
+          onClick={handleClickEvent}
+          onDoubleClick={toggleFullScreen}
+          ref={playerContainerRef}
+          className={classes.playerWrapper}
+        >
           <ReactPlayer
             ref={playerRef}
             width="100%"
             height="auto"
-            className={classes.video_player}
+            className={`${classes.video_player}`}
             url={props.playbackUrl}
             pip={pip}
             playing={playing}
@@ -203,61 +182,62 @@ function VideoPlayer(props) {
             muted={muted}
             onProgress={handleProgress}
           />
-          {showControls ?
-              <FullControls
-                ref={controlsRef} 
-                onSeek={handleSeekChange}
-                onSeekMouseDown={handleSeekMouseDown}
-                onSeekMouseUp={handleSeekMouseUp}
-                onDuration={handleDuration}
-                onRewind={handleRewind}
-                onPlayPause={handlePlayPause}
-                onFastForward={handleFastForward}
-                playing={playing}
-                played={played}
-                elapsedTime={elapsedTime}
-                totalDuration={totalDuration}
-                onMute={hanldeMute}
-                muted={muted}
-                onVolumeChange={handleVolumeChange}
-                onVolumeSeekDown={handleVolumeSeekDown}
-                onChangeDispayFormat={handleDisplayFormat}
-                playbackRate={playbackRate}
-                onPlaybackRateChange={handlePlaybackRate}
-                onToggleFullScreen={toggleFullScreen}
-                volume={volume}
-              />
-            :  <PlayControls
-                ref={controlsRef}
-                onPlayPause={handlePlayPause}
-                playing={playing}
-                played={played}
+          {showControls ? (
+            <FullControls
+              ref={controlsRef}
+              onSeek={handleSeekChange}
+              onSeekMouseDown={handleSeekMouseDown}
+              onSeekMouseUp={handleSeekMouseUp}
+              onDuration={handleDuration}
+              onRewind={handleRewind}
+              onPlayPause={handlePlayPause}
+              onFastForward={handleFastForward}
+              playing={playing}
+              played={played}
+              elapsedTime={elapsedTime}
+              totalDuration={totalDuration}
+              onMute={hanldeMute}
+              muted={muted}
+              onVolumeChange={handleVolumeChange}
+              onVolumeSeekDown={handleVolumeSeekDown}
+              onChangeDispayFormat={handleDisplayFormat}
+              playbackRate={playbackRate}
+              onPlaybackRateChange={handlePlaybackRate}
+              onToggleFullScreen={toggleFullScreen}
+              volume={volume}
             />
-          }
-          </div>
+          ) : (
+            <PlayControls
+              ref={controlsRef}
+              onPlayPause={handlePlayPause}
+              playing={playing}
+              played={played}
+            />
+          )}
+        </div>
       </Container>
-      <Footer 
-            onSeek={handleSeekChange}
-            onSeekMouseDown={handleSeekMouseDown}
-            onSeekMouseUp={handleSeekMouseUp}
-            onDuration={handleDuration}
-            onRewind={handleRewind}
-            onPlayPause={handlePlayPause}
-            onFastForward={handleFastForward}
-            playing={playing}
-            played={played}
-            elapsedTime={elapsedTime}
-            totalDuration={totalDuration}
-            onMute={hanldeMute}
-            muted={muted}
-            onVolumeChange={handleVolumeChange}
-            onVolumeSeekDown={handleVolumeSeekDown}
-            onChangeDispayFormat={handleDisplayFormat}
-            playbackRate={playbackRate}
-            onPlaybackRateChange={handlePlaybackRate}
-            onToggleFullScreen={toggleFullScreen}
-            volume={volume}
-        />
+      <Footer
+        onSeek={handleSeekChange}
+        onSeekMouseDown={handleSeekMouseDown}
+        onSeekMouseUp={handleSeekMouseUp}
+        onDuration={handleDuration}
+        onRewind={handleRewind}
+        onPlayPause={handlePlayPause}
+        onFastForward={handleFastForward}
+        playing={playing}
+        played={played}
+        elapsedTime={elapsedTime}
+        totalDuration={totalDuration}
+        onMute={hanldeMute}
+        muted={muted}
+        onVolumeChange={handleVolumeChange}
+        onVolumeSeekDown={handleVolumeSeekDown}
+        onChangeDispayFormat={handleDisplayFormat}
+        playbackRate={playbackRate}
+        onPlaybackRateChange={handlePlaybackRate}
+        onToggleFullScreen={toggleFullScreen}
+        volume={volume}
+      />
     </>
   );
 }
