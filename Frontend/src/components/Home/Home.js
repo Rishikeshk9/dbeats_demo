@@ -40,14 +40,14 @@ const Home = (props) => {
     };
 
     return (
-      <div className="bg-white w-full h-70 md:h-50 flex  aspect-w-16 aspect-h-9">
+      <div className="bg-white w-full h-70 md:h-70 flex  aspect-w-16 aspect-h-9">
         <span className="fixed bg-red-600 text-white px-1  aspect-w-16 aspect-h-9  mx-2 my-2 rounded-sm font-semibold z-50">
           {" "}
           Live{" "}
         </span>
         <ReactPlayer
           width="100%"
-          height="100%"
+          height="100%  "
           playing={playing}
           muted={false}
           volume={0.3}
@@ -129,7 +129,7 @@ const Home = (props) => {
         <NavBar />
         <div id="outer-container" className="h-100">
           <main id="page-wrap" className={classes.main_homepage_body}>
-            <div id="recommended_channel" className="w-100 bg-blue-100">
+            <div id="recommended_channel" className="w-100 bg-blue-100 lg:block sm:hidden">
               <div className="px-3 pt-4">
                 <h5 className="font-semibold text-base">
                   {" "}
@@ -176,7 +176,7 @@ const Home = (props) => {
                 </div>
               </div>
               <div>
-                <div id="display_playback_videos" className="pt-2 px-4 ">
+                <div id="display_playback_videos" className="pt-1 px-4 ">
                   <div>
                     <h4 className=" font-bold pl-2 pt-5 pb-4 ">Live Videos</h4>
                     <div className="">

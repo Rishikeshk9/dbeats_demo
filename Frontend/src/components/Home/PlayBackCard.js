@@ -20,14 +20,14 @@ const PlayBackCard = (props) => {
   //console.log(props.playbackUserData)
 
   return (
-    <div className="w-full h-auto mr-2">
+    <div className="w-100 h-auto mr-2">
       <div className={`cursor-pointer`}>
         <ReactPlayer
           onClick={() => {
             history.push(`/playback/${props.playbackUserData.username}/0`);
           }}
-          width="300px"
-          height="170px"
+          width="100%"
+          height="21.9vh"
           playing={playing}
           muted={false}
           volume={0.5}

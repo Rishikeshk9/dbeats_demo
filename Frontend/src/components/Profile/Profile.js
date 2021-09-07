@@ -17,7 +17,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Tab } from "@headlessui/react";
 
 const Profile = (props) => {
-  const user = JSON.parse(window.sessionStorage.getItem("user"));
+  const user = JSON.parse(window.localStorage.getItem("user"));
 
   let sharable_data = `https://dbeats-demo.vercel.app/#/public_profile/${user.username}`;
 

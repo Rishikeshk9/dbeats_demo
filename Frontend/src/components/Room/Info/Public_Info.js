@@ -17,7 +17,7 @@ const PublicInfo = (props) => {
 
   const [userData, setUserData] = useState(null);
 
-  const user = JSON.parse(window.sessionStorage.getItem("user"));
+  const user = JSON.parse(window.localStorage.getItem("user"));
 
   const [playbackUrl, setPlaybackUrl] = useState("");
 

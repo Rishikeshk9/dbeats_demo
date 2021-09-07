@@ -77,31 +77,63 @@ app.get("/get_activeusers", async (req, res) => {
   res.json(value.data);
 });
 
-app.post("/create_multistream", async (req, res) => {
-  let streamData = {
-    name: req.body.name,
-    url: req.body.url,
-  };
+
+// app.post("/create_multistream", async (req, res) => {
+//   let streamData = {
+//     name: req.body.name,
+//     url: req.body.url,
+//   };
   
-  const value = await axios({
-    method: "post",
-    url: "https://livepeer.com//api/multistream/target/",
-    data: streamData,
+//   const value = await axios({
+//     method: "post",
+//     url: "https://livepeer.com/api/multistream/target/",
+//     data: streamData,
+//     headers: {
+//       "content-type": "application/json",
+//       Authorization: AuthStr,
+//     },
+//   });
+//   res.json(value.data);
+// });
+
+app.post("/patch_multistream", async (req, res) => {
+  
+  let platformName = req.body.name;
+  let rtmp = req.body.url;
+
+  let apiUrl = `https://livepeer.com/api/stream/${req.body.stream_id}`;
+
+  const userValue = await axios({
+    method: "GET",
+    url: apiUrl,
     headers: {
       "content-type": "application/json",
       Authorization: AuthStr,
     },
   });
-  res.json(value.data);
-});
 
-app.post("/patch_multistream", async (req, res) => {
-  let patchStreamData = {
-    multistream: req.body.multistream,
-  };
+  //console.log(userValue.data.multistream)
 
-  let apiUrl = `https://livepeer.com/api/stream/${req.body.stream_id}`;
+  let data={
+    profile:"source",
+    spec:{
+      name:platformName,
+      url:rtmp
+    }
+  }
 
+  let multiData= userValue.data.multistream.targets;
+
+  multiData.push(data)
+
+  let patchStreamData={
+    multistream:{
+      targets:multiData
+    }
+  }
+
+  //console.log(patchStreamData.multistream)
+  
   const value = await axios({
     method: "PATCH",
     url: apiUrl,

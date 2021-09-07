@@ -35,7 +35,7 @@ const Login = (props) => {
       .then(function (response) {
         if (response) {
           console.log(response.data, "resData");
-          window.sessionStorage.setItem("user", JSON.stringify(response.data));
+          window.localStorage.setItem("user", JSON.stringify(response.data));
           history.push(`/home`);
         } else {
           alert("Invalid Login");
@@ -102,7 +102,7 @@ const Login = (props) => {
     })
       .then(function (response) {
         //console.log("esponse", response.data);
-        window.sessionStorage.setItem("user", JSON.stringify(response.data));
+        window.localStorage.setItem("user", JSON.stringify(response.data));
       })
       .catch(function (error) {
         console.log(error);
@@ -156,7 +156,7 @@ const Login = (props) => {
                   `${process.env.REACT_APP_SERVER_URL}/user/getuser_by_wallet/${provider.provider.selectedAddress}`
                 )
                 .then((value) => {
-                  window.sessionStorage.setItem(
+                  window.localStorage.setItem(
                     "user",
                     JSON.stringify(value.data)
                   );

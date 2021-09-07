@@ -12,7 +12,10 @@ const UserInfo = (props) => {
 
 
     const [userStreams, setUserStreams] = useState([]);
-    const user = JSON.parse(window.sessionStorage.getItem("user"));
+
+    const user = JSON.parse(window.localStorage.getItem("user"));
+    let multistream_platform= JSON.parse(window.localStorage.getItem("multiStream"));
+
     const [playbackUrl, setPlaybackUrl] = useState("");
     const [StreamKey, setKey] = useState("");
     const [loader, setLoader] = useState(true);
@@ -25,56 +28,44 @@ const UserInfo = (props) => {
 
 
     useEffect(() => {
-        console.log(props.stream_id)
+        //console.log(props.stream_id)
+        //localStorage.removeItem('multiStream');
+        let array=[];
+        if(multistream_platform === null){
+            window.localStorage.setItem("multiStream", JSON.stringify(array));
+        }
+        else if(multistream_platform !== array){
+
+            setMultiStreamConnected(multistream_platform);
+        }
         setPlaybackUrl(`https://cdn.livepeer.com/hls/${user.livepeer_data.playbackId}/index.m3u8`)
         setName(user.livepeer_data.name)
         setUserStreams(user.livepeer_data);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
+    //console.log(multiStreamConnected)
 
     const handleChange = (e) => {
         e.preventDefault();
         setKey(e.target.value);
     };
 
-    console.log(multiStreamConnected);
+
     const createMultiStream = async (props) => {
-        console.log(props)
+        //console.log(props)
         let data = {
             title: multiStreamValue.title,
             logo: multiStreamValue.logo
         }
-        setMultiStreamConnected(
-            [...multiStreamConnected, data]
-        );
+
         setLoader(false);
-        let streamData = {
-            name: `${userStreams.name}`,
-            url: `${props}`
-        }
-        console.log(streamData)
-        const stream = await axios({
-          method:'POST',
-          url: `${process.env.REACT_APP_SERVER_URL}/create_multistream`,
-          data: streamData,
-        })
-
-
-        let patchId = stream.data.id;
-        console.log(patchId)
         
         let patchStreamData = {
-            multistream: {
-                targets: [
-                    {
-                        id: `${patchId}`,
-                        profile: "source",
-                    }
-                ]
-            },
+            name: `${multiStreamValue.title}`,
+            url: `${props}`,
             stream_id:userStreams.id
         }
+        //console.log(patchStreamData)
 
         const patchingStream = await axios({
           method:'POST',
@@ -82,11 +73,25 @@ const UserInfo = (props) => {
           data: patchStreamData,
         })
 
-        console.log(patchingStream)
+        //console.log(patchingStream)
 
         setLoader(true);
         alert(" Multistream Creation Successfull !!!");
         setShowStreamModal(false);
+        
+        setMultiStreamConnected(
+            [...multiStreamConnected, data]
+        );
+
+        let datavalue=multiStreamConnected;
+        datavalue.push(data)
+
+        const timer = setTimeout(() => {
+          window.localStorage.setItem("multiStream", JSON.stringify(datavalue));
+        }, 2000);
+        return () => clearTimeout(timer);
+
+        
     };
 
 
@@ -117,18 +122,19 @@ const UserInfo = (props) => {
                             <span className="font-semibold">Streamer Key : </span>
                             <span>{userStreams.streamKey}</span>
                         </div>
-                        <div className="pb-2 text-lg">
+                        <div className="pb-2  break-words">
                             <span className="font-semibold">Playback URL : </span>
                             <span>{playbackUrl}</span>
                         </div>
-                        <hr width="95%" />
+                        <hr width="95%" className="mt-2 mb-4"/>
                         <div>
                             <div className="flex">
-                                <button variant="primary" className="bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded font-bold px-4 py-2"
+                                <button variant="primary" 
+                                    className="bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded font-bold px-4 py-2"
                                     type="button"
                                     onClick={() => setModalShow(true)}
                                 >
-                                    Start MultiStreaming
+                                    Add MultiStreaming
                                 </button>
                                 <div className={classes.multistream_form_spinner}>
                                     <Spinner animation="border" variant="info" role="status" hidden={loader}>

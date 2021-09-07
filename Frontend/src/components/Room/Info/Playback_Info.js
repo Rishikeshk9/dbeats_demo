@@ -15,7 +15,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 const Playback = (props) => {
   let sharable_data = `https://dbeats-demo.vercel.app/#/playback/${props.stream_id}/${props.video_id}`;
 
-  const user = JSON.parse(window.sessionStorage.getItem("user"));
+  const user = JSON.parse(window.localStorage.getItem("user"));
 
   const [playbackUrl, setPlaybackUrl] = useState("");
 
@@ -88,14 +88,14 @@ const Playback = (props) => {
   return (
     <div className=" ">
       <div
-        className={`  grid sm:grid-cols-1 lg:grid-cols-4 grid-flow-row pt-3 pb-50 `}
+        className={`  grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row pt-3 pb-50 `}
       >
-        <div className=" col-span-3    ">
+        <div className=" col-span-2 ">
           <div>
             {console.log(playbackUrl)}
             <VideoPlayer playbackUrl={playbackUrl} />
           </div>
-          <div className="  px-5  mx-5  ">
+          <div className="mx-5 px-2">
             <div className="flex justify-between my-2  ">
               <div>
                 <div
@@ -221,7 +221,7 @@ const Playback = (props) => {
             </div>
           </div>
         </div>
-        <div className="  w-full md:w-450     col-span-1 ">
+        <div className="  w-full col-span-1 px-5">
           {/* {peers.map((peer, index) => {
                         peer.on("stream", (stream) => {
                             ref.current.srcObject = stream;

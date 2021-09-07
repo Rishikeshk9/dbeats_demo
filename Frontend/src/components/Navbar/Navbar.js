@@ -12,7 +12,7 @@ const NavBar = (props) => {
 
   let history = useHistory();
 
-  const user = JSON.parse(window.sessionStorage.getItem("user"));
+  const user = JSON.parse(window.localStorage.getItem("user"));
 
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.toggleDarkMode);
@@ -27,7 +27,7 @@ const NavBar = (props) => {
   // Auth functions
 
   const handleLogout = () => {
-    window.sessionStorage.removeItem("user");
+    window.localStorage.removeItem("user");
     logoutOfWeb3Modal();
     history.push("/home");
   };
