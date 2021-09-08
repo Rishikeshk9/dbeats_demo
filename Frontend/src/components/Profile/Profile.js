@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./Profile.module.css";
 import NavBar from "../Navbar/Navbar";
-//import axios from "axios";
+import axios from "axios";
 import CarouselCard from "./CarouselCard";
 import person from "../../assests/images/person.png";
 
@@ -17,9 +17,12 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Tab } from "@headlessui/react";
 
 const Profile = (props) => {
-  const user = JSON.parse(window.localStorage.getItem("user"));
 
-  let sharable_data = `https://dbeats-demo.vercel.app/#/public_profile/${user.username}`;
+  const [user, setUser] = useState(null);
+  const [privateUser, setPrivate] = useState(true);
+
+  const [sharable_data, setSharable_data] = useState("");
+  
 
   const [show, setShow] = useState(false);
 
@@ -29,14 +32,43 @@ const Profile = (props) => {
   const text = "Copy Link To Clipboard";
   const [buttonText, setButtonText] = useState(text);
 
-  console.log(user.subscribers);
-
+  
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
 
+  const get_User = async () => {
+    await axios
+      .get(
+        `${process.env.REACT_APP_SERVER_URL}/user/${props.match.params.username}`
+      )
+      .then((value) => {
+        setUser(value.data);
+        setSharable_data(`https://dbeats-demo.vercel.app/#/profile/${value.data.username}`);
+      });
+    console.log(user);
+  };
+
+
+  useEffect(() => {
+    let value = JSON.parse(window.localStorage.getItem("user"));
+    console.log(value)
+    if(value.username === props.match.params.username){
+      setUser(value);
+      setSharable_data(`https://dbeats-demo.vercel.app/#/profile/${value.username}`);
+      setPrivate(true)
+    }
+    else{
+      get_User();
+      setPrivate(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
   return (
     <>
+    {user ? (
       <div>
         <NavBar />
         <div id="outer-container">
@@ -68,13 +100,18 @@ const Profile = (props) => {
                               <span className="font-bold text-3xl mr-3">
                                 {user.name}
                               </span>
-                              <button
-                                href="#"
-                                className="no-underline cursor-pointer border-dbeats-light border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mr-1 flex self-center   py-1 px-3"
-                              >
-                                <i class="fas fa-plus self-center"></i>
-                                &nbsp;FOLLOW
-                              </button>
+                              {!privateUser
+                                ? 
+                                  <button
+                                    href="#"
+                                    className="no-underline cursor-pointer border-dbeats-light border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mr-1 flex self-center   py-1 px-3"
+                                  >
+                                    <i class="fas fa-plus self-center"></i>
+                                    &nbsp;FOLLOW
+                                  </button>
+                                :
+                                  <></>
+                              }
                               <button
                                 onClick={handleShow}
                                 className="no-underline cursor-pointer border-white border-1  text-blue-50 hover:bg-white hover:text-dbeats-light rounded font-bold mr-1 flex self-center   py-1 px-3"
@@ -254,6 +291,8 @@ const Profile = (props) => {
               </div>
             </div>
           </main>
+
+
           <Modal show={show} onHide={handleClose} animation={true} centered>
             <Modal.Header closeButton>
               <Modal.Title>Share link on</Modal.Title>
@@ -328,6 +367,9 @@ const Profile = (props) => {
           </Modal>
         </div>
       </div>
+      ) : (
+        <></>
+      )}
     </>
   );
 };

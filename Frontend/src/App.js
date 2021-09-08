@@ -36,12 +36,6 @@ const  Profile = lazy(() => {
   });
 });
 
-const  PublicProfile = lazy(() => {
-  return new Promise(resolve => {
-    setTimeout(() => resolve(import("./components/Profile/PublicProfile")), 1000);
-  });
-});
-
 
 const  Login = lazy(() => {
   return new Promise(resolve => {
@@ -62,8 +56,7 @@ const App = () => {
             <Route exact path="/streamer/:roomID" component={UserRoom} />    
             <Route exact path="/public/:username" component={PublicRoom} />            
             <Route exact path="/playback/:username/:video_id" component={PlaybackRoom} />            
-            <Route exact path="/profile/:username" component={Profile} />            
-            <Route exact path="/public_profile/:username" component={PublicProfile} />            
+            <Route exact path="/profile/:username" component={Profile} />                   
             <Route exact path="/login" component={Login} />            
             {/* TODO: <Route exact path="*" component={PageNotFound} /> */}
           </Switch>

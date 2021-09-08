@@ -107,24 +107,24 @@ const UserInfo = (props) => {
                 <div>
                     <div className="bg-white py-3 pl-4 mr-3 rounded text-xl shadow">
                         <div className="pb-2">
-                            <span className="font-semibold">Streamer Name : </span>
-                            <span>{user.name}</span>
+                            <span className="text-2xl font-semibold">Streamer Name : </span>
+                            <p>{user.name}</p>
                         </div>
                         <div className="pb-2">
-                            <span className="font-semibold">Streamer Username : </span>
-                            <span>{user.username}</span>
+                            <span className="text-2xl font-semibold">Streamer Username : </span>
+                            <p>{user.username}</p>
                         </div>
                         <div className="pb-2">
-                            <span className="font-semibold">Streamer Id : </span>
-                            <span>{userStreams.id}</span>
+                            <span className="text-2xl font-semibold">Streamer Id : </span>
+                            <p>{userStreams.id}</p>
                         </div>
                         <div className="pb-2">
-                            <span className="font-semibold">Streamer Key : </span>
-                            <span>{userStreams.streamKey}</span>
+                            <span className="text-2xl font-semibold">Streamer Key : </span>
+                            <p>{userStreams.streamKey}</p>
                         </div>
                         <div className="pb-2  break-words">
-                            <span className="font-semibold">Playback URL : </span>
-                            <span>{playbackUrl}</span>
+                            <span className="text-2xl font-semibold">Playback URL : </span>
+                            <p>{playbackUrl}</p>
                         </div>
                         <hr width="95%" className="mt-2 mb-4"/>
                         <div>
