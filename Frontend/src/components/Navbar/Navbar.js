@@ -27,7 +27,7 @@ const NavBar = (props) => {
   // Auth functions
 
   const handleLogout = () => {
-    window.localStorage.removeItem("user");
+    window.localStorage.clear();
     logoutOfWeb3Modal();
     history.push("/home");
   };

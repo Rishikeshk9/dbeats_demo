@@ -16,8 +16,7 @@ const UserInfo = (props) => {
     const [userStreams, setUserStreams] = useState([]);
 
     const user = JSON.parse(window.localStorage.getItem("user"));
-    let multistream_platform = JSON.parse(window.localStorage.getItem("multiStream"));
-
+    
     const [playbackUrl, setPlaybackUrl] = useState("");
     const [StreamKey, setKey] = useState("");
     const [loader, setLoader] = useState(true);
@@ -28,95 +27,149 @@ const UserInfo = (props) => {
     const [selected, setSelected] = React.useState(false);
 
     const [multiStreamValue, setMultiStreamValue] = useState({});
-    const [multiStreamConnected, setMultiStreamConnected] = useState([])
+
+    const [multiStreamConnected, setMultiStreamConnected] = useState([]);
+    const [patchStream, setPatchStream] = useState([]);
+
 
 
     useEffect(() => {
 
-        //console.log(props.stream_id)
-        //localStorage.removeItem('multiStream');
-        // let array = [];
-        // if (multistream_platform === null) {
-        //     window.localStorage.setItem("multiStream", JSON.stringify(array));
-        // }
-        // else if (multistream_platform !== array) {
-
-        //     setMultiStreamConnected(multistream_platform);
-        // }
         if(user.multistream_platform){
-        setMultiStreamConnected(user.multistream_platform);
+            //console.log("hello",user.multistream_platform)
+            let new_array=[]
+            for(let i=0;i<user.multistream_platform.length;i++){
+                new_array.push(user.multistream_platform[i])                
+            }
+            setMultiStreamConnected(new_array);
+            //setPatchStream(new_array)
         }else{
             setMultiStreamConnected([]);
         }
         setPlaybackUrl(`https://cdn.livepeer.com/hls/${user.livepeer_data.playbackId}/index.m3u8`)
         setName(user.livepeer_data.name)
         setUserStreams(user.livepeer_data);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
         
- 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     //console.log(multiStreamConnected)
+
+
 
     const handleChange = (e) => {
         e.preventDefault();
         setKey(e.target.value);
     };
 
-  console.log(multiStreamValue);
-    const createMultiStream = async (props) => {
-        //console.log(props)
-        let data = {
-            
+    const addStreamingPlatform = async(props) =>{
+        let postdata = {
             username: user.username,
-            multistream_data:{
+            platform:{
                 title: multiStreamValue.title,
                 logo: multiStreamValue.logo,
                 image:multiStreamValue.image,
-                rtmp : multiStreamValue.rtmp
+                rtmp : props
             }
         }
+        await axios({
+            method: "post",
+            url: `${process.env.REACT_APP_SERVER_URL}/user/add_multistream_platform`,
+            data: postdata,
+        }).then((res)=>{
+            alert(`Successfully added ${multiStreamValue.title} !!!`);        
+        })
+
+        setMultiStreamConnected(
+            [...multiStreamConnected, postdata]
+        );
+
+        // let datavalue = multiStreamConnected;
+        // datavalue.push(postdata.multistream_data)
+
+        // const timer = setTimeout(() => {
+        //     window.localStorage.setItem("multiStream", JSON.stringify(datavalue));
+        // }, 2000);
+        // return () => clearTimeout(timer);
+
+        setShowStreamModal(false)
+    }
+
+ 
+    const createMultiStream = async () => {
+        console.log(patchStream)
+
         setLoader(false);
 
-        await axios({
-            method: 'POST',
-            url: `${process.env.REACT_APP_SERVER_URL}/user/add_multistream_platform`,
-            data: data,
-        })
+        let multi_data = {
+            patchStreamData:[],
+            stream_id: userStreams.id
+        }
+
+        for(let i=0;i<patchStream.length;i++){
+            let data={
+                profile:"source",
+                spec:{
+                  name:patchStream[i].platform.title,
+                  url:patchStream[i].platform.rtmp
+                }
+            }
+            multi_data.patchStreamData.push(data)
+        }
 
         // let patchStreamData = {
         //     name: `${multiStreamValue.title}`,
         //     url: `${props}`,
         //     stream_id: userStreams.id
         // }
-        // //console.log(patchStreamData)
+        
+        console.log("patchStream:",multi_data)
 
-        // const patchingStream = await axios({
-        //     method: 'POST',
-        //     url: `${process.env.REACT_APP_SERVER_URL}/patch_multistream`,
-        //     data: patchStreamData,
-        // })
+        const patchingStream = await axios({
+            method: 'POST',
+            url: `${process.env.REACT_APP_SERVER_URL}/patch_multistream`,
+            data: multi_data,
+        })
 
-        //console.log(patchingStream)
+        console.log(patchingStream)
 
         setLoader(true);
-        alert(" Multistream Creation Successfull !!!");
+        alert(" Multistream Connection Successfull !!!");
         setShowStreamModal(false);
-
-        setMultiStreamConnected(
-            [...multiStreamConnected, data]
-        );
-
-        let datavalue = multiStreamConnected;
-        datavalue.push(data)
-
-        const timer = setTimeout(() => {
-            window.localStorage.setItem("multiStream", JSON.stringify(datavalue));
-        }, 2000);
-        return () => clearTimeout(timer);
-
-
     };
+      
 
+    const editPlatform = (value,index) =>{
+        
+        let stored_data=patchStream;
+
+        if(value.selected === 1){
+            let newData={
+                selected:0,
+                platform:multiStreamConnected[index].platform,
+            }
+
+            for(let i=0;i<stored_data.length;i++){
+                if(stored_data[i].platform.title === value.platform.title){
+                    stored_data.splice(i,1);
+                    break;
+                }
+            }
+
+            multiStreamConnected.splice(index,1);
+            setMultiStreamConnected(oldArray => [...oldArray,newData])
+        }
+        else{
+            let newData={
+                selected:1,
+                platform:multiStreamConnected[index].platform,
+            }
+
+
+            multiStreamConnected.splice(index,1);
+            setPatchStream(oldArray => [...oldArray,newData]);
+            setMultiStreamConnected(oldArray => [...oldArray,newData])
+        }
+    }
 
     return (
         <Fragment>
@@ -165,9 +218,10 @@ const UserInfo = (props) => {
                                 </div>
                                 <div className="flex">
                                     {multiStreamConnected.map((value, index) => {
+                                        console.log(value)
                                         return (
                                             <div className="mx-1">
-                                                <img src={value.logo}
+                                                <img src={value.platform.logo}
                                                     alt="logo"
                                                     className="h-10 w-auto"
                                                 />
@@ -186,8 +240,67 @@ const UserInfo = (props) => {
             </div>
 
 
+            <Modal
+                show={showDestinationModal}
+                onHide={() => setShowDestinationModal(false)}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter" className="w-full">
+                        <div className="font-semibold text-3xl text-center">
+                            Add Multistream Platforms
+                        </div>
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div>
+                        {multiStreamConnected.map((value, index) => {
+                            return (
+                                <div className="bg-white-200 mx-1 border-1 border-gray-300 rounded my-2 flex justify-around">
+                                    <img src={value.platform.image}
+                                        alt="logo"
+                                        className="h-32 w-auto"
+                                    />
+                                    <ToggleButton
+                                    className="h-15 my-auto w-auto"
+                                        value="check"
+                                        selected={value.selected}
+                                        onChange={() => {
+                                            editPlatform(value,index);
+                                        }}
+                                    >
+                                        <CheckIcon />
+                                    </ToggleButton>
+                                </div>
+                            )
+                        })}
 
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <div className="flex w-full">
+                        <button 
+                            className="w-100 mx-2 rounded-md bg-gradient-to-r from-dbeats-alt to-dbeats-light text-white p-2 text-xl font-semibold" 
+                            onClick={()=>{
+                                setModalShow(true); 
+                                setShowDestinationModal(false)
+                            }}
+                        >
+                            Add Destination
+                        </button>
+                        <button 
+                            className="w-100 mx-2 rounded-md bg-gradient-to-r from-green-800 to-green-300 text-white p-2 text-xl font-semibold"
+                            onClick={createMultiStream}
+                        >
+                            Apply
+                        </button>
+                    </div>
+                </Modal.Footer>
+            </Modal>
 
+            
             <Modal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
@@ -230,6 +343,7 @@ const UserInfo = (props) => {
 
 
 
+            
             <Modal
                 show={showStreamModal}
                 onHide={() => setShowStreamModal(false)}
@@ -263,9 +377,8 @@ const UserInfo = (props) => {
                                     type="button"
                                     onClick={() => {
                                         let rtmp = multiStreamValue.rtmp + StreamKey;
-                                        createMultiStream(rtmp)
-                                    }
-                                    }
+                                        addStreamingPlatform(rtmp)
+                                    }}
                                 >
                                     <div className="text-white text-lg font-semibold">
                                         Add {multiStreamValue.title}
@@ -285,52 +398,7 @@ const UserInfo = (props) => {
                 </Modal.Footer>
             </Modal>
 
-            <Modal
-                show={showDestinationModal}
-                onHide={() => setShowDestinationModal(false)}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter" className="w-full">
-                        <div className="font-semibold text-3xl text-center">
-                            Add Multistream Platforms
-                        </div>
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div>
-                        {multiStreamConnected.map((value, index) => {
-                            return (
-                                <div className="bg-white-200 mx-1 border-1 border-gray-300 rounded my-2 flex justify-around">
-                                    <img src={value.image}
-                                        alt="logo"
-                                        className="h-32 w-auto"
-                                    />
-                                    <ToggleButton
-                                    className="h-15 my-auto w-auto"
-                                        value="check"
-                                        selected={selected}
-                                        onChange={() => {
-                                            setSelected(!selected);
-                                        }}
-                                    >
-                                        <CheckIcon />
-                                    </ToggleButton>
-                                </div>
-                            )
-                        })}
-
-                    </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <div className="flex w-full">
-                        <button className="w-100 mx-2 rounded-md bg-gradient-to-r from-dbeats-alt to-dbeats-light text-white p-2 text-xl font-semibold" onClick={()=>{setModalShow(true); setShowDestinationModal(false)}}>Add Destination</button>
-                        <button className="w-100 mx-2 rounded-md bg-gradient-to-r from-green-800 to-green-300 text-white p-2 text-xl font-semibold">Apply</button>
-                    </div>
-                </Modal.Footer>
-            </Modal>
+            
         </Fragment>
     );
 };

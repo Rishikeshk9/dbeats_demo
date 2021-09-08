@@ -1,7 +1,8 @@
-import {  Suspense, lazy } from "react";
+import {  Suspense, lazy,useEffect } from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Loader from "./components/Loader/Loader";
 import LandingPage from './components/LandingPage/LandingPage';
+import axios from 'axios'
 
 import './App.css';
 
@@ -45,6 +46,21 @@ const  Login = lazy(() => {
 
 
 const App = () => {
+
+  let user = JSON.parse(window.localStorage.getItem("user"));
+
+
+  useEffect(() => {
+        if(user)
+        {       
+            axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${user.username}`)
+            .then((value) => {
+              window.localStorage.setItem("user", JSON.stringify(value.data));
+            });
+        }
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps 
+    }, []);
 
   return (
     <Router>
