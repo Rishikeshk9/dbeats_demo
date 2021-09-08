@@ -137,6 +137,17 @@ router.route("/getuser_by_wallet/:walletId").get( async (req,res)=>{
   }
 })
 
+router.route("/add_multistream_platform").post(async(req,res)=>{
+  try{
+    const data = req.body.multistream_data;
+    const username = req.body.username
+    console.log(data);
+    console.log(username);
+  }catch(err){
+    res.send("multistream_error");
+  }
+})
+
 
 /*router.route("/:id").get((req, res) => {
   User.findById(req.params.id)
