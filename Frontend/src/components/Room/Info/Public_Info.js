@@ -66,7 +66,7 @@ const PublicInfo = (props) => {
       .then((value) => {
         setUserData(value.data);
         setPlaybackUrl(
-          `https://cdn.livepeer.com/hls/${value.data.livepeer_data.playbackId}}/index.m3u8`
+          `https://cdn.livepeer.com/hls/${value.data.livepeer_data.playbackId}/index.m3u8`
         );
       });
     console.log(userData);
