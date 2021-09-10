@@ -11,7 +11,6 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/add").post((req, res) => {
-
   const walletID = req.body.wallet_id;
   const fullName = req.body.name;
   const userName = req.body.username;
@@ -20,7 +19,6 @@ router.route("/add").post((req, res) => {
   const confirmPassword = req.body.confirm_password;
   const userId = Str.random(5);
 
-
   const newUser = new User({
     username: userName,
     id: userId,
@@ -28,7 +26,7 @@ router.route("/add").post((req, res) => {
     wallet_id: walletID,
     livepeer_data: livepeerData,
     password: password,
-    confirm_password: confirmPassword
+    confirm_password: confirmPassword,
   });
 
   newUser
@@ -36,7 +34,7 @@ router.route("/add").post((req, res) => {
     .then(() => res.json(newUser))
     .catch((err) => {
       //console.log(err);
-      res.status(400).json("Error: " + err)
+      res.status(400).json("Error: " + err);
     });
 });
 
@@ -53,11 +51,10 @@ router.route("/login").post(async (req, res) => {
     } else {
       res.send(false);
     }
-  }
-  catch (error) {
+  } catch (error) {
     res.status(400).send("Invalid Login");
   }
-})
+});
 
 router.route("/subscribe").post(async (req, res) => {
   try {
@@ -67,7 +64,8 @@ router.route("/subscribe").post(async (req, res) => {
     const toSubscribeUsername = req.body.video_username;
 
     const subscribers = {
-      name: toSubscribeName, username: toSubscribeUsername,
+      name: toSubscribeName,
+      username: toSubscribeUsername,
     };
 
     User.findOneAndUpdate(
@@ -79,10 +77,12 @@ router.route("/subscribe").post(async (req, res) => {
         } else {
           console.log(success);
         }
-      });
+      }
+    );
 
     const subscribed = {
-      name: subscriberName, username: subscriberUsername,
+      name: subscriberName,
+      username: subscriberUsername,
     };
 
     User.findOneAndUpdate(
@@ -94,68 +94,80 @@ router.route("/subscribe").post(async (req, res) => {
         } else {
           console.log(success);
         }
-      });
-  }
-  catch (err) {
+      }
+    );
+  } catch (err) {
     res.send("Try Again");
   }
-})
+});
 
 router.route("/:username").get(async (req, res) => {
   try {
     const getuserData = req.params.username;
 
     const userData = await User.findOne({ username: getuserData });
-    res.send(userData)
-  }
-  catch (err) {
+    res.send(userData);
+  } catch (err) {
     res.send("Try Again");
   }
-})
+});
 
 router.route("/get_user_by_id/:streamID").get(async (req, res) => {
   try {
     const stream_id = req.params.streamID;
 
-    const userData = await User.findOne({ 'livepeer_data.id': stream_id });
-    res.send(userData)
-  }
-  catch (err) {
+    const userData = await User.findOne({ "livepeer_data.id": stream_id });
+    res.send(userData);
+  } catch (err) {
     res.send("Try Again");
   }
-})
+});
 
 router.route("/getuser_by_wallet/:walletId").get(async (req, res) => {
   try {
     const wallet_id = req.params.walletId;
 
-    const userData = await User.findOne({ 'wallet_id': wallet_id });
-    res.send(userData)
-  }
-  catch (err) {
+    const userData = await User.findOne({ wallet_id: wallet_id });
+    res.send(userData);
+  } catch (err) {
     //console.log(err)
     res.send("Try Again");
   }
-})
+});
 
 router.route("/add_multistream_platform").post(async (req, res) => {
   try {
-    const data = req.body.multistream_data;
-    const username = req.body.username
-    console.log(data);
-    console.log(username);
+    const data = {
+      selected: 0,
+      platform: req.body.platform,
+    };
+    const user = req.body.username;
+
+    User.findOneAndUpdate(
+      { username: user },
+      { $push: { multistream_platform: data } },
+      function (error, success) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(success);
+        }
+      }
+    );
+
+    res.send("success");
   } catch (err) {
     res.send("multistream_error");
   }
-})
+});
 
 router.route("/follow").post(async (req, res) => {
   try {
     const following = req.body.following;
     const follower = req.body.follower;
     User.findOneAndUpdate(
-      { username: following},
-      {$push: { follower_count: follower }},
+      { username: following },
+      { $push: { follower_count: follower } },
       function (error, success) {
         if (error) {
           console.log(error);
@@ -165,8 +177,8 @@ router.route("/follow").post(async (req, res) => {
       }
     );
     User.findOneAndUpdate(
-      { username: follower},
-      { $push: {followee_count: following} },
+      { username: follower },
+      { $push: { followee_count: following } },
       function (error, success) {
         if (error) {
           console.log(error);
@@ -178,15 +190,15 @@ router.route("/follow").post(async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-})
+});
 
 router.route("/unfollow").post(async (req, res) => {
   try {
     const following = req.body.following;
     const follower = req.body.follower;
     User.findOneAndUpdate(
-      { username: following},
-      {$pull: { follower_count: follower }},
+      { username: following },
+      { $pull: { follower_count: follower } },
       function (error, success) {
         if (error) {
           console.log(error);
@@ -196,8 +208,8 @@ router.route("/unfollow").post(async (req, res) => {
       }
     );
     User.findOneAndUpdate(
-      { username: follower},
-      { $pull: {followee_count: following} },
+      { username: follower },
+      { $pull: { followee_count: following } },
       function (error, success) {
         if (error) {
           console.log(error);
@@ -209,8 +221,7 @@ router.route("/unfollow").post(async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-})
-
+});
 
 /*router.route("/:id").get((req, res) => {
   User.findById(req.params.id)

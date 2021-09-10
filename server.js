@@ -9,7 +9,8 @@ const axios = require("axios");
 
 const port = process.env.PORT || 8000;
 
-const Mongo_URI = "mongodb+srv://root:supersapiens@cluster0.p80zj.mongodb.net/dbeats?authSource=admin&replicaSet=atlas-4259e6-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
+const Mongo_URI =
+  "mongodb+srv://root:supersapiens@cluster0.p80zj.mongodb.net/dbeats?authSource=admin&replicaSet=atlas-4259e6-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
 const dbName = "dbeats";
 
 const livepeerKey = "d98e11c9-2267-4993-80da-6215d73b42c1";
@@ -77,13 +78,12 @@ app.get("/get_activeusers", async (req, res) => {
   res.json(value.data);
 });
 
-
 // app.post("/create_multistream", async (req, res) => {
 //   let streamData = {
 //     name: req.body.name,
 //     url: req.body.url,
 //   };
-  
+
 //   const value = await axios({
 //     method: "post",
 //     url: "https://livepeer.com/api/multistream/target/",
@@ -97,9 +97,7 @@ app.get("/get_activeusers", async (req, res) => {
 // });
 
 app.post("/patch_multistream", async (req, res) => {
-  
-  let platformName = req.body.name;
-  let rtmp = req.body.url;
+  let patchData = req.body.patchStreamData;
 
   let apiUrl = `https://livepeer.com/api/stream/${req.body.stream_id}`;
 
@@ -112,28 +110,12 @@ app.post("/patch_multistream", async (req, res) => {
     },
   });
 
-  //console.log(userValue.data.multistream)
+  let patchStreamData = {
+    multistream: {
+      targets: patchData,
+    },
+  };
 
-  let data={
-    profile:"source",
-    spec:{
-      name:platformName,
-      url:rtmp
-    }
-  }
-
-  let multiData= userValue.data.multistream.targets;
-
-  multiData.push(data)
-
-  let patchStreamData={
-    multistream:{
-      targets:multiData
-    }
-  }
-
-  //console.log(patchStreamData.multistream)
-  
   const value = await axios({
     method: "PATCH",
     url: apiUrl,
@@ -144,6 +126,7 @@ app.post("/patch_multistream", async (req, res) => {
       Authorization: AuthStr,
     },
   });
+
   res.json(value.data);
 });
 
