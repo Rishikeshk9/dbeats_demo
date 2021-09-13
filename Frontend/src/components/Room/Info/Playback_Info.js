@@ -11,6 +11,7 @@ import { PinterestShareButton, PinterestIcon } from "react-share";
 import { TelegramShareButton, TelegramIcon } from "react-share";
 import { Container, Row, Col } from "react-bootstrap";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import RecommendedCard from "./RecommendedCard";
 
 const Playback = (props) => {
   let sharable_data = `https://dbeats-demo.vercel.app/#/playback/${props.stream_id}/${props.video_id}`;
@@ -34,47 +35,100 @@ const Playback = (props) => {
   const text = "Copy Link To Clipboard";
   const [buttonText, setButtonText] = useState(text);
 
-  const handleSubscribe = () => {
-    const SubscribeData = {
-      name: `${user.name}`,
-      username: `${user.username}`,
-      video_name: `${userData.name}`,
-      video_username: `${userData.username}`,
-    };
-    console.log(SubscribeData);
-    axios({
-      method: "POST",
-      url: `${process.env.REACT_APP_SERVER_URL}/user/subscribe`,
-      headers: {
-        "content-type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      data: SubscribeData,
-    })
-      .then(function (response) {
+  const [subscribeButtonText, setSubscribeButtonText] = useState("Subscribe");
+
+  const [followers, setFollowers] = useState(0);
+  const [following, setFollowing] = useState(0);
+
+  const [arrayData, setArrayData] = useState([]);
+
+
+  const trackFollowers = () => {
+    console.log(followers)
+    const followData = {
+      following: `${userData.username}`,
+      follower: `${user.username}`
+    }
+    if (subscribeButtonText === "Subscribe") {
+      setSubscribeButtonText("Unsubscribe");
+      setFollowers(followers + 1);
+      axios({
+        method: "POST",
+        url: `${process.env.REACT_APP_SERVER_URL}/user/follow`,
+        headers: {
+          "content-type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        data: followData,
+      }).then(function (response) {
         if (response) {
           console.log(response);
         } else {
           alert("Invalid Login");
         }
       })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    else {
+      setSubscribeButtonText("Subscribe");
+      setFollowers(followers - 1);
+      axios({
+        method: "POST",
+        url: `${process.env.REACT_APP_SERVER_URL}/user/unfollow`,
+        headers: {
+          "content-type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        data: followData,
+      }).then(function (response) {
+        if (response) {
+          console.log(response);
+        } else {
+          alert("Invalid Login");
+        }
+      })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  }
+
 
   const get_User = async () => {
     await axios
       .get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`)
       .then((value) => {
         setUserData(value.data);
+        for (let i = 0; i < value.data.follower_count.length; i++) {
+          if (value.data.follower_count[i] === user.username) {
+            setSubscribeButtonText("Unsubscribe");
+            break;
+          }
+        }
         setPlaybackUrl(`${value.data.videos[props.video_id].link}`);
+        setFollowers(value.data.follower_count.length);
+        setFollowing(value.data.followee_count.length);
       });
     //console.log(value.data)
   };
 
+  const fetchData = async () => {
+    const fileRes = await axios.get(`${process.env.REACT_APP_SERVER_URL}/`);
+    for (let i = 0; i < fileRes.data.array.length; i++) {
+      if (fileRes.data.array[i].videos) {
+        if(fileRes.data.array[i].username!= props.stream_id && fileRes.data.array[i].videos.length>0){
+        setArrayData((prevState) => [...prevState, fileRes.data.array[i]]);
+        }
+      }
+    }
+    //console.log(fileRes, "Hi");
+  };
+
   useEffect(() => {
     get_User();
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -85,6 +139,7 @@ const Playback = (props) => {
     return () => clearTimeout(timer);
   }, [buttonText]);
 
+  console.log(arrayData);
   return (
     <div className=" ">
       <div
@@ -92,8 +147,12 @@ const Playback = (props) => {
       >
         <div className=" col-span-2 ">
           <div>
-            {console.log(playbackUrl)}
-            <VideoPlayer playbackUrl={playbackUrl} />
+            {userData ?
+            <VideoPlayer playbackUrl={playbackUrl} name={userData.name} username={userData.username}/>
+            :
+            <>
+            </>
+            }
           </div>
           <div className="mx-5 px-2">
             <div className="flex justify-between my-2  ">
@@ -107,9 +166,9 @@ const Playback = (props) => {
                 </div>
                 <button
                   className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
-                  onClick={handleSubscribe}
+                  onClick={trackFollowers}
                 >
-                  <span>Subscribe</span>
+                  <span>{subscribeButtonText}</span>
                 </button>
                 <button className="bg-gradient-to-r from-dbeats-light  to-purple-900  p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white ">
                   <i className="fas fa-volleyball-ball mr-1"></i>
@@ -246,35 +305,14 @@ const Playback = (props) => {
                     })} */}
 
           <div className=" w-full  grid grid-cols-1 grid-flow-row gap-3  ">
-            <div className="flex">
-              <div className="h-28 w-48 bg-profile-cover">ss</div>
-              <div className="pl-3 text-sm">
-                <p className="text-2xl font-semibold mb-0">Drake Songs</p>
-                <span>Rushikesh</span>
-                <i class="ml-1 fas fa-check-circle"></i>
-
-                <p>
-                  <span className="text-sm font-semibold mr-2">55K views</span>
-                  <span>1 Month Ago</span>
-                </p>
-              </div>
-              <i class="fas fa-ellipsis-v text-gray-300 hover:text-gray-600 cursor-pointer block ml-auto mt-2 mr-2 text-lg"></i>
-            </div>
-
-            <div className="flex">
-              <div className="h-28 w-48 bg-profile-cover">ss</div>
-              <div className="pl-3 text-sm">
-                <p className="text-2xl font-semibold mb-0">Drake Songs</p>
-                <span>Rushikesh</span>
-                <i class="ml-1 fas fa-check-circle"></i>
-
-                <p>
-                  <span className="text-sm font-semibold mr-2">55K views</span>
-                  <span>1 Month Ago</span>
-                </p>
-              </div>
-              <i class="fas fa-ellipsis-v text-gray-300 hover:text-gray-600 cursor-pointer block ml-auto mt-2 mr-2 text-lg"></i>
-            </div>
+           {arrayData.map((value, index)=>{
+             return(
+               <RecommendedCard 
+               key={index}
+               value={value}
+               />
+             )
+           })}
           </div>
         </div>
       </div>

@@ -22,10 +22,7 @@ const PlayBackCard = (props) => {
   return (
     <div className="w-100 h-auto mr-2">
       <div className={`cursor-pointer`}>
-        <ReactPlayer
-          onClick={() => {
-            history.push(`/playback/${props.playbackUserData.username}/0`);
-          }}
+        <a href={`/#/playback/${props.playbackUserData.username}/0`}><ReactPlayer
           width="100%"
           height="21.9vh"
           playing={playing}
@@ -37,6 +34,7 @@ const PlayBackCard = (props) => {
           onMouseMove={handleMouseMove}
           onMouseLeave={hanldeMouseLeave}
         />
+        </a>
       </div>
       <div className="col-start-1 row-start-3 pb-2 pt-2">
         <p className="flex   text-black text-sm font-medium">

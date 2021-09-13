@@ -62,8 +62,10 @@ const Footer = (props) => {
                     <div className="flex">
                        <img src={playimg} className="h-20 w-20 p-3 ml-4 my-auto" alt="img" ></img>
                        <div className="my-auto pt-3">
-                           <span className="text-xl font-semibold">Drake Songs</span> 
-                           <p className="">Rap song</p>
+                           <a href={`/#/profile/${props.playerUsername}`} className="no-underline cursor-pointer text-black hover:no-underline">
+                             <span className="text-2xl font-semibold">{props.playerName}</span>
+                           </a>
+                           <p className="">{props.playerUsername}</p>
                        </div>
                        <i className="fas fa-info-circle block mt-3 ml-3 text-lg text-dbeats-light">
                        </i>

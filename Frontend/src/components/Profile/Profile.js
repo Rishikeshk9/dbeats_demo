@@ -31,7 +31,7 @@ const Profile = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [buttonText, setButtonText] = useState("FOLLOW");
+  const [buttonText, setButtonText] = useState("SUBSCRIBE");
 
   const myData = JSON.parse(window.localStorage.getItem("user"));
 
@@ -48,7 +48,7 @@ const Profile = (props) => {
         setUser(value.data);
         for (let i = 0; i < value.data.follower_count.length; i++) {
           if (value.data.follower_count[i] === myData.username) {
-            setButtonText("FOLLOWING");
+            setButtonText("UNSUBSCRIBE");
             break;
           }
         }
@@ -65,8 +65,8 @@ const Profile = (props) => {
       following: `${user.username}`,
       follower: `${myData.username}`
     }
-    if (buttonText === "FOLLOW") {
-      setButtonText("FOLLOWING");
+    if (buttonText === "SUBSCRIBE") {
+      setButtonText("UNSUBSCRIBE");
       setFollowers(followers + 1);
       axios({
         method: "POST",
@@ -88,7 +88,7 @@ const Profile = (props) => {
         });
     }
     else{
-      setButtonText("FOLLOW");
+      setButtonText("SUBSCRIBE");
       setFollowers(followers - 1);
       axios({
         method: "POST",

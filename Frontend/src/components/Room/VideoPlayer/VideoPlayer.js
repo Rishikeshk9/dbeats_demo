@@ -237,6 +237,8 @@ function VideoPlayer(props) {
         onPlaybackRateChange={handlePlaybackRate}
         onToggleFullScreen={toggleFullScreen}
         volume={volume}
+        playerUsername={props.username}
+        playerName={props.name}
       />
     </>
   );

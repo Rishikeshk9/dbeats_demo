@@ -56,50 +56,6 @@ router.route("/login").post(async (req, res) => {
   }
 });
 
-router.route("/subscribe").post(async (req, res) => {
-  try {
-    const subscriberName = req.body.name;
-    const subscriberUsername = req.body.username;
-    const toSubscribeName = req.body.video_name;
-    const toSubscribeUsername = req.body.video_username;
-
-    const subscribers = {
-      name: toSubscribeName,
-      username: toSubscribeUsername,
-    };
-
-    User.findOneAndUpdate(
-      { username: subscriberUsername },
-      { $push: { subscribers: subscribers } },
-      function (error, success) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log(success);
-        }
-      }
-    );
-
-    const subscribed = {
-      name: subscriberName,
-      username: subscriberUsername,
-    };
-
-    User.findOneAndUpdate(
-      { username: toSubscribeUsername },
-      { $push: { subscribed: subscribed } },
-      function (error, success) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log(success);
-        }
-      }
-    );
-  } catch (err) {
-    res.send("Try Again");
-  }
-});
 
 router.route("/:username").get(async (req, res) => {
   try {

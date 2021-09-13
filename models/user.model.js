@@ -42,14 +42,6 @@ const userSchema = new Schema(
             required:true,
             default:false
         },
-        subscribers:{
-            type:Object,
-            default:{},
-        },
-        subscribed :{
-            type:Object,
-            default:{},
-        },
         tracks:{
             type:Object,
             default:{},

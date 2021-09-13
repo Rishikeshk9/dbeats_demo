@@ -16,7 +16,7 @@ const UserInfo = (props) => {
     const [userStreams, setUserStreams] = useState([]);
 
     const user = JSON.parse(window.localStorage.getItem("user"));
-    
+
     const [playbackUrl, setPlaybackUrl] = useState("");
     const [StreamKey, setKey] = useState("");
     const [loader, setLoader] = useState(true);
@@ -35,21 +35,21 @@ const UserInfo = (props) => {
 
     useEffect(() => {
 
-        if(user.multistream_platform){
+        if (user.multistream_platform) {
             //console.log("hello",user.multistream_platform)
-            let new_array=[]
-            for(let i=0;i<user.multistream_platform.length;i++){
-                new_array.push(user.multistream_platform[i])                
+            let new_array = []
+            for (let i = 0; i < user.multistream_platform.length; i++) {
+                new_array.push(user.multistream_platform[i])
             }
             setMultiStreamConnected(new_array);
             //setPatchStream(new_array)
-        }else{
+        } else {
             setMultiStreamConnected([]);
         }
         setPlaybackUrl(`https://cdn.livepeer.com/hls/${user.livepeer_data.playbackId}/index.m3u8`)
         setName(user.livepeer_data.name)
         setUserStreams(user.livepeer_data);
-        
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     //console.log(multiStreamConnected)
@@ -61,22 +61,22 @@ const UserInfo = (props) => {
         setKey(e.target.value);
     };
 
-    const addStreamingPlatform = async(props) =>{
+    const addStreamingPlatform = async (props) => {
         let postdata = {
             username: user.username,
-            platform:{
+            platform: {
                 title: multiStreamValue.title,
                 logo: multiStreamValue.logo,
-                image:multiStreamValue.image,
-                rtmp : props
+                image: multiStreamValue.image,
+                rtmp: props
             }
         }
         await axios({
             method: "post",
             url: `${process.env.REACT_APP_SERVER_URL}/user/add_multistream_platform`,
             data: postdata,
-        }).then((res)=>{
-            alert(`Successfully added ${multiStreamValue.title} !!!`);        
+        }).then((res) => {
+            alert(`Successfully added ${multiStreamValue.title} !!!`);
         })
 
         setMultiStreamConnected(
@@ -94,23 +94,23 @@ const UserInfo = (props) => {
         setShowStreamModal(false)
     }
 
- 
+
     const createMultiStream = async () => {
         console.log(patchStream)
 
         setLoader(false);
 
         let multi_data = {
-            patchStreamData:[],
+            patchStreamData: [],
             stream_id: userStreams.id
         }
 
-        for(let i=0;i<patchStream.length;i++){
-            let data={
-                profile:"source",
-                spec:{
-                  name:patchStream[i].platform.title,
-                  url:patchStream[i].platform.rtmp
+        for (let i = 0; i < patchStream.length; i++) {
+            let data = {
+                profile: "source",
+                spec: {
+                    name: patchStream[i].platform.title,
+                    url: patchStream[i].platform.rtmp
                 }
             }
             multi_data.patchStreamData.push(data)
@@ -121,8 +121,8 @@ const UserInfo = (props) => {
         //     url: `${props}`,
         //     stream_id: userStreams.id
         // }
-        
-        console.log("patchStream:",multi_data)
+
+        console.log("patchStream:", multi_data)
 
         const patchingStream = await axios({
             method: 'POST',
@@ -136,38 +136,38 @@ const UserInfo = (props) => {
         alert(" Multistream Connection Successfull !!!");
         setShowStreamModal(false);
     };
-      
 
-    const editPlatform = (value,index) =>{
-        
-        let stored_data=patchStream;
 
-        if(value.selected === 1){
-            let newData={
-                selected:0,
-                platform:multiStreamConnected[index].platform,
+    const editPlatform = (value, index) => {
+
+        let stored_data = patchStream;
+
+        if (value.selected === 1) {
+            let newData = {
+                selected: 0,
+                platform: multiStreamConnected[index].platform,
             }
 
-            for(let i=0;i<stored_data.length;i++){
-                if(stored_data[i].platform.title === value.platform.title){
-                    stored_data.splice(i,1);
+            for (let i = 0; i < stored_data.length; i++) {
+                if (stored_data[i].platform.title === value.platform.title) {
+                    stored_data.splice(i, 1);
                     break;
                 }
             }
 
-            multiStreamConnected.splice(index,1);
-            setMultiStreamConnected(oldArray => [...oldArray,newData])
+            multiStreamConnected.splice(index, 1);
+            setMultiStreamConnected(oldArray => [...oldArray, newData])
         }
-        else{
-            let newData={
-                selected:1,
-                platform:multiStreamConnected[index].platform,
+        else {
+            let newData = {
+                selected: 1,
+                platform: multiStreamConnected[index].platform,
             }
 
 
-            multiStreamConnected.splice(index,1);
-            setPatchStream(oldArray => [...oldArray,newData]);
-            setMultiStreamConnected(oldArray => [...oldArray,newData])
+            multiStreamConnected.splice(index, 1);
+            setPatchStream(oldArray => [...oldArray, newData]);
+            setMultiStreamConnected(oldArray => [...oldArray, newData])
         }
     }
 
@@ -264,11 +264,11 @@ const UserInfo = (props) => {
                                         className="h-32 w-auto"
                                     />
                                     <ToggleButton
-                                    className="h-15 my-auto w-auto"
+                                        className="h-15 my-auto w-auto"
                                         value="check"
                                         selected={value.selected}
                                         onChange={() => {
-                                            editPlatform(value,index);
+                                            editPlatform(value, index);
                                         }}
                                     >
                                         <CheckIcon />
@@ -281,16 +281,16 @@ const UserInfo = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <div className="flex w-full">
-                        <button 
-                            className="w-100 mx-2 rounded-md bg-gradient-to-r from-dbeats-alt to-dbeats-light text-white p-2 text-xl font-semibold" 
-                            onClick={()=>{
-                                setModalShow(true); 
+                        <button
+                            className="w-100 mx-2 rounded-md bg-gradient-to-r from-dbeats-alt to-dbeats-light text-white p-2 text-xl font-semibold"
+                            onClick={() => {
+                                setModalShow(true);
                                 setShowDestinationModal(false)
                             }}
                         >
                             Add Destination
                         </button>
-                        <button 
+                        <button
                             className="w-100 mx-2 rounded-md bg-gradient-to-r from-green-800 to-green-300 text-white p-2 text-xl font-semibold"
                             onClick={createMultiStream}
                         >
@@ -300,7 +300,7 @@ const UserInfo = (props) => {
                 </Modal.Footer>
             </Modal>
 
-            
+
             <Modal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
@@ -343,7 +343,7 @@ const UserInfo = (props) => {
 
 
 
-            
+
             <Modal
                 show={showStreamModal}
                 onHide={() => setShowStreamModal(false)}
@@ -398,7 +398,7 @@ const UserInfo = (props) => {
                 </Modal.Footer>
             </Modal>
 
-            
+
         </Fragment>
     );
 };

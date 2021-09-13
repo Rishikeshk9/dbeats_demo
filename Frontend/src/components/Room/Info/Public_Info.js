@@ -34,40 +34,79 @@ const PublicInfo = (props) => {
   const text = "Copy Link To Clipboard";
   const [buttonText, setButtonText] = useState(text);
 
-  const handleSubscribe = () => {
-    const SubscribeData = {
-      name: `${user.name}`,
-      username: `${user.username}`,
-      video_name: `${userData.name}`,
-      video_username: `${userData.username}`,
-    };
+  const [subscribeButtonText, setSubscribeButtonText] = useState("Subscribe");
 
-    console.log(SubscribeData);
-    axios({
-      method: "post",
-      url: `${process.env.REACT_APP_SERVER_URL}/user/subscribe`,
-      data: SubscribeData,
-    })
-      .then(function (response) {
+  const [followers, setFollowers] = useState(0);
+  const [following, setFollowing] = useState(0);
+
+  const trackFollowers = () => {
+    console.log(followers)
+    const followData = {
+      following: `${userData.username}`,
+      follower: `${user.username}`
+    }
+    if (subscribeButtonText === "Subscribe") {
+      setSubscribeButtonText("Unsubscribe");
+      setFollowers(followers + 1);
+      axios({
+        method: "POST",
+        url: `${process.env.REACT_APP_SERVER_URL}/user/follow`,
+        headers: {
+          "content-type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        data: followData,
+      }).then(function (response) {
         if (response) {
           console.log(response);
         } else {
           alert("Invalid Login");
         }
       })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+    else {
+      setSubscribeButtonText("Subscribe");
+      setFollowers(followers - 1);
+      axios({
+        method: "POST",
+        url: `${process.env.REACT_APP_SERVER_URL}/user/unfollow`,
+        headers: {
+          "content-type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        data: followData,
+      }).then(function (response) {
+        if (response) {
+          console.log(response);
+        } else {
+          alert("Invalid Login");
+        }
+      })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  }
 
   const get_User = async () => {
     await axios
       .get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`)
       .then((value) => {
         setUserData(value.data);
+        for (let i = 0; i < value.data.follower_count.length; i++) {
+          if (value.data.follower_count[i] === user.username) {
+            setSubscribeButtonText("Unsubscribe");
+            break;
+          }
+        }
         setPlaybackUrl(
           `https://cdn.livepeer.com/hls/${value.data.livepeer_data.playbackId}/index.m3u8`
         );
+        setFollowers(value.data.follower_count.length);
+        setFollowing(value.data.followee_count.length);
       });
     console.log(userData);
   };
@@ -105,9 +144,9 @@ const PublicInfo = (props) => {
               </div>
               <button
                 className="bg-dbeats-light p-1 text-lg rounded-full px-4 mr-3 font-semibold text-white "
-                onClick={handleSubscribe}
+                onClick={trackFollowers}
               >
-                <span>Subscribe</span>
+                <span>{subscribeButtonText}</span>
               </button>
               <button className="bg-gradient-to-r from-dbeats-light  to-purple-900  p-1 text-lg rounded-full px-4 mr-3 font-semibold text-white ">
                 <i className="fas fa-volleyball-ball mr-1"></i>
