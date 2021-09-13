@@ -199,7 +199,7 @@ const Profile = (props) => {
                             <div class="grid grid-flow-rows grid-cols-5   gap-4">
                               <div className="font-bold mx-auto   px-4">
                                 <span className="font-bold text-lg text-gray-700">
-                                  {user.videos.length}{" "}
+                                  {user.videos ? user.videos.length : 0}{" "}
                                 </span>
                                 VIDEOS
                               </div>
