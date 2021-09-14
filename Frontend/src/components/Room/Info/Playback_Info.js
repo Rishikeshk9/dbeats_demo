@@ -22,6 +22,8 @@ const Playback = (props) => {
 
   const [userData, setUserData] = useState(null);
 
+  const [privateUser, setPrivate] = useState(true);
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -127,10 +129,25 @@ const Playback = (props) => {
   };
 
   useEffect(() => {
-    get_User();
+    let value = JSON.parse(window.localStorage.getItem("user"));
+    console.log(value)
+    if (value.username === props.stream_id) {
+      setPrivate(true);
+    }
+    else {
+      setPrivate(false)
+    }
+  }, [])
+
+  console.log(userData)
+
+  useEffect(() => {
+    get_User()
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(userData)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -160,10 +177,17 @@ const Playback = (props) => {
                 <div
                   className=" w-full p-0 text-left mt-0"
                   style={{ padding: "0px" }}
-                >
-                  <h4>Drake Songs</h4>
-                  <p>Rap Songs</p>
+                >{ userData ?
+                  <div>
+                  <h4>{userData.name}</h4>
+                  <p>{userData.username}</p>
+                  </div>
+                  :
+                  <></>
+                }
                 </div>
+                {!privateUser ?
+                  <div>
                 <button
                   className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
                   onClick={trackFollowers}
@@ -174,6 +198,16 @@ const Playback = (props) => {
                   <i className="fas fa-volleyball-ball mr-1"></i>
                   <span>Appreciate</span>
                 </button>
+                </div>
+                :
+                <></>
+                }
+                <hr/>
+                { userData ?
+                <p className="font-semibold text-xl">{userData.videos[0].description}</p>
+                :
+                <></>
+                }
               </div>
               <div className="text-4xl">
                 <button

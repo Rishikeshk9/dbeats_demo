@@ -47,15 +47,12 @@ const PlayBackCard = (props) => {
             <span className="text-sm font-semibold">
               {props.playbackUserData.videos[props.index].videoName.slice(
                 0,
-                60
+                45
               ) + "..."}
             </span>
             <br />
-            <span className="text-xs text-gray-500">
-              {props.playbackUserData.videos[props.index].description.slice(
-                0,
-                60
-              ) + "..."}
+            <span className="text-s text-gray-500">
+              {props.playbackUserData.name}
             </span>
           </div>
         </p>

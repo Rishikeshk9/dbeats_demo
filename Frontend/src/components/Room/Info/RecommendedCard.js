@@ -28,6 +28,7 @@ const handleMouseMove = () => {
                     controls={false}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={hanldeMouseLeave}
+                    muted={true}
                 />
             </div>
             <div className="pl-3 text-sm">
