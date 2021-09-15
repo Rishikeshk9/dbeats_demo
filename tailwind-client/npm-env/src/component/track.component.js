@@ -98,7 +98,7 @@ export default function Track() {
         <div className="py-10   relative w-full h-full dark:bg-dbeats-dark-primary   ">
           <p
             id="song-title"
-            className="mb-5  z-200 w-max mx-auto mt-10 self-center text-center  drop-shadow text-4xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 dark:from-white dark:to-gray-800"
+            className="mb-3  z-200 w-max mx-auto mt-10 self-center text-center  drop-shadow text-4xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 dark:from-white dark:to-gray-800"
           >
             TRENDING NOW
           </p>
@@ -121,17 +121,17 @@ export default function Track() {
                     key={todo.id}
                   >
                     {/* header */}
-                    <div className="flex  ">
-                      <div className="bg-white  dark:bg-dbeats-dark-alt dark:text-blue-300 shadow-md flex p-4  mx-auto  rounded-lg min-w-full hover:scale-101 transform transition-all">
+                    <div className="  ">
+                      <div className="bg-white  dark:bg-dbeats-dark-alt dark:text-blue-300 shadow-md flex p-3  mx-auto  rounded-lg  w-full hover:scale-101 transform transition-all">
                         <img
                           id="album-artwork"
                           src={todo.artwork["150x150"]}
-                          className="mr-6 h-50 w-50 rounded"
+                          className="mr-4 h-50 w-50 rounded"
                           alt=""
                         ></img>
-                        <div className="flex flex-col justify-center   w-full">
+                        <div className="flex flex-col justify-center   w-full  truncate ">
                           {/* content */}
-                          <div className="flex justify-between">
+                          <div className="flex justify-between w-full ">
                             <h4 className="playlist  mt-0  uppercase text-gray-500 tracking-widest text-sm ">
                               {todo.genre}
                             </h4>
@@ -142,12 +142,12 @@ export default function Track() {
                             </p>
                           </div>
 
-                          <h1
+                          <p
                             id="song-title"
-                            className="    mt-0 mb-2 drop-shadow text-3xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500"
+                            className=" overflow-ellipsis  w-full max-w-full mt-0 mb-2 drop-shadow xl:text-3xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500"
                           >
                             {todo.title}
-                          </h1>
+                          </p>
 
                           <p
                             id="song-author"

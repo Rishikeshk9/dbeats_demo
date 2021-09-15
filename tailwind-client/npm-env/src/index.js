@@ -7,7 +7,7 @@ import axios from "axios";
 import Noty from "noty";
 import mojs from "@mojs/core";
 import Track from "./component/track.component";
-// import Navbar from "./component/navbar.component";
+import Navbar from "./component/navbar.component";
 import NFTFeed from "./component/nft.component";
 import Home from "./component/home.component";
 
@@ -203,7 +203,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <Suspense fallback={<Loader />}>
-        <NavBar />
+        <Navbar />
         <Switch>
           <Route path="/nft" exact component={() => <NFTFeed />} />
           <Route path="/" exact component={() => <VideoHome />} />
