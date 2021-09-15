@@ -119,7 +119,7 @@ const Playback = (props) => {
   const fetchData = async () => {
     const fileRes = await axios.get(`${process.env.REACT_APP_SERVER_URL}/`);
     for (let i = 0; i < fileRes.data.array.length; i++) {
-      if (fileRes.data.array[i].videos) {
+      if (fileRes.data.array[i].videos && fileRes.data.array[i].username != user.username ) {
         if(fileRes.data.array[i].username!= props.stream_id && fileRes.data.array[i].videos.length>0){
         setArrayData((prevState) => [...prevState, fileRes.data.array[i]]);
         }
@@ -178,10 +178,7 @@ const Playback = (props) => {
                   className=" w-full p-0 text-left mt-0"
                   style={{ padding: "0px" }}
                 >{ userData ?
-                  <div>
-                  <h4>{userData.name}</h4>
-                  <p>{userData.username}</p>
-                  </div>
+                  <p className="font-semibold text-xl">{userData.videos[0].videoName}</p>
                   :
                   <></>
                 }
@@ -199,12 +196,6 @@ const Playback = (props) => {
                   <span>Appreciate</span>
                 </button>
                 </div>
-                :
-                <></>
-                }
-                <hr/>
-                { userData ?
-                <p className="font-semibold text-xl">{userData.videos[0].description}</p>
                 :
                 <></>
                 }
@@ -227,6 +218,7 @@ const Playback = (props) => {
                   <i className="fas fa-ellipsis-h opacity-50 mx-2"></i>
                 </button>
               </div>
+              
               <Modal show={show} onHide={handleClose} animation={true} centered>
                 <Modal.Header closeButton>
                   <Modal.Title>Share link on</Modal.Title>
@@ -303,7 +295,16 @@ const Playback = (props) => {
                 </Modal.Body>
               </Modal>
             </div>
-
+            {userData ?
+                <div className="w-full">
+                <hr/>
+                <h4>Description : </h4>
+                <p>{userData.videos[0].description}</p>
+                <hr/>
+                </div>
+                :
+                <></>
+                }
             <div className=" bg-gray-800 mb-40 mt-3  rounded-sm">
               <iframe
                 className="w-full h-92"

@@ -17,6 +17,8 @@ const Home = (props) => {
 
   const [arrayData, setArrayData] = useState([]);
 
+  const user = JSON.parse(window.localStorage.getItem("user"));
+
   const recommend_channels = [
     { name: "shroud" },
     { name: "shroud" },
@@ -115,7 +117,7 @@ const Home = (props) => {
   const fetchData = async () => {
     const fileRes = await axios.get(`${process.env.REACT_APP_SERVER_URL}/`);
     for (let i = 0; i < fileRes.data.array.length; i++) {
-      if (fileRes.data.array[i].videos) {
+      if (fileRes.data.array[i].videos && fileRes.data.array[i].username != user.username ) {
         setArrayData((prevState) => [...prevState, fileRes.data.array[i]]);
       }
     }
@@ -188,6 +190,7 @@ const Home = (props) => {
                                 <LiveCard
                                   className=""
                                   liveUserData={liveUser}
+                                  username={liveUser.username}
                                 />
                               </Carousel.Item>
                             );

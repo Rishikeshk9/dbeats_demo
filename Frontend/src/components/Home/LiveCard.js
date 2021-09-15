@@ -17,7 +17,7 @@ const LiveCard = (props) => {
     setPlaying(false);
   };
 
-  console.log(props.liveUserData);
+  //console.log(props.liveUserData.username);
 
   return (
     <div className="w-full h-auto aspect-w-16 aspect-h-9">
@@ -28,7 +28,7 @@ const LiveCard = (props) => {
         </span>
         <ReactPlayer
           onClick={() => {
-            history.push(`/playback/${props.playbackUserData.username}/0`);
+            history.push(`/public/${props.username}/`);
           }}
           width="100%"
           height="auto"
