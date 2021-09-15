@@ -56,7 +56,6 @@ router.route("/login").post(async (req, res) => {
   }
 });
 
-
 router.route("/:username").get(async (req, res) => {
   try {
     const getuserData = req.params.username;
