@@ -18,12 +18,13 @@ export default function Track() {
 
   const darkMode = useSelector((state) => state.toggleDarkMode);
 
-  const [songLink, setLink] = useState("");
+  const [firstPlayed, setFirstPlay] = useState(false);
   const [songDetails, setDetails] = useState({
     songLink: "",
     artwork: "",
     songTitle: "",
     author: "",
+    playing: false,
   });
   const [playId, setPlayId] = useState(null);
 
@@ -65,27 +66,52 @@ export default function Track() {
   }, []);
 
   const playAudio = async (id, artwork, title, author) => {
-    console.log(id, artwork);
+    if (!firstPlayed) setFirstPlay(true);
 
-    // if (!state.play) audio = new Audio(url);
+    let url = `https://discoveryprovider.audius.co/v1/tracks/${id}/stream`;
 
-    if (state.play) {
-      //   // audio.pause();
-      state.play = false;
-    } else {
-      //   // audio.play();
+    if (url !== songDetails.songLink) {
       state.play = true;
-      let url = `https://discoveryprovider.audius.co/v1/tracks/${id}/stream`;
 
       let details = {
         songLink: url,
         artwork: artwork,
         songTitle: title,
         author: author,
+        playing: true,
       };
-
       setDetails(details);
       setPlayId(id);
+      console.log("NEW SONG");
+    } else {
+      if (state.play) {
+        //   // audio.pause();
+        setPlayId(null);
+        let details = {
+          songLink: url,
+          artwork: artwork,
+          songTitle: title,
+          author: author,
+          playing: false,
+        };
+        setDetails(details);
+        state.play = false;
+        console.log("SONG PAUSED");
+      } else {
+        //   // audio.play();
+        state.play = true;
+        let details = {
+          songLink: url,
+          artwork: artwork,
+          songTitle: title,
+          author: author,
+          playing: true,
+        };
+        setDetails(details);
+        setPlayId(id);
+
+        console.log("SONG RESUME");
+      }
     }
   };
 
@@ -103,12 +129,12 @@ export default function Track() {
           </p>
           <Transition
             show={audius}
-            enter="transition duration-500"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="transition duration-500"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+            enter="transition ease-in-out duration-800"
+            enterFrom="transform opacity-0  -translate-x-full "
+            enterTo="transform opacity-100   translate-x-0 "
+            leave="transition ease-in-out duration-800"
+            leaveFrom="transform opacity-100   translate-x-0"
+            leaveTo="transform   opacity-0 -translate-x-full"
           >
             {audius &&
               state.todos &&
@@ -243,11 +269,22 @@ export default function Track() {
                           <div className=" flex mt-2   ">
                             <div className=" sm:flex hidden">
                               <button
-                                onClick={playAudio}
+                                onClick={() =>
+                                  playAudio(
+                                    todo.id,
+                                    todo.artwork["150x150"],
+                                    todo.title,
+                                    todo.user.name
+                                  )
+                                }
                                 name={todo.id}
                                 className="  cursor-pointer mr-2 uppercase font-bold  bg-gradient-to-r from-green-400 to-blue-500   text-white block py-2 px-10   hover:scale-95 transform transition-all"
                               >
-                                {`${state.play ? "Pause" : "Play"}`}
+                                {`${
+                                  state.play && playId === todo.id
+                                    ? "Pause"
+                                    : "Play"
+                                }`}
                               </button>
                               <button className="mr-2      text-gray-600   block p-2 rounded-full hover:scale-95 transform transition-all">
                                 <svg
@@ -298,6 +335,7 @@ export default function Track() {
           songDetails={songDetails}
           playing={state.play}
           setState={setState}
+          firstPlayed={firstPlayed}
         />
       </div>
     </>

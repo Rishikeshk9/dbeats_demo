@@ -17,26 +17,32 @@ const { ethers } = require("ethers");
 const jdenticon = require("jdenticon");
 const fs = require("fs");
 
-const BottomBar = ({ songDetails, playing, setState }) => {
+const BottomBar = ({ songDetails, playing, firstPlayed }) => {
   const darkMode = useSelector((state) => state.toggleDarkMode);
-  let firstLoad = 0;
-  console.log(songDetails);
+
   const [isPlaying, setPlaying] = useState(playing);
   const [audio, setAudio] = useState(new Audio(songDetails.songLink));
 
   useEffect(() => {
-    audio.src = songDetails.songLink;
+    if (audio.src !== songDetails.songLink) {
+      audio.src = songDetails.songLink;
+    }
     audio.autoplay = true;
 
-    if (firstLoad > 0) setPlaying(!isPlaying);
-    firstLoad = firstLoad + 1;
+    // if (firstLoad > 0) setPlaying(!isPlaying);
+    // firstLoad = firstLoad + 1;
+
+    if (!songDetails.playing) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+    setPlaying(!isPlaying);
+
+    console.log("ButtonClicked");
   }, [songDetails]);
 
-  const togglePlay = () => {
-    if (isPlaying) audio.pause();
-    else audio.play();
-    setPlaying(!isPlaying);
-  };
+  const togglePlay = () => {};
   return (
     <>
       <div
@@ -44,45 +50,60 @@ const BottomBar = ({ songDetails, playing, setState }) => {
           darkMode && "dark"
         }  font-proxima-reg   bottom-20 fixed  z-100 w-max transition duration-1000 ease-in-out`}
       >
-        <div className=" h-20  bg-white shadow-sm z-100  absolute w-screen dark:bg-dbeats-dark  dark:text-gray-100  bg-opacity-60  backdrop-filter  backdrop-blur-md">
-          <>
-            <div className="flex justify-between  self-center    md:justify-start md:space-x-10">
-              <img
-                id="album-artwork"
-                src={songDetails.artwork}
-                className=" mr-4 sm:mr-0 h-full w-20   "
-                alt=""
-              ></img>
-              <div className="self-center">
-                <p className="capitalize font-bold whitespace-nowrap">
-                  {songDetails.songTitle}
-                </p>
-                <p className="capitalize whitespace-nowrap truncate">
-                  {songDetails.author}
-                </p>
-              </div>
-              {/* <audio key={songLink} autoPlay>
+        <Transition
+          show={firstPlayed}
+          enter="transition ease-in-out duration-1000"
+          enterFrom="transform opacity-0  -translate-y-full "
+          enterTo="transform opacity-100   translate-y-0 "
+          leave="transition ease-in-out duration-500"
+          leaveFrom="transform opacity-100   translate-y-0"
+          leaveTo="transform   opacity-0 -translate-y-full"
+        >
+          <div
+            className={`${
+              firstPlayed ? "block" : "hidden"
+            }   h-20  bg-white shadow-sm z-100  absolute w-screen dark:bg-dbeats-dark  dark:text-gray-100  bg-opacity-60  backdrop-filter  backdrop-blur-md`}
+          >
+            <>
+              <div className="w-full h-0.5 bg-gradient-to-r from-green-400 to-blue-500" />
+              <div className="flex justify-between  self-center    md:justify-start md:space-x-10">
+                <img
+                  id="album-artwork"
+                  src={songDetails.artwork}
+                  className=" mr-4 sm:mr-0 h-full w-20   "
+                  alt=""
+                ></img>
+                <div className="self-center truncate w-full">
+                  <p className="capitalize font-bold whitespace-nowrap truncate">
+                    {songDetails.songTitle}
+                  </p>
+                  <p className="capitalize whitespace-nowrap truncate">
+                    {songDetails.author}
+                  </p>
+                </div>
+                {/* <audio key={songLink} autoPlay>
                 <source src={songLink} type="audio/mpeg" />
               </audio> */}
 
-              <div className="flex items-center self-center justify-center w-full ">
-                {playing ? (
-                  <i
-                    className="fas mx-3  text-xl fa-pause    "
-                    onClick={() => togglePlay()}
-                  ></i>
-                ) : (
-                  <i
-                    className="fas mx-3  text-xl fa-play   "
-                    onClick={() => togglePlay()}
-                  ></i>
-                )}
+                <div className="flex items-center self-center justify-center w-full  ">
+                  {playing ? (
+                    <i
+                      className="fas mx-3  text-xl fa-pause    "
+                      onClick={() => togglePlay()}
+                    ></i>
+                  ) : (
+                    <i
+                      className="fas mx-3  text-xl fa-play   "
+                      onClick={() => togglePlay()}
+                    ></i>
+                  )}
 
-                <i className="fas mx-3 fa-step-forward"></i>
+                  <i className="fas mx-3 fa-step-forward"></i>
+                </div>
               </div>
-            </div>
-          </>
-        </div>
+            </>
+          </div>
+        </Transition>
       </div>
     </>
   );
