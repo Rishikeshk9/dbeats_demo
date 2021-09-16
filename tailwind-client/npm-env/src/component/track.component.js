@@ -19,6 +19,13 @@ export default function Track() {
   const darkMode = useSelector((state) => state.toggleDarkMode);
 
   const [songLink, setLink] = useState("");
+  const [songDetails, setDetails] = useState({
+    songLink: "",
+    artwork: "",
+    songTitle: "",
+    author: "",
+  });
+  const [playId, setPlayId] = useState(null);
 
   const [state, setState] = useState({
     error: null,
@@ -34,9 +41,7 @@ export default function Track() {
 
   const getTodos = async () => {
     let data = await axios
-      .get(
-        "https://discoveryprovider.audius.co/v1/tracks/trending?app_name=ExampleApp"
-      )
+      .get("https://discoveryprovider.audius.co/v1/tracks/trending")
       .then(function (response) {
         //console.log(response.data.data);
         return response;
@@ -59,11 +64,9 @@ export default function Track() {
     };
   }, []);
 
-  const playAudio = async (e) => {
-    console.log(e.target.name);
+  const playAudio = async (id, artwork, title, author) => {
+    console.log(id, artwork);
 
-    let url = `https://discoveryprovider.audius.co/v1/tracks/${e.target.name}/stream`;
-    setLink(url);
     // if (!state.play) audio = new Audio(url);
 
     if (state.play) {
@@ -72,6 +75,17 @@ export default function Track() {
     } else {
       //   // audio.play();
       state.play = true;
+      let url = `https://discoveryprovider.audius.co/v1/tracks/${id}/stream`;
+
+      let details = {
+        songLink: url,
+        artwork: artwork,
+        songTitle: title,
+        author: author,
+      };
+
+      setDetails(details);
+      setPlayId(id);
     }
   };
 
@@ -115,22 +129,26 @@ export default function Track() {
                             className="mr-4 w-full h-full 2 rounded  "
                             alt=""
                           ></img>
-                          <button
-                            onClick={playAudio}
-                            name={todo.id}
-                            className="opacity-80  h-full  sm:hidden hover:opacity-100 rounded-full   absolute ml-10 cursor-pointer mr-2 uppercase font-bold  text-center  text-white    hover:scale-95 transform transition-all"
-                          >
-                            <p>
-                              {" "}
-                              <i
-                                className={`${
-                                  state.play
-                                    ? "fa-pause-circle"
-                                    : "fa-play-circle"
-                                } fas text-6xl  h-18 w-18`}
-                              ></i>
-                            </p>
-                          </button>
+                          <div className="opacity-80  h-max w-max mx-auto rounded-full  absolute    sm:hidden hover:opacity-100    cursor-pointer mr-2   text-center  text-white    hover:scale-95 transform transition-all">
+                            <i
+                              onClick={() =>
+                                playAudio(
+                                  todo.id,
+                                  todo.artwork["150x150"],
+                                  todo.title,
+                                  todo.user.name
+                                )
+                              }
+                              name={todo.id}
+                              align="center"
+                              style={{ marginLeft: "55%" }}
+                              className={`${
+                                state.play && playId === todo.id
+                                  ? "fa-pause-circle"
+                                  : "fa-play-circle"
+                              } fas text-6xl   text-center  `}
+                            />
+                          </div>
                         </div>
 
                         <div className="flex flex-col justify-center   w-full  truncate ">
@@ -276,7 +294,11 @@ export default function Track() {
               })}
           </Transition>
         </div>
-        <BottomBar songLink={songLink} />
+        <BottomBar
+          songDetails={songDetails}
+          playing={state.play}
+          setState={setState}
+        />
       </div>
     </>
   );

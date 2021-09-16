@@ -22,7 +22,7 @@ export default function Navbar() {
   const audius = useSelector((state) => state.toggleAudius);
 
   const darkMode = useSelector((state) => state.toggleDarkMode);
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const [connectedWallet, setWalletConnected] = useState("");
   const [icon, setWalletIcon] = useState("");

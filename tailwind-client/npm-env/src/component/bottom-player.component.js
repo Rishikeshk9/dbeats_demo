@@ -17,19 +17,20 @@ const { ethers } = require("ethers");
 const jdenticon = require("jdenticon");
 const fs = require("fs");
 
-const BottomBar = ({ songLink }) => {
+const BottomBar = ({ songDetails, playing, setState }) => {
   const darkMode = useSelector((state) => state.toggleDarkMode);
   let firstLoad = 0;
-  const [isPlaying, setPlaying] = useState(false);
-  const [audio, setAudio] = useState(new Audio(songLink));
-  console.log(songLink);
+  console.log(songDetails);
+  const [isPlaying, setPlaying] = useState(playing);
+  const [audio, setAudio] = useState(new Audio(songDetails.songLink));
+
   useEffect(() => {
-    audio.src = songLink;
+    audio.src = songDetails.songLink;
     audio.autoplay = true;
 
     if (firstLoad > 0) setPlaying(!isPlaying);
     firstLoad = firstLoad + 1;
-  }, [songLink]);
+  }, [songDetails]);
 
   const togglePlay = () => {
     if (isPlaying) audio.pause();
@@ -48,16 +49,16 @@ const BottomBar = ({ songLink }) => {
             <div className="flex justify-between  self-center    md:justify-start md:space-x-10">
               <img
                 id="album-artwork"
-                src="https://via.placeholder.com/150"
+                src={songDetails.artwork}
                 className=" mr-4 sm:mr-0 h-full w-20   "
                 alt=""
               ></img>
               <div className="self-center">
                 <p className="capitalize font-bold whitespace-nowrap">
-                  SONG TITLE
+                  {songDetails.songTitle}
                 </p>
                 <p className="capitalize whitespace-nowrap truncate">
-                  Song Description
+                  {songDetails.author}
                 </p>
               </div>
               {/* <audio key={songLink} autoPlay>
@@ -65,14 +66,14 @@ const BottomBar = ({ songLink }) => {
               </audio> */}
 
               <div className="flex items-center self-center justify-center w-full ">
-                {!isPlaying ? (
+                {playing ? (
                   <i
-                    className="fas mx-3  text-xl fa-play    "
+                    className="fas mx-3  text-xl fa-pause    "
                     onClick={() => togglePlay()}
                   ></i>
                 ) : (
                   <i
-                    className="fas mx-3  text-xl fa-pause   "
+                    className="fas mx-3  text-xl fa-play   "
                     onClick={() => togglePlay()}
                   ></i>
                 )}
