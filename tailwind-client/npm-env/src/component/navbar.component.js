@@ -159,7 +159,7 @@ export default function Navbar() {
                 </svg>
                 <p className="ml-5 self-center "> NFTs</p>
               </a>
-              <div className="h-max w-max flex items-center justify-center  fixed bottom-10 ">
+              <div className="h-max w-max flex items-center justify-center  fixed bottom-28 ">
                 <div className="relative flex  ">
                   <label className="switch">
                     <input

@@ -9,6 +9,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useRef } from "react";
 import Switch from "./switch.component";
 import { useSelector, useDispatch } from "react-redux";
+import BottomBar from "./bottom-player.component";
 
 export default function Track() {
   // constructor(props) {
@@ -16,6 +17,8 @@ export default function Track() {
   const dispatch = useDispatch();
 
   const darkMode = useSelector((state) => state.toggleDarkMode);
+
+  const [songLink, setLink] = useState("");
 
   const [state, setState] = useState({
     error: null,
@@ -44,21 +47,6 @@ export default function Track() {
     if (data) setState({ todos: data.data.data });
   };
 
-  const getDbeats = async () => {
-    let data = await axios
-      .get(
-        "https://discoveryprovider.audius.co/v1/tracks/trending?app_name=ExampleApp"
-      )
-      .then(function (response) {
-        console.log(response.data.data);
-        return response;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    if (data) setState({ todos: data.data.data });
-  };
-
   useEffect(() => {
     // Anything in here is fired on component mount.
     console.log("GrandChild did mount.");
@@ -74,20 +62,17 @@ export default function Track() {
   const playAudio = async (e) => {
     console.log(e.target.name);
 
-    if (!state.play)
-      audio = new Audio(
-        `https://discoveryprovider.audius.co/v1/tracks/${e.target.name}/stream`
-      );
+    let url = `https://discoveryprovider.audius.co/v1/tracks/${e.target.name}/stream`;
+    setLink(url);
+    // if (!state.play) audio = new Audio(url);
 
     if (state.play) {
-      audio.pause();
+      //   // audio.pause();
       state.play = false;
     } else {
-      audio.play();
+      //   // audio.play();
       state.play = true;
     }
-
-    console.log(state.play);
   };
 
   const audius = useSelector((state) => state.toggleAudius);
@@ -95,10 +80,10 @@ export default function Track() {
   return (
     <>
       <div className={`${darkMode && "dark"}  `}>
-        <div className="py-10   relative w-full h-full dark:bg-dbeats-dark-primary   ">
+        <div className="pb-10 pt-4   relative w-full h-full dark:bg-dbeats-dark-primary   ">
           <p
             id="song-title"
-            className="mb-3  z-200 w-max mx-auto mt-10 self-center text-center  drop-shadow text-4xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 dark:from-white dark:to-gray-800"
+            className="mb-3  z-200 w-max mx-auto  self-center text-center  drop-shadow text-4xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 dark:from-white dark:to-gray-800"
           >
             TRENDING NOW
           </p>
@@ -123,12 +108,31 @@ export default function Track() {
                     {/* header */}
                     <div className="  ">
                       <div className="bg-white  dark:bg-dbeats-dark-alt dark:text-blue-300 shadow-md flex p-3  mx-auto  rounded-lg  w-full hover:scale-101 transform transition-all">
-                        <img
-                          id="album-artwork"
-                          src={todo.artwork["150x150"]}
-                          className="mr-4 h-50 w-50 rounded"
-                          alt=""
-                        ></img>
+                        <div className="items-center h-50 w-56 flex   mr-4">
+                          <img
+                            id="album-artwork"
+                            src={todo.artwork["150x150"]}
+                            className="mr-4 w-full h-full 2 rounded  "
+                            alt=""
+                          ></img>
+                          <button
+                            onClick={playAudio}
+                            name={todo.id}
+                            className="opacity-80  h-full  sm:hidden hover:opacity-100 rounded-full   absolute ml-10 cursor-pointer mr-2 uppercase font-bold  text-center  text-white    hover:scale-95 transform transition-all"
+                          >
+                            <p>
+                              {" "}
+                              <i
+                                className={`${
+                                  state.play
+                                    ? "fa-pause-circle"
+                                    : "fa-play-circle"
+                                } fas text-6xl  h-18 w-18`}
+                              ></i>
+                            </p>
+                          </button>
+                        </div>
+
                         <div className="flex flex-col justify-center   w-full  truncate ">
                           {/* content */}
                           <div className="flex justify-between w-full ">
@@ -172,10 +176,10 @@ export default function Track() {
                             )}
                           </p>
 
-                          <div className="flex">
+                          <div className="md:flex">
                             <p
                               id="plays"
-                              className="mt-0 mb-2 mr-3  text-gray-400 text-sm flex   "
+                              className="mt-0 mb-2 mr-1 md:mr-3 text-gray-400 text-sm flex   "
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -219,11 +223,11 @@ export default function Track() {
                           {/* action buttons */}
 
                           <div className=" flex mt-2   ">
-                            <div className="flex ">
+                            <div className=" sm:flex hidden">
                               <button
                                 onClick={playAudio}
                                 name={todo.id}
-                                className="cursor-pointer mr-2 uppercase font-bold  bg-gradient-to-r from-green-400 to-blue-500   text-white block py-2 px-10   hover:scale-95 transform transition-all"
+                                className="  cursor-pointer mr-2 uppercase font-bold  bg-gradient-to-r from-green-400 to-blue-500   text-white block py-2 px-10   hover:scale-95 transform transition-all"
                               >
                                 {`${state.play ? "Pause" : "Play"}`}
                               </button>
@@ -272,6 +276,7 @@ export default function Track() {
               })}
           </Transition>
         </div>
+        <BottomBar songLink={songLink} />
       </div>
     </>
   );
