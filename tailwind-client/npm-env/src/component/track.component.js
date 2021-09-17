@@ -20,6 +20,7 @@ export default function Track() {
 
   const [firstPlayed, setFirstPlay] = useState(false);
   const [songDetails, setDetails] = useState({
+    id: "",
     songLink: "",
     artwork: "",
     songTitle: "",
@@ -65,6 +66,39 @@ export default function Track() {
     };
   }, []);
 
+  const pauseResume = async () => {
+    if (state.play) {
+      //   // audio.pause();
+      setPlayId(null);
+      let details = {
+        id: songDetails.id,
+        songLink: songDetails.songLink,
+        artwork: songDetails.artwork,
+        songTitle: songDetails.songTitle,
+        author: songDetails.author,
+        playing: false,
+      };
+      setDetails(details);
+      state.play = false;
+      console.log("SONG PAUSED");
+    } else {
+      //   // audio.play();
+      state.play = true;
+      let details = {
+        id: songDetails.id,
+        songLink: songDetails.songLink,
+        artwork: songDetails.artwork,
+        songTitle: songDetails.songTitle,
+        author: songDetails.author,
+        playing: true,
+      };
+      setDetails(details);
+      setPlayId(songDetails.id);
+
+      console.log("SONG RESUME");
+    }
+  };
+
   const playAudio = async (id, artwork, title, author) => {
     if (!firstPlayed) setFirstPlay(true);
 
@@ -74,6 +108,7 @@ export default function Track() {
       state.play = true;
 
       let details = {
+        id: id,
         songLink: url,
         artwork: artwork,
         songTitle: title,
@@ -84,34 +119,7 @@ export default function Track() {
       setPlayId(id);
       console.log("NEW SONG");
     } else {
-      if (state.play) {
-        //   // audio.pause();
-        setPlayId(null);
-        let details = {
-          songLink: url,
-          artwork: artwork,
-          songTitle: title,
-          author: author,
-          playing: false,
-        };
-        setDetails(details);
-        state.play = false;
-        console.log("SONG PAUSED");
-      } else {
-        //   // audio.play();
-        state.play = true;
-        let details = {
-          songLink: url,
-          artwork: artwork,
-          songTitle: title,
-          author: author,
-          playing: true,
-        };
-        setDetails(details);
-        setPlayId(id);
-
-        console.log("SONG RESUME");
-      }
+      pauseResume();
     }
   };
 
@@ -334,7 +342,7 @@ export default function Track() {
         <BottomBar
           songDetails={songDetails}
           playing={state.play}
-          setState={setState}
+          setState={() => pauseResume()}
           firstPlayed={firstPlayed}
         />
       </div>

@@ -17,17 +17,16 @@ const { ethers } = require("ethers");
 const jdenticon = require("jdenticon");
 const fs = require("fs");
 
-const BottomBar = ({ songDetails, playing, firstPlayed }) => {
+const BottomBar = ({ songDetails, playing, firstPlayed, setState }) => {
   const darkMode = useSelector((state) => state.toggleDarkMode);
 
-  const [isPlaying, setPlaying] = useState(playing);
   const [audio, setAudio] = useState(new Audio(songDetails.songLink));
 
   useEffect(() => {
     if (audio.src !== songDetails.songLink) {
       audio.src = songDetails.songLink;
     }
-    audio.autoplay = true;
+    //audio.autoplay = true;
 
     // if (firstLoad > 0) setPlaying(!isPlaying);
     // firstLoad = firstLoad + 1;
@@ -37,12 +36,10 @@ const BottomBar = ({ songDetails, playing, firstPlayed }) => {
     } else {
       audio.play();
     }
-    setPlaying(!isPlaying);
 
     console.log("ButtonClicked");
-  }, [songDetails]);
+  }, [songDetails, audio]);
 
-  const togglePlay = () => {};
   return (
     <>
       <div
@@ -86,17 +83,16 @@ const BottomBar = ({ songDetails, playing, firstPlayed }) => {
               </audio> */}
 
                 <div className="flex items-center self-center justify-center w-full  ">
-                  {playing ? (
-                    <i
-                      className="fas mx-3  text-xl fa-pause    "
-                      onClick={() => togglePlay()}
-                    ></i>
-                  ) : (
-                    <i
-                      className="fas mx-3  text-xl fa-play   "
-                      onClick={() => togglePlay()}
-                    ></i>
-                  )}
+                  <div
+                    onClick={setState}
+                    className="cursor-pointer dark:hover:bg-dbeats-dark-secondary p-1 rounded"
+                  >
+                    {playing ? (
+                      <i className="fas mx-3  text-xl fa-pause    "></i>
+                    ) : (
+                      <i className="fas mx-3 cursor-pointer text-xl fa-play   "></i>
+                    )}
+                  </div>
 
                   <i className="fas mx-3 fa-step-forward"></i>
                 </div>

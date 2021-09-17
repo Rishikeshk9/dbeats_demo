@@ -4,6 +4,9 @@ import { useState } from "react";
 import { Fragment } from "react";
 import React, { useEffect } from "react";
 
+import themeSwitchAnim from "../assets/graphics/sunmoon.json";
+import Toggle from "./toggle.component";
+
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import Logo from "../assets/graphics/Dbeats-dark.svg";
@@ -27,6 +30,11 @@ export default function Navbar() {
   const [connectedWallet, setWalletConnected] = useState("");
   const [icon, setWalletIcon] = useState("");
 
+  const [toggled, setToggled] = React.useState(true);
+  const handleClick = () => {
+    setToggled((s) => !s);
+    dispatch(toggleDarkMode());
+  };
   const providerOptions = {
     /* See Provider Options Section */
     theme: "dark",
@@ -35,6 +43,12 @@ export default function Navbar() {
   const web3Modal = new Web3Modal({
     providerOptions, // required
   });
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: themeSwitchAnim,
+  };
   useEffect(() => {
     // You need to restrict it at some point
     // This is just dummy code and should be replaced by actual
@@ -160,20 +174,8 @@ export default function Navbar() {
                 <p className="ml-5 self-center "> NFTs</p>
               </a>
               <div className="h-max w-max flex items-center justify-center  fixed bottom-28 ">
-                <div className="relative flex  ">
-                  <label className="switch">
-                    <input
-                      type="checkbox"
-                      id="darkMode"
-                      defaultChecked={darkMode}
-                      onClick={() => dispatch(toggleDarkMode())}
-                      className="sr-only "
-                    ></input>
-                    <div className="block bg-transparent dark:bg-gray-800 w-14 h-8 rounded-full shadow-inner"></div>
-                    <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition shadow"></div>
-                    <span className="slider round"></span>
-                  </label>
-                  <p className="self-center ml-2 ">Dark Mode</p>
+                <div className="relative flex ml-2 ">
+                  <Toggle toggled={toggled} onClick={handleClick} />
                 </div>
               </div>
             </div>
