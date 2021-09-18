@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import Dropdown from "./dropdown.component";
+//import Dropdown from "./dropdown.component";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Noty from "noty";
-import Multiselect from "multiselect-react-dropdown";
-import logo from "../assets/graphics/DBeatsHori.png";
-import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useRef } from "react";
-import Switch from "./switch.component";
-import { useSelector, useDispatch } from "react-redux";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import Noty from "noty";
+// import Multiselect from "multiselect-react-dropdown";
+// import logo from "../assets/graphics/DBeatsHori.png";
+import { Transition } from "@headlessui/react";
+import { useEffect} from "react";
+//import Switch from "./switch.component";
+import { useSelector} from "react-redux";
 import BottomBar from "./bottom-player.component";
 
 export default function Track() {
   // constructor(props) {
   //   super(props);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const darkMode = useSelector((state) => state.toggleDarkMode);
 
@@ -64,6 +64,8 @@ export default function Track() {
       // Anything in here is fired on component unmount.
       audio.removeEventListener("ended", () => setState({ play: false }));
     };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const pauseResume = async () => {

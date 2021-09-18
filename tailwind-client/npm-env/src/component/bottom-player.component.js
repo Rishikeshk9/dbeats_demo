@@ -1,26 +1,27 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { useState } from "react";
 
-import { Fragment } from "react";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState} from "react";
 
-import { Popover, Transition } from "@headlessui/react";
-import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import Logo from "../assets/graphics/Dbeats-dark.svg";
-import Logo_light from "../assets/graphics/Dbeats-light.svg";
-import Web3 from "web3";
-import Web3Modal from "web3modal";
+import { Transition } from "@headlessui/react";
+// import { MenuIcon, XIcon } from "@heroicons/react/outline";
+// import Logo from "../assets/graphics/Dbeats-dark.svg";
+// import Logo_light from "../assets/graphics/Dbeats-light.svg";
+// import Web3 from "web3";
+// import Web3Modal from "web3modal";
 
-import { useSelector, useDispatch } from "react-redux";
-import { toggleAudius, toggleDarkMode } from "../actions/index";
-const { ethers } = require("ethers");
-const jdenticon = require("jdenticon");
-const fs = require("fs");
+import { useSelector } from "react-redux";
+//import { toggleAudius, toggleDarkMode } from "../actions/index";
+
+// const { ethers } = require("ethers");
+// const jdenticon = require("jdenticon");
+// const fs = require("fs");
 
 const BottomBar = ({ songDetails, playing, firstPlayed, setState }) => {
   const darkMode = useSelector((state) => state.toggleDarkMode);
 
   const [audio, setAudio] = useState(new Audio(songDetails.songLink));
+  //const audio= new Audio(songDetails.songLink);
+
 
   useEffect(() => {
     if (audio.src !== songDetails.songLink) {

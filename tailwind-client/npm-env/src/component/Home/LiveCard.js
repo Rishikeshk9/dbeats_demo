@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import ReactPlayer from "react-player";
-import { useHistory } from "react-router-dom";
 import person from "../../assets/images/person.png";
 import classes from "./Home.module.css";
 
 const LiveCard = (props) => {
   const [playing, setPlaying] = useState(false);
-
-  let history = useHistory();
 
   const handleMouseMove = () => {
     setPlaying(true);
@@ -28,7 +25,7 @@ const LiveCard = (props) => {
         </span>
         <ReactPlayer
           onClick={() => {
-            history.push(`/public/${props.username}/`);
+            window.location.href = `/public/${props.username}/`;
           }}
           width="100%"
           height="auto"

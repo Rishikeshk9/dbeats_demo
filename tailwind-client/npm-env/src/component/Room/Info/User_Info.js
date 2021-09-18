@@ -16,11 +16,11 @@ const UserInfo = (props) => {
   const [playbackUrl, setPlaybackUrl] = useState("");
   const [StreamKey, setKey] = useState("");
   const [loader, setLoader] = useState(true);
-  const [name, setName] = useState("");
+  //const [name, setName] = useState("");
   const [modalShow, setModalShow] = useState(false);
   const [showStreamModal, setShowStreamModal] = useState(false);
   const [showDestinationModal, setShowDestinationModal] = useState(false);
-  const [selected, setSelected] = React.useState(false);
+  //const [selected, setSelected] = React.useState(false);
 
   const [multiStreamValue, setMultiStreamValue] = useState({});
 
@@ -42,7 +42,7 @@ const UserInfo = (props) => {
     setPlaybackUrl(
       `https://cdn.livepeer.com/hls/${user.livepeer_data.playbackId}/index.m3u8`
     );
-    setName(user.livepeer_data.name);
+    //setName(user.livepeer_data.name);
     setUserStreams(user.livepeer_data);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

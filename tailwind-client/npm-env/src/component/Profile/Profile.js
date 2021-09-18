@@ -58,7 +58,7 @@ const Profile = (props) => {
       });
   };
 
-  console.log(user);
+  //console.log(user);
   const trackFollowers = () => {
     console.log(followers);
     const followData = {

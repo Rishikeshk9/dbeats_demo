@@ -1,7 +1,7 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
-import Emoji from "a11y-react-emoji";
+//import Emoji from "a11y-react-emoji";
 
 const Dropdown = ({ data, setSelected }) => {
   let selected = data[0].name;

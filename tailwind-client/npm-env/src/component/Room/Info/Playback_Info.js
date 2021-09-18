@@ -1,6 +1,6 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./Info.module.css";
-import playimg from "../../../assets/images/telegram.png";
+//import playimg from "../../../assets/images/telegram.png";
 import axios from "axios";
 import VideoPlayer from "../VideoPlayer/VideoPlayer";
 import { Modal, ListGroup } from "react-bootstrap";
@@ -39,20 +39,16 @@ const Playback = (props) => {
 
   const [subscribeButtonText, setSubscribeButtonText] = useState("Subscribe");
 
-  const [followers, setFollowers] = useState(0);
-  const [following, setFollowing] = useState(0);
-
   const [arrayData, setArrayData] = useState([]);
 
   const trackFollowers = () => {
-    console.log(followers);
+    
     const followData = {
       following: `${userData.username}`,
       follower: `${user.username}`,
     };
     if (subscribeButtonText === "Subscribe") {
       setSubscribeButtonText("Unsubscribe");
-      setFollowers(followers + 1);
       axios({
         method: "POST",
         url: `${process.env.REACT_APP_SERVER_URL}/user/follow`,
@@ -64,7 +60,7 @@ const Playback = (props) => {
       })
         .then(function (response) {
           if (response) {
-            console.log(response);
+            //console.log(response);
           } else {
             alert("Invalid Login");
           }
@@ -74,7 +70,6 @@ const Playback = (props) => {
         });
     } else {
       setSubscribeButtonText("Subscribe");
-      setFollowers(followers - 1);
       axios({
         method: "POST",
         url: `${process.env.REACT_APP_SERVER_URL}/user/unfollow`,
@@ -86,7 +81,7 @@ const Playback = (props) => {
       })
         .then(function (response) {
           if (response) {
-            console.log(response);
+            //console.log(response);
           } else {
             alert("Invalid Login");
           }
@@ -109,8 +104,6 @@ const Playback = (props) => {
           }
         }
         setPlaybackUrl(`${value.data.videos[props.video_id].link}`);
-        setFollowers(value.data.follower_count.length);
-        setFollowing(value.data.followee_count.length);
       });
     //console.log(value.data)
   };
@@ -120,10 +113,10 @@ const Playback = (props) => {
     for (let i = 0; i < fileRes.data.array.length; i++) {
       if (
         fileRes.data.array[i].videos &&
-        fileRes.data.array[i].username != user.username
+        fileRes.data.array[i].username !== user.username
       ) {
         if (
-          fileRes.data.array[i].username != props.stream_id &&
+          fileRes.data.array[i].username !== props.stream_id &&
           fileRes.data.array[i].videos.length > 0
         ) {
           setArrayData((prevState) => [...prevState, fileRes.data.array[i]]);
@@ -134,6 +127,8 @@ const Playback = (props) => {
   };
 
   useEffect(() => {
+    get_User();
+    fetchData();
     let value = JSON.parse(window.localStorage.getItem("user"));
     console.log(value);
     if (value.username === props.stream_id) {
@@ -141,17 +136,9 @@ const Playback = (props) => {
     } else {
       setPrivate(false);
     }
-  }, []);
 
-  console.log(userData);
-
-  useEffect(() => {
-    get_User();
-    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(userData);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -160,7 +147,7 @@ const Playback = (props) => {
     return () => clearTimeout(timer);
   }, [buttonText]);
 
-  console.log(arrayData);
+  //console.log(arrayData);
   return (
     <div className=" ">
       <div
@@ -178,7 +165,7 @@ const Playback = (props) => {
               <></>
             )}
           </div>
-          <div className="mx-5 px-2">
+          <div className="mx-7 px-7">
             <div className="flex justify-between my-2  ">
               <div>
                 <div
@@ -315,9 +302,10 @@ const Playback = (props) => {
             ) : (
               <></>
             )}
-            <div className=" bg-gray-800 mb-40 mt-3  rounded-sm">
+            <div className={`${classes.comment_section}`}>
               <iframe
-                className="w-full h-92"
+                className={`${classes.convo_frame}`}
+                title="comment"
                 src="https://theconvo.space/embed/dt?threadId=KIGZUnR4RzXDFheXoOwo"
                 allowtransparency="true"
                 loading="eager"
@@ -326,29 +314,6 @@ const Playback = (props) => {
           </div>
         </div>
         <div className="  w-full col-span-1 px-5">
-          {/* {peers.map((peer, index) => {
-                        peer.on("stream", (stream) => {
-                            ref.current.srcObject = stream;
-                        });
-                        return (
-                            <div key={index} className={classes.info_short_section_details}>
-                                <div>
-                                    <video
-                                        className={classes.info_remoteVideo}
-                                        ref={ref}
-                                        autoPlay
-                                        playsInline
-                                    ></video>
-                                </div>
-                                <div className={classes.info_remoteVideo_text}>
-                                    <h4>Title</h4>
-                                    <p>Description</p>
-                                    <span>Tags</span>
-                                </div>
-                            </div>
-                        );
-                    })} */}
-
           <div className=" w-full  grid grid-cols-1 grid-flow-row gap-3  ">
             {arrayData.map((value, index) => {
               return <RecommendedCard key={index} value={value} />;

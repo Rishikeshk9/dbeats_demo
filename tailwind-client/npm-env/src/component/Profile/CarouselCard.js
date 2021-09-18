@@ -1,19 +1,16 @@
 import React, {useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import Avatar from '@material-ui/core/Avatar';
-import { red } from '@material-ui/core/colors';
+//import { makeStyles } from '@material-ui/core/styles';
+//import Card from '@material-ui/core/Card';
+//import CardHeader from '@material-ui/core/CardHeader';
+//import Avatar from '@material-ui/core/Avatar';
+//import { red } from '@material-ui/core/colors';
 import ReactPlayer from "react-player";
-import { useHistory } from "react-router-dom";
 import classes from "./Profile.module.css";
 
 
 const CarouselCard = (props) => {
   
   const [playing, setPlaying] = useState(false);
-
-  let history = useHistory();
 
   const handleMouseMove = () => {
     setPlaying(true)
@@ -29,7 +26,7 @@ const CarouselCard = (props) => {
     <div className="w-full h-auto flex py-3 px-3 bg-white rounded-xl" >
       <div className={`cursor-pointer w-1/3 my-auto`}>
         <ReactPlayer 
-          onClick={() => {history.push(`/playback/${props.username}/0`) } }
+          onClick={() => {window.location.href = `/playback/${props.username}/0` } }
           width="100%"
           height="auto"
           playing={playing}

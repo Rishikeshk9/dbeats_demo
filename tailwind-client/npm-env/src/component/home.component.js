@@ -1,22 +1,22 @@
 import React, { useState } from "react";
-import Dropdown from "./dropdown.component";
-import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Noty from "noty";
-import Multiselect from "multiselect-react-dropdown";
-import logo from "../assets/graphics/DBeatsHori.png";
-import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useRef } from "react";
-import Switch from "./switch.component";
-import { Zora } from "@zoralabs/zdk";
-import { Wallet, BigNumber, ethers } from "ethers";
-import useWeb3Modal from "../hooks/useWeb3Modal";
-import ReactAudioPlayer from "react-audio-player";
-import ReactJkMusicPlayer from "react-jinke-music-player";
+// import Dropdown from "./dropdown.component";
+// import axios from "axios";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import Noty from "noty";
+// import Multiselect from "multiselect-react-dropdown";
+// import logo from "../assets/graphics/DBeatsHori.png";
+// import { Menu, Transition } from "@headlessui/react";
+// import { Fragment, useEffect, useRef } from "react";
+// import Switch from "./switch.component";
+// import { Zora } from "@zoralabs/zdk";
+// import { Wallet, BigNumber, ethers } from "ethers";
+//import useWeb3Modal from "../hooks/useWeb3Modal";
+// import ReactAudioPlayer from "react-audio-player";
+// import ReactJkMusicPlayer from "react-jinke-music-player";
 import "react-jinke-music-player/assets/index.css";
 import Logo from "../assets/graphics/light-logo.svg";
 import Logo_light from "../assets/graphics/dark-logo.svg";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 
 const Form = (props) => {
   const state = {
@@ -34,7 +34,8 @@ const Form = (props) => {
     play: false,
   });
 
-  const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
+  //const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
+  
   const darkMode = useSelector((state) => state.toggleDarkMode);
   return (
     <>

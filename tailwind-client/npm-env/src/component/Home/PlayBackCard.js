@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import ReactPlayer from "react-player";
-import { useHistory } from "react-router-dom";
+//import { useHistory } from "react-router-dom";
 import person from "../../assets/images/person.png";
 import classes from "./Home.module.css";
 
 const PlayBackCard = (props) => {
   const [playing, setPlaying] = useState(false);
 
-  let history = useHistory();
+  //let history = useHistory();
 
   const handleMouseMove = () => {
     setPlaying(true);

@@ -4,13 +4,10 @@ import classes from "./Login.module.css";
 import axios from "axios";
 
 import useWeb3Modal from "../../hooks/useWeb3Modal";
-import { useHistory } from "react-router-dom";
 
 const Login = (props) => {
   // Web3
   const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
-
-  let history = useHistory();
 
   // Form varibles
   const [form_name, setName] = useState("");
@@ -36,7 +33,7 @@ const Login = (props) => {
           console.log(response.data, "resData");
           window.localStorage.setItem("user", JSON.stringify(response.data));
           window.location.reload();
-          history.push(`/`);
+          window.location.href = "/";
         } else {
           alert("Invalid Login");
         }
@@ -109,7 +106,7 @@ const Login = (props) => {
       });
 
     setLoader(true);
-    history.push(`/`);
+    window.location.href = "/";
   };
 
   // Metamask Auth
@@ -149,8 +146,7 @@ const Login = (props) => {
           size="lg"
           onClick={async () => {
             let variable = await loadWeb3Modal();
-            //console.log(variable);
-            if (provider) {
+            if (provider && variable) {
               await axios
                 .get(
                   `${process.env.REACT_APP_SERVER_URL}/user/getuser_by_wallet/${provider.provider.selectedAddress}`
@@ -160,7 +156,7 @@ const Login = (props) => {
                     "user",
                     JSON.stringify(value.data)
                   );
-                  history.push(`/`);
+                  window.location.href = "/";
                 });
             }
           }}

@@ -1,11 +1,11 @@
-import React from "react";
+//import React from "react";
 // import { Contract } from "@ethersproject/contracts";
 // import { getDefaultProvider } from "@ethersproject/providers";
-import env from "react-dotenv";
+//import env from "react-dotenv";
 
 import { Zora } from '@zoralabs/zdk'
-import { Wallet } from 'ethers'
-import { JsonRpcProvider } from '@ethersproject/providers'
+//import { Wallet } from 'ethers'
+//import { JsonRpcProvider } from '@ethersproject/providers'
 import axios from "axios";
 
 import {
@@ -13,8 +13,8 @@ import {
   constructMediaData,
   sha256FromBuffer,
   generateMetadata,
-  fetchMetadataHash,
-  isMediaDataVerified
+  //fetchMetadataHash,
+  //isMediaDataVerified
 } from '@zoralabs/zdk'
 const path = require("path");
 

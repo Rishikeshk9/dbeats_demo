@@ -1,20 +1,18 @@
 import { useState } from "react";
 import classes from "./Navbar.module.css";
 import { scaleRotate as Menu } from "react-burger-menu";
-import { useHistory } from "react-router-dom";
 import logo from "../../assets/images/logo2.png";
 import useWeb3Modal from "../../hooks/useWeb3Modal";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleDarkMode } from "../../actions/index";
+import { useSelector } from "react-redux";
+//import { toggleDarkMode } from "../../actions/index";
 
 const NavBar = (props) => {
   const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
 
-  let history = useHistory();
 
   const user = JSON.parse(window.localStorage.getItem("user"));
 
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.toggleDarkMode);
 
   //  Modal
@@ -29,15 +27,15 @@ const NavBar = (props) => {
   const handleLogout = () => {
     window.localStorage.clear();
     logoutOfWeb3Modal();
-    history.push("/");
+    window.location.href = "/";
   };
 
   const handleStreamOnClick = () => {
-    history.push(`/streamer/${user.username}`);
+    window.location.href = `/streamer/${user.username}`;
   };
 
   const handleProfileOnClick = () => {
-    history.push(`/profile/${user.username}`);
+    window.location.href = `/profile/${user.username}`;
   };
 
   // console.log(user, "from navbar")
@@ -49,8 +47,10 @@ const NavBar = (props) => {
         outerContainerId={"outer-container"}
         isOpen={showOpen}
         onStateChange={isMenuOpen}
-        className="w-250 bg-dbeats-dark mt-14"
+        className="w-250 bg-dbeats-dark mt-14 "
       >
+        <div className="pt-5 bg-transparent hidden w-0">
+        </div>
         <div className={classes.menu_items}>
           <a id="home" href="/">
             <i
@@ -127,7 +127,7 @@ const NavBar = (props) => {
             <div
               id="logo"
               className="flex self-center cursor-pointer"
-              onClick={() => history.push("/")}
+              onClick={() => window.location.href = "/"}
             >
               <img src={logo} alt="dbeats_logo" className="h-8 w-max"></img>
               <span className="mr-5 text-lg font-bold ml-2">Dbeats</span>
@@ -139,7 +139,7 @@ const NavBar = (props) => {
                   placeholder="Search"
                   className="w-full rounded border-0 self-center focus:border-0 focus:ring-0  "
                 ></input>
-                <a href="" className="self-center text-gray-900">
+                <a href="/" className="self-center text-gray-900">
                   {" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -197,7 +197,7 @@ const NavBar = (props) => {
                 <button
                   className="shadow-sm px-3 py-1 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded font-bold mx-2 flex"
                   onClick={() => {
-                    history.push(`/login`);
+                    window.location.href = "/login";
                   }}
                 >
                   <i className="fas fa-sign-in-alt self-center mr-2"></i>

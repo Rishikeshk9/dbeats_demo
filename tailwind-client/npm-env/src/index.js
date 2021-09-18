@@ -7,18 +7,18 @@ import axios from "axios";
 import Noty from "noty";
 import mojs from "@mojs/core";
 import Track from "./component/track.component";
-import Navbar from "./component/navbar.component";
-import BottomBar from "./component/bottom-player.component";
+//import Navbar from "./component/navbar.component";
+//import BottomBar from "./component/bottom-player.component";
 
 import NFTFeed from "./component/nft.component";
-import Home from "./component/home.component";
+//import Home from "./component/home.component";
 
 import store from "./store";
 import { Provider } from "react-redux";
-import { Suspense, lazy, useEffect } from "react";
+import { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Loader from "./component/Loader/Loader";
-import LandingPage from "./component/LandingPage/LandingPage";
+//import LandingPage from "./component/LandingPage/LandingPage";
 import "./App.css";
 import NavBar from "../src/component/Navbar/Navbar";
 
@@ -205,9 +205,9 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <Suspense fallback={<Loader />}>
-        <Navbar />
+        <NavBar />
         <Switch>
-          <div className="pt-16">
+          <div>
             <Route path="/nft" exact component={() => <NFTFeed />} />
             <Route path="/" exact component={() => <VideoHome />} />
 

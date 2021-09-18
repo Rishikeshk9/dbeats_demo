@@ -18,13 +18,13 @@
 import React, { useState } from "react";
 import Dropdown from "./dropdown.component";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Noty from "noty";
 import { MultiSelect } from "react-multi-select-component";
 import useWeb3Modal from "../hooks/useWeb3Modal";
 import mintNFT from "./Mint";
 import Webupload from "./uploadWeb3.component";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 
 const Form = (props) => {
   const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();

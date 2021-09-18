@@ -1,26 +1,30 @@
 import React, { useState } from "react";
-import Dropdown from "./dropdown.component";
+//import Dropdown from "./dropdown.component";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Noty from "noty";
-import Multiselect from "multiselect-react-dropdown";
-import logo from "../assets/graphics/DBeatsHori.png";
-import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useRef } from "react";
-import Switch from "./switch.component";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import Noty from "noty";
+// import Multiselect from "multiselect-react-dropdown";
+// import logo from "../assets/graphics/DBeatsHori.png";
+// import { Menu, Transition } from "@headlessui/react";
+import { useEffect} from "react";
+//import Switch from "./switch.component";
 import { Zora } from "@zoralabs/zdk";
-import { Wallet, BigNumber, ethers } from "ethers";
-import useWeb3Modal from "../hooks/useWeb3Modal";
+import { 
+  //Wallet, 
+  //BigNumber, 
+  ethers 
+} from "ethers";
+//import useWeb3Modal from "../hooks/useWeb3Modal";
 import ReactAudioPlayer from "react-audio-player";
 import ReactJkMusicPlayer from "react-jinke-music-player";
 import "react-jinke-music-player/assets/index.css";
 
 const Form = (props) => {
-  const state = {
-    error: null,
-    isLoaded: false,
-    items: [],
-  };
+  // const state = {
+  //   error: null,
+  //   isLoaded: false,
+  //   items: [],
+  // };
 
   const [nft, setNFT] = useState({
     nfts: null,
@@ -32,7 +36,7 @@ const Form = (props) => {
     owner: null,
   });
 
-  const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
+  //const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
 
   const fetchNFTList = async (e) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -53,7 +57,7 @@ const Form = (props) => {
     );
     let res = await zora.fetchTotalMedia();
     console.log("Total NFT Items on the BC: " + res.toNumber());
-    let contentURI = null;
+    //let contentURI = null;
     let nft = [];
     let ownedToken = [];
 

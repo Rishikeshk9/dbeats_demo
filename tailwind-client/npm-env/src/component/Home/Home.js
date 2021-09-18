@@ -4,17 +4,15 @@ import axios from "axios";
 import { Carousel as LiveStreamVideos } from "3d-react-carousal";
 import Carousel from "react-grid-carousel";
 import personImg from "../../assets/images/person.png";
-import { Avatar } from "@material-ui/core";
+//import { Avatar } from "@material-ui/core";
 import PlayBackCard from "./PlayBackCard";
 import LiveCard from "./LiveCard";
 import ReactPlayer from "react-player";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { useHistory } from "react-router-dom";
 
 const Home = (props) => {
   const [activeStreams, setActiveStreams] = useState([]);
   const [slides, setSlides] = useState([]);
-  let history = useHistory();
 
   const [arrayData, setArrayData] = useState([]);
 
@@ -75,7 +73,7 @@ const Home = (props) => {
           <button
             className="shadow-sm px-3 py-2 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded font-bold "
             onClick={() => {
-              history.push(`/public/${userData.username}`);
+              window.location.href = `/public/${userData.username}`;
             }}
           >
             Watch Stream
@@ -119,7 +117,7 @@ const Home = (props) => {
     const fileRes = await axios.get(`${process.env.REACT_APP_SERVER_URL}/`);
     for (let i = 0; i < fileRes.data.array.length; i++) {
       if (fileRes.data.array[i].videos) {
-        if (user ? fileRes.data.array[i].username != user.username : true)
+        if (user ? fileRes.data.array[i].username !== user.username : true)
           setArrayData((prevState) => [...prevState, fileRes.data.array[i]]);
       }
     }
