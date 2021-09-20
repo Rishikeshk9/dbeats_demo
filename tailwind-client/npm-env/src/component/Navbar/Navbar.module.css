@@ -46,13 +46,9 @@
   align-items: center;
 }
 
-#menu_item{
-  color: #fff;
-}
 
 .menu_item_name{
   padding: 0;
-  color: #fff;
   padding-left: 10px;
   height: 20px;
 }

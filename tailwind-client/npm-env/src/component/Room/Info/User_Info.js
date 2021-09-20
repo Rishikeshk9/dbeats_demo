@@ -1,10 +1,12 @@
 import React, { Fragment, useEffect, useState } from "react";
 import classes from "./Info.module.css";
 import axios from "axios";
-import { Button, Form, Spinner, Modal } from "react-bootstrap";
+import { Button, Form, Spinner } from "react-bootstrap";
 import CheckIcon from "@material-ui/icons/Check";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 
+
+import Modal from 'react-awesome-modal';
 import { MultiStreamData } from "../../../assets/Data";
 import VideoPlayer from "../VideoPlayer/VideoPlayer";
 
@@ -55,7 +57,7 @@ const UserInfo = (props) => {
   };
 
   const addStreamingPlatform = async (props) => {
-    let postdata = {
+    let postData = {
       username: user.username,
       platform: {
         title: multiStreamValue.title,
@@ -64,29 +66,23 @@ const UserInfo = (props) => {
         rtmp: props,
       },
     };
-    await axios({
-      method: "post",
-      url: `${process.env.REACT_APP_SERVER_URL}/user/add_multistream_platform`,
-      data: postdata,
-    }).then((res) => {
-      alert(`Successfully added ${multiStreamValue.title} !!!`);
-    });
 
-    setMultiStreamConnected([...multiStreamConnected, postdata]);
+    console.log(postData)
 
-    // let datavalue = multiStreamConnected;
-    // datavalue.push(postdata.multistream_data)
+    let result = await axios({
+        method: "post",
+        url: `${process.env.REACT_APP_SERVER_URL}/user/add_multistream_platform`,
+        data: postData
+      })
+    console.log(result)
+   
 
-    // const timer = setTimeout(() => {
-    //     window.localStorage.setItem("multiStream", JSON.stringify(datavalue));
-    // }, 2000);
-    // return () => clearTimeout(timer);
-
+    setMultiStreamConnected([...multiStreamConnected, postData]);
     setShowStreamModal(false);
   };
 
   const createMultiStream = async () => {
-    console.log(patchStream);
+    //console.log(patchStream);
 
     setLoader(false);
 
@@ -112,7 +108,7 @@ const UserInfo = (props) => {
     //     stream_id: userStreams.id
     // }
 
-    console.log("patchStream:", multi_data);
+    //console.log("patchStream:", multi_data);
 
     const patchingStream = await axios({
       method: "POST",
@@ -120,7 +116,7 @@ const UserInfo = (props) => {
       data: multi_data,
     });
 
-    console.log(patchingStream);
+    //console.log(patchingStream);
 
     setLoader(true);
     alert(" Multistream Connection Successfull !!!");
@@ -208,7 +204,7 @@ const UserInfo = (props) => {
                 </div>
                 <div className="flex">
                   {multiStreamConnected.map((value, index) => {
-                    console.log(value);
+                    //console.log(value);
                     return (
                       <div className="mx-1">
                         <img
@@ -229,21 +225,25 @@ const UserInfo = (props) => {
       </div>
 
       <Modal
-        show={showDestinationModal}
-        onHide={() => setShowDestinationModal(false)}
-        size="lg"
+        visible={showDestinationModal}
+        className="h-max w-max"
+        effect="fadeInUp"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter" className="w-full">
+        <div className="py-5 px-10 flex">
+          <p className="w-full">
             <div className="font-semibold text-3xl text-center">
               Add Multistream Platforms
             </div>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div>
+          </p>
+          <div className="ml-5 self-center" onClick={() => setShowDestinationModal(false)}>
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+        <hr />
+        <main>
+          <div className="grid grid-cols-3 grid-flow-col">
             {multiStreamConnected.map((value, index) => {
               return (
                 <div className="bg-white-200 mx-1 border-1 border-gray-300 rounded my-2 flex justify-around">
@@ -252,57 +252,61 @@ const UserInfo = (props) => {
                     alt="logo"
                     className="h-32 w-auto"
                   />
-                  <ToggleButton
-                    className="h-15 my-auto w-auto"
+                  <input
+                    type="checkbox"
+                    className="h-7 w-7 dark:text-dbeats-dark-secondary text-dbeats-light focus:ring-dbeats-light border-gray-300 rounded self-center"
                     value="check"
                     selected={value.selected}
                     onChange={() => {
                       editPlatform(value, index);
                     }}
-                  >
-                    <CheckIcon />
-                  </ToggleButton>
+                  />
                 </div>
               );
             })}
           </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <div className="flex w-full">
-            <button
-              className="w-100 mx-2 rounded-md bg-gradient-to-r from-dbeats-alt to-dbeats-light text-white p-2 text-xl font-semibold"
-              onClick={() => {
-                setModalShow(true);
-                setShowDestinationModal(false);
-              }}
-            >
-              Add Destination
-            </button>
-            <button
-              className="w-100 mx-2 rounded-md bg-gradient-to-r from-green-800 to-green-300 text-white p-2 text-xl font-semibold"
-              onClick={createMultiStream}
-            >
-              Apply
-            </button>
-          </div>
-        </Modal.Footer>
+        </main>
+        <hr />
+        <div className="flex w-full my-5 justify-center align-center px-5">
+          <button
+            className="w-2/3 mx-2 rounded-md bg-dbeats-light text-white p-2 text-xl font-semibold"
+            onClick={() => {
+              setModalShow(true);
+              setShowDestinationModal(false);
+            }}
+          >
+            Add Destination
+          </button>
+          <button
+            className="w-1/3 mx-2 rounded-md bg-green-500 text-white p-2 text-xl font-semibold"
+            onClick={createMultiStream}
+          >
+            Apply
+          </button>
+        </div>
       </Modal>
 
+
       <Modal
-        show={modalShow}
+        visible={modalShow}
         onHide={() => setModalShow(false)}
-        size="lg"
+        className="h-max w-max"
+        effect="fadeInUp"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter" className="w-full">
+        <div className="py-5 px-16 flex">
+          <p id="contained-modal-title-vcenter" className="w-full">
             <div className="font-semibold text-2xl text-center">
               Select the MultiStream Platform
             </div>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+          </p>
+          <div className="ml-5 self-center" onClick={() => setModalShow(false)}>
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+        <hr />
+        <main className="py-5 px-6">
           <div className="flex">
             {MultiStreamData.map((value, index) => {
               return (
@@ -321,25 +325,28 @@ const UserInfo = (props) => {
               );
             })}
           </div>
-        </Modal.Body>
-        <Modal.Footer></Modal.Footer>
+        </main>
       </Modal>
 
       <Modal
-        show={showStreamModal}
-        onHide={() => setShowStreamModal(false)}
-        size="lg"
+        visible={showStreamModal}
+        className="h-max w-max"
+        effect="fadeInUp"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter" className="w-full">
+        <div className="py-5 px-6 flex">
+          <p id="contained-modal-title-vcenter" className="w-full">
             <div className="font-semibold text-3xl text-center">
               {multiStreamValue.title}
             </div>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+          </p>
+          <div className="ml-5 self-center" onClick={() => setShowStreamModal(false)}>
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+        <hr />
+        <main className="px-6 py-6">
           <Form>
             <Form.Group className="mb-3 text-xl">
               <Form.Label>
@@ -381,8 +388,7 @@ const UserInfo = (props) => {
               </div>
             </Form.Group>
           </Form>
-        </Modal.Body>
-        <Modal.Footer></Modal.Footer>
+        </main>
       </Modal>
     </Fragment>
   );

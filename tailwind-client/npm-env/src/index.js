@@ -6,21 +6,12 @@ import reportWebVitals from "./reportWebVitals";
 import axios from "axios";
 import Noty from "noty";
 import mojs from "@mojs/core";
-import Track from "./component/track.component";
-//import Navbar from "./component/navbar.component";
-//import BottomBar from "./component/bottom-player.component";
 
-import NFTFeed from "./component/nft.component";
 //import Home from "./component/home.component";
 
 import store from "./store";
 import { Provider } from "react-redux";
-import { Suspense, lazy } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Loader from "./component/Loader/Loader";
-//import LandingPage from "./component/LandingPage/LandingPage";
-import "./App.css";
-import NavBar from "../src/component/Navbar/Navbar";
+
 
 store.subscribe(() => console.log(store.getState()));
 
@@ -160,77 +151,12 @@ axios.interceptors.response.use(
   }
 );
 
-//lazy loading
-const VideoHome = lazy(() => {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(import("./component/Home/Home")), 1000);
-  });
-});
-
-const PublicRoom = lazy(() => {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(import("./component/Room/PublicRoomPage")), 1000);
-  });
-});
-
-const PlaybackRoom = lazy(() => {
-  return new Promise((resolve) => {
-    setTimeout(
-      () => resolve(import("./component/Room/PlaybackRoomPage")),
-      1000
-    );
-  });
-});
-
-const UserRoom = lazy(() => {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(import("./component/Room/UserRoomPage")), 1000);
-  });
-});
-
-const Profile = lazy(() => {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(import("./component/Profile/Profile")), 1000);
-  });
-});
-
-const Login = lazy(() => {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(import("./component/Login/Login")), 1000);
-  });
-});
 
 ReactDOM.render(
   // Redux Store Provider
+
   <Provider store={store}>
-    <Router>
-      <Suspense fallback={<Loader />}>
-        <NavBar />
-        <Switch>
-          <div>
-            <Route path="/nft" exact component={() => <NFTFeed />} />
-            <Route path="/" exact component={() => <VideoHome />} />
-
-            <Route path="/upload" exact component={() => <App />} />
-            <Route path="/music" exact component={() => <Track />} />
-
-            {/* <Route exact path="/" component={LandingPage} /> */}
-            <Route exact path="/loader" component={Loader} />
-            {/* <Route exact path="/home" component={VideoHome} />  */}
-            <Route exact path="/streamer/:roomID" component={UserRoom} />
-            <Route exact path="/public/:username" component={PublicRoom} />
-            <Route
-              exact
-              path="/playback/:username/:video_id"
-              component={PlaybackRoom}
-            />
-            <Route exact path="/profile/:username" component={Profile} />
-            <Route exact path="/login" component={Login} />
-            {/* TODO: <Route exact path="*" component={PageNotFound} /> */}
-          </div>
-        </Switch>
-      </Suspense>
-    </Router>
+    <App />
   </Provider>,
   document.getElementById("root")
 );

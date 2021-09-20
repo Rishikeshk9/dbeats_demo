@@ -1,239 +1,156 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="./logo2.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Web site created using create-react-app" />
-
-
-  <!-- Links -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="apple-touch-icon" href="./logo2.png" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
-    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
-  <link rel="manifest" href="/manifest.json" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,700;1,300&display=swap"
-    rel="stylesheet">
-      
-
-
-
-  <title>DBeats</title>
-
-
-  <!-- Scripts -->
-  <script src="https://unpkg.com/react/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js" crossorigin></script>
-  <script src="https://unpkg.com/scrollreveal"></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js'></script>
-
-</head>
-
-<body>
-  <div id="root"></div>
-<script src="/static/js/bundle.js"></script><script src="/static/js/vendors~main.chunk.js"></script><script src="/static/js/main.chunk.js"></script></body>
-
-<script>
-  const sr = ScrollReveal({
-    origin: 'bottom',
-    distance: '500px',
-    duration: 6000,
-    reset: true
-  });
-
-  sr.reveal('', { delay: 200 });
-
-
-</script>
-
-<script type="text/javascript">
-  let title = document.getElementById("main_header_title");
-
-  window.addEventListener('scroll', function () {
-    var value = window.scrollY;
-
-    title.style.top = (-value * 2) + 450 + 'px';
-  })
-
-
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
-<script>
-  TweenMax.fromTo("textPath", 3, { attr: { startOffset: "0" } }, { attr: { startOffset: "28.8%" }, ease: Linear.easeNone, repeat: -1 });
-  TweenMax.to("svg", 3, { x: "-28.8%", ease: Linear.easeNone, repeat: -1 });
-
-  TweenMax.to("tspan", 1, { opacity: 0.4, repeat: -1, yoyo: true });
-</script>
-
-
-</html>
-
-
-<div align="right">
-  {user
-    ? (
-        <>
-          <Button
-            variant="primary"
-            className={classes.create_stream_url}
-            onClick={handleStreamOnClick}
-          >
-            Go Live
-          </Button>
-          <Button 
-            className={classes.navbar_meetId}
-            onClick={handleProfileOnClick}
-          >
-            {" "}
-            <AccountCircleIcon className={classes.navbar_avatar} />{" "}
-            <span>{user.wallet_id.slice(0,4)+'...'+user.wallet_id.slice(-4)}</span>
-          </Button>
-        </>
-  ) : (
-      <>
-        <Button
-            variant="primary"
-            className={classes.create_stream_url} onClick= {()=> {history.push(`/login`)}}
-          >
-            Login
-          </Button>
-      </>
-  )}
-</div>
-
-<div>
-                      <h4>My Subscribers :</h4>
-                      {user.subscriberss
-                        ? <div>
-                              {user.subscribers.map((sub_name, i) => {
-                                //console.log(playbackUser)
-                                return (
-                                  <div>
-                                    Username : {sub_name.username}
-                                  </div>
-                                );
-                              })}
-                          </div>
-                        : <p>No Subscribers</p>
-                      }
-                      
-                    </div>
-                    <hr />
-                    <div>
-                      <h4>I Subscribed :</h4>
-                      {user.subscribed
-                        ? <div>
-                              {user.subscribed.map((sub_name, i) => {
-                                //console.log(playbackUser)
-                                return (
-                                  <div>
-                                    Username : {sub_name.username}
-                                  </div>
-                                );
-                              })}
-                          </div>
-                        : <p>Not Subscribed any user</p>
-                      }
-                      
-                    </div>
-                    <hr />
-
-                    <div>
-                      <h4>My videos </h4>
-                      {user.videos
-                        ? <Carousel cols={4}>
-                                {user.videos.map((playbackUser, i) => {
-                                  //console.log(playbackUser)
-                                  return (
-                                    <Carousel.Item key={i}>
-                                      <CarouselCard playbackUserData={playbackUser} index={i} username={user.username} type="video"/>
-                                    </Carousel.Item>
-                                  );
-                                })}
-                          </Carousel>
-                        : <p>No Videos till now</p>
-                      }
-                      
-                    </div>
-                    <hr />
-
-                    <div>
-                      <h4>My Tracks </h4>
-                      {user.tracks
-                        ? <Carousel cols={4}>
-                                {user.videos.map((playbackUser, i) => {
-                                  //console.log(playbackUser)
-                                  return (
-                                    <Carousel.Item key={i}>
-                                      <CarouselCard playbackUserData={playbackUser} index={i} username={user.username} type="track"/>
-                                    </Carousel.Item>
-                                  );
-                                })}
-                          </Carousel>
-                        : <p>No Tracks till now</p>
-                      }
-                    </div
-
-
-
-
-
-const PublicProfile = (props) => {
-
-  const username = props.match.params.username;
-
-  let sharable_data = `http://localhost:3000 /public_profile/${username}`
-
-  // const [show, setShow] = useState(false);
-  const [user, setUser] = useState([]);
-
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
-
-  // const text = "Copy Link To Clipboard"
-  // const [buttonText, setButtonText] = useState(text);
-
-  useEffect(() => {
-    console.log(`${process.env.REACT_APP_SERVER_URL}/user/${props.match.params.username}`)
-    
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-
-
-
-
-
-  <Form>                                
-    <Form.Group className="mb-3" controlId="formBasicKey">
-        <Form.Label><b>To Simultaneously Stream on Twitch Enter Twitch-Stream-Key </b></Form.Label>
-        <Form.Control
-            type="text"
-            placeholder="Enter SECRET Key"
-            onChange={(e) => handleChange(e)}
-            style={{width:"80%"}}
-        />
-        
-        <div style={{display:"flex"}}>
-            <Button variant="primary" className={classes.multistream_form_button} type="button" onClick={createMultiStream}>
-                Start MultiStreaming
-            </Button>
-            <div className={classes.multistream_form_spinner}>
-                <Spinner animation="border"  variant="info" role="status" hidden={loader}>   
-                </Spinner>
+<Modal
+        show={showDestinationModal}
+        onHide={() => setShowDestinationModal(false)}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter" className="w-full">
+            <div className="font-semibold text-3xl text-center">
+              Add Multistream Platforms
             </div>
-        </div>
-    </Form.Group>
-</Form>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div>
+            {multiStreamConnected.map((value, index) => {
+              return (
+                <div className="bg-white-200 mx-1 border-1 border-gray-300 rounded my-2 flex justify-around">
+                  <img
+                    src={value.platform.image}
+                    alt="logo"
+                    className="h-32 w-auto"
+                  />
+                  <ToggleButton
+                    className="h-15 my-auto w-auto"
+                    value="check"
+                    selected={value.selected}
+                    onChange={() => {
+                      editPlatform(value, index);
+                    }}
+                  >
+                    <CheckIcon />
+                  </ToggleButton>
+                </div>
+              );
+            })}
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <div className="flex w-full">
+            <button
+              className="w-100 mx-2 rounded-md bg-gradient-to-r from-dbeats-alt to-dbeats-light text-white p-2 text-xl font-semibold"
+              onClick={() => {
+                setModalShow(true);
+                setShowDestinationModal(false);
+              }}
+            >
+              Add Destination
+            </button>
+            <button
+              className="w-100 mx-2 rounded-md bg-gradient-to-r from-green-800 to-green-300 text-white p-2 text-xl font-semibold"
+              onClick={createMultiStream}
+            >
+              Apply
+            </button>
+          </div>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter" className="w-full">
+            <div className="font-semibold text-2xl text-center">
+              Select the MultiStream Platform
+            </div>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="flex">
+            {MultiStreamData.map((value, index) => {
+              return (
+                <div className="bg-white-200 mx-1 border-1 border-gray-300 rounded">
+                  <img
+                    src={value.image}
+                    alt="logo"
+                    className="h-32 w-auto"
+                    onClick={() => {
+                      setMultiStreamValue(value);
+                      setShowStreamModal(true);
+                      setModalShow(false);
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </Modal.Body>
+        <Modal.Footer></Modal.Footer>
+      </Modal>
+
+      <Modal
+        show={showStreamModal}
+        onHide={() => setShowStreamModal(false)}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter" className="w-full">
+            <div className="font-semibold text-3xl text-center">
+              {multiStreamValue.title}
+            </div>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3 text-xl">
+              <Form.Label>
+                <b>Enter Stream-Key </b>
+              </Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter SECRET Key"
+                onChange={(e) => handleChange(e)}
+                style={{ width: "80%" }}
+              />
+              <div className="py-2 pt-3 pl-1">
+                RTMP : {multiStreamValue.rtmp + StreamKey}
+              </div>
+
+              <div style={{ display: "flex" }}>
+                <Button
+                  variant="primary"
+                  className=" border-0 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light rounded px-4 py-2"
+                  type="button"
+                  onClick={() => {
+                    let rtmp = multiStreamValue.rtmp + StreamKey;
+                    addStreamingPlatform(rtmp);
+                  }}
+                >
+                  <div className="text-white text-lg font-semibold">
+                    Add {multiStreamValue.title}
+                  </div>
+                </Button>
+
+                <div className={classes.multistream_form_spinner}>
+                  <Spinner
+                    animation="border"
+                    variant="info"
+                    role="status"
+                    hidden={loader}
+                  ></Spinner>
+                </div>
+              </div>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer></Modal.Footer>
+      </Modal>

@@ -1,64 +1,106 @@
-
-//import  Track from './component/track.component';
-//import  Switch from './component/switch.component';
-//import logo from './logo.svg';
-import './App.css';
-//import Navbar from './component/navbar.component';
-//import Form from './component/form.component';
-import Switcher from './component/switcher.component';
-import Connection from './component/connection.component';
 import '../node_modules/noty/lib/noty.css';
+import axios from 'axios'
 
 import '../node_modules/noty/lib/themes/metroui.css';
-import React from 'react';
-//import Web3 from 'web3';
-import useWeb3Modal from "./hooks/useWeb3Modal";
+import React,{useEffect} from 'react';
 
-function WalletButton({ provider, loadWeb3Modal, logoutOfWeb3Modal}) {
-  
-  return (
-    <div>
-      <button
-      className="btn"
-      style={{margin: "20px"}}
-      onClick={() => {
-        if (!provider) {
-          loadWeb3Modal();
-        } 
-        else {
-          logoutOfWeb3Modal();
+import { Suspense, lazy } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Loader from "./component/Loader/Loader";
+import "./App.css";
+import NavBar from "../src/component/Navbar/Navbar";
+import Track from "./component/track.component";
+//import Navbar from "./component/navbar.component";
+//import BottomBar from "./component/bottom-player.component";
+
+import NFTFeed from "./component/nft.component";
+
+
+const VideoHome = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import("./component/Home/Home")), 1000);
+  });
+});
+
+const PublicRoom = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import("./component/Room/PublicRoomPage")), 1000);
+  });
+});
+
+const PlaybackRoom = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(
+      () => resolve(import("./component/Room/PlaybackRoomPage")),
+      1000
+    );
+  });
+});
+
+const UserRoom = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import("./component/Room/UserRoomPage")), 1000);
+  });
+});
+
+const Profile = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import("./component/Profile/Profile")), 1000);
+  });
+});
+
+const Login = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import("./component/Login/Login")), 1000);
+  });
+});
+
+const App = () => {
+
+  let user = JSON.parse(window.localStorage.getItem("user"));
+
+
+  useEffect(() => {
+        if(user)
+        {       
+            axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${user.username}`)
+            .then((value) => {
+              window.localStorage.setItem("user", JSON.stringify(value.data));
+            });
         }
-      }}
-    >
 
-      {!provider ? "Connect Wallet" : "Disconnect Wallet"}
-    </button>
-    
-    {provider ? <p>{provider.provider.selectedAddress}</p> : <div></div>}
-    </div>
-    
-    
-  );
-}
-function App() {
-  const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
+        // eslint-disable-next-line react-hooks/exhaustive-deps 
+    }, []);
 
   return (
-    <div className="bg-blue-50">
-     
+    <Router>
+      <Suspense fallback={<Loader />}>
+        <NavBar />
+        <Switch>
+          <div style={{marginTop:"4.1rem"}}>
+            <Route path="/nft" exact component={() => <NFTFeed />} />
+            <Route path="/" exact component={() => <VideoHome />} />
 
- 
-      <Switcher />
-      <Connection />
-       <div className="">
-        <WalletButton
-          provider={provider}
-          loadWeb3Modal={loadWeb3Modal}
-          logoutOfWeb3Modal={logoutOfWeb3Modal}
-        />
-      </div>
-      
-    </div>
+            <Route path="/upload" exact component={() => <App />} />
+            <Route path="/music" exact component={() => <Track />} />
+
+            {/* <Route exact path="/" component={LandingPage} /> */}
+            <Route exact path="/loader" component={Loader} />
+            {/* <Route exact path="/home" component={VideoHome} />  */}
+            <Route exact path="/streamer/:roomID" component={UserRoom} />
+            <Route exact path="/public/:username" component={PublicRoom} />
+            <Route
+              exact
+              path="/playback/:username/:video_id"
+              component={PlaybackRoom}
+            />
+            <Route exact path="/profile/:username" component={Profile} />
+            <Route exact path="/login" component={Login} />
+            {/* TODO: <Route exact path="*" component={PageNotFound} /> */}
+          </div>
+        </Switch>
+      </Suspense>
+    </Router>
   );
 }
 

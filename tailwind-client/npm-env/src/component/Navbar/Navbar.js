@@ -3,8 +3,10 @@ import classes from "./Navbar.module.css";
 import { scaleRotate as Menu } from "react-burger-menu";
 import logo from "../../assets/images/logo2.png";
 import useWeb3Modal from "../../hooks/useWeb3Modal";
-import { useSelector } from "react-redux";
-//import { toggleDarkMode } from "../../actions/index";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleDarkMode } from "../../actions/index";
+import Toggle from "../toggle.component";
+
 
 const NavBar = (props) => {
   const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
@@ -12,7 +14,7 @@ const NavBar = (props) => {
 
   const user = JSON.parse(window.localStorage.getItem("user"));
 
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.toggleDarkMode);
 
   //  Modal
@@ -25,9 +27,9 @@ const NavBar = (props) => {
   // Auth functions
 
   const handleLogout = () => {
+    window.location.href = `/`;
     window.localStorage.clear();
     logoutOfWeb3Modal();
-    window.location.href = "/";
   };
 
   const handleStreamOnClick = () => {
@@ -39,20 +41,29 @@ const NavBar = (props) => {
   };
 
   // console.log(user, "from navbar")
+
+  const [toggled, setToggled] = useState(true);
+  const handleClick = () => {
+    setToggled((s) => !s);
+    dispatch(toggleDarkMode());
+  };
+
+
   return (
     <>
+      <div className={`${darkMode && "dark"} `}>
       <Menu
         customBurgerIcon={false}
         pageWrapId={"page-wrap"}
         outerContainerId={"outer-container"}
         isOpen={showOpen}
         onStateChange={isMenuOpen}
-        className="w-250 bg-dbeats-dark mt-14 "
+        className={`w-250 bg-white dark:bg-dbeats-dark-primary text-lg text-bold`}
       >
         <div className="pt-5 bg-transparent hidden w-0">
         </div>
         <div className={classes.menu_items}>
-          <a id="home" href="/">
+          <a className="text-black text-xl text-bold dark:text-white" id="home" href="/">
             <i
               id={classes.menu_item}
               className="fa fa-fw fa-home"
@@ -62,7 +73,7 @@ const NavBar = (props) => {
           </a>
         </div>
         <div className={classes.menu_items}>
-          <a id="about" href="#/about">
+          <a className="text-black text-xl text-bold dark:text-white" id="about" href="#/about">
             <i
               id={classes.menu_item}
               className="fas fa-compass"
@@ -72,7 +83,7 @@ const NavBar = (props) => {
           </a>
         </div>
         <div className={classes.menu_items}>
-          <a id="contact" href="/music">
+          <a className="text-black text-xl text-bold dark:text-white" id="contact" href="/music">
             <i
               id={classes.menu_item}
               className="fas fa-cogs"
@@ -82,7 +93,7 @@ const NavBar = (props) => {
           </a>
         </div>
         {user ? (
-          <div className={classes.menu_item_logout} onClick={handleLogout}>
+          <div className={`${classes.menu_item_logout} text-black text-xl text-bold dark:text-white`} onClick={handleLogout}>
             <i
               id={classes.menu_item}
               className="fas fa-door-open"
@@ -93,12 +104,19 @@ const NavBar = (props) => {
         ) : (
           <> </>
         )}
+        <div className="h-max w-max flex items-center justify-center  fixed bottom-28 ">
+          <div className="relative flex ml-2 ">
+            <Toggle toggled={toggled} onClick={handleClick} />
+          </div>
+        </div>
       </Menu>
+
+      </div>
 
       <div
         expand="lg"
         id="navbarScroll"
-        className={` w-full sticky top-0 ${darkMode && "dark"} z-100`}
+        className={` w-full fixed top-0 ${darkMode && "dark"} z-100`}
       >
         <div
           className={`bg-white   shadow-sm w-full relative flex  p-3 dark:bg-dbeats-dark dark:text-blue-300`}
