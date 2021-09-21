@@ -3,8 +3,9 @@ import classes from "./Profile.module.css";
 import axios from "axios";
 import CarouselCard from "./CarouselCard";
 import person from "../../assets/images/person.png";
+import background from "../../assets/images/wallpaper.jpg"
 
-import { Modal } from "react-bootstrap";
+import Modal from 'react-awesome-modal';
 import { WhatsappIcon, WhatsappShareButton } from "react-share";
 import { FacebookShareButton, FacebookIcon } from "react-share";
 import { EmailShareButton, EmailIcon } from "react-share";
@@ -137,12 +138,11 @@ const Profile = (props) => {
           <div id="outer-container">
             <main id="page-wrap">
               <div className="flex w-full">
-                <div className="w-250 bg-gray-300"></div>
                 <div id="display_details" className="px-5 pt-3 w-full">
                   <div className="bg-white pb-3 ">
-                    <div className="">
-                      <div
-                        className=" bg-profile-cover "
+                    <div className="block">
+                      <img
+                        src={background}
                         style={{ width: "100%", height: "22rem" }}
                       />
                     </div>
@@ -158,7 +158,7 @@ const Profile = (props) => {
                           </div>
                         </div>
                         <div className="w-100 flex flex-col ml-3 mr-5">
-                          <div className="text-white pb-5 shadow">
+                          <div className="text-white pb-5">
                             <div className="flex w-max">
                               <span className="font-bold text-3xl mr-3">
                                 {user.name}
@@ -187,7 +187,7 @@ const Profile = (props) => {
                               @{user.username}
                             </span>
                           </div>
-                          <div className="flex text-gray-400 py-3">
+                          <div className="flex text-gray-400 py-3 pt-12">
                             <div class="grid grid-flow-rows grid-cols-5   gap-4">
                               <div className="font-bold mx-auto   px-4">
                                 <span className="font-bold text-lg text-gray-700">
@@ -354,58 +354,53 @@ const Profile = (props) => {
               </div>
             </main>
 
-            <Modal show={show} onHide={handleClose} animation={true} centered>
-              <Modal.Header closeButton>
-                <Modal.Title>Share link on</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Container>
+            <Modal
+              visible={show}
+              className="h-max w-max"
+              effect="fadeInUp"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+            >
+              <h2 className="grid grid-cols-5 justify-items-center text-2xl py-4">
+                <div className="col-span-4 pl-14">Share link on</div>
+                <div className="ml-5" onClick={handleClose}>
+                  <i class="fas fa-times"></i>
+                </div>
+              </h2>
+              <hr className="py-4" />
+              <div>
+                <Container className="px-12 pb-4">
                   <Row>
-                    <Col className={classes.share_icons}>
-                      <WhatsappShareButton
-                        className={classes.icon}
-                        url={sharable_data}
-                      >
+                    <Col className="flex justify-around align-center">
+                      <WhatsappShareButton url={sharable_data}>
                         <WhatsappIcon
                           iconFillColor="white"
                           size={60}
                           round={true}
                         />
                       </WhatsappShareButton>
-                      <FacebookShareButton
-                        className={classes.icon}
-                        url={sharable_data}
-                      >
+                      <FacebookShareButton url={sharable_data}>
                         <FacebookIcon
                           iconFillColor="white"
                           size={60}
                           round={true}
                         />
                       </FacebookShareButton>
-                      <EmailShareButton
-                        className={classes.icon}
-                        url={sharable_data}
-                      >
+                      <EmailShareButton url={sharable_data}>
                         <EmailIcon
                           iconFillColor="white"
                           size={60}
                           round={true}
                         />
                       </EmailShareButton>
-                      <PinterestShareButton
-                        className={classes.icon}
-                        url={sharable_data}
-                      >
+                      <PinterestShareButton url={sharable_data}>
                         <PinterestIcon
                           iconFillColor="white"
                           size={60}
                           round={true}
                         />
                       </PinterestShareButton>
-                      <TelegramShareButton
-                        className={classes.icon}
-                        url={sharable_data}
-                      >
+                      <TelegramShareButton url={sharable_data}>
                         <TelegramIcon
                           iconFillColor="white"
                           size={60}
@@ -417,7 +412,7 @@ const Profile = (props) => {
                   <Row>
                     <CopyToClipboard
                       text={sharable_data}
-                      className={classes.link_copy_btn}
+                      className="block mx-auto p-2 mt-4 mb-2 w-96 text-white font-semibold rounded-lg bg-dbeats-light"
                     >
                       <button
                         type="submit"
@@ -428,7 +423,8 @@ const Profile = (props) => {
                     </CopyToClipboard>
                   </Row>
                 </Container>
-              </Modal.Body>
+              </div>
+              <hr className="py-2" />
             </Modal>
           </div>
         </div>

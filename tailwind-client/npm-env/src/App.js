@@ -2,7 +2,7 @@ import '../node_modules/noty/lib/noty.css';
 import axios from 'axios'
 
 import '../node_modules/noty/lib/themes/metroui.css';
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 
 import { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -28,12 +28,9 @@ const PublicRoom = lazy(() => {
   });
 });
 
-const PlaybackRoom = lazy(() => {
+const Playback = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(
-      () => resolve(import("./component/Room/PlaybackRoomPage")),
-      1000
-    );
+    setTimeout(() => resolve(import("./component/Room/PlaybackRoomPage")), 1000);
   });
 });
 
@@ -61,23 +58,22 @@ const App = () => {
 
 
   useEffect(() => {
-        if(user)
-        {       
-            axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${user.username}`)
-            .then((value) => {
-              window.localStorage.setItem("user", JSON.stringify(value.data));
-            });
-        }
+    if (user) {
+      axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${user.username}`)
+        .then((value) => {
+          window.localStorage.setItem("user", JSON.stringify(value.data));
+        });
+    }
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps 
-    }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps 
+  }, []);
 
   return (
     <Router>
       <Suspense fallback={<Loader />}>
         <NavBar />
         <Switch>
-          <div style={{marginTop:"4.1rem"}}>
+          <div style={{ marginTop: "4.1rem" }}>
             <Route path="/nft" exact component={() => <NFTFeed />} />
             <Route path="/" exact component={() => <VideoHome />} />
 
@@ -89,11 +85,7 @@ const App = () => {
             {/* <Route exact path="/home" component={VideoHome} />  */}
             <Route exact path="/streamer/:roomID" component={UserRoom} />
             <Route exact path="/public/:username" component={PublicRoom} />
-            <Route
-              exact
-              path="/playback/:username/:video_id"
-              component={PlaybackRoom}
-            />
+            <Route exact path="/playback/:username/:video_id" component={Playback} />
             <Route exact path="/profile/:username" component={Profile} />
             <Route exact path="/login" component={Login} />
             {/* TODO: <Route exact path="*" component={PageNotFound} /> */}

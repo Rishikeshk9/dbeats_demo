@@ -1,11 +1,11 @@
-import Playback from "./Info/Playback_Info";
+import PlayBackInfo from "./Info/Playback_Info";
 
-const PlaybackRoomPage = (props) => {
+const PlayBackRoomPage = (props) => {
   return (
     <>
       <div id="outer-container" style={{ height: "100%" }}>
         <main id="page-wrap">
-          <Playback
+          <PlayBackInfo
             stream_id={props.match.params.username}
             video_id={props.match.params.video_id}
           />
@@ -15,4 +15,4 @@ const PlaybackRoomPage = (props) => {
   );
 };
 
-export default PlaybackRoomPage;
+export default PlayBackRoomPage;

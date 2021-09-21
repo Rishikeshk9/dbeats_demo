@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import classes from "./Info.module.css";
 //import playimg from "../../../assets/images/telegram.png";
 import axios from "axios";
 import VideoPlayer from "../VideoPlayer/VideoPlayer";
-import { Modal, ListGroup } from "react-bootstrap";
+import { Menu, Transition } from '@headlessui/react'
 import { WhatsappIcon, WhatsappShareButton } from "react-share";
 import { FacebookShareButton, FacebookIcon } from "react-share";
 import { EmailShareButton, EmailIcon } from "react-share";
@@ -12,8 +12,9 @@ import { TelegramShareButton, TelegramIcon } from "react-share";
 import { Container, Row, Col } from "react-bootstrap";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import RecommendedCard from "./RecommendedCard";
+import Modal from 'react-awesome-modal';
 
-const Playback = (props) => {
+const PlayBackInfo = (props) => {
   let sharable_data = `https://dbeats-demo.vercel.app /playback/${props.stream_id}/${props.video_id}`;
 
   const user = JSON.parse(window.localStorage.getItem("user"));
@@ -42,7 +43,7 @@ const Playback = (props) => {
   const [arrayData, setArrayData] = useState([]);
 
   const trackFollowers = () => {
-    
+
     const followData = {
       following: `${userData.username}`,
       follower: `${user.username}`,
@@ -167,13 +168,13 @@ const Playback = (props) => {
           </div>
           <div className="mx-7 px-7">
             <div className="flex justify-between my-2  ">
-              <div>
+              <div className="py-4">
                 <div
-                  className=" w-full p-0 text-left mt-0"
+                  className=" w-full text-left mt-0"
                   style={{ padding: "0px" }}
                 >
                   {userData ? (
-                    <p className="font-semibold text-xl">
+                    <p className="font-semibold text-xl pb-4">
                       {userData.videos[0].videoName}
                     </p>
                   ) : (
@@ -197,7 +198,7 @@ const Playback = (props) => {
                   <></>
                 )}
               </div>
-              <div className="text-4xl">
+              <div className="text-4xl py-4">
                 <button
                   className="border-0 bg-transparent"
                   onClick={handleShow}
@@ -208,95 +209,63 @@ const Playback = (props) => {
                 <i className="fas fa-heart-broken opacity-50 mx-2"></i>
                 <i className="far fa-laugh-squint opacity-50 mx-2"></i>
                 <i className="far fa-angry opacity-50 mx-2"></i>
-                <button
-                  className={classes.more_options}
-                  onClick={handleShowMore}
-                >
-                  <i className="fas fa-ellipsis-h opacity-50 mx-2"></i>
-                </button>
+                <Menu as="div" className="relative inline-block text-left">
+                  <div>
+                    <Menu.Button className="">
+                      <i className="fas fa-ellipsis-h opacity-50 mx-2"></i>
+                    </Menu.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <div className="px-1 py-1 ">
+                        <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                          <button>
+                            Edit
+                          </button>
+                        </Menu.Item>
+                        <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                          <button>
+                            Duplicate
+                          </button>
+                        </Menu.Item>
+                      </div>
+                      <div className="px-1 py-1">
+                        <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                          <button>
+                            Archive
+                          </button>
+                        </Menu.Item>
+                        <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                          <button>
+                            Move
+                          </button>
+                        </Menu.Item>
+                      </div>
+                      <div className="px-1 py-1">
+                        <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                          <button>
+                            Delete
+                          </button>
+                        </Menu.Item>
+                      </div>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
               </div>
-
-              <Modal show={show} onHide={handleClose} animation={true} centered>
-                <Modal.Header closeButton>
-                  <Modal.Title>Share link on</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Container>
-                    <Row>
-                      <Col className="flex justify-around align-center">
-                        <WhatsappShareButton url={sharable_data}>
-                          <WhatsappIcon
-                            iconFillColor="white"
-                            size={60}
-                            round={true}
-                          />
-                        </WhatsappShareButton>
-                        <FacebookShareButton url={sharable_data}>
-                          <FacebookIcon
-                            iconFillColor="white"
-                            size={60}
-                            round={true}
-                          />
-                        </FacebookShareButton>
-                        <EmailShareButton url={sharable_data}>
-                          <EmailIcon
-                            iconFillColor="white"
-                            size={60}
-                            round={true}
-                          />
-                        </EmailShareButton>
-                        <PinterestShareButton url={sharable_data}>
-                          <PinterestIcon
-                            iconFillColor="white"
-                            size={60}
-                            round={true}
-                          />
-                        </PinterestShareButton>
-                        <TelegramShareButton url={sharable_data}>
-                          <TelegramIcon
-                            iconFillColor="white"
-                            size={60}
-                            round={true}
-                          />
-                        </TelegramShareButton>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <CopyToClipboard
-                        text={sharable_data}
-                        className="block mx-auto p-2 mt-4 mb-2 w-96 text-white font-semibold rounded-lg bg-dbeats-light"
-                      >
-                        <button
-                          type="submit"
-                          onClick={() => setButtonText("Link Copied!")}
-                        >
-                          {buttonText}
-                        </button>
-                      </CopyToClipboard>
-                    </Row>
-                  </Container>
-                </Modal.Body>
-              </Modal>
-
-              <Modal show={showMore} onHide={handleCloseMore} centered>
-                <Modal.Header closeButton>
-                  <Modal.Title>More Options</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <ListGroup>
-                    <ListGroup.Item active>demo 1</ListGroup.Item>
-                    <ListGroup.Item>demo 2</ListGroup.Item>
-                    <ListGroup.Item>demo 3</ListGroup.Item>
-                    <ListGroup.Item>demo 4</ListGroup.Item>
-                  </ListGroup>
-                </Modal.Body>
-              </Modal>
             </div>
             {userData ? (
               <div className="w-full">
                 <hr />
-                <h4>Description : </h4>
-                <p>{userData.videos[0].description}</p>
+                <h4 className="py-2">Description : </h4>
+                <p className="pb-2">{userData.videos[0].description}</p>
                 <hr />
               </div>
             ) : (
@@ -313,7 +282,7 @@ const Playback = (props) => {
             </div>
           </div>
         </div>
-        <div className="  w-full col-span-1 px-5">
+        <div className="  w-full col-span-1 px-5 pt-3">
           <div className=" w-full  grid grid-cols-1 grid-flow-row gap-3  ">
             {arrayData.map((value, index) => {
               return <RecommendedCard key={index} value={value} />;
@@ -321,8 +290,80 @@ const Playback = (props) => {
           </div>
         </div>
       </div>
+      <Modal
+        visible={show}
+        className="h-max w-max"
+        effect="fadeInUp"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <h2 className="grid grid-cols-5 justify-items-center text-2xl py-4">
+          <div className="col-span-4 pl-14">Share link on</div>
+          <div className="ml-5" onClick={handleClose}>
+            <i class="fas fa-times"></i>
+          </div>
+        </h2>
+        <hr className="py-4" />
+        <div>
+          <Container className="px-12 pb-4">
+            <Row>
+              <Col className="flex justify-around align-center">
+                <WhatsappShareButton url={sharable_data}>
+                  <WhatsappIcon
+                    iconFillColor="white"
+                    size={60}
+                    round={true}
+                  />
+                </WhatsappShareButton>
+                <FacebookShareButton url={sharable_data}>
+                  <FacebookIcon
+                    iconFillColor="white"
+                    size={60}
+                    round={true}
+                  />
+                </FacebookShareButton>
+                <EmailShareButton url={sharable_data}>
+                  <EmailIcon
+                    iconFillColor="white"
+                    size={60}
+                    round={true}
+                  />
+                </EmailShareButton>
+                <PinterestShareButton url={sharable_data}>
+                  <PinterestIcon
+                    iconFillColor="white"
+                    size={60}
+                    round={true}
+                  />
+                </PinterestShareButton>
+                <TelegramShareButton url={sharable_data}>
+                  <TelegramIcon
+                    iconFillColor="white"
+                    size={60}
+                    round={true}
+                  />
+                </TelegramShareButton>
+              </Col>
+            </Row>
+            <Row>
+              <CopyToClipboard
+                text={sharable_data}
+                className="block mx-auto p-2 mt-4 mb-2 w-96 text-white font-semibold rounded-lg bg-dbeats-light"
+              >
+                <button
+                  type="submit"
+                  onClick={() => setButtonText("Link Copied!")}
+                >
+                  {buttonText}
+                </button>
+              </CopyToClipboard>
+            </Row>
+          </Container>
+        </div>
+        <hr className="py-2" />
+      </Modal>
     </div>
   );
 };
 
-export default Playback;
+export default PlayBackInfo;

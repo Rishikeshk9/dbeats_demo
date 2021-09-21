@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
-import { Dropdown} from 'react-bootstrap';
+import { Menu, Transition } from '@headlessui/react'
+import { Fragment, useEffect, useRef, useState } from 'react'
+import { ChevronDownIcon } from '@heroicons/react/solid'
+
+
 
 
 const RecommendedCard = (props) => {
@@ -22,7 +25,7 @@ const RecommendedCard = (props) => {
                 <ReactPlayer
                     onClick={() => {
                         window.location.href = `/playback/${props.value.username}/0`;
-                      }}
+                    }}
                     className="justify-self-center"
                     width="12rem"
                     height="auto"
@@ -44,19 +47,59 @@ const RecommendedCard = (props) => {
                     <span>1 Month Ago</span>
                 </p>
             </div>
-            <Dropdown>
-
-                <Dropdown.Toggle id="dropdown-button-dark-example1 e-caret-hide" variant="secondary" bsPrefix="p-0 " style={{background:"none", border:0}}>
+            <Menu as="div" className="relative inline-block text-left">
+                <div>
+                    <Menu.Button className="">
                     <i class=" fas fa-ellipsis-v text-gray-600 cursor-pointer block ml-auto mt-2 mr-2 text-lg"></i>
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Play Next</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Add To Queue</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Other Options</Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
+                    </Menu.Button>
+                </div>
+                <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                >
+                    <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <div className="px-1 py-1 ">
+                            <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                                <button>
+                                    Edit
+                                </button>
+                            </Menu.Item>
+                            <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                                <button>
+                                    Duplicate
+                                </button>
+                            </Menu.Item>
+                        </div>
+                        <div className="px-1 py-1">
+                            <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                                <button>
+                                    Archive
+                                </button>
+                            </Menu.Item>
+                            <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                                <button>
+                                    Move
+                                </button>
+                            </Menu.Item>
+                        </div>
+                        <div className="px-1 py-1">
+                            <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                                <button>
+                                    Delete
+                                </button>
+                            </Menu.Item>
+                        </div>
+                    </Menu.Items>
+                </Transition>
+            </Menu>
         </div>
     )
 }
+
 
 export default RecommendedCard;

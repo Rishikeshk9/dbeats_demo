@@ -231,7 +231,7 @@ const UserInfo = (props) => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <div className="py-5 px-10 flex">
+        <div className="py-6 mx-16 flex">
           <p className="w-full">
             <div className="font-semibold text-3xl text-center">
               Add Multistream Platforms
@@ -242,11 +242,11 @@ const UserInfo = (props) => {
           </div>
         </div>
         <hr />
-        <main>
-          <div className="grid grid-cols-3 grid-flow-col">
+        <main className="py-3 px-4 max-h-60 overflow-y-auto">
+          <div className="grid grid-cols-3">
             {multiStreamConnected.map((value, index) => {
               return (
-                <div className="bg-white-200 mx-1 border-1 border-gray-300 rounded my-2 flex justify-around">
+                <div className="bg-white-200 mx-8 border-1 border-gray-300 rounded my-2 flex justify-around">
                   <img
                     src={value.platform.image}
                     alt="logo"
@@ -254,7 +254,7 @@ const UserInfo = (props) => {
                   />
                   <input
                     type="checkbox"
-                    className="h-7 w-7 dark:text-dbeats-dark-secondary text-dbeats-light focus:ring-dbeats-light border-gray-300 rounded self-center"
+                    className="h-7 w-7 mx-3 dark:text-dbeats-dark-secondary text-dbeats-light focus:ring-dbeats-light border-gray-300 rounded self-center"
                     value="check"
                     selected={value.selected}
                     onChange={() => {
@@ -289,7 +289,6 @@ const UserInfo = (props) => {
 
       <Modal
         visible={modalShow}
-        onHide={() => setModalShow(false)}
         className="h-max w-max"
         effect="fadeInUp"
         aria-labelledby="contained-modal-title-vcenter"
@@ -307,14 +306,14 @@ const UserInfo = (props) => {
         </div>
         <hr />
         <main className="py-5 px-6">
-          <div className="flex">
+          <div className="grid grid-cols-4 mx-4">
             {MultiStreamData.map((value, index) => {
               return (
                 <div className="bg-white-200 mx-1 border-1 border-gray-300 rounded">
                   <img
                     src={value.image}
                     alt="logo"
-                    className="h-32 w-auto"
+                    className="h-32 w-auto px-4"
                     onClick={() => {
                       setMultiStreamValue(value);
                       setShowStreamModal(true);
@@ -326,6 +325,7 @@ const UserInfo = (props) => {
             })}
           </div>
         </main>
+        <hr className="py-6"/>
       </Modal>
 
       <Modal
@@ -358,11 +358,11 @@ const UserInfo = (props) => {
                 onChange={(e) => handleChange(e)}
                 style={{ width: "80%" }}
               />
-              <div className="py-2 pt-3 pl-1">
+              {/* <div className="py-2 pt-3 pl-1 overflow-hidden">
                 RTMP : {multiStreamValue.rtmp + StreamKey}
-              </div>
+              </div> */}
 
-              <div style={{ display: "flex" }}>
+              <div className="flex pt-4">
                 <Button
                   variant="primary"
                   className=" border-0 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light rounded px-4 py-2"
@@ -389,6 +389,7 @@ const UserInfo = (props) => {
             </Form.Group>
           </Form>
         </main>
+        <hr className="py-6"/>
       </Modal>
     </Fragment>
   );
