@@ -42,7 +42,7 @@ router.route("/login").post(async (req, res) => {
   try {
     const username = req.body.username;
     const password = req.body.password;
-
+    console.log(req.body)
     const user_username = await User.findOne({ username: username });
     const isMatch = bcrypt.compare(password, user_username.password);
 
@@ -92,12 +92,15 @@ router.route("/getuser_by_wallet/:walletId").get(async (req, res) => {
 
 router.route("/add_multistream_platform").post(async (req, res) => {
   try {
+    console.log(req)
     const data = {
       selected: 0,
       platform: req.body.platform,
     };
     const user = req.body.username;
 
+    console.log(data)
+    console.log(user)
     User.findOneAndUpdate(
       { username: user },
       { $push: { multistream_platform: data } },

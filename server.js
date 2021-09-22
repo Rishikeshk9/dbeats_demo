@@ -25,7 +25,7 @@ Moralis.serverURL = "https://58zywcsvxppw.usemoralis.com:2053/server";
 app.use(cors());
 
 app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(fileUpload());
 app.use(express.static("public"));
 
@@ -48,6 +48,7 @@ mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
+  useFindAndModify:false,
 });
 
 const connection = mongoose.connection;
@@ -799,12 +800,6 @@ const idleStreamUrl = `https://livepeer.com/api/stream?streamsonly=1&filters=[{"
 app.use(cors());
 app.use(express.json());
 
-//Connect to mongoose
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-});
 
 //Require routes
 app.get("/", async (req, res) => {
