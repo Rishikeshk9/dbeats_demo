@@ -27,9 +27,13 @@ const NavBar = (props) => {
   // Auth functions
 
   const handleLogout = () => {
-    window.location.href = `/`;
+    window.location.href = "/";
     window.localStorage.clear();
-    logoutOfWeb3Modal();
+    const timer = setTimeout(() => {
+      logoutOfWeb3Modal();
+    }, 2000);
+    return () => clearTimeout(timer);
+    
   };
 
   const handleStreamOnClick = () => {
@@ -119,7 +123,7 @@ const NavBar = (props) => {
         className={` w-full fixed top-0 ${darkMode && "dark"} z-100`}
       >
         <div
-          className={`bg-white   shadow-sm w-full relative flex  p-3 dark:bg-dbeats-dark dark:text-blue-300`}
+          className={`p-3 bg-white shadow-sm z-50  absolute w-screen dark:bg-dbeats-dark dark:text-gray-100  bg-opacity-60  backdrop-filter  backdrop-blur-md`}
         >
           <div className="flex w-full self-center">
             <div

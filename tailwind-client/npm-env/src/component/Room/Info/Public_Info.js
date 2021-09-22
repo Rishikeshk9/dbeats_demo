@@ -98,7 +98,7 @@ const PublicInfo = (props) => {
       .then((value) => {
         setUserData(value.data);
         for (let i = 0; i < value.data.follower_count.length; i++) {
-          if (value.data.follower_count[i] === user.username) {
+          if (user? value.data.follower_count[i] === user.username :false) {
             setSubscribeButtonText("Unsubscribe");
             break;
           }
@@ -114,9 +114,7 @@ const PublicInfo = (props) => {
     const fileRes = await axios.get(`${process.env.REACT_APP_SERVER_URL}/get_activeusers`);
     console.log(fileRes)
     for (let i = 0; i < fileRes.data.length; i++) {
-      if (
-        fileRes.data[i].username !== user.username
-      ) {
+      if (user ? fileRes.data[i].username !== user.username :true) {
           setArrayData((prevState) => [...prevState, fileRes.data[i]]);
       }
     }
@@ -128,7 +126,7 @@ const PublicInfo = (props) => {
     fetchData();
     let value = JSON.parse(window.localStorage.getItem("user"));
     console.log(value);
-    if (value.username === props.stream_id) {
+    if (user? value.username === props.stream_id :false) {
       setPrivate(true);
     } else {
       setPrivate(false);
@@ -179,12 +177,21 @@ const PublicInfo = (props) => {
                 </div>
                 {!privateUser ? (
                   <div className="pt-4">
-                    <button
-                      className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
-                      onClick={trackFollowers}
-                    >
-                      <span>{subscribeButtonText}</span>
-                    </button>
+                    {user?
+                      <button
+                        className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
+                        onClick={trackFollowers}
+                      >
+                        
+                        <span>{subscribeButtonText}</span>
+                      </button>
+                    :<button
+                        className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
+                        onClick={()=>{window.location.href = "/login";}}
+                      >
+                        <span>Login</span>
+                      </button>
+                    } 
                     <button className="bg-gradient-to-r from-dbeats-light  to-purple-900  p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white ">
                       <i className="fas fa-volleyball-ball mr-1"></i>
                       <span>Appreciate</span>
