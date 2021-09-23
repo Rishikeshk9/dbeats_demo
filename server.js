@@ -848,7 +848,7 @@ app.get("/get_activeusers", async (req, res) => {
 
 app.post("/patch_multistream", async (req, res) => {
   let patchData = req.body.patchStreamData;
-
+  console.log(patchData)
   let apiUrl = `https://livepeer.com/api/stream/${req.body.stream_id}`;
 
   const userValue = await axios({
@@ -859,12 +859,14 @@ app.post("/patch_multistream", async (req, res) => {
       Authorization: AuthStr,
     },
   });
-
+  console.log(userValue)
   let patchStreamData = {
     multistream: {
       targets: patchData,
     },
   };
+
+  console.log(patchStreamData)
 
   const value = await axios({
     method: "PATCH",
@@ -876,9 +878,11 @@ app.post("/patch_multistream", async (req, res) => {
       Authorization: AuthStr,
     },
   });
-
+  console.log(value.data)
   res.json(value.data);
 });
+
+
 
 // app.listen(port, function () {
 //   console.log("Listening on port");

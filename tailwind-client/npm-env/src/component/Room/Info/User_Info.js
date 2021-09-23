@@ -127,29 +127,19 @@ const UserInfo = (props) => {
     let stored_data = patchStream;
 
     if (value.selected === 1) {
-      let newData = {
-        selected: 0,
-        platform: multiStreamConnected[index].platform,
-      };
+      let newArr = [...multiStreamConnected]; 
+      newArr[index].selected = 0; 
 
-      for (let i = 0; i < stored_data.length; i++) {
-        if (stored_data[i].platform.title === value.platform.title) {
-          stored_data.splice(i, 1);
-          break;
-        }
-      }
-
-      multiStreamConnected.splice(index, 1);
-      setMultiStreamConnected((oldArray) => [...oldArray, newData]);
+      setMultiStreamConnected(newArr);
     } else {
-      let newData = {
-        selected: 1,
-        platform: multiStreamConnected[index].platform,
-      };
+      
+      let newArr = [...multiStreamConnected]; 
+      newArr[index].selected = 1; 
 
-      multiStreamConnected.splice(index, 1);
-      setPatchStream((oldArray) => [...oldArray, newData]);
-      setMultiStreamConnected((oldArray) => [...oldArray, newData]);
+      setMultiStreamConnected(newArr);
+
+      setPatchStream((oldArray) => [...oldArray, newArr[index]]);
+      setMultiStreamConnected(newArr);
     }
   };
 
@@ -305,15 +295,15 @@ const UserInfo = (props) => {
           </div>
         </div>
         <hr />
-        <main className="py-5 px-6">
-          <div className="grid grid-cols-4 mx-4">
+        <main className="py-5 ">
+          <div className="grid gap-4 justify-items-center grid-cols-4 px-8 max-w-100 max-h-96 overflow-y-auto">
             {MultiStreamData.map((value, index) => {
               return (
-                <div className="bg-white-200 mx-1 border-1 border-gray-300 rounded">
+                <div className="flex justify-center items-center bg-white-200 mx-2 my-2 border-1 h-full w-full shadow border-gray-300 rounded">
                   <img
                     src={value.image}
                     alt="logo"
-                    className="h-32 w-auto px-4"
+                    className="h-auto w-40 p-4"
                     onClick={() => {
                       setMultiStreamValue(value);
                       setShowStreamModal(true);
