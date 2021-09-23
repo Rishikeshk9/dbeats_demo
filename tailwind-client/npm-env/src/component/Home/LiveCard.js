@@ -18,7 +18,7 @@ const LiveCard = (props) => {
 
   return (
     <div className="w-full h-auto  ">
-      <div className=" cursor-pointer    ">
+      <div className=" cursor-pointer ">
         <span className="fixed bg-red-600 text-white px-1    mx-1 my-1 rounded-sm font-semibold">
           {" "}
           Live{" "}
@@ -27,9 +27,10 @@ const LiveCard = (props) => {
           onClick={() => {
             window.location.href = `/public/${props.username}/`;
           }}
+          playing
+          autoplay={true}
           width="100%"
           height="auto"
-          playing={playing}
           muted={false}
           volume={0.5}
           url={`https://cdn.livepeer.com/hls/${props.liveUserData.livepeer_data.playbackId}/index.m3u8`}

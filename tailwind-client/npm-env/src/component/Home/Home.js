@@ -182,7 +182,12 @@ const Home = (props) => {
               <div>
                 <div id="display_playback_videos" className="pt-1 px-4 ">
                   <div>
-                    <h4 className=" font-bold pl-2 pt-5 pb-4 ">Live Videos</h4>
+                    <h4 className=" font-bold pl-2 pt-5 pb-4 ">
+                      <span className="animate-ping bg-red-900 rounded-full">
+                        &nbsp;
+                      </span>
+                      &nbsp; Live Now
+                    </h4>
                     <div className="">
                       <Carousel cols={5}>
                         {activeStreams.map((liveUser, i) => {
@@ -204,9 +209,7 @@ const Home = (props) => {
                 </div>
                 <div id="display_playback_videos" className="px-4 ">
                   <div className="  ">
-                    <h4 className=" font-bold pl-2 pt-3 pb-4">
-                      Playback Videos
-                    </h4>
+                    <h4 className=" font-bold pl-5 pt-3 pb-4">Trending</h4>
                     <div className="">
                       <Carousel cols={4}>
                         {arrayData.map((playbackUser, i) => {

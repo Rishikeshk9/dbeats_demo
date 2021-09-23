@@ -56,6 +56,7 @@ const userSchema = new Schema(
     cover_photo: { type: String, trim: true },
     followee_count: { type: Array, default: [] },
     follower_count: { type: Array, default: [] },
+    favorite_tracks: { type: Array, default: [] },
     is_verified: { type: Boolean, default: false },
     location: { type: String, trim: true, default: null },
     playlist_count: { type: Number, default: 0 },

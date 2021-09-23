@@ -1,6 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
 
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 import { Transition } from "@headlessui/react";
 // import { MenuIcon, XIcon } from "@heroicons/react/outline";
@@ -21,7 +21,6 @@ const BottomBar = ({ songDetails, playing, firstPlayed, setState }) => {
 
   const [audio, setAudio] = useState(new Audio(songDetails.songLink));
   //const audio= new Audio(songDetails.songLink);
-
 
   useEffect(() => {
     if (audio.src !== songDetails.songLink) {
@@ -60,7 +59,7 @@ const BottomBar = ({ songDetails, playing, firstPlayed, setState }) => {
           <div
             className={`${
               firstPlayed ? "block" : "hidden"
-            }   h-20  bg-white shadow-sm z-100  absolute w-screen dark:bg-dbeats-dark  dark:text-gray-100  bg-opacity-60  backdrop-filter  backdrop-blur-md`}
+            }   h-20  bg-white shadow-sm z-100  absolute w-screen dark:bg-dbeats-dark  dark:text-gray-100  bg-opacity-60 dark:bg-opacity-60 backdrop-filter  backdrop-blur-md`}
           >
             <>
               <div className="w-full h-0.5 bg-gradient-to-r from-green-400 to-blue-500" />

@@ -33,6 +33,7 @@ module.exports = {
       75: 75,
       100: 100,
       200: 200,
+      500: 500,
       auto: "auto",
     },
     extend: {
@@ -58,7 +59,10 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      // ...
+      animation: ["hover", "focus"],
+    },
   },
   plugins: [require("@tailwindcss/forms"), require("tailwindcss-filters")],
 };

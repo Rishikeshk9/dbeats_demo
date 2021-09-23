@@ -42,7 +42,7 @@ router.route("/login").post(async (req, res) => {
   try {
     const username = req.body.username;
     const password = req.body.password;
-    console.log(req.body)
+
     const user_username = await User.findOne({ username: username });
     const isMatch = bcrypt.compare(password, user_username.password);
 
@@ -92,15 +92,15 @@ router.route("/getuser_by_wallet/:walletId").get(async (req, res) => {
 
 router.route("/add_multistream_platform").post(async (req, res) => {
   try {
-    console.log(req)
+    console.log(req);
     const data = {
       selected: 0,
       platform: req.body.platform,
     };
     const user = req.body.username;
 
-    console.log(data)
-    console.log(user)
+    console.log(data);
+    console.log(user);
     User.findOneAndUpdate(
       { username: user },
       { $push: { multistream_platform: data } },
@@ -173,6 +173,68 @@ router.route("/unfollow").post(async (req, res) => {
           console.log(error);
         } else {
           console.log(success);
+        }
+      }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.route("/:username/favorites").get(async (req, res) => {
+  try {
+    const getuserData = req.params.username;
+
+    console.log("Sharing favorites of : " + getuserData);
+    const userData = await User.findOne(
+      { username: getuserData },
+      { favorite_tracks: 1, _id: 0 }
+    );
+
+    console.log(userData);
+
+    res.send(userData);
+  } catch (err) {
+    res.send("Try Again");
+  }
+});
+
+router.route("/favorite").post(async (req, res) => {
+  try {
+    const uname = req.body.username;
+    const track = req.body.track_id;
+    User.findOneAndUpdate(
+      { username: uname },
+      { $push: { favorite_tracks: track } },
+      function (error, success) {
+        if (error) {
+          console.log(error);
+          res.send(error);
+        } else {
+          console.log(success);
+          res.send(success);
+        }
+      }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.route("/unfavorite").post(async (req, res) => {
+  try {
+    const uname = req.body.username;
+    const track = req.body.track_id;
+    User.findOneAndUpdate(
+      { username: uname },
+      { $pull: { favorite_tracks: track } },
+      function (error, success) {
+        if (error) {
+          console.log(error);
+          res.send(error);
+        } else {
+          console.log(success);
+          res.send(success);
         }
       }
     );

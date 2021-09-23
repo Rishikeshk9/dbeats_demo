@@ -9,13 +9,13 @@ import { Transition } from "@headlessui/react";
 import { useEffect } from "react";
 //import Switch from "./switch.component";
 
-import { useSelector , useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { toggleAudius } from "../actions/index";
+import PopUp from "./popup.component";
 
 import BottomBar from "./bottom-player.component";
 
-
-export default function Track() {
+export default function Track(props) {
   // constructor(props) {
   //   super(props);
   // const dispatch = useDispatch();
@@ -23,6 +23,7 @@ export default function Track() {
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.toggleDarkMode);
   const audius = useSelector((state) => state.toggleAudius);
+  const user = JSON.parse(window.localStorage.getItem("user"));
 
   const [firstPlayed, setFirstPlay] = useState(false);
   const [songDetails, setDetails] = useState({
@@ -34,6 +35,7 @@ export default function Track() {
     playing: false,
   });
   const [playId, setPlayId] = useState(null);
+  const [favorites, setFavorites] = useState(null);
 
   const [state, setState] = useState({
     error: null,
@@ -45,9 +47,20 @@ export default function Track() {
 
   //   getTodos = getTodos.bind(this);
   // }
+  const get_favorites = async () => {
+    await axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/user/rishikeshk9/favorites`)
+      .then((value) => {
+        setFavorites(value.data.favorite_tracks);
+        console.log(value.data);
+        console.log("Favorites fetched!");
+      });
+  };
+
   let audio = new Audio("");
 
   const getTodos = async () => {
+    get_favorites();
     let data = await axios
       .get("https://discoveryprovider.audius.co/v1/tracks/trending")
       .then(function (response) {
@@ -107,6 +120,40 @@ export default function Track() {
     }
   };
 
+  const setFavorite = async (props) => {
+    let postData = {
+      username: user.username,
+      track_id: props,
+    };
+
+    console.log(postData);
+
+    let result = await axios({
+      method: "post",
+      url: `${process.env.REACT_APP_SERVER_URL}/user/favorite`,
+      data: postData,
+    });
+    get_favorites();
+    console.log(result);
+  };
+
+  const removeFavorite = async (props) => {
+    let postData = {
+      username: user.username,
+      track_id: props,
+    };
+
+    console.log(postData);
+
+    let result = await axios({
+      method: "post",
+      url: `${process.env.REACT_APP_SERVER_URL}/user/unfavorite`,
+      data: postData,
+    });
+    get_favorites();
+    console.log(result);
+  };
+
   const playAudio = async (id, artwork, title, author) => {
     if (!firstPlayed) setFirstPlay(true);
 
@@ -138,7 +185,7 @@ export default function Track() {
           <div className="pb-10 pt-4   relative w-full h-screen dark:bg-dbeats-dark-primary   ">
             <p
               id="song-title"
-              className="mb-3  z-200 w-max mx-auto  self-center text-center  drop-shadow text-4xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 dark:from-white dark:to-gray-800"
+              className="mb-3   w-max mx-auto  self-center text-center  drop-shadow text-4xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 dark:from-white dark:to-gray-800"
             >
               TRENDING NOW
               <div className="flex items-center self-center justify-center w-full ">
@@ -159,8 +206,9 @@ export default function Track() {
                   <div className="ml-3 text-gray-500 font-medium">
                     <img
                       src="https://audius.org/img/audius@2x.png"
-                      className={`${!audius ? "filter grayscale-75 " : ""
-                        }w-10 h-10 filter`}
+                      className={`${
+                        !audius ? "filter grayscale-75 " : ""
+                      }w-10 h-10 filter`}
                       alt="audius"
                     ></img>
                   </div>
@@ -183,7 +231,7 @@ export default function Track() {
                   return (
                     <div
                       id="tracks-section"
-                      className={`    text-gray-200  md:w-2/3 mx-auto  py-2 w-full  px-5 my-0    `}
+                      className={` text-gray-200  md:w-2/3 mx-auto  py-2 w-full  px-5 my-0 `}
                       key={todo.id}
                     >
                       {/* header */}
@@ -209,10 +257,11 @@ export default function Track() {
                                 name={todo.id}
                                 align="center"
                                 style={{ marginLeft: "55%" }}
-                                className={`${state.play && playId === todo.id
-                                  ? "fa-pause-circle"
-                                  : "fa-play-circle"
-                                  } fas text-6xl   text-center  `}
+                                className={`${
+                                  state.play && playId === todo.id
+                                    ? "fa-pause-circle"
+                                    : "fa-play-circle"
+                                } fas text-6xl   text-center  `}
                               />
                             </div>
                           </div>
@@ -320,46 +369,46 @@ export default function Track() {
                                   name={todo.id}
                                   className="  cursor-pointer mr-2 uppercase font-bold  bg-gradient-to-r from-green-400 to-blue-500   text-white block py-2 px-10   hover:scale-95 transform transition-all"
                                 >
-                                  {`${state.play && playId === todo.id
-                                    ? "Pause"
-                                    : "Play"
-                                    }`}
+                                  {`${
+                                    state.play && playId === todo.id
+                                      ? "Pause"
+                                      : "Play"
+                                  }`}
                                 </button>
-                                <button className="mr-2      text-gray-600   block p-2 rounded-full hover:scale-95 transform transition-all">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-6 w-6"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
+                                {user ? (
+                                  <button
+                                    onClick={
+                                      favorites.indexOf(todo.id) > -1
+                                        ? () => removeFavorite(todo.id)
+                                        : () => setFavorite(todo.id)
+                                    }
+                                    className={`${
+                                      favorites
+                                        ? favorites.indexOf(todo.id) > -1
+                                          ? "text-red-900  "
+                                          : "text-gray-600 hover:text-red-300  "
+                                        : false
+                                    } mr-2  block p-2 rounded-full hover:scale-95 dark:hover:bg-dbeats-dark-secondary transform transition-all`}
                                   >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth={2}
-                                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                                    />
-                                  </svg>
-                                </button>
-
-                                <button className="mr-2   text-gray-600   block p-2 rounded-full">
-                                  <svg
-                                    height="25"
-                                    width="25"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-6 w-6"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth={2}
-                                      d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                                    />
-                                  </svg>
-                                </button>
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      className={`  h-6 w-6 `}
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      stroke="currentColor"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                      />
+                                    </svg>
+                                  </button>
+                                ) : (
+                                  false
+                                )}
+                                <PopUp />
                               </div>
                             </div>
                           </div>

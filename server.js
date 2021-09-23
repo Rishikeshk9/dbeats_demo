@@ -48,7 +48,7 @@ mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-  useFindAndModify:false,
+  useFindAndModify: false,
 });
 
 const connection = mongoose.connection;
@@ -800,7 +800,6 @@ const idleStreamUrl = `https://livepeer.com/api/stream?streamsonly=1&filters=[{"
 app.use(cors());
 app.use(express.json());
 
-
 //Require routes
 app.get("/", async (req, res) => {
   var array = [];
@@ -839,7 +838,7 @@ app.post("/create_stream", async (req, res) => {
 });
 
 app.get("/get_activeusers", async (req, res) => {
-  const value = await axios.get(idleStreamUrl, {
+  const value = await axios.get(activeStreamUrl, {
     headers: {
       Authorization: AuthStr,
     },

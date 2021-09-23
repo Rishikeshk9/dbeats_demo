@@ -7,10 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleDarkMode } from "../../actions/index";
 import Toggle from "../toggle.component";
 
-
 const NavBar = (props) => {
   const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
-
 
   const user = JSON.parse(window.localStorage.getItem("user"));
 
@@ -33,7 +31,6 @@ const NavBar = (props) => {
       logoutOfWeb3Modal();
     }, 2000);
     return () => clearTimeout(timer);
-    
   };
 
   const handleStreamOnClick = () => {
@@ -52,69 +49,81 @@ const NavBar = (props) => {
     dispatch(toggleDarkMode());
   };
 
-
   return (
     <>
       <div className={`${darkMode && "dark"} `}>
-      <Menu
-        customBurgerIcon={false}
-        pageWrapId={"page-wrap"}
-        outerContainerId={"outer-container"}
-        isOpen={showOpen}
-        onStateChange={isMenuOpen}
-        className={`w-250 bg-white dark:bg-dbeats-dark-primary text-lg text-bold`}
-      >
-        <div className="pt-5 bg-transparent hidden w-0">
-        </div>
-        <div className={classes.menu_items}>
-          <a className="text-black text-xl text-bold dark:text-white" id="home" href="/">
-            <i
-              id={classes.menu_item}
-              className="fa fa-fw fa-home"
-              style={{ fontSize: "1em" }}
-            />
-            <span className={classes.menu_item_name}> Home </span>
-          </a>
-        </div>
-        <div className={classes.menu_items}>
-          <a className="text-black text-xl text-bold dark:text-white" id="about" href="#/about">
-            <i
-              id={classes.menu_item}
-              className="fas fa-compass"
-              style={{ fontSize: "1em" }}
-            />
-            <span className={classes.menu_item_name}> Explorer </span>
-          </a>
-        </div>
-        <div className={classes.menu_items}>
-          <a className="text-black text-xl text-bold dark:text-white" id="contact" href="/music">
-            <i
-              id={classes.menu_item}
-              className="fas fa-cogs"
-              style={{ fontSize: "1em" }}
-            />
-            <span className={classes.menu_item_name}>Music </span>
-          </a>
-        </div>
-        {user ? (
-          <div className={`${classes.menu_item_logout} text-black text-xl text-bold dark:text-white`} onClick={handleLogout}>
-            <i
-              id={classes.menu_item}
-              className="fas fa-door-open"
-              style={{ fontSize: "1em" }}
-            />
-            <span className={classes.menu_item_name}> Logout </span>
+        <Menu
+          customBurgerIcon={false}
+          pageWrapId={"page-wrap"}
+          outerContainerId={"outer-container"}
+          isOpen={showOpen}
+          onStateChange={isMenuOpen}
+          className={`w-250 bg-white dark:bg-dbeats-dark-primary text-lg text-bold`}
+        >
+          <div className="pt-5 bg-transparent hidden w-0"></div>
+          <div className={classes.menu_items}>
+            <a
+              className="text-black text-xl text-bold dark:text-white"
+              id="home"
+              href="/"
+            >
+              <i
+                id={classes.menu_item}
+                className="fa fa-fw fa-home"
+                style={{ fontSize: "1em" }}
+              />
+              <span className={classes.menu_item_name}> Home </span>
+            </a>
           </div>
-        ) : (
-          <> </>
-        )}
-        <div className="h-max w-max flex items-center justify-center  fixed bottom-28 ">
-          <div className="relative flex ml-2 ">
-            <Toggle toggled={toggled} onClick={handleClick} />
+          <div className={classes.menu_items}>
+            <a
+              className="text-black text-xl text-bold dark:text-white"
+              id="about"
+              href="#/about"
+            >
+              <i
+                id={classes.menu_item}
+                className="fas fa-compass"
+                style={{ fontSize: "1em" }}
+              />
+              <span className={classes.menu_item_name}> Explorer </span>
+            </a>
           </div>
-        </div>
-      </Menu>
-
+          <div className={classes.menu_items}>
+            <a
+              className="text-black text-xl text-bold dark:text-white"
+              id="contact"
+              href="/music"
+            >
+              <i
+                id={classes.menu_item}
+                className="fas fa-cogs"
+                style={{ fontSize: "1em" }}
+              />
+              <span className={classes.menu_item_name}>Music </span>
+            </a>
+          </div>
+          {user ? (
+            <div
+              className={`${classes.menu_item_logout} text-black text-xl text-bold dark:text-white`}
+              onClick={handleLogout}
+            >
+              <i
+                id={classes.menu_item}
+                className="fas fa-door-open"
+                style={{ fontSize: "1em" }}
+              />
+              <span className={classes.menu_item_name}> Logout </span>
+            </div>
+          ) : (
+            <> </>
+          )}
+          <div className="h-max w-max flex items-center justify-center  fixed bottom-28 ">
+            <div className="relative flex ml-2 ">
+              <Toggle toggled={toggled} onClick={handleClick} />
+            </div>
+          </div>
+        </Menu>
       </div>
 
       <div
@@ -123,7 +132,7 @@ const NavBar = (props) => {
         className={` w-full fixed top-0 ${darkMode && "dark"} z-100`}
       >
         <div
-          className={`p-3 bg-white shadow-sm z-50  absolute w-screen dark:bg-dbeats-dark dark:text-gray-100  bg-opacity-60  backdrop-filter  backdrop-blur-md`}
+          className={`p-3 bg-white shadow-sm z-50  absolute w-screen dark:bg-dbeats-dark dark:text-gray-100  bg-opacity-60    backdrop-filter  backdrop-blur-md`}
         >
           <div className="flex w-full self-center">
             <div
@@ -149,7 +158,7 @@ const NavBar = (props) => {
             <div
               id="logo"
               className="flex self-center cursor-pointer"
-              onClick={() => window.location.href = "/"}
+              onClick={() => (window.location.href = "/")}
             >
               <img src={logo} alt="dbeats_logo" className="h-8 w-max"></img>
               <span className="mr-5 text-lg font-bold ml-2">Dbeats</span>
