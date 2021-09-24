@@ -232,15 +232,15 @@ const UserInfo = (props) => {
           </div>
         </div>
         <hr />
-        <main className="py-3 px-4 max-h-60 overflow-y-auto">
+        <main className="py-3 px-4 max-h-60 w-full overflow-y-auto">
           <div className="grid grid-cols-3">
             {multiStreamConnected.map((value, index) => {
               return (
                 <div className="bg-white-200 mx-8 border-1 border-gray-300 rounded my-2 flex justify-around">
                   <img
-                    src={value.platform.image}
+                    src={value.platform.logo}
                     alt="logo"
-                    className="h-32 w-auto"
+                    className="h-auto w-48 p-4"
                   />
                   <input
                     type="checkbox"

@@ -20,6 +20,20 @@ import vl from './images/MultiStream_Img/vl2.png';
 import steam from './images/MultiStream_Img/steam2.svg';
 import wowza from './images/MultiStream_Img/wowza2.png';
 import akamai from './images/MultiStream_Img/akamai2.png';
+import facebook_logo from './images/MultiStream_Img/facebook_logo.png';
+import twitter_logo from './images/MultiStream_Img/twitter_logo.png';
+import dlive_logo from './images/MultiStream_Img/dlive_logo.png';
+import nimotv_logo from './images/MultiStream_Img/nimotv_logo.png';
+import bilibili_logo from './images/MultiStream_Img/bilibili_logo.png';
+import akamai_logo from './images/MultiStream_Img/Akamai_logo.png';
+import wowza_logo from './images/MultiStream_Img/wowza_logo.png';
+import afreecatv_logo from './images/MultiStream_Img/afreecatv_logo.png';
+import mobcrush_logo from './images/MultiStream_Img/mobcrush-icon.png';
+import fc2_logo from './images/MultiStream_Img/fc2_logo.png';
+import steam_logo from './images/MultiStream_Img/steam_logo.png';
+import dailymotion_logo from './images/MultiStream_Img/dailymotion_logo.png';
+import mixcloud_logo from './images/MultiStream_Img/mixcloud_logo.jpg';
+import vaughn_logo from './images/MultiStream_Img/vaughn_live.png';
 import trovo_logo from './images/MultiStream_Img/trovo_logo.png';
 
 export const Data = [
@@ -59,21 +73,21 @@ export const MultiStreamData = [
         title:"Facebook",
         rtmp:"rtmp://live-api-s-facebook.com:443/rtmp/",
         image:facebook,
-        logo:facebook      
+        logo:facebook_logo      
 
     },
     {
         title:"Twitter",
         rtmp:"rtmp://or.pscp.tv.80/x/",
         image:twitter,
-        logo:twitter      
+        logo:twitter_logo     
 
     },
     {
         title:"Dlive",
         rtmp:"rtmp://stream.dlive.tv/live/",
         image:dlive,
-        logo:dlive      
+        logo:dlive_logo     
 
     },
     {
@@ -87,28 +101,28 @@ export const MultiStreamData = [
         title:"Dailymotion",
         rtmp:"rtmp://publish.dailymotion.com/publish/",
         image:dailymotion,
-        logo:dailymotion      
+        logo:dailymotion_logo      
 
     },
     {
         title:"Mixcloud",
         rtmp:"rtmp://rtmp.mixcloud.com/broadcast/",
         image:mixcloud,
-        logo:mixcloud      
+        logo:mixcloud_logo     
 
     },
     {
         title:"NimoTv",
         rtmp:"rtmp://txpush.rtmp.nimo.tv/live/",
         image:nimotv,
-        logo:nimotv      
+        logo:nimotv_logo      
 
     },
     {
         title:"Bilibili",
         rtmp:"rtmp://js.live-send.acg.tv/live-js/",
         image:bilibili,
-        logo:bilibili      
+        logo:bilibili_logo      
     },
     {
         title:"Trovo",
@@ -120,13 +134,13 @@ export const MultiStreamData = [
         title:"AfreecaTv",
         rtmp:"rtmp://rtmp-esu.afreecatv.com/app/",
         image:afreecatv,
-        logo:afreecatv      
+        logo:afreecatv_logo      
     },
     {
         title:"Vaughn Live",
         rtmp:"rtmp://live.vaughnlive.tv:443/live/",
         image:vl,
-        logo:vl      
+        logo:vaughn_logo      
     },
     {
         title:"BreakersTv",
@@ -138,31 +152,31 @@ export const MultiStreamData = [
         title:"Mobcrush",
         rtmp:"rtmp://live.mobcrush.net/stream/",
         image:mobcrush,
-        logo:mobcrush      
+        logo:mobcrush_logo      
     },
     {
         title:"FC2",
         rtmp:"rtmp://media.live.fc2.com/live/",
         image:fc2,
-        logo:fc2      
+        logo:fc2_logo     
     },
     {
         title:"Steam",
         rtmp:"rtmp://ingest-01-lhr1.broadcast.steamcontent.com/app/",
         image:steam,
-        logo:steam      
+        logo:steam_logo      
     },
     {
         title:"Wowza",
         rtmp:"rtmp://ingest-01-lhr1.broadcast.steamcontent.com/app/",
         image:wowza,
-        logo:wowza      
+        logo:wowza_logo      
     },
     {
         title:"Akamai",
         rtmp:"rtmp://ingest-01-lhr1.broadcast.steamcontent.com/app/",
         image:akamai,
-        logo:akamai      
+        logo:akamai_logo     
     },
 ]
 
