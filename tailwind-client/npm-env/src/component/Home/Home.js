@@ -3,7 +3,7 @@ import classes from "./Home.module.css";
 import axios from "axios";
 import { Carousel as LiveStreamVideos } from "3d-react-carousal";
 import Carousel from "react-grid-carousel";
-import personImg from "../../assets/images/person.png";
+import personImg from "../../assets/images/profile.svg";
 //import { Avatar } from "@material-ui/core";
 import PlayBackCard from "./PlayBackCard";
 import LiveCard from "./LiveCard";

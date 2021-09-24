@@ -3,7 +3,7 @@ import classes from "./Info.module.css";
 //import playimg from "../../../assets/images/telegram.png";
 import axios from "axios";
 import VideoPlayer from "../VideoPlayer/VideoPlayer";
-import { Menu, Transition } from '@headlessui/react'
+import { Menu, Transition } from "@headlessui/react";
 import { WhatsappIcon, WhatsappShareButton } from "react-share";
 import { FacebookShareButton, FacebookIcon } from "react-share";
 import { EmailShareButton, EmailIcon } from "react-share";
@@ -12,7 +12,7 @@ import { TelegramShareButton, TelegramIcon } from "react-share";
 import { Container, Row, Col } from "react-bootstrap";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import RecommendedCard from "./RecommendedCard";
-import Modal from 'react-awesome-modal';
+import Modal from "react-awesome-modal";
 
 const PlayBackInfo = (props) => {
   let sharable_data = `https://dbeats-demo.vercel.app /playback/${props.stream_id}/${props.video_id}`;
@@ -42,8 +42,14 @@ const PlayBackInfo = (props) => {
 
   const [arrayData, setArrayData] = useState([]);
 
-  const trackFollowers = () => {
+  const SuperfluidSDK = require("@superfluid-finance/js-sdk");
+  const { Web3Provider } = require("@ethersproject/providers");
 
+  const sf = new SuperfluidSDK.Framework({
+    ethers: new Web3Provider(window.ethereum),
+  });
+
+  const trackFollowers = () => {
     const followData = {
       following: `${userData.username}`,
       follower: `${user.username}`,
@@ -125,6 +131,7 @@ const PlayBackInfo = (props) => {
       }
     }
     //console.log(fileRes, "Hi");
+    await sf.initialize();
   };
 
   useEffect(() => {
@@ -132,7 +139,7 @@ const PlayBackInfo = (props) => {
     fetchData();
     let value = JSON.parse(window.localStorage.getItem("user"));
     console.log(value);
-    if (user? value.username === props.stream_id :false) {
+    if (user ? value.username === props.stream_id : false) {
       setPrivate(true);
     } else {
       setPrivate(false);
@@ -183,28 +190,31 @@ const PlayBackInfo = (props) => {
                 </div>
                 {!privateUser ? (
                   <div>
-                    {user?
+                    {user ? (
                       <button
                         className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
                         onClick={trackFollowers}
                       >
-                        
                         <span>{subscribeButtonText}</span>
                       </button>
-                    :<button
+                    ) : (
+                      <button
                         className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
-                        onClick={()=>{window.location.href = "/login";}}
+                        onClick={() => {
+                          window.location.href = "/login";
+                        }}
                       >
                         <span>Login</span>
                       </button>
-                    } 
+                    )}
                     <button className="bg-gradient-to-r from-dbeats-light  to-purple-900  p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white ">
                       <i className="fas fa-volleyball-ball mr-1"></i>
                       <span>Appreciate</span>
                     </button>
                   </div>
-                ) : <></>
-                }
+                ) : (
+                  <></>
+                )}
               </div>
               <div className="text-4xl py-4">
                 <button
@@ -235,33 +245,23 @@ const PlayBackInfo = (props) => {
                     <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="px-1 py-1 ">
                         <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
-                          <button>
-                            Edit
-                          </button>
+                          <button>Edit</button>
                         </Menu.Item>
                         <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
-                          <button>
-                            Duplicate
-                          </button>
+                          <button>Duplicate</button>
                         </Menu.Item>
                       </div>
                       <div className="px-1 py-1">
                         <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
-                          <button>
-                            Archive
-                          </button>
+                          <button>Archive</button>
                         </Menu.Item>
                         <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
-                          <button>
-                            Move
-                          </button>
+                          <button>Move</button>
                         </Menu.Item>
                       </div>
                       <div className="px-1 py-1">
                         <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
-                          <button>
-                            Delete
-                          </button>
+                          <button>Delete</button>
                         </Menu.Item>
                       </div>
                     </Menu.Items>
@@ -317,39 +317,19 @@ const PlayBackInfo = (props) => {
             <Row>
               <Col className="flex justify-around align-center">
                 <WhatsappShareButton url={sharable_data}>
-                  <WhatsappIcon
-                    iconFillColor="white"
-                    size={60}
-                    round={true}
-                  />
+                  <WhatsappIcon iconFillColor="white" size={60} round={true} />
                 </WhatsappShareButton>
                 <FacebookShareButton url={sharable_data}>
-                  <FacebookIcon
-                    iconFillColor="white"
-                    size={60}
-                    round={true}
-                  />
+                  <FacebookIcon iconFillColor="white" size={60} round={true} />
                 </FacebookShareButton>
                 <EmailShareButton url={sharable_data}>
-                  <EmailIcon
-                    iconFillColor="white"
-                    size={60}
-                    round={true}
-                  />
+                  <EmailIcon iconFillColor="white" size={60} round={true} />
                 </EmailShareButton>
                 <PinterestShareButton url={sharable_data}>
-                  <PinterestIcon
-                    iconFillColor="white"
-                    size={60}
-                    round={true}
-                  />
+                  <PinterestIcon iconFillColor="white" size={60} round={true} />
                 </PinterestShareButton>
                 <TelegramShareButton url={sharable_data}>
-                  <TelegramIcon
-                    iconFillColor="white"
-                    size={60}
-                    round={true}
-                  />
+                  <TelegramIcon iconFillColor="white" size={60} round={true} />
                 </TelegramShareButton>
               </Col>
             </Row>

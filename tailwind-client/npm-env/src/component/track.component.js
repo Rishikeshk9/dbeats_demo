@@ -49,7 +49,9 @@ export default function Track(props) {
   // }
   const get_favorites = async () => {
     await axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/user/rishikeshk9/favorites`)
+      .get(
+        `${process.env.REACT_APP_SERVER_URL}/user/${user.username}/favorites`
+      )
       .then((value) => {
         setFavorites(value.data.favorite_tracks);
         console.log(value.data);
@@ -60,7 +62,7 @@ export default function Track(props) {
   let audio = new Audio("");
 
   const getTodos = async () => {
-    get_favorites();
+    if (user) get_favorites();
     let data = await axios
       .get("https://discoveryprovider.audius.co/v1/tracks/trending")
       .then(function (response) {
@@ -76,7 +78,6 @@ export default function Track(props) {
   useEffect(() => {
     // Anything in here is fired on component mount.
     console.log("GrandChild did mount.");
-
     getTodos();
     audio.addEventListener("ended", () => setState({ play: false }));
     return () => {
@@ -385,8 +386,8 @@ export default function Track(props) {
                                     className={`${
                                       favorites
                                         ? favorites.indexOf(todo.id) > -1
-                                          ? "text-red-900  "
-                                          : "text-gray-600 hover:text-red-300  "
+                                          ? "text-red-900"
+                                          : "text-gray-600 hover:text-red-300"
                                         : false
                                     } mr-2  block p-2 rounded-full hover:scale-95 dark:hover:bg-dbeats-dark-secondary transform transition-all`}
                                   >

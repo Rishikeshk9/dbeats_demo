@@ -51,9 +51,9 @@ const BottomBar = ({ songDetails, playing, firstPlayed, setState }) => {
           show={firstPlayed}
           enter="transition ease-in-out duration-1000"
           enterFrom="transform opacity-0  -translate-y-full "
-          enterTo="transform opacity-100   translate-y-0 "
+          enterTo="transform bg-opacity-100   translate-y-0 "
           leave="transition ease-in-out duration-500"
-          leaveFrom="transform opacity-100   translate-y-0"
+          leaveFrom="transform bg-opacity-100   translate-y-0"
           leaveTo="transform   opacity-0 -translate-y-full"
         >
           <div

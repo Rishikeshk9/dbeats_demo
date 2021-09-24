@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactPlayer from "react-player";
 //import { useHistory } from "react-router-dom";
-import person from "../../assets/images/person.png";
+import person from "../../assets/images/profile.svg";
 import classes from "./Home.module.css";
 
 const PlayBackCard = (props) => {
@@ -20,7 +20,7 @@ const PlayBackCard = (props) => {
   //console.log(props.playbackUserData)
 
   return (
-    <div className="w-100 h-auto mr-2">
+    <div className="w-100 h-max mr-2">
       <div className={`cursor-pointer`}>
         <a href={` /playback/${props.playbackUserData.username}/0`}>
           <ReactPlayer

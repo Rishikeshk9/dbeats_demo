@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import classes from "./Profile.module.css";
 import axios from "axios";
 import CarouselCard from "./CarouselCard";
-import person from "../../assets/images/person.png";
-import background from "../../assets/images/wallpaper.jpg"
+import person from "../../assets/images/profile.svg";
+import background from "../../assets/images/wallpaper.jpg";
 
-import Modal from 'react-awesome-modal';
+import Modal from "react-awesome-modal";
 import { WhatsappIcon, WhatsappShareButton } from "react-share";
 import { FacebookShareButton, FacebookIcon } from "react-share";
 import { EmailShareButton, EmailIcon } from "react-share";

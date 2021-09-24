@@ -58,7 +58,7 @@ const NavBar = (props) => {
           outerContainerId={"outer-container"}
           isOpen={showOpen}
           onStateChange={isMenuOpen}
-          className={`w-250 bg-white dark:bg-dbeats-dark-primary text-lg text-bold`}
+          className={`w-250 bg-white dark:bg-dbeats-dark text-lg text-bold`}
         >
           <div className="pt-5 bg-transparent hidden w-0"></div>
           <div className={classes.menu_items}>
@@ -103,6 +103,24 @@ const NavBar = (props) => {
               <span className={classes.menu_item_name}>Music </span>
             </a>
           </div>
+          {user ? (
+            <div
+              className={`${classes.menu_item_logout} text-black text-xl text-bold dark:text-white`}
+              onClick={handleLogout}
+            >
+              <i
+                id={classes.menu_item}
+                style={{ fontSize: "1em" }}
+                class="fas fa-upload"
+              ></i>
+
+              <a href="/upload" className={classes.menu_item_name}>
+                Upload
+              </a>
+            </div>
+          ) : (
+            <> </>
+          )}
           {user ? (
             <div
               className={`${classes.menu_item_logout} text-black text-xl text-bold dark:text-white`}
