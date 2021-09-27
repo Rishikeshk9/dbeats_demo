@@ -378,10 +378,12 @@ export default function Track(props) {
                                 </button>
                                 {user ? (
                                   <button
-                                    onClick={
-                                      favorites.indexOf(todo.id) > -1
+                                  onClick={
+                                    favorites
+                                      ? favorites.indexOf(todo.id) > -1
                                         ? () => removeFavorite(todo.id)
                                         : () => setFavorite(todo.id)
+                                      : false
                                     }
                                     className={`${
                                       favorites
