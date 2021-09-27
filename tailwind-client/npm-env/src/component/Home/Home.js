@@ -101,10 +101,10 @@ const Home = (props) => {
               if (i <= 2) {
                 setSlides((prevState) => [
                   ...prevState,
-                  <CarouselStreams
-                    stream_data={repos.data[i]}
-                    userData={value.data}
-                  />,
+                  {
+                    stream_data:repos.data[i],
+                    userData:value.data
+                  },
                 ]);
               }
             });
@@ -168,7 +168,7 @@ const Home = (props) => {
             <div className={classes.other_videos}>
               <div id="display_videos" className="mt-4 px-4">
                 <div className="pt-4 px-4">
-                  {activeStreams[0] ? (
+                  {activeStreams.length>2 ? (
                     <ResponsiveCarousel slides={slides} autoplay={false} />
                   ) : (
                     <>
@@ -198,7 +198,7 @@ const Home = (props) => {
                     <div className="">
                       <Carousel cols={5}>
                         {activeStreams.map((liveUser, i) => {
-                          if (i > 2) {
+                          if (i < 2 || i>5) {
                             return (
                               <Carousel.Item key={i}>
                                 <LiveCard

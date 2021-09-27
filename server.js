@@ -838,7 +838,7 @@ app.post("/create_stream", async (req, res) => {
 });
 
 app.get("/get_activeusers", async (req, res) => {
-  const value = await axios.get(idleStreamUrl, {
+  const value = await axios.get(activeStreamUrl, {
     headers: {
       Authorization: AuthStr,
     },

@@ -3,100 +3,68 @@ import { StackedCarousel, ResponsiveContainer, StackedCarouselSlideProps } from 
 import Fab from '@material-ui/core/Fab';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { CardHeader,Typography } from '@material-ui/core';
+import { CardHeader, Typography } from '@material-ui/core';
+import ReactPlayer from "react-player";
 
-const data = new Array(10).fill({ coverImage: "xxx", video: "xxx" })
-
-function ResponsiveCarousel() {
-    const ref = React.useRef(<ResponsiveContainer/>);
-    return (
-      <div style={{ width: '100%', position: 'relative' }}>
-          <ResponsiveContainer
-              carouselRef={ref}
-              render={(width, carouselRef) => {
-                return (
-                  <StackedCarousel
-                      ref={carouselRef}
-                      slideComponent={Slide}
-                      slideWidth={750}
-                      carouselWidth={width}
-                      data={data}
-                      maxVisibleSlide={5}
-                      disableSwipe
-                      customScales={[1, 0.85, 0.7, 0.55]}
-                      transitionTime={450}
-                  />
-                );
-              }}
-          />
-        <Fab
-            className='twitch-button left'
-            size='small'
-            onClick={() => ref.current?.goBack()}
-        >
-            <ArrowBackIcon style={{ fontSize: 30 }} />
+const ResponsiveCarousel = (props) => {
+  console.log(props.slides)
+  const ref = React.useRef(ResponsiveContainer);
+  return (
+    <div style={{position: 'relative' }}>
+      
+      <ResponsiveContainer
+        carouselRef={ref}
+        render={(parentWidth, carouselRef) => {
+          let currentVisibleSlide = 5;
+          if (parentWidth <= 1440) currentVisibleSlide = 3;
+          else if (parentWidth <= 1080) currentVisibleSlide = 1;
+          return (
+            <StackedCarousel
+              ref={carouselRef}
+              data={props.slides}
+              carouselWidth={parentWidth}
+              slideWidth={750}
+              slideComponent={Slide}
+              maxVisibleSlide={5}
+              currentVisibleSlide={currentVisibleSlide}
+              useGrabCursor={true}
+            />
+          )
+        }} />
+      <div className="absolute flex justify-between w-full -mt-44 z-10">  
+        <Fab onClick={() => ref.current.goBack()}>
+          <ArrowBackIcon />
         </Fab>
-        <Fab
-            className='twitch-button right'
-            size='small'
-            onClick={() => ref.current?.goNext()}
-        >
-            <ArrowForwardIcon style={{ fontSize: 30 }} />
+        <Fab onClick={() => ref.current.goNext()}>
+          <ArrowForwardIcon />
         </Fab>
       </div>
-    );
+    </div>
+  );
 }
 
-const Slide = React.memo(function (props: StackedCarouselSlideProps) {
-    const { data, dataIndex, isCenterSlide, swipeTo, slideIndex } = props;
-    const [loadDelay, setLoadDelay] = React.useState(null);
-    const [removeDelay, setRemoveDelay] = React.useState(null);
-    const [loaded, setLoaded] = React.useState(false);
-    React.useEffect(() => {
-      if (isCenterSlide) {
-        clearTimeout(removeDelay);
-        setLoadDelay(setTimeout(() => setLoaded(true), 1000));
-      } else {
-        clearTimeout(loadDelay);
-        if (loaded) setRemoveDelay(setTimeout(() => setLoaded(false), 1000));
-      }
-    }, [isCenterSlide]);
-
-    React.useEffect(() => () => {
-      clearTimeout(removeDelay);
-      clearTimeout(loadDelay);
-    });
-
-    const { coverImage, video } = data[dataIndex];
-
+const Slide = React.memo(
+  function (StackedCarouselSlideProps) {
+    const { data, dataIndex } = StackedCarouselSlideProps;
+    const value= data[dataIndex];
     return (
-      <div className='twitch-card' draggable={false}>
-        <div className={`cover fill ${isCenterSlide && loaded ? 'off' : 'on'}`}>
-          <div
-            className='card-overlay fill'
-            onClick={() => {
-              if (!isCenterSlide) swipeTo(slideIndex);
-            }}
-          />
-          <img className='cover-image fill' src={coverImage} />
+      <div className="bg-gray-200 w-full h-70 md:h-70 flex z-12">
+        <ReactPlayer
+          width="100%"
+          height="100%"
+          playing={false}
+          muted={false}
+          volume={0.3}
+          url={`https://cdn.livepeer.com/hls/${value.stream_data.playbackId}/index.m3u8`}
+          controls="true"
+        />
+
+        <div className="p-5 self-center">
+          <p className="font-bold">{value.userData.name}</p>
         </div>
-        {loaded && (
-          <div className='detail fill'>
-            <img className='video' src={video} />
-            <div className='discription'>
-              <CardHeader
-                
-                title='Bot Danny'
-                subheader='September 14, 2016'
-              />
-              <Typography variant='body2' color='textSecondary' component='p'>
-                ...
-              </Typography>
-            </div>
-          </div>
-        )}
       </div>
     );
-});
+  }
+);
 
 export default ResponsiveCarousel;
