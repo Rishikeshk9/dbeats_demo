@@ -20,18 +20,19 @@ import Dropdown from "./dropdown.component";
 import axios from "axios";
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Noty from "noty";
+import { MultiSelect } from "react-multi-select-component";
 import useWeb3Modal from "../hooks/useWeb3Modal";
 import mintNFT from "./Mint";
 import Webupload from "./uploadWeb3.component";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 const Form = (props) => {
-  const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
+  //const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
+  const user = JSON.parse(window.localStorage.getItem("user"));
 
   const darkMode = useSelector((state) => state.toggleDarkMode);
 
   const genre = [{ name: "Rock" }, { name: "Jazz" }];
-  const [selected, setSelected] = useState(genre[0].name);
 
   const mood = [{ name: "Happy" }, { name: "Soulful" }];
 
@@ -56,6 +57,19 @@ const Form = (props) => {
     { name: "Astronomy" },
     { name: "Sci-Fi" },
   ];
+
+  const [selectedGenre, setSelectedGenre] = useState(genre[0].name);
+  const [selectedMood, setSelectedMood] = useState(mood[0].name);
+  const [selectedAttribution, setSelectedAttribution] = useState(
+    attribution[0].name
+  );
+  const [selectedCommercialUse, setSelectedCommercialUse] = useState(
+    commercialUse[0].name
+  );
+  const [selectedDerivativeWorks, setSelectedDerivativeWorks] = useState(
+    derivativeWorks[0].name
+  );
+  const [selectedCategory, setSelectedCategory] = useState(category[0].name);
 
   const [track, setTrack] = useState({
     trackName: "",
@@ -156,7 +170,6 @@ const Form = (props) => {
         derivativeWorks,
       } = video;
 
-      console.log(video)
       var formData = new FormData(); // Currently empty
 
       formData.append("videoName", videoName);
@@ -172,7 +185,7 @@ const Form = (props) => {
 
       formData.append("videoFile", videoFile);
       formData.append("videoImage", videoImage);
-      console.log(formData)
+
       if (
         video.videoFile.length !== 0 &&
         video.videoImage.length !== 0 &&
@@ -201,7 +214,7 @@ const Form = (props) => {
 
       if (document.getElementById("is_nft").checked)
         await mintNFT(
-          provider,
+          user.wallet_id,
           formDatanft,
           track.trackFile,
           track.trackName,
@@ -281,10 +294,7 @@ const Form = (props) => {
     }
   };
 
-  
-
   if (props.name === "audio") {
-    
     return (
       <div
         className={`${
@@ -450,8 +460,11 @@ const Form = (props) => {
                           Genre
                         </label>
                         <div className="  flex rounded-md shadow-sm">
-                          <Dropdown data={genre} setSelected={setSelected} />
-                          {selected}
+                          <Dropdown
+                            data={genre}
+                            setSelected={(genre) => setSelectedGenre(genre)}
+                            getSelected={selectedGenre}
+                          />
                         </div>
                       </div>
 
@@ -463,7 +476,11 @@ const Form = (props) => {
                           Mood
                         </label>
                         <div className="  flex rounded-md shadow-sm">
-                          <Dropdown data={mood} setSelected={setSelected} />
+                          <Dropdown
+                            data={mood}
+                            setSelected={setSelectedMood}
+                            getSelected={selectedMood}
+                          />
                         </div>
                       </div>
                     </div>
@@ -541,7 +558,8 @@ const Form = (props) => {
                           <div className="mt-1 flex rounded-md shadow-sm">
                             <Dropdown
                               data={attribution}
-                              setSelected={setSelected}
+                              setSelected={setSelectedAttribution}
+                              getSelected={selectedAttribution}
                             />
                           </div>
                         </div>
@@ -556,7 +574,8 @@ const Form = (props) => {
                           <div className="mt-1 flex rounded-md shadow-sm">
                             <Dropdown
                               data={commercialUse}
-                              setSelected={setSelected}
+                              setSelected={setSelectedCommercialUse}
+                              getSelected={selectedCommercialUse}
                             />
                           </div>
                         </div>
@@ -571,7 +590,8 @@ const Form = (props) => {
                           <div className="mt-1 flex rounded-md shadow-sm">
                             <Dropdown
                               data={derivativeWorks}
-                              setSelected={setSelected}
+                              setSelected={setSelectedDerivativeWorks}
+                              getSelected={selectedDerivativeWorks}
                             />
                           </div>
                         </div>
@@ -587,7 +607,7 @@ const Form = (props) => {
             <input
               type="submit"
               onClick={PostData}
-              value="Upload Video"
+              value="Upload Audio"
               className="cursor-pointer inline-flex justify-center py-2 px-5 border border-transparent shadow-sm text-lg font-bold rounded-md text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-0 focus:ring-offset-2 focus:ring-blue-500"
             ></input>
           </div>
@@ -751,17 +771,14 @@ const Form = (props) => {
                           Category
                         </label>
                         <div className="  flex rounded-md shadow-sm">
-                          {/*<Dropdown data={category} setSelected={setSelected} />*/}
+                          <Dropdown
+                            data={category}
+                            setSelected={setSelectedCategory}
+                            getSelected={selectedCategory}
+                          />
                         </div>
                       </div>
                     </div>
-                    {/* <MultiSelect
-                      className="  bg-dbeats-dark-secondary border-0 dark:bg-dbeats-dark-primary ring-dbeats-dark-secondary  ring-0   flex-1 block w-full rounded-md sm:text-sm  "
-                      options={options}
-                      value={selected}
-                      onChange={setSelected}
-                      labelledBy="Ratings"
-                    /> */}
 
                     <div className="">
                       <label
@@ -793,7 +810,11 @@ const Form = (props) => {
                             Allow Attribution?
                           </label>
                           <div className="mt-1 flex rounded-md shadow-sm">
-                            {/* <Dropdown data={genre} setSelected={setSelected} /> */}
+                            <Dropdown
+                              data={attribution}
+                              setSelected={setSelectedAttribution}
+                              getSelected={selectedAttribution}
+                            />
                           </div>
                         </div>
 
@@ -805,7 +826,11 @@ const Form = (props) => {
                             Commercial Use?
                           </label>
                           <div className="mt-1 flex rounded-md shadow-sm">
-                            {/* <Dropdown data={genre} setSelected={setSelected} /> */}
+                            <Dropdown
+                              data={commercialUse}
+                              setSelected={setSelectedCommercialUse}
+                              getSelected={selectedCommercialUse}
+                            />
                           </div>
                         </div>
 
@@ -817,7 +842,11 @@ const Form = (props) => {
                             Derivative Works?
                           </label>
                           <div className="mt-1 flex rounded-md shadow-sm">
-                            {/* <Dropdown data={genre} setSelected={setSelected} /> */}
+                            <Dropdown
+                              data={derivativeWorks}
+                              setSelected={setSelectedDerivativeWorks}
+                              getSelected={selectedDerivativeWorks}
+                            />
                           </div>
                         </div>
                       </div>

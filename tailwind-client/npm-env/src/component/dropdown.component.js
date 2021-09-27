@@ -1,17 +1,18 @@
 import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
+import React, { useState } from "react";
+
 //import Emoji from "a11y-react-emoji";
 
-const Dropdown = ({ data, setSelected }) => {
-  let selected = data[0].name;
-
+const Dropdown = ({ data, setSelected, getSelected }) => {
+  const [selectedItem, setSelectedItem] = useState(getSelected);
   return (
     <div className="w-full">
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox value={selectedItem} onChange={() => setSelected(selectedItem)}>
         <div className="relative mt-1">
-          <Listbox.Button className="focus:ring-dbeats-dark-primary border-0 py-2 px-3 text-left dark:bg-dbeats-dark-primary ring-dbeats-dark-secondary  ring-0   flex-1 block w-full rounded-md sm:text-sm  ">
-            <span className="block truncate">{selected}</span>
+          <Listbox.Button className="  border-0 py-2 px-3 text-left dark:bg-dbeats-dark-primary ring-dbeats-dark-secondary  ring-0   flex-1 block w-full rounded-md sm:text-sm  ">
+            <span className="block truncate">{getSelected}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
               <SelectorIcon
                 className="w-5 h-5 text-gray-400"
@@ -32,6 +33,7 @@ const Dropdown = ({ data, setSelected }) => {
               {data.map((person, personIdx) => (
                 <Listbox.Option
                   key={personIdx}
+                  onClick={() => setSelectedItem(person.name)}
                   className={({ active }) =>
                     `${
                       active
@@ -40,7 +42,7 @@ const Dropdown = ({ data, setSelected }) => {
                     }
                           cursor-default select-none relative py-2 pl-10 pr-4`
                   }
-                  value={person}
+                  value={selectedItem}
                 >
                   {({ selected, active }) => (
                     <>
@@ -50,8 +52,9 @@ const Dropdown = ({ data, setSelected }) => {
                         } block truncate`}
                       >
                         {person.name}
+                        {selectedItem}
                       </span>
-                      {selected ? (
+                      {getSelected === person.name ? (
                         <span
                           className={`${
                             active ? "text-amber-600" : "text-amber-600"
