@@ -106,7 +106,6 @@ const NavBar = (props) => {
           {user ? (
             <div
               className={`${classes.menu_item_logout} text-black text-xl text-bold dark:text-white`}
-              onClick={handleLogout}
             >
               <i
                 id={classes.menu_item}

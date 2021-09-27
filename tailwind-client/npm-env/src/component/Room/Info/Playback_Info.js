@@ -42,12 +42,12 @@ const PlayBackInfo = (props) => {
 
   const [arrayData, setArrayData] = useState([]);
 
-  const SuperfluidSDK = require("@superfluid-finance/js-sdk");
-  const { Web3Provider } = require("@ethersproject/providers");
+  // const SuperfluidSDK = require("@superfluid-finance/js-sdk");
+  // const { Web3Provider } = require("@ethersproject/providers");
 
-  const sf = new SuperfluidSDK.Framework({
-    ethers: new Web3Provider(window.ethereum),
-  });
+  // const sf = new SuperfluidSDK.Framework({
+  //   ethers: new Web3Provider(window.ethereum),
+  // });
 
   const trackFollowers = () => {
     const followData = {
@@ -131,7 +131,7 @@ const PlayBackInfo = (props) => {
       }
     }
     //console.log(fileRes, "Hi");
-    await sf.initialize();
+    //await sf.initialize();
   };
 
   useEffect(() => {

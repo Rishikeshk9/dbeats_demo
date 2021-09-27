@@ -183,10 +183,16 @@ const Home = (props) => {
                 <div id="display_playback_videos" className="pt-1 px-4 ">
                   <div>
                     <h4 className=" font-bold pl-2 pt-5 pb-4 ">
+                      {activeStreams.length > 0 ?
+                      <div>
                       <span className="animate-ping bg-red-900 rounded-full">
                         &nbsp;
                       </span>
                       &nbsp; Live Now
+                      </div>
+                      :
+                      <></>
+                      }
                     </h4>
                     <div className="">
                       <Carousel cols={5}>

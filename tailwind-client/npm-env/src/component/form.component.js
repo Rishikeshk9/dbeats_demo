@@ -27,7 +27,8 @@ import Webupload from "./uploadWeb3.component";
 import { useSelector} from "react-redux";
 
 const Form = (props) => {
-  const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
+  //const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
+  const user = JSON.parse(window.localStorage.getItem("user"));
 
   const darkMode = useSelector((state) => state.toggleDarkMode);
 
@@ -201,7 +202,7 @@ const Form = (props) => {
 
       if (document.getElementById("is_nft").checked)
         await mintNFT(
-          provider,
+          user.wallet_id,
           formDatanft,
           track.trackFile,
           track.trackName,
@@ -280,6 +281,8 @@ const Form = (props) => {
       }
     }
   };
+
+  
 
   if (props.name === "audio") {
     return (

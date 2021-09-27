@@ -10,6 +10,7 @@ import Loader from "./component/Loader/Loader";
 import "./App.css";
 import NavBar from "../src/component/Navbar/Navbar";
 import Track from "./component/track.component";
+import Switcher from "./component/switcher.component";
 //import Navbar from "./component/navbar.component";
 //import BottomBar from "./component/bottom-player.component";
 
@@ -52,6 +53,12 @@ const Login = lazy(() => {
   });
 });
 
+const UploadPage = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import("./component/switcher.component")), 1000);
+  });
+});
+
 const App = () => {
 
   let user = JSON.parse(window.localStorage.getItem("user"));
@@ -77,9 +84,9 @@ const App = () => {
             <Route path="/nft" exact component={() => <NFTFeed />} />
             <Route path="/" exact component={() => <VideoHome />} />
 
-            <Route path="/upload" exact component={() => <App />} />
+            <Route path="/upload" exact component={() => <UploadPage/>} />
             <Route path="/music" exact component={() => <Track />} />
-
+            
             {/* <Route exact path="/" component={LandingPage} /> */}
             <Route exact path="/loader" component={Loader} />
             {/* <Route exact path="/home" component={VideoHome} />  */}
