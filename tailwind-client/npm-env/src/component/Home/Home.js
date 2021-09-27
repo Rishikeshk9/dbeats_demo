@@ -9,6 +9,7 @@ import PlayBackCard from "./PlayBackCard";
 import LiveCard from "./LiveCard";
 import ReactPlayer from "react-player";
 import Skeleton from "@material-ui/lab/Skeleton";
+import ResponsiveCarousel from "./HomeSlider"
 
 const Home = (props) => {
   const [activeStreams, setActiveStreams] = useState([]);
@@ -168,7 +169,7 @@ const Home = (props) => {
               <div id="display_videos" className="mt-4 px-4">
                 <div className="pt-4 px-4">
                   {activeStreams[0] ? (
-                    <LiveStreamVideos slides={slides} autoplay={false} />
+                    <ResponsiveCarousel slides={slides} autoplay={false} />
                   ) : (
                     <>
                       <Skeleton animation="wave" variant="rect" height="35vh" />
