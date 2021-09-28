@@ -245,28 +245,72 @@ router.route("/unfavorite").post(async (req, res) => {
 
 router.route("/reactions").post(async (req, res) => {
   try {
+    console.log(req.body)
     const videoUsername = req.body.videousername;
     const reactUsername = req.body.reactusername;
-    const reaction = req.body.reaction;
+    const videoreaction = req.body.reaction;
     const videoname = req.body.videoname;
-    const user = User.find( {username : videoUsername})
-    if(user.reactions.like){
-    User.findOneAndUpdate(
-      { username: videoUsername },
-      { $push: {reactions: {like : reactUsername}}},
-      function (error, success) {
-        if (error) {
-          console.log(error);
-          res.send(error);
-        } else {
-          console.log(success);
-          res.send(success);
-        }
+    const user = await User.findOne({ username: videoUsername });
+
+    //console.log(user)
+    let count=-1;
+    for(let i=0;i<user.reactions.length;i++){
+      if(user.reactions[i].video === videoname){
+        count=i;
+        break;
       }
-    );
-    }else{
-      let value = [];
-      User.findOneAndUpdate({username :videoUsername})
+    }
+    //console.log(count)
+
+
+    if(count!=-1) {
+      let data = user.reactions;
+      
+      if(videoreaction === "like")
+        data[count].reaction.like.push(reactUsername);
+      else if(videoreaction === "dislike")
+        data[count].reaction.dislike.push(reactUsername);
+      else if(videoreaction === "angry")
+        data[count].reaction.angry.push(reactUsername);
+      else if(videoreaction === "happy")
+        data[count].reaction.happy.push(reactUsername);
+
+      console.log(data)
+
+      User.findOneAndUpdate(
+        { username: videoUsername},
+        { $set: {reactions : data}},
+        function (error, success) {
+          if (error) {
+            res.send(error);
+          } else {
+            //console.log(success)
+            res.send(success);
+          }
+        }
+      );
+    } else {
+      let value = {
+        video:videoname,
+        reaction:{
+          like:[reactUsername],
+          dislike:[],
+          angry:[],
+          happy:[]
+        }
+      };
+      console.log(value)
+      User.findOneAndUpdate(
+        { username: videoUsername },
+        { $push: { reactions:  value } },
+        function (error, success) {
+          if (error) {
+            res.send(error);
+          } else {
+            res.send(success);
+          }
+        }
+      );
     }
   } catch (err) {
     console.log(err);

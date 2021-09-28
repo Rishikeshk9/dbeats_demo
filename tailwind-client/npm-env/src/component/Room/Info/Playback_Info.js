@@ -136,8 +136,8 @@ const PlayBackInfo = (props) => {
 
   const handlereaction = (props) =>{
     const reactionData = {
-      reactusername: `${userData.username}`,
-      videousername: `${user.username}`,
+      reactusername: `${user.username}`,
+      videousername: `${userData.username}`,
       reaction: props,
       videoname: playbackUrl
     };
@@ -252,9 +252,9 @@ const PlayBackInfo = (props) => {
                   <i className="fas fa-share opacity-50 mx-2"></i>
                 </button>
                 <i className="fas fa-heart opacity-50 mx-2" onClick={()=>handlereaction("like")}></i>
-                <i className="fas fa-heart-broken opacity-50 mx-2" onClick={()=>handlereaction("Dislike")}></i>
-                <i className="far fa-laugh-squint opacity-50 mx-2" onClick={()=>handlereaction("Happy")}></i>
-                <i className="far fa-angry opacity-50 mx-2"onClick={()=>handlereaction("Angry")}></i>
+                <i className="fas fa-heart-broken opacity-50 mx-2" onClick={()=>handlereaction("dislike")}></i>
+                <i className="far fa-laugh-squint opacity-50 mx-2" onClick={()=>handlereaction("happy")}></i>
+                <i className="far fa-angry opacity-50 mx-2"onClick={()=>handlereaction("angry")}></i>
                 <Menu as="div" className="relative inline-block text-left">
                   <div>
                     <Menu.Button className="">
