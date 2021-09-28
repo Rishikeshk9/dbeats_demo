@@ -243,6 +243,36 @@ router.route("/unfavorite").post(async (req, res) => {
   }
 });
 
+router.route("/reactions").post(async (req, res) => {
+  try {
+    const videoUsername = req.body.videousername;
+    const reactUsername = req.body.reactusername;
+    const reaction = req.body.reaction;
+    const videoname = req.body.videoname;
+    const user = User.find( {username : videoUsername})
+    if(user.reactions.like){
+    User.findOneAndUpdate(
+      { username: videoUsername },
+      { $push: {reactions: {like : reactUsername}}},
+      function (error, success) {
+        if (error) {
+          console.log(error);
+          res.send(error);
+        } else {
+          console.log(success);
+          res.send(success);
+        }
+      }
+    );
+    }else{
+      let value = [];
+      User.findOneAndUpdate({username :videoUsername})
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 /*router.route("/:id").get((req, res) => {
   User.findById(req.params.id)
     .then((user) => res.json(user))

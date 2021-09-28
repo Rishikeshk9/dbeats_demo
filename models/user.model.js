@@ -47,6 +47,10 @@ const userSchema = new Schema(
       type: Object,
       default: {},
     },
+    reactions:{
+      type:Array,
+      default:[],
+    },
     multistream_platform: {
       type: Array,
       default: [],

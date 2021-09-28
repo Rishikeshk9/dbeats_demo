@@ -134,6 +134,34 @@ const PlayBackInfo = (props) => {
     //await sf.initialize();
   };
 
+  const handlereaction = (props) =>{
+    const reactionData = {
+      reactusername: `${userData.username}`,
+      videousername: `${user.username}`,
+      reaction: props,
+      videoname: playbackUrl
+    };
+    axios({
+      method: "POST",
+      url: `${process.env.REACT_APP_SERVER_URL}/user/reactions`,
+      headers: {
+        "content-type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      data: reactionData,
+    })
+      .then(function (response) {
+        if (response) {
+          //console.log(response);
+        } else {
+          alert("Invalid Login");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   useEffect(() => {
     get_User();
     fetchData();
@@ -223,10 +251,10 @@ const PlayBackInfo = (props) => {
                 >
                   <i className="fas fa-share opacity-50 mx-2"></i>
                 </button>
-                <i className="fas fa-heart opacity-50 mx-2"></i>
-                <i className="fas fa-heart-broken opacity-50 mx-2"></i>
-                <i className="far fa-laugh-squint opacity-50 mx-2"></i>
-                <i className="far fa-angry opacity-50 mx-2"></i>
+                <i className="fas fa-heart opacity-50 mx-2" onClick={()=>handlereaction("like")}></i>
+                <i className="fas fa-heart-broken opacity-50 mx-2" onClick={()=>handlereaction("Dislike")}></i>
+                <i className="far fa-laugh-squint opacity-50 mx-2" onClick={()=>handlereaction("Happy")}></i>
+                <i className="far fa-angry opacity-50 mx-2"onClick={()=>handlereaction("Angry")}></i>
                 <Menu as="div" className="relative inline-block text-left">
                   <div>
                     <Menu.Button className="">
