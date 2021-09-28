@@ -162,8 +162,8 @@ const UserInfo = (props) => {
               <p>{user.username}</p>
             </div>
             <div className="pb-2">
-              <span className="text-2xl font-semibold">Streamer Id : </span>
-              <p>{userStreams.id}</p>
+              <span className="text-2xl font-semibold">RTMP URL: </span>
+              <p>rtmp://rtmp.livepeer.com/live</p>
             </div>
             <div className="pb-2">
               <span className="text-2xl font-semibold">Streamer Key : </span>

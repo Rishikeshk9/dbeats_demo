@@ -31,7 +31,7 @@ const ResponsiveCarousel = (props) => {
             />
           )
         }} />
-      <div className="absolute flex justify-between w-full -mt-44 z-10">  
+      <div className="absolute flex justify-between w-full -mt-44">  
         <Fab onClick={() => ref.current.goBack()}>
           <ArrowBackIcon />
         </Fab>
@@ -48,20 +48,26 @@ const Slide = React.memo(
     const { data, dataIndex } = StackedCarouselSlideProps;
     const value= data[dataIndex];
     return (
-      <div className="bg-gray-200 w-full h-70 md:h-70 flex z-12">
+      <div className="bg-gray-700 w-full h-max md:h-max flex" 
+      onClick={() => {
+        window.location.href = `/public/${value.username}/`;
+      }}>
+        <span className="fixed bg-red-600 text-white px-1 mx-2 my-2 rounded-sm font-semibold z-50">
+          {" "}
+          Live{" "}
+        </span>
         <ReactPlayer
           width="100%"
-          height="100%"
-          playing={false}
+          height="90%"
+          playing={true}
           muted={false}
           volume={0.3}
           url={`https://cdn.livepeer.com/hls/${value.livepeer_data.playbackId}/index.m3u8`}
-          controls="true"
         />
 
-        <div className="p-5 self-center">
+        {/* <div className="p-5 self-center">
           <p className="font-bold">{value.name}</p>
-        </div>
+        </div> */}
       </div>
     );
   }

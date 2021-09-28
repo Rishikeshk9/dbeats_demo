@@ -165,8 +165,8 @@ const Home = (props) => {
             </div>
 
             <div className={classes.other_videos}>
-              <div id="display_videos" className="mt-4 px-4">
-                <div className="pt-4 px-4">
+              <div id="display_videos" className="my-6 px-4">
+                <div className="pt-4 px-4 h-max">
                   {slides.length>2 ? (
                     <ResponsiveCarousel slides={slides} autoplay={false} />
                   ) : (
@@ -180,9 +180,9 @@ const Home = (props) => {
                 </div>
               </div>
               <div>
-                <div id="display_playback_videos" className="pt-1 px-4 ">
+                <div id="display_playback_videos" className="mt-1 px-4 ">
                   <div>
-                    <h4 className=" font-bold pl-2 pt-5 pb-4 ">
+                    <h4 className=" font-bold pl-2 mt-10 pb-4 ">
                       {activeStreams.length > 0 ?
                         <div>
                           <span className="animate-ping bg-red-900 rounded-full">
