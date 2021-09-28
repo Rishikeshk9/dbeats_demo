@@ -10,7 +10,7 @@ import { PinterestShareButton, PinterestIcon } from "react-share";
 import { TelegramShareButton, TelegramIcon } from "react-share";
 import { Container, Row, Col } from "react-bootstrap";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import RecommendedCard from "./RecommendedCard";
+import LiveCard from "./LiveCard";
 import Modal from 'react-awesome-modal';
 import { Menu, Transition } from '@headlessui/react'
 
@@ -115,6 +115,7 @@ const PublicInfo = (props) => {
     console.log(fileRes)
     for (let i = 0; i < fileRes.data.length; i++) {
       if (user ? fileRes.data[i].username !== user.username :true) {
+          console.log(fileRes.data[i])
           setArrayData((prevState) => [...prevState, fileRes.data[i]]);
       }
     }
@@ -288,7 +289,7 @@ const PublicInfo = (props) => {
         <div className="  w-full col-span-1 px-5">
           <div className=" w-full grid grid-cols-1 grid-flow-row gap-3">
             {arrayData.map((value, index) => {
-              return <RecommendedCard key={index} value={value} />;
+              return <LiveCard key={index} username={userData.username} value={value} />;
             })}
           </div>
         </div>

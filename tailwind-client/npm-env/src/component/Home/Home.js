@@ -197,7 +197,7 @@ const Home = (props) => {
                     <div className="">
                       <Carousel cols={5}>
                         {activeStreams.map((liveUser, i) => {
-                          if (activeStreams.length < 2 || i >= 5) {
+                          if (i <= 2 || i >= 5) {
                             return (
                               <Carousel.Item key={i}>
                                 <LiveCard

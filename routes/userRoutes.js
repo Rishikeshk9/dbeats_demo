@@ -253,56 +253,66 @@ router.route("/reactions").post(async (req, res) => {
     const user = await User.findOne({ username: videoUsername });
 
     //console.log(user)
-    let count=-1;
-    for(let i=0;i<user.reactions.length;i++){
-      if(user.reactions[i].video === videoname){
-        count=i;
+    let count = -1;
+    for (let i = 0; i < user.reactions.length; i++) {
+      if (user.reactions[i].video === videoname) {
+        count = i;
         break;
       }
     }
     //console.log(count)
 
 
-    if(count!=-1) {
+    if (count != -1) {
       let data = user.reactions;
-      
-      if(videoreaction === "like")
+
+      if (videoreaction === "like")
         data[count].reaction.like.push(reactUsername);
-      else if(videoreaction === "dislike")
+      else if (videoreaction === "dislike")
         data[count].reaction.dislike.push(reactUsername);
-      else if(videoreaction === "angry")
+      else if (videoreaction === "angry")
         data[count].reaction.angry.push(reactUsername);
-      else if(videoreaction === "happy")
+      else if (videoreaction === "happy")
         data[count].reaction.happy.push(reactUsername);
 
       console.log(data)
 
       User.findOneAndUpdate(
-        { username: videoUsername},
-        { $set: {reactions : data}},
+        { username: videoUsername },
+        { $set: { reactions: data } },
         function (error, success) {
           if (error) {
             res.send(error);
           } else {
-            //console.log(success)
             res.send(success);
           }
         }
       );
     } else {
       let value = {
-        video:videoname,
-        reaction:{
-          like:[reactUsername],
-          dislike:[],
-          angry:[],
-          happy:[]
+        video: videoname,
+        reaction: {
+          like: [],
+          dislike: [],
+          angry: [],
+          happy: []
         }
       };
+
+      if (videoreaction === "like")
+        value.reaction.like.push(reactUsername);
+      else if (videoreaction === "dislike")
+        value.reaction.dislike.push(reactUsername);
+      else if (videoreaction === "angry")
+        value.reaction.angry.push(reactUsername);
+      else if (videoreaction === "happy")
+        value.reaction.happy.push(reactUsername);
+
+      
       console.log(value)
       User.findOneAndUpdate(
         { username: videoUsername },
-        { $push: { reactions:  value } },
+        { $push: { reactions: value } },
         function (error, success) {
           if (error) {
             res.send(error);
@@ -312,6 +322,70 @@ router.route("/reactions").post(async (req, res) => {
         }
       );
     }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.route("/getreactions").post(async (req, res) => {
+  try {
+    const videoUsername = req.body.videousername;
+    const videoname = req.body.videoname;
+    const user = await User.findOne({ username: videoUsername });
+
+    let count = -1;
+    for (let i = 0; i < user.reactions.length; i++) {
+      if (user.reactions[i].video === videoname) {
+        console.log(user.reactions[i].video)
+        res.send(user.reactions[i])
+        break;
+      }
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.route("/getuserreaction").post(async (req, res) => {
+  try {
+    const videoUsername = req.body.videousername;
+    const reactUsername = req.body.username;
+    const videoname = req.body.videoname;
+    const user = await User.findOne({ username: videoUsername });
+
+    console.log(req.body);
+    console.log(user)
+
+    let count = -1;
+    for (let i = 0; i < user.reactions.length; i++) {
+      if (user.reactions[i].video === videoname) {
+        count=i;
+        break;
+      }
+    }
+
+    if (count != -1) {
+      let data = user.reactions;
+
+      if (data[count].reaction.like.indexOf(reactUsername) > -1) {
+        res.send('like')
+      }
+      else if (data[count].reaction.dislike.indexOf(reactUsername) > -1) {
+        res.send('dislike')
+      }
+      else if (data[count].reaction.angry.indexOf(reactUsername) > -1) {
+        res.send('angry')
+      }
+      else if (data[count].reaction.happy.indexOf(reactUsername) > -1) {
+        res.send('happy')
+      }
+      else{
+        res.send(null);
+      }
+    }
+    // else{
+    //   res.send(null);
+    // }
   } catch (err) {
     console.log(err);
   }

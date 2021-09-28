@@ -17,12 +17,10 @@ const PlayBackCard = (props) => {
     setPlaying(false);
   };
 
-  //console.log(props.playbackUserData)
-
   return (
     <div className="w-100 h-max mr-2">
       <div className={`cursor-pointer`}>
-        <a href={` /playback/${props.playbackUserData.username}/0`}>
+        <a href={`/playback/${props.playbackUserData.username}/0`}>
           <ReactPlayer
             width="100%"
             height="21.9vh"

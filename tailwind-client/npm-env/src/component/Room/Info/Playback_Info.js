@@ -17,6 +17,15 @@ import Modal from "react-awesome-modal";
 const PlayBackInfo = (props) => {
   let sharable_data = `https://dbeats-demo.vercel.app /playback/${props.stream_id}/${props.video_id}`;
 
+  const [like, setLike] = useState(0)
+  const [dislike, setDislike] = useState(0)
+  const [happy, setHappy] = useState(0)
+  const [angry, setAngry] = useState(0)
+  const [userreact,setUserreact] = useState("")
+
+  const [videoUsername, setVideoUsername] = useState("");
+
+
   const user = JSON.parse(window.localStorage.getItem("user"));
 
   const [playbackUrl, setPlaybackUrl] = useState("");
@@ -25,11 +34,10 @@ const PlayBackInfo = (props) => {
 
   const [privateUser, setPrivate] = useState(true);
 
-  const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [show, setShow] = useState(false);
   const [showMore, setShowMore] = useState(false);
 
   const handleCloseMore = () => setShowMore(false);
@@ -110,8 +118,59 @@ const PlayBackInfo = (props) => {
             break;
           }
         }
+
+        setVideoUsername(value.data.username)
         setPlaybackUrl(`${value.data.videos[props.video_id].link}`);
+
+
+
+        let reactionData = {
+          videousername: value.data.username,
+          videoname: `${props.stream_id}/${props.video_id}`
+        };
+        console.log("reaction: ", reactionData)
+
+        axios({
+          method: "POST",
+          url: `${process.env.REACT_APP_SERVER_URL}/user/getreactions`,
+          headers: {
+            "content-type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+          data: reactionData,
+        }).then(function (response) {
+          setLike(response.data.reaction.like.length)
+          setDislike(response.data.reaction.dislike.length)
+          setAngry(response.data.reaction.angry.length)
+          setHappy(response.data.reaction.happy.length)
+        }).catch(function (error) {
+          console.log(error);
+        });
+
+        if(user){
+          reactionData = {
+            username: `${user.username}`,
+            videousername: value.data.username,
+            videoname: `${props.stream_id}/${props.video_id}`
+          };
+  
+          axios({
+            method: "POST",
+            url: `${process.env.REACT_APP_SERVER_URL}/user/getuserreaction`,
+            headers: {
+              "content-type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+            },
+            data: reactionData,
+          }).then(function (response) {
+            console.log(response.data)
+            setUserreact(response.data)
+          }).catch(function (error) {
+            console.log(error);
+          });  
+        }
       });
+
     //console.log(value.data)
   };
 
@@ -134,13 +193,31 @@ const PlayBackInfo = (props) => {
     //await sf.initialize();
   };
 
-  const handlereaction = (props) =>{
+  const handlereaction = (videoprops) => {
     const reactionData = {
       reactusername: `${user.username}`,
       videousername: `${userData.username}`,
-      reaction: props,
-      videoname: playbackUrl
+      reaction: videoprops,
+      videoname: `${props.stream_id}/${props.video_id}`
     };
+
+    if (videoprops === 'like') {
+      setLike(like + 1);
+      setUserreact('like')
+    }
+    else if (videoprops === 'dislike') {
+      setDislike(dislike + 1);
+      setUserreact('dislike')
+    }
+    else if (videoprops === 'happy') {
+      setHappy(happy + 1);
+      setUserreact('happy')
+    }
+    else {
+      setAngry(angry + 1);
+      setUserreact('angry')
+    }
+
     axios({
       method: "POST",
       url: `${process.env.REACT_APP_SERVER_URL}/user/reactions`,
@@ -167,6 +244,7 @@ const PlayBackInfo = (props) => {
     fetchData();
     let value = JSON.parse(window.localStorage.getItem("user"));
     console.log(value);
+
     if (user ? value.username === props.stream_id : false) {
       setPrivate(true);
     } else {
@@ -251,10 +329,31 @@ const PlayBackInfo = (props) => {
                 >
                   <i className="fas fa-share opacity-50 mx-2"></i>
                 </button>
-                <i className="fas fa-heart opacity-50 mx-2" onClick={()=>handlereaction("like")}></i>
-                <i className="fas fa-heart-broken opacity-50 mx-2" onClick={()=>handlereaction("dislike")}></i>
-                <i className="far fa-laugh-squint opacity-50 mx-2" onClick={()=>handlereaction("happy")}></i>
-                <i className="far fa-angry opacity-50 mx-2"onClick={()=>handlereaction("angry")}></i>
+
+                <i className={ userreact === "like"
+                    ? "cursor-pointer fas fa-heart mx-2 text-red-700 "
+                    :
+                    "cursor-pointer fas fa-heart opacity-50 mx-2 hover:text-red-700  hover:opacity-100"
+                } onClick={() => handlereaction("like")}></i>{like}
+                
+                <i className={ userreact === "dislike"
+                    ? "cursor-pointer fas fa-heart-broken mx-2 hover:text-black"
+                    :
+                    "cursor-pointer fas fa-heart-broken opacity-50 mx-2 hover:text-black hover:opacity-100"
+                } onClick={() => handlereaction("dislike")}></i>{dislike}
+                
+                <i className={ userreact === "happy"
+                    ? "cursor-pointer far fa-laugh-squint mx-2 text-yellow-500 "
+                    :
+                    "cursor-pointer far fa-laugh-squint opacity-50 mx-2 hover:text-yellow-500  hover:opacity-100"
+                } onClick={() => handlereaction("happy")}></i>{happy}
+
+                <i className={ userreact === "angry"
+                    ? "cursor-pointer far fa-angry  mx-2 text-red-800"
+                    :
+                    "cursor-pointer far fa-angry  opacity-50 mx-2 hover:text-red-700 hover:opacity-100"
+                } onClick={() => handlereaction("angry")}></i>{angry}
+                
                 <Menu as="div" className="relative inline-block text-left">
                   <div>
                     <Menu.Button className="">
