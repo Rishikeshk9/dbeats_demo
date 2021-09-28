@@ -55,12 +55,12 @@ const Slide = React.memo(
           playing={false}
           muted={false}
           volume={0.3}
-          url={`https://cdn.livepeer.com/hls/${value.stream_data.playbackId}/index.m3u8`}
+          url={`https://cdn.livepeer.com/hls/${value.livepeer_data.playbackId}/index.m3u8`}
           controls="true"
         />
 
         <div className="p-5 self-center">
-          <p className="font-bold">{value.userData.name}</p>
+          <p className="font-bold">{value.name}</p>
         </div>
       </div>
     );

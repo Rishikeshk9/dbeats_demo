@@ -83,9 +83,10 @@ const Home = (props) => {
       </div>
     );
   };
-  console.log(activeStreams);
+  //console.log(activeStreams);
 
   useEffect(() => {
+    let slidesValue = []
     axios
       .get(`${process.env.REACT_APP_SERVER_URL}/get_activeusers`)
       .then(async (repos) => {
@@ -95,24 +96,22 @@ const Home = (props) => {
               `${process.env.REACT_APP_SERVER_URL}/user/get_user_by_id/${repos.data[i].id}`
             )
             .then((value) => {
+              //console.log(repos.data[i].id," user :" ,value)
               if (value.data !== "")
                 setActiveStreams((prevState) => [...prevState, value.data]);
 
-              if (i <= 2) {
-                setSlides((prevState) => [
-                  ...prevState,
-                  {
-                    stream_data:repos.data[i],
-                    userData:value.data
-                  },
-                ]);
+              if (i < 5) {
+                slidesValue.push(value.data);
               }
             });
         }
+        setSlides(slidesValue);
       });
     fetchData();
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(slides)
 
   const fetchData = async () => {
     const fileRes = await axios.get(`${process.env.REACT_APP_SERVER_URL}/`);
@@ -168,7 +167,7 @@ const Home = (props) => {
             <div className={classes.other_videos}>
               <div id="display_videos" className="mt-4 px-4">
                 <div className="pt-4 px-4">
-                  {activeStreams.length>2 ? (
+                  {slides.length>2 ? (
                     <ResponsiveCarousel slides={slides} autoplay={false} />
                   ) : (
                     <>
@@ -185,20 +184,20 @@ const Home = (props) => {
                   <div>
                     <h4 className=" font-bold pl-2 pt-5 pb-4 ">
                       {activeStreams.length > 0 ?
-                      <div>
-                      <span className="animate-ping bg-red-900 rounded-full">
-                        &nbsp;
-                      </span>
-                      &nbsp; Live Now
-                      </div>
-                      :
-                      <></>
+                        <div>
+                          <span className="animate-ping bg-red-900 rounded-full">
+                            &nbsp;
+                          </span>
+                          &nbsp; Live Now
+                        </div>
+                        :
+                        <></>
                       }
                     </h4>
                     <div className="">
                       <Carousel cols={5}>
                         {activeStreams.map((liveUser, i) => {
-                          if (i < 2 || i>5) {
+                          if (activeStreams.length < 2 || i >= 5) {
                             return (
                               <Carousel.Item key={i}>
                                 <LiveCard
