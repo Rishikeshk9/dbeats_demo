@@ -142,7 +142,6 @@ const NavBar = (props) => {
           </div>
         </Menu>
       </div>
-
       <div
         expand="lg"
         id="navbarScroll"
@@ -178,14 +177,14 @@ const NavBar = (props) => {
               onClick={() => (window.location.href = "/")}
             >
               <img src={logo} alt="dbeats_logo" className="h-8 w-max"></img>
-              <span className="mr-5 text-lg font-bold ml-2">Dbeats</span>
+              <span className="mr-5 text-lg font-bold ml-2">DBeats</span>
             </div>
-            <div className="w-1/3 mx-auto   ">
-              <div className="  border rounded  flex bg-gray-200 ">
+            <div className="w-1/3 mx-auto  self-center  ">
+              <div className="  self-center rounded  flex bg-gray-200 dark:bg-dbeats-dark-secondary">
                 <input
                   type="text"
                   placeholder="Search"
-                  className="w-full rounded border-0 self-center focus:border-0 focus:ring-0  "
+                  className="w-full rounded border-0 self-center   dark:bg-dbeats-dark-secondary"
                 ></input>
                 <a href="/" className="self-center text-gray-900">
                   {" "}
@@ -214,13 +213,13 @@ const NavBar = (props) => {
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 self-center mr-2"
+                    className="h-5 w-5 self-center md:mr-2"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
                     <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
                   </svg>
-                  <span className="self-center ">Go Live</span>
+                  <span className="self-center md:flex hidden">Go Live</span>
                 </button>
                 <button
                   className="shadow-sm h-10 self-center w-10 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded-full font-bold mx-2 flex"

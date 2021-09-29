@@ -9,7 +9,7 @@ import PlayBackCard from "./PlayBackCard";
 import LiveCard from "./LiveCard";
 import ReactPlayer from "react-player";
 import Skeleton from "@material-ui/lab/Skeleton";
-import ResponsiveCarousel from "./HomeSlider"
+import ResponsiveCarousel from "./HomeSlider";
 
 const Home = (props) => {
   const [activeStreams, setActiveStreams] = useState([]);
@@ -86,7 +86,7 @@ const Home = (props) => {
   //console.log(activeStreams);
 
   useEffect(() => {
-    let slidesValue = []
+    let slidesValue = [];
     axios
       .get(`${process.env.REACT_APP_SERVER_URL}/get_activeusers`)
       .then(async (repos) => {
@@ -111,7 +111,7 @@ const Home = (props) => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(slides)
+  console.log(slides);
 
   const fetchData = async () => {
     const fileRes = await axios.get(`${process.env.REACT_APP_SERVER_URL}/`);
@@ -132,7 +132,7 @@ const Home = (props) => {
           <main id="page-wrap" className={classes.main_homepage_body}>
             <div
               id="recommended_channel"
-              className="w-100 bg-blue-100 lg:block sm:hidden"
+              className="w-100 bg-gray-100 lg:block sm:hidden"
             >
               <div className="px-3 pt-4">
                 <h5 className="font-semibold text-base">
@@ -167,7 +167,7 @@ const Home = (props) => {
             <div className={classes.other_videos}>
               <div id="display_videos" className="my-6 px-4">
                 <div className="pt-4 px-4 h-max">
-                  {slides.length>2 ? (
+                  {slides.length > 2 ? (
                     <ResponsiveCarousel slides={slides} autoplay={false} />
                   ) : (
                     <>
@@ -183,16 +183,16 @@ const Home = (props) => {
                 <div id="display_playback_videos" className="mt-1 px-4 ">
                   <div>
                     <h4 className=" font-bold pl-2 mt-10 pb-4 ">
-                      {activeStreams.length > 0 ?
+                      {activeStreams.length > 0 ? (
                         <div>
                           <span className="animate-ping bg-red-900 rounded-full">
                             &nbsp;
                           </span>
                           &nbsp; Live Now
                         </div>
-                        :
+                      ) : (
                         <></>
-                      }
+                      )}
                     </h4>
                     <div className="">
                       <Carousel cols={5}>

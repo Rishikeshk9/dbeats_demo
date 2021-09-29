@@ -131,14 +131,8 @@ const Form = (props) => {
       document.getElementById("audio-label").textContent = trckName;
     } else if (e.target.name === "trackImage") {
       track.trackImage = e.target.files[0];
-    } else if (e.target.name === "videoFile") {
-      video.videoFile = e.target.files[0];
-      trckName = e.target.files[0].name.replace(/\.[^/.]+$/, "");
-      document.getElementById("videoName").value = trckName;
-      video.videoName = trckName;
-      document.getElementById("video-label").textContent = trckName;
-    } else if (e.target.name === "videoImage") {
-      video.videoImage = e.target.files[0];
+      var trcImage = e.target.files[0].name.replace(/\.[^/.]+$/, "");
+      document.getElementById("audio-thumbnail-label").textContent = trcImage;
     }
   };
 
@@ -151,6 +145,9 @@ const Form = (props) => {
       document.getElementById("video-label").textContent = trckName;
     } else if (e.target.name === "videoImage") {
       video.videoImage = e.target.files[0];
+
+      var videoImage = e.target.files[0].name.replace(/\.[^/.]+$/, "");
+      document.getElementById("video-thumbnail-label").textContent = videoImage;
     }
   };
 
@@ -171,6 +168,7 @@ const Form = (props) => {
       } = video;
 
       var formData = new FormData(); // Currently empty
+      formData.append("userName", user.username);
 
       formData.append("videoName", videoName);
 
@@ -194,7 +192,7 @@ const Form = (props) => {
         axios
           .post("/upload-video", formData)
           .then(function (response) {
-            console.log(response);
+            console.log(response.data);
           })
           .catch((error) => {
             console.log(error);
@@ -237,7 +235,7 @@ const Form = (props) => {
       } = track;
 
       formData = new FormData(); // Currently empty
-
+      formData.append("userName", user.username);
       formData.append("trackName", trackName);
       formData.append("genre", genre);
 
@@ -264,23 +262,25 @@ const Form = (props) => {
           .then(function (response) {
             Noty.closeAll();
             new Noty({
-              type: "error",
-              text: response,
+              type: "success",
+              text: response.data,
               theme: "metroui",
               layout: "bottomRight",
             }).show();
-            console.log(response);
-            console.log("Error:" + response);
+
+            // console.log(response.data);
           })
           .catch((error) => {
             Noty.closeAll();
             new Noty({
               type: "error",
-              text: error.data.data,
+              text: error.data,
               theme: "metroui",
               layout: "bottomRight",
             }).show();
-            console.log("Error:" + error);
+            // console.log(error);
+
+            // console.log(error.data);
           });
       } else {
         Noty.closeAll();
@@ -328,7 +328,10 @@ const Form = (props) => {
                           htmlFor="file-upload"
                           className="text-center relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-0 focus-within:ring-offset-2 focus-within:ring-blue-500"
                         >
-                          <p className="text-center" id="audio-thumbnail-label">
+                          <p
+                            className="text-center px-2"
+                            id="audio-thumbnail-label"
+                          >
                             Choose Album Art
                           </p>
                           <input
@@ -372,7 +375,9 @@ const Form = (props) => {
                           htmlFor="file-upload2"
                           className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-0 focus-within:ring-offset-2 focus-within:ring-blue-500"
                         >
-                          <span id="audio-label">Choose Audio file</span>
+                          <span className="p-2 " id="audio-label">
+                            Choose Audio file
+                          </span>
                           <input
                             required
                             id="file-upload2"

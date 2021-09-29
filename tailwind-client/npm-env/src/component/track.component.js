@@ -75,6 +75,19 @@ export default function Track(props) {
     if (data) setState({ todos: data.data.data });
   };
 
+  const getDBeatsTracks = async () => {
+    let data = await axios
+      .get("/tracks/trending")
+      .then(function (response) {
+        //console.log(response.data.data);
+        return response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    console.log(data);
+  };
+
   useEffect(() => {
     // Anything in here is fired on component mount.
     console.log("GrandChild did mount.");
@@ -155,14 +168,40 @@ export default function Track(props) {
     console.log(result);
   };
 
-  const playAudio = async (id, artwork, title, author) => {
-    if (!firstPlayed) setFirstPlay(true);
+  var seconds = 0;
+  var timex;
+  function startTimer(trackId) {
+    let postData = {
+      trackId: trackId,
+    };
+    timex = setTimeout(async () => {
+      seconds++;
 
+      if (seconds > 3) {
+        await axios({
+          method: "post",
+          url: `${process.env.REACT_APP_SERVER_URL}/count-play`,
+          data: postData,
+        });
+
+        clearTimeout(timex);
+      } else {
+        startTimer(trackId);
+      }
+    }, 1000);
+  }
+
+  const playAudio = async (id, artwork, title, author) => {
+    if (!firstPlayed) {
+      setFirstPlay(true);
+    }
+    getDBeatsTracks();
     let url = `https://discoveryprovider.audius.co/v1/tracks/${id}/stream`;
 
     if (url !== songDetails.songLink) {
       state.play = true;
-
+      clearTimeout(timex);
+      startTimer(id);
       let details = {
         id: id,
         songLink: url,
@@ -188,7 +227,6 @@ export default function Track(props) {
               id="song-title"
               className="mb-3   w-max mx-auto  self-center text-center  drop-shadow text-4xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 dark:from-white dark:to-gray-800"
             >
-              TRENDING NOW
               <div className="flex items-center self-center justify-center w-full ">
                 <label className="flex items-center cursor-pointer mx-3">
                   <div className="relative">
@@ -215,6 +253,7 @@ export default function Track(props) {
                   </div>
                 </label>
               </div>
+              TRENDING NOW
             </p>
             <Transition
               show={audius}
@@ -227,6 +266,217 @@ export default function Track(props) {
               className="dark:bg-dbeats-dark-primary"
             >
               {audius &&
+                state.todos &&
+                state.todos.map((todo) => {
+                  return (
+                    <div
+                      id="tracks-section"
+                      className={` text-gray-200  md:w-2/3 mx-auto  py-1 md:py-2 w-full  px-5 my-0 `}
+                      key={todo.id}
+                    >
+                      {/* header */}
+                      <div className="  ">
+                        <div className="bg-white  dark:bg-dbeats-dark-alt dark:text-blue-300 shadow-md flex p-2  mx-auto  rounded-lg  w-full hover:scale-101 transform transition-all">
+                          <div
+                            onClick={() =>
+                              playAudio(
+                                todo.id,
+                                todo.artwork["150x150"],
+                                todo.title,
+                                todo.user.name
+                              )
+                            }
+                            className="items-center h-26 w-30 md:h-48 md:w-52 flex   cursor-pointer mr-4"
+                          >
+                            <img
+                              id="album-artwork"
+                              src={todo.artwork["150x150"]}
+                              className="mr-4 w-full h-full 2 rounded  "
+                              alt=""
+                            ></img>
+                            <div className="opacity-80  h-max w-max mx-auto rounded-full  absolute    sm:hidden hover:opacity-100    cursor-pointer mr-2   text-center  text-white    hover:scale-95 transform transition-all">
+                              <i
+                                name={todo.id}
+                                align="center"
+                                style={{
+                                  marginLeft: "65%",
+                                  marginTop: "10%",
+                                }}
+                                className={`${
+                                  state.play && playId === todo.id
+                                    ? "fa-pause-circle"
+                                    : "fa-play-circle"
+                                } fas text-5xl md:text-6xl   text-center  `}
+                              />
+                            </div>
+                          </div>
+
+                          <div className="flex flex-col justify-center m-0 p-0  w-full  truncate  ">
+                            {/* content */}
+                            <div className="flex justify-between w-full ">
+                              <h4 className="playlist  mt-0  uppercase text-gray-500 tracking-widest text-sm">
+                                {todo.genre}
+                              </h4>
+                              <p className="font-semibold text-gray-500">
+                                {Math.floor(todo.duration / 60)}:
+                                {todo.duration -
+                                  Math.floor(todo.duration / 60) * 60}
+                              </p>
+                            </div>
+
+                            <p
+                              id="song-title"
+                              className=" overflow-ellipsis  w-full max-w-full mt-0 mb-1 md:mb-2 drop-shadow xl:text-3xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500"
+                            >
+                              {todo.title}
+                            </p>
+
+                            <p
+                              id="song-author"
+                              className="mt-0  mb-1 md:mb-2   text-gray-600 tracking-widest  text-sm flex font-semibold"
+                            >
+                              {todo.user.name}&nbsp;
+                              {todo.user.is_verified ? (
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className="h-5 w-5  text-blue-500"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
+                              ) : (
+                                ""
+                              )}
+                            </p>
+
+                            <div className=" flex mt-2 ">
+                              <p
+                                id="plays"
+                                className="mt-0   md:mb-2 mr-3   text-gray-400 text-sm flex   "
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className="h-5 w-5"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
+                                &nbsp;
+                                {todo.play_count > 1000
+                                  ? (todo.play_count / 1000).toFixed(2)
+                                  : todo.play_count.toFixed(2)}
+                                K&nbsp;Plays
+                              </p>
+
+                              <p
+                                id="favorites"
+                                className="mt-0   md:mb-2  text-gray-400 text-sm flex  "
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className="h-5 w-5"
+                                  viewBox="0 0 20 20"
+                                  fill="currentColor"
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
+                                &nbsp;{todo.favorite_count}&nbsp;Favorites
+                              </p>
+                            </div>
+
+                            {/* action buttons */}
+
+                            <div className=" flex mt-2   ">
+                              <div className=" sm:flex hidden">
+                                <button
+                                  onClick={() =>
+                                    playAudio(
+                                      todo.id,
+                                      todo.artwork["150x150"],
+                                      todo.title,
+                                      todo.user.name
+                                    )
+                                  }
+                                  name={todo.id}
+                                  className="  cursor-pointer mr-2 uppercase font-bold  bg-gradient-to-r from-green-400 to-blue-500   text-white block py-2 px-10   hover:scale-95 transform transition-all"
+                                >
+                                  {`${
+                                    state.play && playId === todo.id
+                                      ? "Pause"
+                                      : "Play"
+                                  }`}
+                                </button>
+                                {user ? (
+                                  <button
+                                    onClick={
+                                      favorites
+                                        ? favorites.indexOf(todo.id) > -1
+                                          ? () => removeFavorite(todo.id)
+                                          : () => setFavorite(todo.id)
+                                        : false
+                                    }
+                                    className={`${
+                                      favorites
+                                        ? favorites.indexOf(todo.id) > -1
+                                          ? "text-red-900"
+                                          : "text-gray-600 hover:text-red-300"
+                                        : false
+                                    } mr-2  block p-2 rounded-full hover:scale-95 dark:hover:bg-dbeats-dark-secondary transform transition-all`}
+                                  >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      className={`  h-6 w-6 `}
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      stroke="currentColor"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                      />
+                                    </svg>
+                                  </button>
+                                ) : (
+                                  false
+                                )}
+                                <PopUp />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </Transition>
+
+            <Transition
+              show={!audius}
+              enter="transition ease-in-out duration-800"
+              enterFrom="transform opacity-0  -translate-x-full "
+              enterTo="transform opacity-100   translate-x-0 "
+              leave="transition ease-in-out duration-800"
+              leaveFrom="transform opacity-100   translate-x-0"
+              leaveTo="transform   opacity-0 -translate-x-full"
+              className="dark:bg-dbeats-dark-primary"
+            >
+              {!audius &&
                 state.todos &&
                 state.todos.map((todo) => {
                   return (
@@ -378,12 +628,12 @@ export default function Track(props) {
                                 </button>
                                 {user ? (
                                   <button
-                                  onClick={
-                                    favorites
-                                      ? favorites.indexOf(todo.id) > -1
-                                        ? () => removeFavorite(todo.id)
-                                        : () => setFavorite(todo.id)
-                                      : false
+                                    onClick={
+                                      favorites
+                                        ? favorites.indexOf(todo.id) > -1
+                                          ? () => removeFavorite(todo.id)
+                                          : () => setFavorite(todo.id)
+                                        : false
                                     }
                                     className={`${
                                       favorites

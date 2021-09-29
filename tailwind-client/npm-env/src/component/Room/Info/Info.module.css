@@ -71,11 +71,9 @@ video {
 }
 
 .info_apprecite_button {
-  background: rgb(150, 108, 245);
   background: linear-gradient(
     274deg,
-    rgba(150, 108, 245, 1) 0%,
-    rgba(24, 35, 129, 1) 65%,
+    rgba(24, 35, 129, 1) 0%,
     rgba(20, 215, 255, 1) 100%
   );
   font-size: 16px;

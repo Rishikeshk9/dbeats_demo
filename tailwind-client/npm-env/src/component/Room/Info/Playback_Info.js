@@ -17,14 +17,13 @@ import Modal from "react-awesome-modal";
 const PlayBackInfo = (props) => {
   let sharable_data = `https://dbeats-demo.vercel.app /playback/${props.stream_id}/${props.video_id}`;
 
-  const [like, setLike] = useState(0)
-  const [dislike, setDislike] = useState(0)
-  const [happy, setHappy] = useState(0)
-  const [angry, setAngry] = useState(0)
-  const [userreact,setUserreact] = useState("")
+  const [like, setLike] = useState(0);
+  const [dislike, setDislike] = useState(0);
+  const [happy, setHappy] = useState(0);
+  const [angry, setAngry] = useState(0);
+  const [userreact, setUserreact] = useState("");
 
   const [videoUsername, setVideoUsername] = useState("");
-
 
   const user = JSON.parse(window.localStorage.getItem("user"));
 
@@ -119,16 +118,14 @@ const PlayBackInfo = (props) => {
           }
         }
 
-        setVideoUsername(value.data.username)
+        setVideoUsername(value.data.username);
         setPlaybackUrl(`${value.data.videos[props.video_id].link}`);
-
-
 
         let reactionData = {
           videousername: value.data.username,
-          videoname: `${props.stream_id}/${props.video_id}`
+          videoname: `${props.stream_id}/${props.video_id}`,
         };
-        console.log("reaction: ", reactionData)
+        console.log("reaction: ", reactionData);
 
         axios({
           method: "POST",
@@ -138,22 +135,24 @@ const PlayBackInfo = (props) => {
             "Access-Control-Allow-Origin": "*",
           },
           data: reactionData,
-        }).then(function (response) {
-          setLike(response.data.reaction.like.length)
-          setDislike(response.data.reaction.dislike.length)
-          setAngry(response.data.reaction.angry.length)
-          setHappy(response.data.reaction.happy.length)
-        }).catch(function (error) {
-          console.log(error);
-        });
+        })
+          .then(function (response) {
+            setLike(response.data.reaction.like.length);
+            setDislike(response.data.reaction.dislike.length);
+            setAngry(response.data.reaction.angry.length);
+            setHappy(response.data.reaction.happy.length);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
 
-        if(user){
+        if (user) {
           reactionData = {
             username: `${user.username}`,
             videousername: value.data.username,
-            videoname: `${props.stream_id}/${props.video_id}`
+            videoname: `${props.stream_id}/${props.video_id}`,
           };
-  
+
           axios({
             method: "POST",
             url: `${process.env.REACT_APP_SERVER_URL}/user/getuserreaction`,
@@ -162,12 +161,14 @@ const PlayBackInfo = (props) => {
               "Access-Control-Allow-Origin": "*",
             },
             data: reactionData,
-          }).then(function (response) {
-            console.log(response.data)
-            setUserreact(response.data)
-          }).catch(function (error) {
-            console.log(error);
-          });  
+          })
+            .then(function (response) {
+              console.log(response.data);
+              setUserreact(response.data);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
         }
       });
 
@@ -198,24 +199,21 @@ const PlayBackInfo = (props) => {
       reactusername: `${user.username}`,
       videousername: `${userData.username}`,
       reaction: videoprops,
-      videoname: `${props.stream_id}/${props.video_id}`
+      videoname: `${props.stream_id}/${props.video_id}`,
     };
 
-    if (videoprops === 'like') {
+    if (videoprops === "like") {
       setLike(like + 1);
-      setUserreact('like')
-    }
-    else if (videoprops === 'dislike') {
+      setUserreact("like");
+    } else if (videoprops === "dislike") {
       setDislike(dislike + 1);
-      setUserreact('dislike')
-    }
-    else if (videoprops === 'happy') {
+      setUserreact("dislike");
+    } else if (videoprops === "happy") {
       setHappy(happy + 1);
-      setUserreact('happy')
-    }
-    else {
+      setUserreact("happy");
+    } else {
       setAngry(angry + 1);
-      setUserreact('angry')
+      setUserreact("angry");
     }
 
     axios({
@@ -237,7 +235,7 @@ const PlayBackInfo = (props) => {
       .catch(function (error) {
         console.log(error);
       });
-  }
+  };
 
   useEffect(() => {
     get_User();
@@ -322,38 +320,67 @@ const PlayBackInfo = (props) => {
                   <></>
                 )}
               </div>
-              <div className="text-4xl py-4">
-                <button
-                  className="border-0 bg-transparent"
-                  onClick={handleShow}
-                >
-                  <i className="fas fa-share opacity-50 mx-2"></i>
-                </button>
+              <div className="text-2xl py-4 flex  ">
+                <div className="  text-center mx-3">
+                  <button
+                    className="border-0 bg-transparent"
+                    onClick={handleShow}
+                  >
+                    <i className="fas fa-share opacity-50 mx-2"></i>
+                  </button>
+                  <br />
+                  <p className="text-base"> SHARE</p>
+                </div>
 
-                <i className={ userreact === "like"
-                    ? "cursor-pointer fas fa-heart mx-2 text-red-700 "
-                    :
-                    "cursor-pointer fas fa-heart opacity-50 mx-2 hover:text-red-700  hover:opacity-100"
-                } onClick={() => handlereaction("like")}></i>{like}
-                
-                <i className={ userreact === "dislike"
-                    ? "cursor-pointer fas fa-heart-broken mx-2 hover:text-black"
-                    :
-                    "cursor-pointer fas fa-heart-broken opacity-50 mx-2 hover:text-black hover:opacity-100"
-                } onClick={() => handlereaction("dislike")}></i>{dislike}
-                
-                <i className={ userreact === "happy"
-                    ? "cursor-pointer far fa-laugh-squint mx-2 text-yellow-500 "
-                    :
-                    "cursor-pointer far fa-laugh-squint opacity-50 mx-2 hover:text-yellow-500  hover:opacity-100"
-                } onClick={() => handlereaction("happy")}></i>{happy}
+                <div className="  text-center">
+                  <i
+                    className={
+                      userreact === "like"
+                        ? "cursor-pointer fas fa-heart mx-3 text-red-700 animate-pulse"
+                        : "cursor-pointer fas fa-heart opacity-20 mx-3 hover:text-red-300  hover:opacity-100"
+                    }
+                    onClick={() => handlereaction("like")}
+                  ></i>
+                  <br />
+                  <p className="text-base">{like}</p>
+                </div>
+                <div className="  text-center">
+                  <i
+                    className={
+                      userreact === "dislike"
+                        ? "cursor-pointer fas fa-heart-broken mx-3   text-purple-500"
+                        : "cursor-pointer fas fa-heart-broken opacity-20 mx-3 hover:text-purple-300 hover:opacity-100"
+                    }
+                    onClick={() => handlereaction("dislike")}
+                  ></i>
+                  <br />
+                  <p className="text-base">{dislike}</p>
+                </div>
+                <div className="  text-center">
+                  <i
+                    className={
+                      userreact === "happy"
+                        ? "cursor-pointer far fa-laugh-squint mx-3 text-yellow-500 "
+                        : "cursor-pointer far fa-laugh-squint opacity-20 mx-3 hover:text-yellow-200  hover:opacity-100"
+                    }
+                    onClick={() => handlereaction("happy")}
+                  ></i>{" "}
+                  <br />
+                  <p className="text-base"> {happy}</p>
+                </div>
+                <div className="  text-center">
+                  <i
+                    className={
+                      userreact === "angry"
+                        ? "cursor-pointer far fa-angry  mx-3 text-red-800"
+                        : "cursor-pointer far fa-angry  opacity-20 mx-3 hover:text-red-300 hover:opacity-100"
+                    }
+                    onClick={() => handlereaction("angry")}
+                  ></i>{" "}
+                  <br />
+                  <p className="text-base"> {angry}</p>
+                </div>
 
-                <i className={ userreact === "angry"
-                    ? "cursor-pointer far fa-angry  mx-2 text-red-800"
-                    :
-                    "cursor-pointer far fa-angry  opacity-50 mx-2 hover:text-red-700 hover:opacity-100"
-                } onClick={() => handlereaction("angry")}></i>{angry}
-                
                 <Menu as="div" className="relative inline-block text-left">
                   <div>
                     <Menu.Button className="">
