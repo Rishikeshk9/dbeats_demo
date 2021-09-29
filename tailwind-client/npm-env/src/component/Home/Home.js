@@ -102,6 +102,9 @@ const Home = (props) => {
 
               if (i < 5) {
                 slidesValue.push(value.data);
+                slidesValue.push(value.data);
+                slidesValue.push(value.data);
+                slidesValue.push(value.data);
               }
             });
         }
@@ -165,7 +168,7 @@ const Home = (props) => {
             </div>
 
             <div className={classes.other_videos}>
-              <div id="display_videos" className="my-6 px-4">
+              <div id="display_videos" className="my-6 px-4 h-max">
                 <div className="pt-4 px-4 h-max">
                   {slides.length > 2 ? (
                     <ResponsiveCarousel slides={slides} autoplay={false} />
@@ -179,8 +182,8 @@ const Home = (props) => {
                   )}
                 </div>
               </div>
-              <div>
-                <div id="display_playback_videos" className="mt-1 px-4 ">
+              <div  className="mt-10 px-4 ">
+                <div id="display_playback_videos" className="mt-10 px-4 ">
                   <div>
                     <h4 className=" font-bold pl-2 mt-10 pb-4 ">
                       {activeStreams.length > 0 ? (

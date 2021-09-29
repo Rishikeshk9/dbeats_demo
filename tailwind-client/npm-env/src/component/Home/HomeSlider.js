@@ -10,10 +10,11 @@ const ResponsiveCarousel = (props) => {
   console.log(props.slides)
   const ref = React.useRef(ResponsiveContainer);
   return (
-    <div style={{position: 'relative' }}>
+    <div style={{position: 'relative'}}>
       
       <ResponsiveContainer
         carouselRef={ref}
+        className=""
         render={(parentWidth, carouselRef) => {
           let currentVisibleSlide = 5;
           if (parentWidth <= 1440) currentVisibleSlide = 3;
@@ -21,6 +22,8 @@ const ResponsiveCarousel = (props) => {
           return (
             <StackedCarousel
               ref={carouselRef}
+              className="bg-gray-500 pb-10"
+              style={{height:"50vh"}}
               data={props.slides}
               carouselWidth={parentWidth}
               slideWidth={750}
@@ -30,8 +33,9 @@ const ResponsiveCarousel = (props) => {
               useGrabCursor={true}
             />
           )
-        }} />
-      <div className="absolute flex justify-between w-full -mt-44">  
+        }} 
+      />
+      <div className="absolute flex justify-between w-full -mt-44 z-20">  
         <Fab onClick={() => ref.current.goBack()}>
           <ArrowBackIcon />
         </Fab>
@@ -58,10 +62,11 @@ const Slide = React.memo(
         </span>
         <ReactPlayer
           width="100%"
-          height="90%"
+          height="100%"
           playing={true}
           muted={false}
           volume={0.3}
+          style={{objectFit:"cover"}}
           url={`https://cdn.livepeer.com/hls/${value.livepeer_data.playbackId}/index.m3u8`}
         />
 
