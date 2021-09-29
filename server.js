@@ -516,8 +516,12 @@ const addFile = async (filePath, contentString = false) => {
   return fileAdded.cid;
 };
 
-app.post("/count-play", (req, res) => {
-  var myquery = { username: req.body.artist, trackId: req.body.trackId };
+app.post("/count-play", async (req, res) => {
+  /*Use This Code Below when want to Increment play count of the track uploaded on DBeats 
+  await client.connect();
+  console.log("Connected successfully to server");
+  const db = client.db(dbName);
+  var myquery = { trackId: req.body.trackId };
   var newvalues = {
     $inc: {
       tracks: {
@@ -525,9 +529,11 @@ app.post("/count-play", (req, res) => {
       },
     },
   };
-  //db.collection("users").updateOne(myquery, newvalues, { upsert: true });
-
+  db.collection("users").updateOne(myquery, newvalues, { upsert: true });
+*/
   //res.json(value.data);
+
+  //Below part adds the latest played track to the array of last played 1000 Tracks
 
   last1000Played.push(req.body.trackId);
 
@@ -537,6 +543,29 @@ app.post("/count-play", (req, res) => {
 
 app.get("/tracks/trending", (req, res) => {
   res.send(last1000Played);
+});
+
+app.get("/dbeats-music", async (req, res) => {
+  var data = [];
+  await client.connect();
+  console.log("Connected successfully to server");
+  const db = client.db(dbName);
+  var myquery = { tracks: { $exists: true } };
+
+  var cursor = db
+    .collection("users")
+    .find(myquery, { livepeer_data: 0, multistream_platform: 0, _id: 0 });
+  cursor.forEach(
+    function (doc, error) {
+      data.push(doc);
+    },
+    function () {
+      client.close();
+      res.send({ data });
+    }
+  );
+
+  //res.send(last1000Played);
 });
 
 async function saveToDBSignUp(walletID, fullName, userName) {

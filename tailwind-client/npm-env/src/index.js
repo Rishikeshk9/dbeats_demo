@@ -12,7 +12,6 @@ import mojs from "@mojs/core";
 import store from "./store";
 import { Provider } from "react-redux";
 
-
 store.subscribe(() => console.log(store.getState()));
 
 // Add a request interceptor
@@ -53,7 +52,6 @@ axios.interceptors.response.use(
         text: res.data,
         theme: "metroui",
         layout: "bottomRight",
-
         animation: {
           open: function (promise) {
             var n = this;
@@ -150,7 +148,6 @@ axios.interceptors.response.use(
     return Promise.reject(err);
   }
 );
-
 
 ReactDOM.render(
   // Redux Store Provider

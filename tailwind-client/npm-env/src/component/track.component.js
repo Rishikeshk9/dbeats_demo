@@ -45,6 +45,14 @@ export default function Track(props) {
     play: false,
   });
 
+  const [dbeatsTracks, setDbeatsTrack] = useState({
+    error: null,
+    isLoaded: false,
+    items: [],
+    topTrack: null,
+    play: false,
+  });
+
   //   getTodos = getTodos.bind(this);
   // }
   const get_favorites = async () => {
@@ -77,7 +85,7 @@ export default function Track(props) {
 
   const getDBeatsTracks = async () => {
     let data = await axios
-      .get("/tracks/trending")
+      .get("/dbeats-music")
       .then(function (response) {
         //console.log(response.data.data);
         return response.data;
@@ -85,13 +93,17 @@ export default function Track(props) {
       .catch(function (error) {
         console.log(error);
       });
-    console.log(data);
+    console.log(data.data[0].tracks);
+    let tracksArray = [];
+    tracksArray.push(data.data[0].tracks);
+    if (data) setDbeatsTrack({ dbeatsTracks: data.data[0].tracks });
   };
 
   useEffect(() => {
     // Anything in here is fired on component mount.
     console.log("GrandChild did mount.");
     getTodos();
+    getDBeatsTracks();
     audio.addEventListener("ended", () => setState({ play: false }));
     return () => {
       // Anything in here is fired on component unmount.
@@ -222,7 +234,7 @@ export default function Track(props) {
     <>
       <div id="outer-container" className="h-100">
         <div id="page-wrap" className={`${darkMode && "dark"}  `}>
-          <div className="pb-10 pt-4  self-center relative w-full h-screen dark:bg-dbeats-dark-primary   ">
+          <div className="pb-10 pt-4 bg-gradient-to-b from-green-50  to-white  dark:bg-gradient-to-t dark:from-dbeats-dark-primary   dark:to-dbeats-dark-secondary   self-center relative w-full h-screen dark:bg-dbeats-dark-primary   ">
             <div className="flex  w-full md:w-2/3 justify-between px-5 self-center mx-auto">
               <p
                 id="song-title"
@@ -277,7 +289,7 @@ export default function Track(props) {
                     >
                       {/* header */}
                       <div className="  ">
-                        <div className="bg-white  dark:bg-dbeats-dark-alt dark:text-blue-300 shadow-md flex p-2  mx-auto  rounded-lg  w-full hover:scale-101 transform transition-all">
+                        <div className="bg-white  dark:bg-dbeats-dark-alt dark:text-blue-300 shadow-md  flex p-2  mx-auto  rounded-lg  w-full hover:scale-101 transform transition-all">
                           <div
                             onClick={() =>
                               playAudio(
@@ -477,8 +489,8 @@ export default function Track(props) {
               className="dark:bg-dbeats-dark-primary"
             >
               {!audius &&
-                state.todos &&
-                state.todos.map((todo) => {
+                dbeatsTracks.dbeatsTracks &&
+                dbeatsTracks.dbeatsTracks.map((todo) => {
                   return (
                     <div
                       id="tracks-section"
@@ -491,7 +503,7 @@ export default function Track(props) {
                           <div className="items-center h-50 w-56 flex   mr-4">
                             <img
                               id="album-artwork"
-                              src={todo.artwork["150x150"]}
+                              src={todo.trackImage}
                               className="mr-4 w-full h-full 2 rounded  "
                               alt=""
                             ></img>
@@ -534,75 +546,8 @@ export default function Track(props) {
                               id="song-title"
                               className=" overflow-ellipsis  w-full max-w-full mt-0 mb-2 drop-shadow xl:text-3xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500"
                             >
-                              {todo.title}
+                              {todo.trackName}
                             </p>
-
-                            <p
-                              id="song-author"
-                              className="mt-0 mb-2   text-gray-600 tracking-widest  text-sm flex font-semibold"
-                            >
-                              {todo.user.name}&nbsp;
-                              {todo.user.is_verified ? (
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="h-5 w-5  text-blue-500"
-                                  viewBox="0 0 20 20"
-                                  fill="currentColor"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              ) : (
-                                ""
-                              )}
-                            </p>
-
-                            <div className="md:flex">
-                              <p
-                                id="plays"
-                                className="mt-0 mb-2 mr-1 md:mr-3 text-gray-400 text-sm flex   "
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="h-5 w-5"
-                                  viewBox="0 0 20 20"
-                                  fill="currentColor"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                                &nbsp;
-                                {todo.play_count > 1000
-                                  ? (todo.play_count / 1000).toFixed(2)
-                                  : todo.play_count.toFixed(2)}
-                                K&nbsp;Plays
-                              </p>
-
-                              <p
-                                id="favorites"
-                                className="mt-0 mb-2   text-gray-400 text-sm flex  "
-                              >
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="h-5 w-5"
-                                  viewBox="0 0 20 20"
-                                  fill="currentColor"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                                &nbsp;{todo.favorite_count}&nbsp;Favorites
-                              </p>
-                            </div>
 
                             {/* action buttons */}
 
@@ -611,13 +556,13 @@ export default function Track(props) {
                                 <button
                                   onClick={() =>
                                     playAudio(
-                                      todo.id,
-                                      todo.artwork["150x150"],
-                                      todo.title,
-                                      todo.user.name
+                                      todo.trackId,
+                                      todo.trackImage,
+                                      todo.trackName,
+                                      todo.trackName
                                     )
                                   }
-                                  name={todo.id}
+                                  name={todo.trackId}
                                   className="  cursor-pointer mr-2 uppercase font-bold  bg-gradient-to-r from-green-400 to-blue-500   text-white block py-2 px-10   hover:scale-95 transform transition-all"
                                 >
                                   {`${
