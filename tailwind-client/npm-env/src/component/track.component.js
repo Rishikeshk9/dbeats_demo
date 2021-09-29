@@ -234,7 +234,7 @@ export default function Track(props) {
     <>
       <div id="outer-container" className="h-100">
         <div id="page-wrap" className={`${darkMode && "dark"}  `}>
-          <div className="pb-10 pt-4 bg-gradient-to-b from-green-50  to-white  dark:bg-gradient-to-t dark:from-dbeats-dark-primary   dark:to-dbeats-dark-secondary   self-center relative w-full h-screen dark:bg-dbeats-dark-primary   ">
+          <div className="pb-10 pt-4 bg-gradient-to-r from-white via-green-100 to-white  dark:bg-gradient-to-t dark:from-dbeats-dark-primary dark:via-dbeats-dark-alt dark:to-dbeats-dark-primary   self-center relative w-full h-screen dark:bg-dbeats-dark-primary   ">
             <div className="flex  w-full md:w-2/3 justify-between px-5 self-center mx-auto">
               <p
                 id="song-title"
