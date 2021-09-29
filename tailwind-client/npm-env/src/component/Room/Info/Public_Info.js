@@ -115,7 +115,11 @@ const PublicInfo = (props) => {
     console.log(fileRes)
     for (let i = 0; i < fileRes.data.length; i++) {
       if (user ? fileRes.data[i].username !== user.username :true) {
-          console.log(fileRes.data[i])
+          console.log("fileResData",fileRes.data[i]);
+          await axios.get(`${process.env.REACT_APP_SERVER_URL}/getuser_by_livepeer/${fileRes.data[i].id}`)
+          .then((response)=>{
+            console.log("response",response);
+          })
           setArrayData((prevState) => [...prevState, fileRes.data[i]]);
       }
     }
