@@ -60,6 +60,7 @@ const client = new MongoClient(uri);
 
 // Database Name
 const dbName = "dbeats";
+var last1000Played = [];
 
 const DatabaseJSONStructure = {
   wallet_id: "",
@@ -228,6 +229,7 @@ app.post("/upload-video", (req, res) => {
   console.log(req.body);
   console.log(req.files);
   const {
+    userName,
     videoName,
     category,
     ratings,
@@ -240,7 +242,7 @@ app.post("/upload-video", (req, res) => {
 
   const { videoImage, videoFile } = req.files;
 
-  const userId = req.body.userId;
+  const userId = req.body.userName;
   const file = req.files.videoFile;
   const albumFile = req.files.videoImage;
 
@@ -338,6 +340,7 @@ app.post("/upload", (req, res) => {
   // Store JSON data in a JS variable
 
   const {
+    userName,
     trackName,
     genre,
     mood,
@@ -352,7 +355,7 @@ app.post("/upload", (req, res) => {
 
   const { trackImage, trackFile } = req.files;
 
-  const userId = req.body.userId;
+  const userId = req.body.userName;
   const file = req.files.trackFile;
   const albumFile = req.files.trackImage;
 
@@ -402,7 +405,7 @@ app.post("/upload", (req, res) => {
           if (albumhashLink != null && trackHashLink != null) {
             console.log("Saving To Database!");
             saveTrackToDB(
-              userId,
+              userName,
               trackName,
               albumhashLink,
               trackHashLink,
@@ -513,10 +516,28 @@ const addFile = async (filePath, contentString = false) => {
   return fileAdded.cid;
 };
 
-// connectDB()
-//   .then(console.log)
-//   .catch(console.error)
-//   .finally(() => client.close());
+app.post("/count-play", (req, res) => {
+  var myquery = { username: req.body.artist, trackId: req.body.trackId };
+  var newvalues = {
+    $inc: {
+      tracks: {
+        playCount: 1,
+      },
+    },
+  };
+  //db.collection("users").updateOne(myquery, newvalues, { upsert: true });
+
+  //res.json(value.data);
+
+  last1000Played.push(req.body.trackId);
+
+  console.log(last1000Played);
+  res.send("Play Counted :" + req.body.trackId);
+});
+
+app.get("/tracks/trending", (req, res) => {
+  res.send(last1000Played);
+});
 
 async function saveToDBSignUp(walletID, fullName, userName) {
   // Use connect method to connect to the server
@@ -533,6 +554,16 @@ async function saveToDBSignUp(walletID, fullName, userName) {
   });
 
   return "done.";
+}
+function makeid(length) {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 }
 
 async function saveTrackToDB(
@@ -555,11 +586,15 @@ async function saveTrackToDB(
   await client.connect();
   console.log("Connected successfully to server");
   const db = client.db(dbName);
+  console.log("Trying to add new Song By :" + userId);
 
-  var myquery = { wallet_id: "0x667b7ae56a6e761af840e3a5e32bb00b78d8525d" };
+  //console.log(makeid(6));
+  var trackId = makeid(6);
+  var myquery = { username: userId };
   var newvalues = {
     $push: {
       tracks: {
+        trackId: trackId,
         trackName: trackName,
         trackImage: trackImage,
         link: link,
@@ -585,7 +620,7 @@ async function saveTrackToDB(
     .log
     //` documents were inserted with the _id: ${result.insertedId}`,
     ();
-  console.log("Track Added!:");
+  console.log("Track Added! : " + trackId);
 
   var a = new Date(time * 1000);
   var months = [
@@ -634,11 +669,13 @@ async function saveVideoToDB(
   await client.connect();
   console.log("Connected successfully to server");
   const db = client.db(dbName);
+  console.log("Trying to Upload new Video By :" + userId);
 
-  var myquery = { wallet_id: "0x667b7ae56a6e761af840e3a5e32bb00b78d8525d" };
+  var myquery = { username: userId };
   var newvalues = {
     $push: {
       videos: {
+        videoId: makeid(7),
         videoName: videoName,
         videoImage: videoImage,
         link: link,

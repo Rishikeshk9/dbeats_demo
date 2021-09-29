@@ -222,39 +222,40 @@ export default function Track(props) {
     <>
       <div id="outer-container" className="h-100">
         <div id="page-wrap" className={`${darkMode && "dark"}  `}>
-          <div className="pb-10 pt-4   relative w-full h-screen dark:bg-dbeats-dark-primary   ">
-            <p
-              id="song-title"
-              className="mb-3   w-max mx-auto  self-center text-center  drop-shadow text-4xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 dark:from-white dark:to-gray-800"
-            >
-              <div className="flex items-center self-center justify-center w-full ">
-                <label className="flex items-center cursor-pointer mx-3">
-                  <div className="relative">
-                    <input
-                      type="checkbox"
-                      id="audius"
-                      defaultChecked={audius}
-                      onClick={() => dispatch(toggleAudius())}
-                      className="sr-only"
-                    ></input>
+          <div className="pb-10 pt-4  self-center relative w-full h-screen dark:bg-dbeats-dark-primary   ">
+            <div className="flex  w-full md:w-2/3 justify-between px-5 self-center mx-auto">
+              <p
+                id="song-title"
+                className="mb-3   w-max    drop-shadow text-2xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 dark:from-white dark:to-gray-800"
+              >
+                TRENDING NOW
+              </p>
+              <label className="flex items-center cursor-pointer mx-3 self-center">
+                <div className="relative">
+                  <input
+                    type="checkbox"
+                    id="audius"
+                    defaultChecked={audius}
+                    onClick={() => dispatch(toggleAudius())}
+                    className="sr-only"
+                  ></input>
 
-                    <div className="block bg-transparent dark:bg-gray-800 w-14 h-8 rounded-full shadow-inner"></div>
-                    <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition shadow"></div>
-                  </div>
+                  <div className="block bg-transparent dark:bg-gray-800 w-14 h-8 rounded-full shadow-inner"></div>
+                  <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition shadow"></div>
+                </div>
 
-                  <div className="ml-3 text-gray-500 font-medium">
-                    <img
-                      src="https://audius.org/img/audius@2x.png"
-                      className={`${
-                        !audius ? "filter grayscale-75 " : ""
-                      }w-10 h-10 filter`}
-                      alt="audius"
-                    ></img>
-                  </div>
-                </label>
-              </div>
-              TRENDING NOW
-            </p>
+                <div className="ml-3 text-gray-500 font-medium">
+                  <img
+                    src="https://audius.org/img/audius@2x.png"
+                    className={`${
+                      !audius ? "filter grayscale-75 " : ""
+                    }w-10 h-10 filter`}
+                    alt="audius"
+                  ></img>
+                </div>
+              </label>
+            </div>
+
             <Transition
               show={audius}
               enter="transition ease-in-out duration-800"
@@ -465,7 +466,6 @@ export default function Track(props) {
                   );
                 })}
             </Transition>
-
             <Transition
               show={!audius}
               enter="transition ease-in-out duration-800"
