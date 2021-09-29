@@ -10,7 +10,7 @@ const ResponsiveCarousel = (props) => {
   console.log(props.slides)
   const ref = React.useRef(ResponsiveContainer);
   return (
-    <div style={{position: 'relative' }}>
+    <div style={{position: 'relative'}}>
       
       <ResponsiveContainer
         carouselRef={ref}
@@ -20,6 +20,7 @@ const ResponsiveCarousel = (props) => {
           else if (parentWidth <= 1080) currentVisibleSlide = 1;
           return (
             <StackedCarousel
+            className=""
               ref={carouselRef}
               data={props.slides}
               carouselWidth={parentWidth}
@@ -30,8 +31,9 @@ const ResponsiveCarousel = (props) => {
               useGrabCursor={true}
             />
           )
-        }} />
-      <div className="absolute flex justify-between w-full -mt-44">  
+        }} 
+      />
+      <div className="absolute flex justify-between w-full -mt-44 z-20">  
         <Fab onClick={() => ref.current.goBack()}>
           <ArrowBackIcon />
         </Fab>
@@ -48,9 +50,9 @@ const Slide = React.memo(
     const { data, dataIndex } = StackedCarouselSlideProps;
     const value= data[dataIndex];
     return (
-      <div className="bg-gray-700 w-full h-max md:h-max flex" 
+      <div className="w-100 h-96 md:h-96 flex mx-auto" 
       onClick={() => {
-        window.location.href = `/public/${value.username}/`;
+        window.location.href = `/live/${value.username}/`;
       }}>
         <span className="fixed bg-red-600 text-white px-1 mx-2 my-2 rounded-sm font-semibold z-50">
           {" "}
@@ -58,10 +60,12 @@ const Slide = React.memo(
         </span>
         <ReactPlayer
           width="100%"
-          height="90%"
+          height="100%"
           playing={true}
           muted={false}
           volume={0.3}
+          controls={true}
+          style={{objectFit:"cover"}}
           url={`https://cdn.livepeer.com/hls/${value.livepeer_data.playbackId}/index.m3u8`}
         />
 

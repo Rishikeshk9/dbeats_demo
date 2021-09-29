@@ -8,6 +8,7 @@ import useWeb3Modal from "../../hooks/useWeb3Modal";
 const Login = (props) => {
   // Web3
   const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
+  const bcrypt = require("bcryptjs");
 
   // Form varibles
   const [form_name, setName] = useState("");
@@ -85,12 +86,12 @@ const Login = (props) => {
     const userData = {
       name: form_name,
       username: form_username,
-      password: form_password,
-      confirm_password: form_confirmPassword,
+      password: await bcrypt.hash(form_password, 10),
+      confirm_password: await bcrypt.hash(form_confirmPassword, 10),
       wallet_id: provider.provider.selectedAddress,
       livepeer_data: stream.data,
     };
-    // console.log(userData);
+    console.log(userData);
 
     axios({
       method: "post",

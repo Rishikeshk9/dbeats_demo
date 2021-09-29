@@ -17,21 +17,21 @@ const RecommendedCard = (props) => {
     const hanldeMouseLeave = () => {
         setPlaying(false);
     };
-    console.log("My : ",props)
+    // console.log("My : ",props)
     return (
         <div className="flex w-full">
 
             <div className="cursor-pointer">
                 <ReactPlayer
                     onClick={() => {
-                        window.location.href = `/public/${props.username}`;
+                        window.location.href = `/live/${props.value.username}/`;
                     }}
                     className="justify-self-center"
                     width="12rem"
                     height="auto"
                     playing={playing}
                     volume={0.5}
-                    url={`https://cdn.livepeer.com/hls/${props.value.playbackId}/index.m3u8`}
+                    url={`https://cdn.livepeer.com/hls/${props.value.livepeer_data.playbackId}/index.m3u8`}
                     controls={false}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={hanldeMouseLeave}

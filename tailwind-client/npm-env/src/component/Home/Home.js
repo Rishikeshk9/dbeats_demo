@@ -74,7 +74,7 @@ const Home = (props) => {
           <button
             className="shadow-sm px-3 py-2 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded font-bold "
             onClick={() => {
-              window.location.href = `/public/${userData.username}`;
+              window.location.href = `/live/${userData.username}`;
             }}
           >
             Watch Stream
@@ -165,7 +165,7 @@ const Home = (props) => {
             </div>
 
             <div className={classes.other_videos}>
-              <div id="display_videos" className="my-6 px-4">
+              <div id="display_videos" className="my-6 px-4 h-max">
                 <div className="pt-4 px-4 h-max">
                   {slides.length > 2 ? (
                     <ResponsiveCarousel slides={slides} autoplay={false} />
@@ -179,12 +179,12 @@ const Home = (props) => {
                   )}
                 </div>
               </div>
-              <div>
-                <div id="display_playback_videos" className="mt-1 px-4 ">
+              <div  className="mt-10 px-4 ">
+                <div id="display_playback_videos" className="mt-10 px-4 ">
                   <div>
                     <h4 className=" font-bold pl-2 mt-10 pb-4 ">
-                      {activeStreams.length > 0 ? (
-                        <div>
+                      {activeStreams.length <= 2 || activeStreams.length > 5 ? (
+                        <div> 
                           <span className="animate-ping bg-red-900 rounded-full">
                             &nbsp;
                           </span>
@@ -197,7 +197,7 @@ const Home = (props) => {
                     <div className="">
                       <Carousel cols={5}>
                         {activeStreams.map((liveUser, i) => {
-                          if (i <= 2 || i >= 5) {
+                          if (activeStreams.length <= 2 || i >= 5) {
                             return (
                               <Carousel.Item key={i}>
                                 <LiveCard
