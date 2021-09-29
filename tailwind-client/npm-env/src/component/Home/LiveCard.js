@@ -25,7 +25,7 @@ const LiveCard = (props) => {
         </span>
         <ReactPlayer
           onClick={() => {
-            window.location.href = `/public/${props.username}/`;
+            window.location.href = `/live/${props.username}/`;
           }}
           playing
           autoplay={true}

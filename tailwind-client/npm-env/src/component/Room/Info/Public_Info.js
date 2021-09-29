@@ -16,7 +16,7 @@ import { Menu, Transition } from '@headlessui/react'
 
 
 const PublicInfo = (props) => {
-  let sharable_data = `https://dbeats-demo.vercel.app /public/${props.stream_id}`;
+  let sharable_data = `https://dbeats-demo.vercel.app /live/${props.stream_id}`;
 
   const [userData, setUserData] = useState(null);
 
@@ -116,11 +116,11 @@ const PublicInfo = (props) => {
     for (let i = 0; i < fileRes.data.length; i++) {
       if (user ? fileRes.data[i].username !== user.username :true) {
           console.log("fileResData",fileRes.data[i]);
-          await axios.get(`${process.env.REACT_APP_SERVER_URL}/getuser_by_livepeer/${fileRes.data[i].id}`)
+          await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/get_user_by_id/${fileRes.data[i].id}`)
           .then((response)=>{
-            console.log("response",response);
-          })
-          setArrayData((prevState) => [...prevState, fileRes.data[i]]);
+            console.log("response",response.data);
+            setArrayData((prevState) => [...prevState, response.data]);
+          })   
       }
     }
     //console.log(fileRes, "Hi");
@@ -293,7 +293,7 @@ const PublicInfo = (props) => {
         <div className="  w-full col-span-1 px-5">
           <div className=" w-full grid grid-cols-1 grid-flow-row gap-3">
             {arrayData.map((value, index) => {
-              return <LiveCard key={index} username={userData.username} value={value} />;
+              return <LiveCard key={index} value={value} />;
             })}
           </div>
         </div>

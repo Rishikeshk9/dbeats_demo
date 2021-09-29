@@ -90,19 +90,6 @@ router.route("/getuser_by_wallet/:walletId").get(async (req, res) => {
   }
 });
 
-router.route("/getuser_by_livepeer/:streamId").get(async (req, res) => {
-  try {
-    const stream_id = req.params.streamId;
-    console.log(stream_id)
-    const userData = await User.findOne({livepeer:{ id: stream_id }});
-    res.send(userData);
-  } catch (err) {
-    //console.log(err)
-    res.send("Try Again");
-  }
-});
-
-
 router.route("/add_multistream_platform").post(async (req, res) => {
   try {
     console.log(req);

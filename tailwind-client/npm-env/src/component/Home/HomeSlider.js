@@ -52,7 +52,7 @@ const Slide = React.memo(
     return (
       <div className="w-100 h-96 md:h-96 flex mx-auto" 
       onClick={() => {
-        window.location.href = `/public/${value.username}/`;
+        window.location.href = `/live/${value.username}/`;
       }}>
         <span className="fixed bg-red-600 text-white px-1 mx-2 my-2 rounded-sm font-semibold z-50">
           {" "}

@@ -74,7 +74,7 @@ const Home = (props) => {
           <button
             className="shadow-sm px-3 py-2 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded font-bold "
             onClick={() => {
-              window.location.href = `/public/${userData.username}`;
+              window.location.href = `/live/${userData.username}`;
             }}
           >
             Watch Stream

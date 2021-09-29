@@ -120,7 +120,7 @@ const Slide = React.memo(function (props, { UserData }) {
                 </span>
                 <ReactPlayer
                   onClick={() => {
-                    window.location.href = `/public/${liveUser.username}/`;
+                    window.location.href = `/live/${liveUser.username}/`;
                   }}
                   key={i}
                   draggable={false}
