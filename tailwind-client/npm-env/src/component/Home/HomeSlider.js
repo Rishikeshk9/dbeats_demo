@@ -14,16 +14,14 @@ const ResponsiveCarousel = (props) => {
       
       <ResponsiveContainer
         carouselRef={ref}
-        className=""
         render={(parentWidth, carouselRef) => {
           let currentVisibleSlide = 5;
           if (parentWidth <= 1440) currentVisibleSlide = 3;
           else if (parentWidth <= 1080) currentVisibleSlide = 1;
           return (
             <StackedCarousel
+            className=""
               ref={carouselRef}
-              className="bg-gray-500 pb-10"
-              style={{height:"50vh"}}
               data={props.slides}
               carouselWidth={parentWidth}
               slideWidth={750}
@@ -52,7 +50,7 @@ const Slide = React.memo(
     const { data, dataIndex } = StackedCarouselSlideProps;
     const value= data[dataIndex];
     return (
-      <div className="bg-gray-700 w-full h-max md:h-max flex" 
+      <div className="w-100 h-96 md:h-96 flex mx-auto" 
       onClick={() => {
         window.location.href = `/public/${value.username}/`;
       }}>
@@ -66,6 +64,7 @@ const Slide = React.memo(
           playing={true}
           muted={false}
           volume={0.3}
+          controls={true}
           style={{objectFit:"cover"}}
           url={`https://cdn.livepeer.com/hls/${value.livepeer_data.playbackId}/index.m3u8`}
         />

@@ -102,9 +102,6 @@ const Home = (props) => {
 
               if (i < 5) {
                 slidesValue.push(value.data);
-                slidesValue.push(value.data);
-                slidesValue.push(value.data);
-                slidesValue.push(value.data);
               }
             });
         }
@@ -186,8 +183,8 @@ const Home = (props) => {
                 <div id="display_playback_videos" className="mt-10 px-4 ">
                   <div>
                     <h4 className=" font-bold pl-2 mt-10 pb-4 ">
-                      {activeStreams.length > 0 ? (
-                        <div>
+                      {activeStreams.length <= 2 || activeStreams.length > 5 ? (
+                        <div> 
                           <span className="animate-ping bg-red-900 rounded-full">
                             &nbsp;
                           </span>
@@ -200,7 +197,7 @@ const Home = (props) => {
                     <div className="">
                       <Carousel cols={5}>
                         {activeStreams.map((liveUser, i) => {
-                          if (i <= 2 || i >= 5) {
+                          if (activeStreams.length <= 2 || i >= 5) {
                             return (
                               <Carousel.Item key={i}>
                                 <LiveCard
