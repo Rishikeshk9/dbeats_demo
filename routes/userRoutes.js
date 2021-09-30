@@ -245,7 +245,7 @@ router.route("/unfavorite").post(async (req, res) => {
 
 router.route("/reactions").post(async (req, res) => {
   try {
-    console.log(req.body)
+    console.log(req.body);
     const videoUsername = req.body.videousername;
     const reactUsername = req.body.reactusername;
     const videoreaction = req.body.reaction;
@@ -262,7 +262,6 @@ router.route("/reactions").post(async (req, res) => {
     }
     //console.log(count)
 
-
     if (count != -1) {
       let data = user.reactions;
 
@@ -275,7 +274,7 @@ router.route("/reactions").post(async (req, res) => {
       else if (videoreaction === "happy")
         data[count].reaction.happy.push(reactUsername);
 
-      console.log(data)
+      console.log(data);
 
       User.findOneAndUpdate(
         { username: videoUsername },
@@ -295,12 +294,11 @@ router.route("/reactions").post(async (req, res) => {
           like: [],
           dislike: [],
           angry: [],
-          happy: []
-        }
+          happy: [],
+        },
       };
 
-      if (videoreaction === "like")
-        value.reaction.like.push(reactUsername);
+      if (videoreaction === "like") value.reaction.like.push(reactUsername);
       else if (videoreaction === "dislike")
         value.reaction.dislike.push(reactUsername);
       else if (videoreaction === "angry")
@@ -308,8 +306,7 @@ router.route("/reactions").post(async (req, res) => {
       else if (videoreaction === "happy")
         value.reaction.happy.push(reactUsername);
 
-      
-      console.log(value)
+      console.log(value);
       User.findOneAndUpdate(
         { username: videoUsername },
         { $push: { reactions: value } },
@@ -336,8 +333,8 @@ router.route("/getreactions").post(async (req, res) => {
     let count = -1;
     for (let i = 0; i < user.reactions.length; i++) {
       if (user.reactions[i].video === videoname) {
-        console.log(user.reactions[i].video)
-        res.send(user.reactions[i])
+        console.log(user.reactions[i].video);
+        res.send(user.reactions[i]);
         break;
       }
     }
@@ -354,12 +351,12 @@ router.route("/getuserreaction").post(async (req, res) => {
     const user = await User.findOne({ username: videoUsername });
 
     console.log(req.body);
-    console.log(user)
+    console.log(user);
 
     let count = -1;
     for (let i = 0; i < user.reactions.length; i++) {
       if (user.reactions[i].video === videoname) {
-        count=i;
+        count = i;
         break;
       }
     }
@@ -368,18 +365,14 @@ router.route("/getuserreaction").post(async (req, res) => {
       let data = user.reactions;
 
       if (data[count].reaction.like.indexOf(reactUsername) > -1) {
-        res.send('like')
-      }
-      else if (data[count].reaction.dislike.indexOf(reactUsername) > -1) {
-        res.send('dislike')
-      }
-      else if (data[count].reaction.angry.indexOf(reactUsername) > -1) {
-        res.send('angry')
-      }
-      else if (data[count].reaction.happy.indexOf(reactUsername) > -1) {
-        res.send('happy')
-      }
-      else{
+        res.send("like");
+      } else if (data[count].reaction.dislike.indexOf(reactUsername) > -1) {
+        res.send("dislike");
+      } else if (data[count].reaction.angry.indexOf(reactUsername) > -1) {
+        res.send("angry");
+      } else if (data[count].reaction.happy.indexOf(reactUsername) > -1) {
+        res.send("happy");
+      } else {
         res.send(null);
       }
     }

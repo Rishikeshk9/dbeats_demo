@@ -29,9 +29,8 @@ const Login = () => {
       url: `${process.env.REACT_APP_SERVER_URL}/user/login`,
       data: userData,
     })
-      .then(function (response) {
-        if (response) {
-          console.log(response.data, 'resData');
+      .then((response) => {
+        if (response.data) {
           window.localStorage.setItem('user', JSON.stringify(response.data));
           window.location.reload();
           window.location.href = '/';
@@ -81,18 +80,21 @@ const Login = () => {
       data: streamData,
     });
 
-    //console.log(stream)
+    console.log(stream);
 
     let walletId = '';
-    if (provider.provider.selectedAddress) {
+    if (provider) {
       walletId = provider.provider.selectedAddress;
     }
+
+    let password = await bcrypt.hash(form_password, 10);
+    let confirmPass = await bcrypt.hash(form_confirmPassword, 10);
 
     const userData = {
       name: form_name,
       username: form_username,
-      password: await bcrypt.hash(form_password, 10),
-      confirm_password: await bcrypt.hash(form_confirmPassword, 10),
+      password: password,
+      confirm_password: confirmPass,
       wallet_id: walletId,
       livepeer_data: stream.data,
     };
