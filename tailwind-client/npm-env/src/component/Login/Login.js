@@ -83,12 +83,17 @@ const Login = () => {
 
     //console.log(stream)
 
+    let walletId = '';
+    if (provider.provider.selectedAddress) {
+      walletId = provider.provider.selectedAddress;
+    }
+
     const userData = {
       name: form_name,
       username: form_username,
       password: await bcrypt.hash(form_password, 10),
       confirm_password: await bcrypt.hash(form_confirmPassword, 10),
-      wallet_id: provider.provider.selectedAddress,
+      wallet_id: walletId,
       livepeer_data: stream.data,
     };
     console.log(userData);
