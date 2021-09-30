@@ -2,14 +2,12 @@ import React, { Fragment, useEffect, useState } from 'react';
 import classes from './Info.module.css';
 import axios from 'axios';
 import { Button, Form, Spinner } from 'react-bootstrap';
-import CheckIcon from '@material-ui/icons/Check';
-import ToggleButton from '@material-ui/lab/ToggleButton';
 
 import Modal from 'react-awesome-modal';
 import { MultiStreamData } from '../../../assets/Data';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
 
-const UserInfo = (props) => {
+const UserInfo = () => {
   const [userStreams, setUserStreams] = useState([]);
 
   const user = JSON.parse(window.localStorage.getItem('user'));
@@ -43,8 +41,6 @@ const UserInfo = (props) => {
     setPlaybackUrl(`https://cdn.livepeer.com/hls/${user.livepeer_data.playbackId}/index.m3u8`);
     //setName(user.livepeer_data.name);
     setUserStreams(user.livepeer_data);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   //console.log(multiStreamConnected)
 
@@ -106,7 +102,7 @@ const UserInfo = (props) => {
 
     //console.log("patchStream:", multi_data);
 
-    const patchingStream = await axios({
+    await axios({
       method: 'POST',
       url: `${process.env.REACT_APP_SERVER_URL}/patch_multistream`,
       data: multi_data,
@@ -120,8 +116,6 @@ const UserInfo = (props) => {
   };
 
   const editPlatform = (value, index) => {
-    let stored_data = patchStream;
-
     if (value.selected === 1) {
       let newArr = [...multiStreamConnected];
       newArr[index].selected = 0;
@@ -189,7 +183,7 @@ const UserInfo = (props) => {
                   {multiStreamConnected.map((value, index) => {
                     //console.log(value);
                     return (
-                      <div className="mx-1">
+                      <div key={index} className="mx-1">
                         <img src={value.platform.logo} alt="logo" className="h-10 w-auto" />
                       </div>
                     );
@@ -215,7 +209,7 @@ const UserInfo = (props) => {
             <div className="font-semibold text-3xl text-center">Add Multistream Platforms</div>
           </p>
           <div className="ml-5 self-center" onClick={() => setShowDestinationModal(false)}>
-            <i class="fas fa-times"></i>
+            <i className="fas fa-times"></i>
           </div>
         </div>
         <hr />
@@ -223,7 +217,10 @@ const UserInfo = (props) => {
           <div className="grid grid-cols-3">
             {multiStreamConnected.map((value, index) => {
               return (
-                <div className="bg-white-200 mx-8 border-1 border-gray-300 rounded my-2 flex justify-around">
+                <div
+                  key={index}
+                  className="bg-white-200 mx-8 border-1 border-gray-300 rounded my-2 flex justify-around"
+                >
                   <img src={value.platform.logo} alt="logo" className="h-auto w-48 p-4" />
                   <input
                     type="checkbox"
@@ -273,7 +270,7 @@ const UserInfo = (props) => {
             </div>
           </p>
           <div className="ml-5 self-center" onClick={() => setModalShow(false)}>
-            <i class="fas fa-times"></i>
+            <i className="fas fa-times"></i>
           </div>
         </div>
         <hr />
@@ -281,7 +278,10 @@ const UserInfo = (props) => {
           <div className="grid gap-4 justify-items-center grid-cols-4 px-8 max-w-100 max-h-96 overflow-y-auto">
             {MultiStreamData.map((value, index) => {
               return (
-                <div className="flex justify-center items-center bg-white-200 mx-2 my-2 border-1 h-full w-full shadow border-gray-300 rounded">
+                <div
+                  key={index}
+                  className="flex justify-center items-center bg-white-200 mx-2 my-2 border-1 h-full w-full shadow border-gray-300 rounded"
+                >
                   <img
                     src={value.image}
                     alt="logo"
@@ -312,7 +312,7 @@ const UserInfo = (props) => {
             <div className="font-semibold text-3xl text-center">{multiStreamValue.title}</div>
           </p>
           <div className="ml-5 self-center" onClick={() => setShowStreamModal(false)}>
-            <i class="fas fa-times"></i>
+            <i className="fas fa-times"></i>
           </div>
         </div>
         <hr />

@@ -1,3 +1,4 @@
+import React from 'react';
 import PublicInfo from './Info/Public_Info';
 
 const PublicRoomPage = (props) => {

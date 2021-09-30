@@ -15,7 +15,7 @@ import PopUp from './popup.component';
 
 import BottomBar from './bottom-player.component';
 
-export default function Track(props) {
+export default function Track() {
   // constructor(props) {
   //   super(props);
   // const dispatch = useDispatch();
@@ -107,8 +107,6 @@ export default function Track(props) {
       // Anything in here is fired on component unmount.
       audio.removeEventListener('ended', () => setState({ play: false }));
     };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const pauseResume = async () => {

@@ -74,7 +74,7 @@ function VideoPlayer(props) {
     setState({ ...state, played: parseFloat(newValue / 100) });
   };
 
-  const handleSeekMouseDown = (e) => {
+  const handleSeekMouseDown = () => {
     setState({ ...state, seeking: true });
   };
 

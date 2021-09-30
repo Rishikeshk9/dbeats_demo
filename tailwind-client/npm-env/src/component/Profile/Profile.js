@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import classes from './Profile.module.css';
 import axios from 'axios';
 import CarouselCard from './CarouselCard';
 import person from '../../assets/images/profile.svg';
@@ -122,7 +121,6 @@ const Profile = (props) => {
       get_User();
       setPrivate(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -158,7 +156,7 @@ const Profile = (props) => {
                                   className="no-underline cursor-pointer border-dbeats-light border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mr-1 flex self-center   py-1 px-3"
                                   onClick={trackFollowers}
                                 >
-                                  <i class="fas fa-plus self-center"></i>
+                                  <i className="fas fa-plus self-center"></i>
                                   &nbsp;{buttonText}
                                 </button>
                               ) : (
@@ -174,7 +172,7 @@ const Profile = (props) => {
                             <span className="font-semibold">@{user.username}</span>
                           </div>
                           <div className="flex text-gray-400 py-3 pt-12">
-                            <div class="grid grid-flow-rows grid-cols-5   gap-4">
+                            <div className="grid grid-flow-rows grid-cols-5   gap-4">
                               <div className="font-bold mx-auto   px-4">
                                 <span className="font-bold text-lg text-gray-700">
                                   {user.videos ? user.videos.length : 0}{' '}
@@ -350,7 +348,7 @@ const Profile = (props) => {
               <h2 className="grid grid-cols-5 justify-items-center text-2xl py-4">
                 <div className="col-span-4 pl-14">Share link on</div>
                 <div className="ml-5" onClick={handleClose}>
-                  <i class="fas fa-times"></i>
+                  <i className="fas fa-times"></i>
                 </div>
               </h2>
               <hr className="py-4" />

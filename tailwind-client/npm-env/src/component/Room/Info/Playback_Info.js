@@ -23,7 +23,7 @@ const PlayBackInfo = (props) => {
   const [angry, setAngry] = useState(0);
   const [userreact, setUserreact] = useState('');
 
-  const [videoUsername, setVideoUsername] = useState('');
+  //const [videoUsername, setVideoUsername] = useState('');
 
   const user = JSON.parse(window.localStorage.getItem('user'));
 
@@ -37,10 +37,6 @@ const PlayBackInfo = (props) => {
   const handleShow = () => setShow(true);
 
   const [show, setShow] = useState(false);
-  const [showMore, setShowMore] = useState(false);
-
-  const handleCloseMore = () => setShowMore(false);
-  const handleShowMore = () => setShowMore(true);
 
   const text = 'Copy Link To Clipboard';
   const [buttonText, setButtonText] = useState(text);
@@ -116,7 +112,7 @@ const PlayBackInfo = (props) => {
         }
       }
 
-      setVideoUsername(value.data.username);
+      //setVideoUsername(value.data.username);
       setPlaybackUrl(`${value.data.videos[props.video_id].link}`);
 
       let reactionData = {
@@ -246,8 +242,6 @@ const PlayBackInfo = (props) => {
     } else {
       setPrivate(false);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -450,7 +444,7 @@ const PlayBackInfo = (props) => {
         <h2 className="grid grid-cols-5 justify-items-center text-2xl py-4">
           <div className="col-span-4 pl-14">Share link on</div>
           <div className="ml-5" onClick={handleClose}>
-            <i class="fas fa-times"></i>
+            <i className="fas fa-times"></i>
           </div>
         </h2>
         <hr className="py-4" />

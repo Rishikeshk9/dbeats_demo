@@ -7,7 +7,8 @@ import Grid from '@material-ui/core/Grid';
 
 import classes from './videoPlayer.module.css';
 
-const PlayControls = forwardRef(({ onPlayPause, playing, played }, ref) => {
+// eslint-disable-next-line react/display-name
+const PlayControls = forwardRef(({ onPlayPause, playing }, ref) => {
   return (
     <div ref={ref} className={classes.playcontrolsWrapper}>
       <Grid className={classes.playbtn_position} container>

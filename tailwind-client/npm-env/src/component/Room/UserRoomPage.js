@@ -1,3 +1,4 @@
+import React from 'react';
 import UserInfo from './Info/User_Info';
 
 const UserRoomPage = (props) => {

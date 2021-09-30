@@ -20,8 +20,6 @@ import Dropdown from './dropdown.component';
 import axios from 'axios';
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Noty from 'noty';
-import { MultiSelect } from 'react-multi-select-component';
-import useWeb3Modal from '../hooks/useWeb3Modal';
 import mintNFT from './Mint';
 import Webupload from './uploadWeb3.component';
 import { useSelector } from 'react-redux';
@@ -84,11 +82,11 @@ const Form = (props) => {
   });
   // const [selected, setSelected] = useState([]);
 
-  const options = [
-    { label: 'Nudity', value: 'Nudity' },
-    { label: 'Strong Language', value: 'Strong Language' },
-    { label: 'Drugs', value: 'Drugs', disabled: false },
-  ];
+  // const options = [
+  //   { label: 'Nudity', value: 'Nudity' },
+  //   { label: 'Strong Language', value: 'Strong Language' },
+  //   { label: 'Drugs', value: 'Drugs', disabled: false },
+  // ];
 
   let name, value;
 

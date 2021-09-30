@@ -102,10 +102,11 @@
   },
   "proxy": "http://localhost:5000",
   "devDependencies": {
+    "@babel/eslint-parser": "^7.15.7",
     "autoprefixer": "^9.8.6",
+    "eslint": "^7.32.0",
     "postcss": "^7.0.36",
     "prettier": "^2.4.1",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7",
-    "eslint": "^7.32.0"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7"
   }
 }

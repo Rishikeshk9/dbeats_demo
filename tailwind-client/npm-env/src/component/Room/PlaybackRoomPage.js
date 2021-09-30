@@ -1,3 +1,4 @@
+import React from 'react';
 import PlayBackInfo from './Info/Playback_Info';
 
 const PlayBackRoomPage = (props) => {

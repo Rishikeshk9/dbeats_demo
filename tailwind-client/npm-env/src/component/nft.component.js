@@ -19,7 +19,7 @@ import ReactAudioPlayer from 'react-audio-player';
 import ReactJkMusicPlayer from 'react-jinke-music-player';
 import 'react-jinke-music-player/assets/index.css';
 
-const Form = (props) => {
+const Form = () => {
   // const state = {
   //   error: null,
   //   isLoaded: false,
@@ -38,7 +38,7 @@ const Form = (props) => {
 
   //const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
 
-  const fetchNFTList = async (e) => {
+  const fetchNFTList = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
 
     // Prompt user for account connections

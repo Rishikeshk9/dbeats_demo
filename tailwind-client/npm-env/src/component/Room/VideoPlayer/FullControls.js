@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
@@ -62,9 +63,7 @@ const FullControls = forwardRef(
       onSeekMouseDown,
       onSeekMouseUp,
       onDuration,
-      onRewind,
       onPlayPause,
-      onFastForward,
       playing,
       played,
       elapsedTime,
@@ -73,8 +72,6 @@ const FullControls = forwardRef(
       muted,
       onVolumeSeekDown,
       onChangeDispayFormat,
-      playbackRate,
-      onPlaybackRateChange,
       onToggleFullScreen,
       volume,
       onVolumeChange,

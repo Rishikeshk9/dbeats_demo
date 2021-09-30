@@ -29,10 +29,6 @@ const PublicInfo = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [showMore, setShowMore] = useState(false);
-  const handleCloseMore = () => setShowMore(false);
-  const handleShowMore = () => setShowMore(true);
-
   const text = 'Copy Link To Clipboard';
   const [buttonText, setButtonText] = useState(text);
   const [subscribeButtonText, setSubscribeButtonText] = useState('Subscribe');
@@ -132,8 +128,6 @@ const PublicInfo = (props) => {
     } else {
       setPrivate(false);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -282,7 +276,7 @@ const PublicInfo = (props) => {
         <h2 className="grid grid-cols-5 justify-items-center text-2xl py-4">
           <div className="col-span-4 pl-14">Share link on</div>
           <div className="ml-5" onClick={handleClose}>
-            <i class="fas fa-times"></i>
+            <i className="fas fa-times"></i>
           </div>
         </h2>
         <hr className="py-4" />
