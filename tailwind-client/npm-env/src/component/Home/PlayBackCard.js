@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import ReactPlayer from "react-player";
+import React, { useState } from 'react';
+import ReactPlayer from 'react-player';
 //import { useHistory } from "react-router-dom";
-import person from "../../assets/images/profile.svg";
-import classes from "./Home.module.css";
+import person from '../../assets/images/profile.svg';
+import classes from './Home.module.css';
 
 const PlayBackCard = (props) => {
   const [playing, setPlaying] = useState(false);
@@ -37,22 +37,13 @@ const PlayBackCard = (props) => {
       </div>
       <div className="col-start-1 row-start-3 pb-2 pt-2">
         <p className="flex   text-black text-sm font-medium">
-          <img
-            src={person}
-            alt=""
-            className="w-10 h-10 rounded-full mr-2 bg-gray-100"
-          />
+          <img src={person} alt="" className="w-10 h-10 rounded-full mr-2 bg-gray-100" />
           <div>
             <span className="text-sm font-semibold">
-              {props.playbackUserData.videos[props.index].videoName.slice(
-                0,
-                45
-              ) + "..."}
+              {props.playbackUserData.videos[props.index].videoName.slice(0, 45) + '...'}
             </span>
             <br />
-            <span className="text-s text-gray-500">
-              {props.playbackUserData.name}
-            </span>
+            <span className="text-s text-gray-500">{props.playbackUserData.name}</span>
           </div>
         </p>
       </div>

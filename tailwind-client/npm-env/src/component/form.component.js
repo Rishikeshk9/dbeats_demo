@@ -15,95 +15,79 @@
   ```
 */
 
-import React, { useState } from "react";
-import Dropdown from "./dropdown.component";
-import axios from "axios";
+import React, { useState } from 'react';
+import Dropdown from './dropdown.component';
+import axios from 'axios';
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Noty from "noty";
-import { MultiSelect } from "react-multi-select-component";
-import useWeb3Modal from "../hooks/useWeb3Modal";
-import mintNFT from "./Mint";
-import Webupload from "./uploadWeb3.component";
-import { useSelector } from "react-redux";
+import Noty from 'noty';
+import { MultiSelect } from 'react-multi-select-component';
+import useWeb3Modal from '../hooks/useWeb3Modal';
+import mintNFT from './Mint';
+import Webupload from './uploadWeb3.component';
+import { useSelector } from 'react-redux';
 
 const Form = (props) => {
   //const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
-  const user = JSON.parse(window.localStorage.getItem("user"));
+  const user = JSON.parse(window.localStorage.getItem('user'));
 
   const darkMode = useSelector((state) => state.toggleDarkMode);
 
-  const genre = [{ name: "Rock" }, { name: "Jazz" }];
+  const genre = [{ name: 'Rock' }, { name: 'Jazz' }];
 
-  const mood = [{ name: "Happy" }, { name: "Soulful" }];
+  const mood = [{ name: 'Happy' }, { name: 'Soulful' }];
 
-  const attribution = [
-    { name: "No Attribution" },
-    { name: "Allow Attribution" },
-  ];
+  const attribution = [{ name: 'No Attribution' }, { name: 'Allow Attribution' }];
 
-  const commercialUse = [
-    { name: "Non Commercial" },
-    { name: "Commercial Use" },
-  ];
+  const commercialUse = [{ name: 'Non Commercial' }, { name: 'Commercial Use' }];
 
   const derivativeWorks = [
-    { name: "No-Selection" },
-    { name: "No Derivative Works" },
-    { name: "Share-Alike" },
+    { name: 'No-Selection' },
+    { name: 'No Derivative Works' },
+    { name: 'Share-Alike' },
   ];
 
-  const category = [
-    { name: "Automobiles" },
-    { name: "Astronomy" },
-    { name: "Sci-Fi" },
-  ];
+  const category = [{ name: 'Automobiles' }, { name: 'Astronomy' }, { name: 'Sci-Fi' }];
 
   const [selectedGenre, setSelectedGenre] = useState(genre[0].name);
   const [selectedMood, setSelectedMood] = useState(mood[0].name);
-  const [selectedAttribution, setSelectedAttribution] = useState(
-    attribution[0].name
-  );
-  const [selectedCommercialUse, setSelectedCommercialUse] = useState(
-    commercialUse[0].name
-  );
-  const [selectedDerivativeWorks, setSelectedDerivativeWorks] = useState(
-    derivativeWorks[0].name
-  );
+  const [selectedAttribution, setSelectedAttribution] = useState(attribution[0].name);
+  const [selectedCommercialUse, setSelectedCommercialUse] = useState(commercialUse[0].name);
+  const [selectedDerivativeWorks, setSelectedDerivativeWorks] = useState(derivativeWorks[0].name);
   const [selectedCategory, setSelectedCategory] = useState(category[0].name);
 
   const [track, setTrack] = useState({
-    trackName: "",
-    trackImage: "",
-    trackFile: "",
-    genre: "",
-    mood: "",
-    tags: "",
-    description: "",
-    isrc: "",
-    iswc: "",
-    allowAttribution: "",
-    commercialUse: "",
-    derivativeWorks: "",
+    trackName: '',
+    trackImage: '',
+    trackFile: '',
+    genre: '',
+    mood: '',
+    tags: '',
+    description: '',
+    isrc: '',
+    iswc: '',
+    allowAttribution: '',
+    commercialUse: '',
+    derivativeWorks: '',
   });
 
   const [video, setVideo] = useState({
-    videoName: "",
-    videoImage: "",
-    videoFile: "",
-    category: "",
-    ratings: "",
-    tags: "",
-    description: "",
-    allowAttribution: "",
-    commercialUse: "",
-    derivativeWorks: "",
+    videoName: '',
+    videoImage: '',
+    videoFile: '',
+    category: '',
+    ratings: '',
+    tags: '',
+    description: '',
+    allowAttribution: '',
+    commercialUse: '',
+    derivativeWorks: '',
   });
   // const [selected, setSelected] = useState([]);
 
   const options = [
-    { label: "Nudity", value: "Nudity" },
-    { label: "Strong Language", value: "Strong Language" },
-    { label: "Drugs", value: "Drugs", disabled: false },
+    { label: 'Nudity', value: 'Nudity' },
+    { label: 'Strong Language', value: 'Strong Language' },
+    { label: 'Drugs', value: 'Drugs', disabled: false },
   ];
 
   let name, value;
@@ -123,37 +107,37 @@ const Form = (props) => {
   };
 
   const onFileChange = (e) => {
-    if (e.target.name === "trackFile") {
+    if (e.target.name === 'trackFile') {
       track.trackFile = e.target.files[0];
-      var trckName = e.target.files[0].name.replace(/\.[^/.]+$/, "");
-      document.getElementById("trackName").value = trckName;
+      var trckName = e.target.files[0].name.replace(/\.[^/.]+$/, '');
+      document.getElementById('trackName').value = trckName;
       track.trackName = trckName;
-      document.getElementById("audio-label").textContent = trckName;
-    } else if (e.target.name === "trackImage") {
+      document.getElementById('audio-label').textContent = trckName;
+    } else if (e.target.name === 'trackImage') {
       track.trackImage = e.target.files[0];
-      var trcImage = e.target.files[0].name.replace(/\.[^/.]+$/, "");
-      document.getElementById("audio-thumbnail-label").textContent = trcImage;
+      var trcImage = e.target.files[0].name.replace(/\.[^/.]+$/, '');
+      document.getElementById('audio-thumbnail-label').textContent = trcImage;
     }
   };
 
   const onVideoFileChange = (e) => {
-    if (e.target.name === "videoFile") {
+    if (e.target.name === 'videoFile') {
       video.videoFile = e.target.files[0];
-      var trckName = e.target.files[0].name.replace(/\.[^/.]+$/, "");
-      document.getElementById("videoName").value = trckName;
+      var trckName = e.target.files[0].name.replace(/\.[^/.]+$/, '');
+      document.getElementById('videoName').value = trckName;
       video.videoName = trckName;
-      document.getElementById("video-label").textContent = trckName;
-    } else if (e.target.name === "videoImage") {
+      document.getElementById('video-label').textContent = trckName;
+    } else if (e.target.name === 'videoImage') {
       video.videoImage = e.target.files[0];
 
-      var videoImage = e.target.files[0].name.replace(/\.[^/.]+$/, "");
-      document.getElementById("video-thumbnail-label").textContent = videoImage;
+      var videoImage = e.target.files[0].name.replace(/\.[^/.]+$/, '');
+      document.getElementById('video-thumbnail-label').textContent = videoImage;
     }
   };
 
   const PostData = async (e) => {
     e.preventDefault();
-    if (e.target.value === "Upload Video") {
+    if (e.target.value === 'Upload Video') {
       const {
         videoName,
         videoImage,
@@ -168,21 +152,21 @@ const Form = (props) => {
       } = video;
 
       var formData = new FormData(); // Currently empty
-      formData.append("userName", user.username);
+      formData.append('userName', user.username);
 
-      formData.append("videoName", videoName);
+      formData.append('videoName', videoName);
 
-      formData.append("tags", tags);
-      formData.append("description", description);
+      formData.append('tags', tags);
+      formData.append('description', description);
 
-      formData.append("category", category);
-      formData.append("ratings", ratings);
-      formData.append("allowAttribution", allowAttribution);
-      formData.append("commercialUse", commercialUse);
-      formData.append("derivativeWorks", derivativeWorks);
+      formData.append('category', category);
+      formData.append('ratings', ratings);
+      formData.append('allowAttribution', allowAttribution);
+      formData.append('commercialUse', commercialUse);
+      formData.append('derivativeWorks', derivativeWorks);
 
-      formData.append("videoFile", videoFile);
-      formData.append("videoImage", videoImage);
+      formData.append('videoFile', videoFile);
+      formData.append('videoImage', videoImage);
 
       if (
         video.videoFile.length !== 0 &&
@@ -190,7 +174,7 @@ const Form = (props) => {
         video.videoName.length !== 0
       ) {
         axios
-          .post("/upload-video", formData)
+          .post('/upload-video', formData)
           .then(function (response) {
             console.log(response.data);
           })
@@ -200,23 +184,23 @@ const Form = (props) => {
       } else {
         Noty.closeAll();
         new Noty({
-          type: "error",
-          text: "Choose Video File & Fill other Details",
-          theme: "metroui",
-          layout: "bottomRight",
+          type: 'error',
+          text: 'Choose Video File & Fill other Details',
+          theme: 'metroui',
+          layout: 'bottomRight',
         }).show();
       }
-    } else if (e.target.value === "Upload Audio") {
+    } else if (e.target.value === 'Upload Audio') {
       let formDatanft = new FormData();
-      formDatanft.append("videoFile", track.trackFile);
+      formDatanft.append('videoFile', track.trackFile);
 
-      if (document.getElementById("is_nft").checked)
+      if (document.getElementById('is_nft').checked)
         await mintNFT(
           user.wallet_id,
           formDatanft,
           track.trackFile,
           track.trackName,
-          track.description
+          track.description,
         );
 
       const {
@@ -235,22 +219,22 @@ const Form = (props) => {
       } = track;
 
       formData = new FormData(); // Currently empty
-      formData.append("userName", user.username);
-      formData.append("trackName", trackName);
-      formData.append("genre", genre);
+      formData.append('userName', user.username);
+      formData.append('trackName', trackName);
+      formData.append('genre', genre);
 
-      formData.append("mood", mood);
-      formData.append("tags", tags);
-      formData.append("description", description);
+      formData.append('mood', mood);
+      formData.append('tags', tags);
+      formData.append('description', description);
 
-      formData.append("isrc", isrc);
-      formData.append("iswc", iswc);
-      formData.append("allowAttribution", allowAttribution);
-      formData.append("commercialUse", commercialUse);
-      formData.append("derivativeWorks", derivativeWorks);
+      formData.append('isrc', isrc);
+      formData.append('iswc', iswc);
+      formData.append('allowAttribution', allowAttribution);
+      formData.append('commercialUse', commercialUse);
+      formData.append('derivativeWorks', derivativeWorks);
 
-      formData.append("trackFile", trackFile);
-      formData.append("trackImage", trackImage);
+      formData.append('trackFile', trackFile);
+      formData.append('trackImage', trackImage);
 
       if (
         track.trackFile.length !== 0 &&
@@ -258,14 +242,14 @@ const Form = (props) => {
         track.trackName.length !== 0
       ) {
         axios
-          .post("/upload", formData)
+          .post('/upload', formData)
           .then(function (response) {
             Noty.closeAll();
             new Noty({
-              type: "success",
+              type: 'success',
               text: response.data,
-              theme: "metroui",
-              layout: "bottomRight",
+              theme: 'metroui',
+              layout: 'bottomRight',
             }).show();
 
             // console.log(response.data);
@@ -273,10 +257,10 @@ const Form = (props) => {
           .catch((error) => {
             Noty.closeAll();
             new Noty({
-              type: "error",
+              type: 'error',
               text: error.data,
-              theme: "metroui",
-              layout: "bottomRight",
+              theme: 'metroui',
+              layout: 'bottomRight',
             }).show();
             // console.log(error);
 
@@ -285,20 +269,20 @@ const Form = (props) => {
       } else {
         Noty.closeAll();
         new Noty({
-          type: "error",
-          text: "Choose Audio File & Fill other Details",
-          theme: "metroui",
-          layout: "bottomRight",
+          type: 'error',
+          text: 'Choose Audio File & Fill other Details',
+          theme: 'metroui',
+          layout: 'bottomRight',
         }).show();
       }
     }
   };
 
-  if (props.name === "audio") {
+  if (props.name === 'audio') {
     return (
       <div
         className={`${
-          darkMode && "dark"
+          darkMode && 'dark'
         } font-proxima-reg z-100  transition duration-1000 ease-in-out mx-auto xl:w-8/12 lg:w-8/12 md:w-11/12   w-full `}
       >
         <form method="POST" encType="multipart/formdata">
@@ -328,10 +312,7 @@ const Form = (props) => {
                           htmlFor="file-upload"
                           className="text-center relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-0 focus-within:ring-offset-2 focus-within:ring-blue-500"
                         >
-                          <p
-                            className="text-center px-2"
-                            id="audio-thumbnail-label"
-                          >
+                          <p className="text-center px-2" id="audio-thumbnail-label">
                             Choose Album Art
                           </p>
                           <input
@@ -346,9 +327,7 @@ const Form = (props) => {
                         </label>
                         <p className="pl-1"> </p>
                       </div>
-                      <p className="text-xs text-gray-500">
-                        PNG, JPG, GIF up to 10MB
-                      </p>
+                      <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                     </div>
                   </div>
                 </div>
@@ -619,13 +598,9 @@ const Form = (props) => {
         </form>
       </div>
     );
-  } else if (props.name === "video") {
+  } else if (props.name === 'video') {
     return (
-      <div
-        className={`${
-          darkMode && "dark"
-        } mx-auto xl:w-8/12 lg:w-8/12 md:w-11/12  sm:w-full `}
-      >
+      <div className={`${darkMode && 'dark'} mx-auto xl:w-8/12 lg:w-8/12 md:w-11/12  sm:w-full `}>
         <form method="POST" encType="multipart/formdata">
           <div className=" bg-white text-gray-500  dark:bg-dbeats-dark-alt dark:text-gray-100   shadow-sm rounded-lg  px-5 py-5 my-5">
             <div className="md:grid md:grid-cols-3 md:gap-6  mt-5  ">
@@ -653,10 +628,7 @@ const Form = (props) => {
                           htmlFor="file-upload3"
                           className="text-center relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-0 focus-within:ring-offset-2 focus-within:ring-blue-500"
                         >
-                          <span
-                            id="video-thumbnail-label"
-                            className="text-center"
-                          >
+                          <span id="video-thumbnail-label" className="text-center">
                             Choose Video Thumbnail
                           </span>
                           <input
@@ -670,9 +642,7 @@ const Form = (props) => {
                         </label>
                         <p className="pl-1"> </p>
                       </div>
-                      <p className="text-xs text-gray-500">
-                        PNG, JPG, GIF up to 10MB
-                      </p>
+                      <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                     </div>
                   </div>
                 </div>
@@ -713,9 +683,7 @@ const Form = (props) => {
                         </label>
                         <p className="pl-1"></p>
                       </div>
-                      <p className="text-xs text-gray-500">
-                        Mp4, MKV, MOV, AVI up to 250MB
-                      </p>
+                      <p className="text-xs text-gray-500">Mp4, MKV, MOV, AVI up to 250MB</p>
                     </div>
                   </div>
                 </div>
@@ -748,7 +716,7 @@ const Form = (props) => {
 
                     <div className="grid grid-cols-8 gap-6 sm:grid-cols-8">
                       <div className="col-span-4 sm:col-span-4">
-                        {" "}
+                        {' '}
                         <label
                           htmlFor="videoTags"
                           className="block text-sm font-medium dark:text-gray-100 text-gray-700"
@@ -873,7 +841,7 @@ const Form = (props) => {
         </form>
       </div>
     );
-  } else if (props.name === "nft") {
+  } else if (props.name === 'nft') {
     return (
       <div className="mx-auto xl:w-8/12 lg:w-8/12 md:w-11/12  sm:w-full ">
         <div className=" bg-white  shadow-sm rounded-lg  px-5 py-5 my-5 text-center">

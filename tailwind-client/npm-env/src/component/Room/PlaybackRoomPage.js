@@ -1,9 +1,9 @@
-import PlayBackInfo from "./Info/Playback_Info";
+import PlayBackInfo from './Info/Playback_Info';
 
 const PlayBackRoomPage = (props) => {
   return (
     <>
-      <div id="outer-container" style={{ height: "100%" }}>
+      <div id="outer-container" style={{ height: '100%' }}>
         <main id="page-wrap">
           <PlayBackInfo
             stream_id={props.match.params.username}

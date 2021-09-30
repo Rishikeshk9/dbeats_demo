@@ -1,18 +1,18 @@
-import React from "react";
-import { Fragment } from "react";
-import LandingBody from "./LandingBody/LandingBody";
-import LandingFooter from "./LandingFooter/LandingFooter";
-import earthImg from "../../assets/images/earth.png";
-import logo from "../../assets/images/logo.png";
-import Particles from "react-particles-js";
+import React from 'react';
+import { Fragment } from 'react';
+import LandingBody from './LandingBody/LandingBody';
+import LandingFooter from './LandingFooter/LandingFooter';
+import earthImg from '../../assets/images/earth.png';
+import logo from '../../assets/images/logo.png';
+import Particles from 'react-particles-js';
 
-import { Nav, Image } from "react-bootstrap";
-import classes from "./Landing.module.css";
+import { Nav, Image } from 'react-bootstrap';
+import classes from './Landing.module.css';
 
 const LandingPage = () => {
   return (
     <Fragment>
-      <div style={{ backgroundColor: "#000" }}>
+      <div style={{ backgroundColor: '#000' }}>
         <Particles
           width="100%"
           height="80vh"
@@ -38,12 +38,12 @@ const LandingPage = () => {
               move: {
                 random: true,
                 speed: 1,
-                direction: "top",
-                out_mode: "out",
+                direction: 'top',
+                out_mode: 'out',
               },
             },
           }}
-          style={{ position: "fixed" }}
+          style={{ position: 'fixed' }}
         />
         <div className={classes.main_header_nav} id="main_header_nav">
           <Nav className="justify-content-between" activeKey="/">

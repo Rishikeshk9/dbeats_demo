@@ -1,19 +1,18 @@
-import React, { Fragment, useEffect, useState } from "react";
-import classes from "./Info.module.css";
+import React, { Fragment, useEffect, useState } from 'react';
+import classes from './Info.module.css';
 //import playimg from "../../../assets/images/telegram.png";
-import axios from "axios";
-import VideoPlayer from "../VideoPlayer/VideoPlayer";
-import { WhatsappIcon, WhatsappShareButton } from "react-share";
-import { FacebookShareButton, FacebookIcon } from "react-share";
-import { EmailShareButton, EmailIcon } from "react-share";
-import { PinterestShareButton, PinterestIcon } from "react-share";
-import { TelegramShareButton, TelegramIcon } from "react-share";
-import { Container, Row, Col } from "react-bootstrap";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import LiveCard from "./LiveCard";
+import axios from 'axios';
+import VideoPlayer from '../VideoPlayer/VideoPlayer';
+import { WhatsappIcon, WhatsappShareButton } from 'react-share';
+import { FacebookShareButton, FacebookIcon } from 'react-share';
+import { EmailShareButton, EmailIcon } from 'react-share';
+import { PinterestShareButton, PinterestIcon } from 'react-share';
+import { TelegramShareButton, TelegramIcon } from 'react-share';
+import { Container, Row, Col } from 'react-bootstrap';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import LiveCard from './LiveCard';
 import Modal from 'react-awesome-modal';
-import { Menu, Transition } from '@headlessui/react'
-
+import { Menu, Transition } from '@headlessui/react';
 
 const PublicInfo = (props) => {
   let sharable_data = `https://dbeats-demo.vercel.app /live/${props.stream_id}`;
@@ -22,9 +21,9 @@ const PublicInfo = (props) => {
 
   const [privateUser, setPrivate] = useState(true);
 
-  const user = JSON.parse(window.localStorage.getItem("user"));
+  const user = JSON.parse(window.localStorage.getItem('user'));
 
-  const [playbackUrl, setPlaybackUrl] = useState("");
+  const [playbackUrl, setPlaybackUrl] = useState('');
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -34,27 +33,25 @@ const PublicInfo = (props) => {
   const handleCloseMore = () => setShowMore(false);
   const handleShowMore = () => setShowMore(true);
 
-  const text = "Copy Link To Clipboard";
+  const text = 'Copy Link To Clipboard';
   const [buttonText, setButtonText] = useState(text);
-  const [subscribeButtonText, setSubscribeButtonText] = useState("Subscribe");
+  const [subscribeButtonText, setSubscribeButtonText] = useState('Subscribe');
 
   const [arrayData, setArrayData] = useState([]);
 
-
   const trackFollowers = () => {
-    
     const followData = {
       following: `${userData.username}`,
       follower: `${user.username}`,
     };
-    if (subscribeButtonText === "Subscribe") {
-      setSubscribeButtonText("Unsubscribe");
+    if (subscribeButtonText === 'Subscribe') {
+      setSubscribeButtonText('Unsubscribe');
       axios({
-        method: "POST",
+        method: 'POST',
         url: `${process.env.REACT_APP_SERVER_URL}/user/follow`,
         headers: {
-          "content-type": "application/json",
-          "Access-Control-Allow-Origin": "*",
+          'content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
         },
         data: followData,
       })
@@ -62,20 +59,20 @@ const PublicInfo = (props) => {
           if (response) {
             //console.log(response);
           } else {
-            alert("Invalid Login");
+            alert('Invalid Login');
           }
         })
         .catch(function (error) {
           console.log(error);
         });
     } else {
-      setSubscribeButtonText("Subscribe");
+      setSubscribeButtonText('Subscribe');
       axios({
-        method: "POST",
+        method: 'POST',
         url: `${process.env.REACT_APP_SERVER_URL}/user/unfollow`,
         headers: {
-          "content-type": "application/json",
-          "Access-Control-Allow-Origin": "*",
+          'content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
         },
         data: followData,
       })
@@ -83,7 +80,7 @@ const PublicInfo = (props) => {
           if (response) {
             //console.log(response);
           } else {
-            alert("Invalid Login");
+            alert('Invalid Login');
           }
         })
         .catch(function (error) {
@@ -93,34 +90,33 @@ const PublicInfo = (props) => {
   };
 
   const get_User = async () => {
-    await axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`)
-      .then((value) => {
-        setUserData(value.data);
-        for (let i = 0; i < value.data.follower_count.length; i++) {
-          if (user? value.data.follower_count[i] === user.username :false) {
-            setSubscribeButtonText("Unsubscribe");
-            break;
-          }
+    await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`).then((value) => {
+      setUserData(value.data);
+      for (let i = 0; i < value.data.follower_count.length; i++) {
+        if (user ? value.data.follower_count[i] === user.username : false) {
+          setSubscribeButtonText('Unsubscribe');
+          break;
         }
-        setPlaybackUrl(
-          `https://cdn.livepeer.com/hls/${value.data.livepeer_data.playbackId}/index.m3u8`
-        );
-      });
+      }
+      setPlaybackUrl(
+        `https://cdn.livepeer.com/hls/${value.data.livepeer_data.playbackId}/index.m3u8`,
+      );
+    });
     //console.log(value.data)
   };
 
   const fetchData = async () => {
     const fileRes = await axios.get(`${process.env.REACT_APP_SERVER_URL}/get_activeusers`);
-    console.log(fileRes)
+    console.log(fileRes);
     for (let i = 0; i < fileRes.data.length; i++) {
-      if (user ? fileRes.data[i].username !== user.username :true) {
-          console.log("fileResData",fileRes.data[i]);
-          await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/get_user_by_id/${fileRes.data[i].id}`)
-          .then((response)=>{
-            console.log("response",response.data);
+      if (user ? fileRes.data[i].username !== user.username : true) {
+        console.log('fileResData', fileRes.data[i]);
+        await axios
+          .get(`${process.env.REACT_APP_SERVER_URL}/user/get_user_by_id/${fileRes.data[i].id}`)
+          .then((response) => {
+            console.log('response', response.data);
             setArrayData((prevState) => [...prevState, response.data]);
-          })   
+          });
       }
     }
     //console.log(fileRes, "Hi");
@@ -129,9 +125,9 @@ const PublicInfo = (props) => {
   useEffect(() => {
     get_User();
     fetchData();
-    let value = JSON.parse(window.localStorage.getItem("user"));
+    let value = JSON.parse(window.localStorage.getItem('user'));
     console.log(value);
-    if (user? value.username === props.stream_id :false) {
+    if (user ? value.username === props.stream_id : false) {
       setPrivate(true);
     } else {
       setPrivate(false);
@@ -149,9 +145,7 @@ const PublicInfo = (props) => {
 
   return (
     <div className=" ">
-      <div
-        className={`grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row pt-3 pb-50 `}
-      >
+      <div className={`grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row pt-3 pb-50 `}>
         <div className=" col-span-2 ">
           <div>
             {userData ? (
@@ -168,35 +162,28 @@ const PublicInfo = (props) => {
           <div className="mx-7 px-7">
             <div className="flex justify-between my-2  ">
               <div className="py-4">
-                <div
-                  className=" w-full p-0 text-left mt-0"
-                  style={{ padding: "0px" }}
-                >
-                  {userData ? (
-                    <p className="font-semibold text-xl">
-                      {userData.username}
-                    </p>
-                  ) : (
-                    <></>
-                  )}
+                <div className=" w-full p-0 text-left mt-0" style={{ padding: '0px' }}>
+                  {userData ? <p className="font-semibold text-xl">{userData.username}</p> : <></>}
                 </div>
                 {!privateUser ? (
                   <div className="pt-4">
-                    {user?
+                    {user ? (
                       <button
                         className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
                         onClick={trackFollowers}
                       >
-                        
                         <span>{subscribeButtonText}</span>
                       </button>
-                    :<button
+                    ) : (
+                      <button
                         className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
-                        onClick={()=>{window.location.href = "/login";}}
+                        onClick={() => {
+                          window.location.href = '/login';
+                        }}
                       >
                         <span>Login</span>
                       </button>
-                    } 
+                    )}
                     <button className="bg-gradient-to-r from-dbeats-light  to-purple-900  p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white ">
                       <i className="fas fa-volleyball-ball mr-1"></i>
                       <span>Appreciate</span>
@@ -207,10 +194,7 @@ const PublicInfo = (props) => {
                 )}
               </div>
               <div className="text-4xl py-4">
-                <button
-                  className="border-0 bg-transparent"
-                  onClick={handleShow}
-                >
+                <button className="border-0 bg-transparent" onClick={handleShow}>
                   <i className="fas fa-share opacity-50 mx-2"></i>
                 </button>
                 <i className="fas fa-heart opacity-50 mx-2"></i>
@@ -235,33 +219,23 @@ const PublicInfo = (props) => {
                     <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="px-1 py-1 ">
                         <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
-                          <button>
-                            Edit
-                          </button>
+                          <button>Edit</button>
                         </Menu.Item>
                         <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
-                          <button>
-                            Duplicate
-                          </button>
+                          <button>Duplicate</button>
                         </Menu.Item>
                       </div>
                       <div>
                         <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
-                          <button>
-                            Archive
-                          </button>
+                          <button>Archive</button>
                         </Menu.Item>
                         <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
-                          <button>
-                            Move
-                          </button>
+                          <button>Move</button>
                         </Menu.Item>
                       </div>
                       <div>
                         <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
-                          <button>
-                            Delete
-                          </button>
+                          <button>Delete</button>
                         </Menu.Item>
                       </div>
                     </Menu.Items>
@@ -317,39 +291,19 @@ const PublicInfo = (props) => {
             <Row>
               <Col className="flex justify-around align-center">
                 <WhatsappShareButton url={sharable_data}>
-                  <WhatsappIcon
-                    iconFillColor="white"
-                    size={60}
-                    round={true}
-                  />
+                  <WhatsappIcon iconFillColor="white" size={60} round={true} />
                 </WhatsappShareButton>
                 <FacebookShareButton url={sharable_data}>
-                  <FacebookIcon
-                    iconFillColor="white"
-                    size={60}
-                    round={true}
-                  />
+                  <FacebookIcon iconFillColor="white" size={60} round={true} />
                 </FacebookShareButton>
                 <EmailShareButton url={sharable_data}>
-                  <EmailIcon
-                    iconFillColor="white"
-                    size={60}
-                    round={true}
-                  />
+                  <EmailIcon iconFillColor="white" size={60} round={true} />
                 </EmailShareButton>
                 <PinterestShareButton url={sharable_data}>
-                  <PinterestIcon
-                    iconFillColor="white"
-                    size={60}
-                    round={true}
-                  />
+                  <PinterestIcon iconFillColor="white" size={60} round={true} />
                 </PinterestShareButton>
                 <TelegramShareButton url={sharable_data}>
-                  <TelegramIcon
-                    iconFillColor="white"
-                    size={60}
-                    round={true}
-                  />
+                  <TelegramIcon iconFillColor="white" size={60} round={true} />
                 </TelegramShareButton>
               </Col>
             </Row>
@@ -358,10 +312,7 @@ const PublicInfo = (props) => {
                 text={sharable_data}
                 className="block mx-auto p-2 mt-4 mb-2 w-96 text-white font-semibold rounded-lg bg-dbeats-light"
               >
-                <button
-                  type="submit"
-                  onClick={() => setButtonText("Link Copied!")}
-                >
+                <button type="submit" onClick={() => setButtonText('Link Copied!')}>
                   {buttonText}
                 </button>
               </CopyToClipboard>

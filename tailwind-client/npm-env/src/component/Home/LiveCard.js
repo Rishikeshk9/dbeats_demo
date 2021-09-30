@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import ReactPlayer from "react-player";
-import person from "../../assets/images/profile.svg";
-import classes from "./Home.module.css";
+import React, { useState } from 'react';
+import ReactPlayer from 'react-player';
+import person from '../../assets/images/profile.svg';
+import classes from './Home.module.css';
 
 const LiveCard = (props) => {
   const [playing, setPlaying] = useState(false);
@@ -20,14 +20,14 @@ const LiveCard = (props) => {
     <div className="w-full h-auto  ">
       <div className=" cursor-pointer ">
         <span className="fixed bg-red-600 text-white px-1    mx-1 my-1 rounded-sm font-semibold">
-          {" "}
-          Live{" "}
+          {' '}
+          Live{' '}
         </span>
         <ReactPlayer
           onClick={() => {
             window.location.href = `/live/${props.username}/`;
           }}
-          playing
+          playing={playing}
           autoplay={true}
           width="100%"
           height="auto"
@@ -42,15 +42,9 @@ const LiveCard = (props) => {
       </div>
       <div className="col-start-1 row-start-3 pb-2 pt-2  ">
         <p className="flex items-center text-black text-sm font-medium  ">
-          <img
-            src={person}
-            alt=""
-            className="w-10 h-10 rounded-full mr-2 bg-gray-100  "
-          />
+          <img src={person} alt="" className="w-10 h-10 rounded-full mr-2 bg-gray-100  " />
           <div>
-            <span className="text-sm font-semibold">
-              {props.liveUserData.username}
-            </span>
+            <span className="text-sm font-semibold">{props.liveUserData.username}</span>
             <br />
             {/* <span className="text-xs text-gray-500">{props.playbackUserData.videos[props.index].description.slice(0,30)+"..."}</span> */}
           </div>

@@ -1,23 +1,23 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 //import Dropdown from "./dropdown.component";
-import axios from "axios";
+import axios from 'axios';
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import Noty from "noty";
 // import Multiselect from "multiselect-react-dropdown";
 // import logo from "../assets/graphics/DBeatsHori.png";
 // import { Menu, Transition } from "@headlessui/react";
-import { useEffect} from "react";
+import { useEffect } from 'react';
 //import Switch from "./switch.component";
-import { Zora } from "@zoralabs/zdk";
-import { 
-  //Wallet, 
-  //BigNumber, 
-  ethers 
-} from "ethers";
+import { Zora } from '@zoralabs/zdk';
+import {
+  //Wallet,
+  //BigNumber,
+  ethers,
+} from 'ethers';
 //import useWeb3Modal from "../hooks/useWeb3Modal";
-import ReactAudioPlayer from "react-audio-player";
-import ReactJkMusicPlayer from "react-jinke-music-player";
-import "react-jinke-music-player/assets/index.css";
+import ReactAudioPlayer from 'react-audio-player';
+import ReactJkMusicPlayer from 'react-jinke-music-player';
+import 'react-jinke-music-player/assets/index.css';
 
 const Form = (props) => {
   // const state = {
@@ -42,9 +42,9 @@ const Form = (props) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
 
     // Prompt user for account connections
-    await provider.send("eth_requestAccounts", []);
+    await provider.send('eth_requestAccounts', []);
 
-    console.log("This ran Fetch NFT");
+    console.log('This ran Fetch NFT');
 
     const signer = provider.getSigner();
     const connectedWallet = await signer.getAddress();
@@ -52,18 +52,18 @@ const Form = (props) => {
     const zora = new Zora(
       signer,
       50,
-      "0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7", //mediaAddress
-      "0xE5BFAB544ecA83849c53464F85B7164375Bdaac1" //marketAddress
+      '0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7', //mediaAddress
+      '0xE5BFAB544ecA83849c53464F85B7164375Bdaac1', //marketAddress
     );
     let res = await zora.fetchTotalMedia();
-    console.log("Total NFT Items on the BC: " + res.toNumber());
+    console.log('Total NFT Items on the BC: ' + res.toNumber());
     //let contentURI = null;
     let nft = [];
     let ownedToken = [];
 
-    console.log("Running Now Search Operation:--");
+    console.log('Running Now Search Operation:--');
     for (let i = 0; i < res; i++) {
-      console.log("Iterator : " + i);
+      console.log('Iterator : ' + i);
       try {
         let data = await zora.fetchMediaOfOwnerByIndex(connectedWallet, i);
         console.log(data.toNumber());
@@ -78,18 +78,18 @@ const Form = (props) => {
     for (let i = 0; i < ownedToken.length; i++) {
       let contentURI = await zora.fetchContentURI(ownedToken[i]);
 
-      console.log("CONTENTURI", i, ":", contentURI);
+      console.log('CONTENTURI', i, ':', contentURI);
 
-      obj["contentURI"] = contentURI;
+      obj['contentURI'] = contentURI;
 
       try {
         let metadata = await zora.fetchMetadataURI(ownedToken[i]);
         let res = await axios.get(metadata);
         //console.log("METADATA:", ownedToken[i], ":", metadata);
-        obj["title"] = res.data.name;
-        obj["description"] = res.data.description;
-        obj["mimeType"] = res.data.mimeType;
-        obj["owner"] = connectedWallet;
+        obj['title'] = res.data.name;
+        obj['description'] = res.data.description;
+        obj['mimeType'] = res.data.mimeType;
+        obj['owner'] = connectedWallet;
         nft.push(obj);
         //console.log(obj);
       } catch (error) {
@@ -111,9 +111,9 @@ const Form = (props) => {
   function getMediaType(contentURI, mimeType) {
     const mime = mimeType;
     const uri = contentURI;
-    if (mime.split("/")[0] === "image") {
+    if (mime.split('/')[0] === 'image') {
       return <img src={uri} alt="" className="w-50 h-50"></img>;
-    } else if (mime.split("/")[0] === "audio") {
+    } else if (mime.split('/')[0] === 'audio') {
       return (
         <>
           <ReactJkMusicPlayer glassBg audioLists={[{ src: toString(uri) }]} />
@@ -125,7 +125,7 @@ const Form = (props) => {
           />
         </>
       );
-    } else if (mime.split("/")[0] === "video") {
+    } else if (mime.split('/')[0] === 'video') {
       return (
         <video width="320" height="240" autoPlay muted loop>
           <source src={uri} type={mimeType}></source>
@@ -148,19 +148,13 @@ const Form = (props) => {
                     key={nft.title}
                   >
                     {getMediaType(nft.contentURI, nft.mimeType)}
-                    <h2 className="text-black font-bold text-xl truncate">
-                      {nft.title}
-                    </h2>
-                    <p className="text-black font-bold truncate">
-                      {nft.description}
-                    </p>
+                    <h2 className="text-black font-bold text-xl truncate">{nft.title}</h2>
+                    <p className="text-black font-bold truncate">{nft.description}</p>
 
                     <p className="text-black font-semibold ">
                       Price : {Math.floor(Math.random() * 10) + 1} ETH
                     </p>
-                    <p className="text-black font-semibold truncate">
-                      Owned By : {nft.owner}
-                    </p>
+                    <p className="text-black font-semibold truncate">Owned By : {nft.owner}</p>
                   </div>
                 </>
               );

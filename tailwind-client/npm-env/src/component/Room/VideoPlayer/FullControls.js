@@ -1,21 +1,20 @@
-import React, { forwardRef } from "react";
-import PropTypes from "prop-types";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import PlayArrowIcon from "@material-ui/icons/PlayArrow";
-import PauseIcon from "@material-ui/icons/Pause";
-import Slider from "@material-ui/core/Slider";
-import Tooltip from "@material-ui/core/Tooltip";
-import Grid from "@material-ui/core/Grid";
-import VolumeUp from "@material-ui/icons/VolumeUp";
-import VolumeDown from "@material-ui/icons/VolumeDown";
-import VolumeMute from "@material-ui/icons/VolumeOff";
-import FullScreen from "@material-ui/icons/Fullscreen";
+import React, { forwardRef } from 'react';
+import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
+import Slider from '@material-ui/core/Slider';
+import Tooltip from '@material-ui/core/Tooltip';
+import Grid from '@material-ui/core/Grid';
+import VolumeUp from '@material-ui/icons/VolumeUp';
+import VolumeDown from '@material-ui/icons/VolumeDown';
+import VolumeMute from '@material-ui/icons/VolumeOff';
+import FullScreen from '@material-ui/icons/Fullscreen';
 
-import classes from "./videoPlayer.module.css";
-
+import classes from './videoPlayer.module.css';
 
 const PrettoSlider = withStyles({
   root: {
@@ -24,17 +23,17 @@ const PrettoSlider = withStyles({
   thumb: {
     height: 24,
     width: 24,
-    backgroundColor: "#fff",
-    border: "2px solid currentColor",
+    backgroundColor: '#fff',
+    border: '2px solid currentColor',
     marginTop: -8,
     marginLeft: -12,
-    "&:focus, &:hover, &$active": {
-      boxShadow: "inherit",
+    '&:focus, &:hover, &$active': {
+      boxShadow: 'inherit',
     },
   },
   active: {},
   valueLabel: {
-    left: "calc(-50% + 4px)",
+    left: 'calc(-50% + 4px)',
   },
   track: {
     height: 8,
@@ -78,18 +77,16 @@ const FullControls = forwardRef(
       onPlaybackRateChange,
       onToggleFullScreen,
       volume,
-      onVolumeChange
+      onVolumeChange,
     },
-    ref
+    ref,
   ) => {
-
-
     const handleOnClick = () => {
-        ref.current.style.visibility = "hidden";
+      ref.current.style.visibility = 'hidden';
     };
 
     const handleOnControlClick = () => {
-        ref.current.style.visibility = "visibile";
+      ref.current.style.visibility = 'visibile';
     };
 
     return (
@@ -98,19 +95,16 @@ const FullControls = forwardRef(
           container
           direction="column"
           justify="bottom"
-          style={{ flexGrow: 1,position:"fixed",
-              marginBottom: '0px',
-              paddingBottom: '0px',
-              bottom: -15,
+          style={{
+            flexGrow: 1,
+            position: 'fixed',
+            marginBottom: '0px',
+            paddingBottom: '0px',
+            bottom: -15,
           }}
           onMouseMove={handleOnControlClick}
         >
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            style={{ padding: 20 }}
-          >
+          <Grid container direction="row" justify="space-between" style={{ padding: 20 }}>
             <Grid item xs={12}>
               <PrettoSlider
                 min={0}
@@ -127,74 +121,57 @@ const FullControls = forwardRef(
               />
             </Grid>
 
-            <Grid  
-              alignItems="center"
-                >
+            <Grid alignItems="center">
+              <IconButton onClick={onPlayPause} style={{ color: 'white' }}>
+                {playing ? <PauseIcon fontSize="large" /> : <PlayArrowIcon fontSize="large" />}
+              </IconButton>
 
-                <IconButton
-                  onClick={onPlayPause}
-                  style={{color:"white"}}
-                >
-                  {playing ? (
-                    <PauseIcon fontSize="large" />
-                  ) : (
-                    <PlayArrowIcon fontSize="large" />
-                  )}
-                </IconButton>
-
-                <Button
-                  variant="text"
-                  onClick={
-                    onChangeDispayFormat
-                    //     () =>
-                    //   setTimeDisplayFormat(
-                    //     timeDisplayFormat == "normal" ? "remaining" : "normal"
-                    //   )
-                  }
-                >
-                  <Typography
-                    variant="body1"
-                    style={{ color: "#fff", marginLeft: 16 }}
-                  >
-                    {elapsedTime}/{totalDuration}
-                  </Typography>
-                </Button>                
+              <Button
+                variant="text"
+                onClick={
+                  onChangeDispayFormat
+                  //     () =>
+                  //   setTimeDisplayFormat(
+                  //     timeDisplayFormat == "normal" ? "remaining" : "normal"
+                  //   )
+                }
+              >
+                <Typography variant="body1" style={{ color: '#fff', marginLeft: 16 }}>
+                  {elapsedTime}/{totalDuration}
+                </Typography>
+              </Button>
             </Grid>
 
-            <Grid item
-                direction="row"
-                align="right"
-                style={{ width:"30%"}}
-              >
+            <Grid item direction="row" align="right" style={{ width: '30%' }}>
               <IconButton
-                  // onClick={() => setState({ ...state, muted: !state.muted })}
-                  onClick={onMute}
-                  className={`${classes.bottomIcons} ${classes.volumeButton}`}
-                  style={{color:"white"}}
-                >
-                  {muted ? (
-                    <VolumeMute fontSize="large" />
-                  ) : volume > 0.5 ? (
-                    <VolumeUp fontSize="large" />
-                  ) : (
-                    <VolumeDown fontSize="large" />
-                  )}
-                </IconButton>
+                // onClick={() => setState({ ...state, muted: !state.muted })}
+                onClick={onMute}
+                className={`${classes.bottomIcons} ${classes.volumeButton}`}
+                style={{ color: 'white' }}
+              >
+                {muted ? (
+                  <VolumeMute fontSize="large" />
+                ) : volume > 0.5 ? (
+                  <VolumeUp fontSize="large" />
+                ) : (
+                  <VolumeDown fontSize="large" />
+                )}
+              </IconButton>
 
-                <Slider
-                  min={0}
-                  max={100}
-                  value={muted ? 0 : volume * 100}
-                  onChange={onVolumeChange}
-                  aria-labelledby="input-slider"
-                  onMouseDown={onSeekMouseDown}
-                  onChangeCommitted={onVolumeSeekDown}
-                  style={{color:"white",width:"25%",marginBottom:"-8px"}}
-                />
+              <Slider
+                min={0}
+                max={100}
+                value={muted ? 0 : volume * 100}
+                onChange={onVolumeChange}
+                aria-labelledby="input-slider"
+                onMouseDown={onSeekMouseDown}
+                onChangeCommitted={onVolumeSeekDown}
+                style={{ color: 'white', width: '25%', marginBottom: '-8px' }}
+              />
               <IconButton
                 onClick={onToggleFullScreen}
                 className={classes.bottomIcons}
-                style={{paddingLeft:"40px",color:"#fff"}}
+                style={{ paddingLeft: '40px', color: '#fff' }}
               >
                 <FullScreen fontSize="large" />
               </IconButton>
@@ -203,7 +180,7 @@ const FullControls = forwardRef(
         </Grid>
       </div>
     );
-  }
+  },
 );
 
 FullControls.propTypes = {

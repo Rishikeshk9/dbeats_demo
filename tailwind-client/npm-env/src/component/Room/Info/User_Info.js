@@ -1,22 +1,21 @@
-import React, { Fragment, useEffect, useState } from "react";
-import classes from "./Info.module.css";
-import axios from "axios";
-import { Button, Form, Spinner } from "react-bootstrap";
-import CheckIcon from "@material-ui/icons/Check";
-import ToggleButton from "@material-ui/lab/ToggleButton";
-
+import React, { Fragment, useEffect, useState } from 'react';
+import classes from './Info.module.css';
+import axios from 'axios';
+import { Button, Form, Spinner } from 'react-bootstrap';
+import CheckIcon from '@material-ui/icons/Check';
+import ToggleButton from '@material-ui/lab/ToggleButton';
 
 import Modal from 'react-awesome-modal';
-import { MultiStreamData } from "../../../assets/Data";
-import VideoPlayer from "../VideoPlayer/VideoPlayer";
+import { MultiStreamData } from '../../../assets/Data';
+import VideoPlayer from '../VideoPlayer/VideoPlayer';
 
 const UserInfo = (props) => {
   const [userStreams, setUserStreams] = useState([]);
 
-  const user = JSON.parse(window.localStorage.getItem("user"));
+  const user = JSON.parse(window.localStorage.getItem('user'));
 
-  const [playbackUrl, setPlaybackUrl] = useState("");
-  const [StreamKey, setKey] = useState("");
+  const [playbackUrl, setPlaybackUrl] = useState('');
+  const [StreamKey, setKey] = useState('');
   const [loader, setLoader] = useState(true);
   //const [name, setName] = useState("");
   const [modalShow, setModalShow] = useState(false);
@@ -41,9 +40,7 @@ const UserInfo = (props) => {
     } else {
       setMultiStreamConnected([]);
     }
-    setPlaybackUrl(
-      `https://cdn.livepeer.com/hls/${user.livepeer_data.playbackId}/index.m3u8`
-    );
+    setPlaybackUrl(`https://cdn.livepeer.com/hls/${user.livepeer_data.playbackId}/index.m3u8`);
     //setName(user.livepeer_data.name);
     setUserStreams(user.livepeer_data);
 
@@ -67,15 +64,14 @@ const UserInfo = (props) => {
       },
     };
 
-    console.log(postData)
+    console.log(postData);
 
     let result = await axios({
-        method: "post",
-        url: `${process.env.REACT_APP_SERVER_URL}/user/add_multistream_platform`,
-        data: postData
-      })
-    console.log(result)
-   
+      method: 'post',
+      url: `${process.env.REACT_APP_SERVER_URL}/user/add_multistream_platform`,
+      data: postData,
+    });
+    console.log(result);
 
     setMultiStreamConnected([...multiStreamConnected, postData]);
     setShowStreamModal(false);
@@ -93,7 +89,7 @@ const UserInfo = (props) => {
 
     for (let i = 0; i < patchStream.length; i++) {
       let data = {
-        profile: "source",
+        profile: 'source',
         spec: {
           name: patchStream[i].platform.title,
           url: patchStream[i].platform.rtmp,
@@ -111,7 +107,7 @@ const UserInfo = (props) => {
     //console.log("patchStream:", multi_data);
 
     const patchingStream = await axios({
-      method: "POST",
+      method: 'POST',
       url: `${process.env.REACT_APP_SERVER_URL}/patch_multistream`,
       data: multi_data,
     });
@@ -119,7 +115,7 @@ const UserInfo = (props) => {
     //console.log(patchingStream);
 
     setLoader(true);
-    alert(" Multistream Connection Successfull !!!");
+    alert(' Multistream Connection Successfull !!!');
     setShowStreamModal(false);
   };
 
@@ -127,14 +123,13 @@ const UserInfo = (props) => {
     let stored_data = patchStream;
 
     if (value.selected === 1) {
-      let newArr = [...multiStreamConnected]; 
-      newArr[index].selected = 0; 
+      let newArr = [...multiStreamConnected];
+      newArr[index].selected = 0;
 
       setMultiStreamConnected(newArr);
     } else {
-      
-      let newArr = [...multiStreamConnected]; 
-      newArr[index].selected = 1; 
+      let newArr = [...multiStreamConnected];
+      newArr[index].selected = 1;
 
       setMultiStreamConnected(newArr);
 
@@ -156,9 +151,7 @@ const UserInfo = (props) => {
               <p>{user.name}</p>
             </div>
             <div className="pb-2">
-              <span className="text-2xl font-semibold">
-                Streamer Username :{" "}
-              </span>
+              <span className="text-2xl font-semibold">Streamer Username : </span>
               <p>{user.username}</p>
             </div>
             <div className="pb-2">
@@ -197,11 +190,7 @@ const UserInfo = (props) => {
                     //console.log(value);
                     return (
                       <div className="mx-1">
-                        <img
-                          src={value.platform.logo}
-                          alt="logo"
-                          className="h-10 w-auto"
-                        />
+                        <img src={value.platform.logo} alt="logo" className="h-10 w-auto" />
                       </div>
                     );
                   })}
@@ -223,9 +212,7 @@ const UserInfo = (props) => {
       >
         <div className="py-6 mx-16 flex">
           <p className="w-full">
-            <div className="font-semibold text-3xl text-center">
-              Add Multistream Platforms
-            </div>
+            <div className="font-semibold text-3xl text-center">Add Multistream Platforms</div>
           </p>
           <div className="ml-5 self-center" onClick={() => setShowDestinationModal(false)}>
             <i class="fas fa-times"></i>
@@ -237,11 +224,7 @@ const UserInfo = (props) => {
             {multiStreamConnected.map((value, index) => {
               return (
                 <div className="bg-white-200 mx-8 border-1 border-gray-300 rounded my-2 flex justify-around">
-                  <img
-                    src={value.platform.logo}
-                    alt="logo"
-                    className="h-auto w-48 p-4"
-                  />
+                  <img src={value.platform.logo} alt="logo" className="h-auto w-48 p-4" />
                   <input
                     type="checkbox"
                     className="h-7 w-7 mx-3 dark:text-dbeats-dark-secondary text-dbeats-light focus:ring-dbeats-light border-gray-300 rounded self-center"
@@ -275,7 +258,6 @@ const UserInfo = (props) => {
           </button>
         </div>
       </Modal>
-
 
       <Modal
         visible={modalShow}
@@ -315,7 +297,7 @@ const UserInfo = (props) => {
             })}
           </div>
         </main>
-        <hr className="py-6"/>
+        <hr className="py-6" />
       </Modal>
 
       <Modal
@@ -327,9 +309,7 @@ const UserInfo = (props) => {
       >
         <div className="py-5 px-6 flex">
           <p id="contained-modal-title-vcenter" className="w-full">
-            <div className="font-semibold text-3xl text-center">
-              {multiStreamValue.title}
-            </div>
+            <div className="font-semibold text-3xl text-center">{multiStreamValue.title}</div>
           </p>
           <div className="ml-5 self-center" onClick={() => setShowStreamModal(false)}>
             <i class="fas fa-times"></i>
@@ -346,7 +326,7 @@ const UserInfo = (props) => {
                 type="text"
                 placeholder="Enter SECRET Key"
                 onChange={(e) => handleChange(e)}
-                style={{ width: "80%" }}
+                style={{ width: '80%' }}
               />
               {/* <div className="py-2 pt-3 pl-1 overflow-hidden">
                 RTMP : {multiStreamValue.rtmp + StreamKey}
@@ -379,7 +359,7 @@ const UserInfo = (props) => {
             </Form.Group>
           </Form>
         </main>
-        <hr className="py-6"/>
+        <hr className="py-6" />
       </Modal>
     </Fragment>
   );

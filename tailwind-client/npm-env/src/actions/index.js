@@ -1,11 +1,11 @@
 export const toggleAudius = () => {
   return {
-    type: "AUDIUSTOGGLE",
+    type: 'AUDIUSTOGGLE',
   };
 };
 
 export const toggleDarkMode = () => {
   return {
-    type: "DARKMODETOGGLE",
+    type: 'DARKMODETOGGLE',
   };
 };

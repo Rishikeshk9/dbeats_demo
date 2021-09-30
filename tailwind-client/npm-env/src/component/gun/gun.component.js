@@ -1,9 +1,9 @@
-import { useEffect, useState, useReducer } from "react";
-import Gun from "gun";
+import { useEffect, useState, useReducer } from 'react';
+import Gun from 'gun';
 
 // initialize gun locally
 const gun = Gun({
-  peers: ["http://localhost:3001/gun"],
+  peers: ['http://localhost:3001/gun'],
 });
 
 // create the initial state to hold the messages
@@ -21,8 +21,8 @@ function reducer(state, message) {
 export default function App() {
   // the form state manages the form input for creating a new message
   const [formState, setForm] = useState({
-    name: "",
-    message: "",
+    name: '',
+    message: '',
   });
 
   // initialize the reducer & state for holding the messages array
@@ -31,7 +31,7 @@ export default function App() {
   // when the app loads, fetch the current messages and load them into the state
   // this also subscribes to new data as it changes and updates the local state
   useEffect(() => {
-    const messages = gun.get("messages");
+    const messages = gun.get('messages');
     messages.map().on((m) => {
       dispatch({
         name: m.name,
@@ -43,15 +43,15 @@ export default function App() {
 
   // set a new message in gun, update the local state to reset the form field
   function saveMessage() {
-    const messages = gun.get("messages");
+    const messages = gun.get('messages');
     messages.set({
       name: formState.name,
       message: formState.message,
       createdAt: Date.now(),
     });
     setForm({
-      name: "",
-      message: "",
+      name: '',
+      message: '',
     });
   }
 
@@ -62,18 +62,8 @@ export default function App() {
 
   return (
     <div style={{ padding: 30 }}>
-      <input
-        onChange={onChange}
-        placeholder="Name"
-        name="name"
-        value={formState.name}
-      />
-      <input
-        onChange={onChange}
-        placeholder="Message"
-        name="message"
-        value={formState.message}
-      />
+      <input onChange={onChange} placeholder="Name" name="name" value={formState.name} />
+      <input onChange={onChange} placeholder="Message" name="message" value={formState.message} />
       <button onClick={saveMessage}>Send Message</button>
       {state.messages.map((message) => (
         <div key={message.createdAt}>

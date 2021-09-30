@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from "react";
-import classes from "./Profile.module.css";
-import axios from "axios";
-import CarouselCard from "./CarouselCard";
-import person from "../../assets/images/profile.svg";
-import background from "../../assets/images/wallpaper.jpg";
+import React, { useState, useEffect } from 'react';
+import classes from './Profile.module.css';
+import axios from 'axios';
+import CarouselCard from './CarouselCard';
+import person from '../../assets/images/profile.svg';
+import background from '../../assets/images/wallpaper.jpg';
 
-import Modal from "react-awesome-modal";
-import { WhatsappIcon, WhatsappShareButton } from "react-share";
-import { FacebookShareButton, FacebookIcon } from "react-share";
-import { EmailShareButton, EmailIcon } from "react-share";
-import { PinterestShareButton, PinterestIcon } from "react-share";
-import { TelegramShareButton, TelegramIcon } from "react-share";
-import { Container, Row, Col } from "react-bootstrap";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import Modal from 'react-awesome-modal';
+import { WhatsappIcon, WhatsappShareButton } from 'react-share';
+import { FacebookShareButton, FacebookIcon } from 'react-share';
+import { EmailShareButton, EmailIcon } from 'react-share';
+import { PinterestShareButton, PinterestIcon } from 'react-share';
+import { TelegramShareButton, TelegramIcon } from 'react-share';
+import { Container, Row, Col } from 'react-bootstrap';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { Tab } from "@headlessui/react";
+import { Tab } from '@headlessui/react';
 
 const Profile = (props) => {
   const [user, setUser] = useState(null);
   const [privateUser, setPrivate] = useState(true);
 
-  const [sharable_data, setSharable_data] = useState("");
+  const [sharable_data, setSharable_data] = useState('');
 
   const [followers, setFollowers] = useState(0);
   const [following, setFollowing] = useState(0);
@@ -30,30 +30,26 @@ const Profile = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [buttonText, setButtonText] = useState("SUBSCRIBE");
+  const [buttonText, setButtonText] = useState('SUBSCRIBE');
 
-  const myData = JSON.parse(window.localStorage.getItem("user"));
+  const myData = JSON.parse(window.localStorage.getItem('user'));
 
   function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
+    return classes.filter(Boolean).join(' ');
   }
 
   const get_User = async () => {
     await axios
-      .get(
-        `${process.env.REACT_APP_SERVER_URL}/user/${props.match.params.username}`
-      )
+      .get(`${process.env.REACT_APP_SERVER_URL}/user/${props.match.params.username}`)
       .then((value) => {
         setUser(value.data);
         for (let i = 0; i < value.data.follower_count.length; i++) {
           if (value.data.follower_count[i] === myData.username) {
-            setButtonText("UNSUBSCRIBE");
+            setButtonText('UNSUBSCRIBE');
             break;
           }
         }
-        setSharable_data(
-          `https://dbeats-demo.vercel.app /profile/${value.data.username}`
-        );
+        setSharable_data(`https://dbeats-demo.vercel.app /profile/${value.data.username}`);
         setFollowers(value.data.follower_count.length);
         setFollowing(value.data.followee_count.length);
       });
@@ -66,15 +62,15 @@ const Profile = (props) => {
       following: `${user.username}`,
       follower: `${myData.username}`,
     };
-    if (buttonText === "SUBSCRIBE") {
-      setButtonText("UNSUBSCRIBE");
+    if (buttonText === 'SUBSCRIBE') {
+      setButtonText('UNSUBSCRIBE');
       setFollowers(followers + 1);
       axios({
-        method: "POST",
+        method: 'POST',
         url: `${process.env.REACT_APP_SERVER_URL}/user/follow`,
         headers: {
-          "content-type": "application/json",
-          "Access-Control-Allow-Origin": "*",
+          'content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
         },
         data: followData,
       })
@@ -82,21 +78,21 @@ const Profile = (props) => {
           if (response) {
             console.log(response);
           } else {
-            alert("Invalid Login");
+            alert('Invalid Login');
           }
         })
         .catch(function (error) {
           console.log(error);
         });
     } else {
-      setButtonText("SUBSCRIBE");
+      setButtonText('SUBSCRIBE');
       setFollowers(followers - 1);
       axios({
-        method: "POST",
+        method: 'POST',
         url: `${process.env.REACT_APP_SERVER_URL}/user/unfollow`,
         headers: {
-          "content-type": "application/json",
-          "Access-Control-Allow-Origin": "*",
+          'content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
         },
         data: followData,
       })
@@ -104,7 +100,7 @@ const Profile = (props) => {
           if (response) {
             console.log(response);
           } else {
-            alert("Invalid Login");
+            alert('Invalid Login');
           }
         })
         .catch(function (error) {
@@ -114,13 +110,11 @@ const Profile = (props) => {
   };
 
   useEffect(() => {
-    let value = JSON.parse(window.localStorage.getItem("user"));
+    let value = JSON.parse(window.localStorage.getItem('user'));
     console.log(value);
     if (value.username === props.match.params.username) {
       setUser(value);
-      setSharable_data(
-        `https://dbeats-demo.vercel.app /profile/${value.username}`
-      );
+      setSharable_data(`https://dbeats-demo.vercel.app /profile/${value.username}`);
       setPrivate(true);
       setFollowers(value.follower_count.length);
       setFollowing(value.followee_count.length);
@@ -141,10 +135,7 @@ const Profile = (props) => {
                 <div id="display_details" className="px-5 pt-3 w-full">
                   <div className="bg-white pb-3 ">
                     <div className="block">
-                      <img
-                        src={background}
-                        style={{ width: "100%", height: "22rem" }}
-                      />
+                      <img src={background} style={{ width: '100%', height: '22rem' }} />
                     </div>
                     <div className="w-100">
                       <div className="w-100 flex -mt-28 ml-5">
@@ -160,9 +151,7 @@ const Profile = (props) => {
                         <div className="w-100 flex flex-col ml-3 mr-5">
                           <div className="text-white pb-5">
                             <div className="flex w-max">
-                              <span className="font-bold text-3xl mr-3">
-                                {user.name}
-                              </span>
+                              <span className="font-bold text-3xl mr-3">{user.name}</span>
                               {!privateUser ? (
                                 <button
                                   href="#"
@@ -179,33 +168,30 @@ const Profile = (props) => {
                                 onClick={handleShow}
                                 className="no-underline cursor-pointer border-white border-1  text-blue-50 hover:bg-white hover:text-dbeats-light rounded font-bold mr-1 flex self-center   py-1 px-3"
                               >
-                                <i className="fas fa-share-alt self-center mr-2 "></i>{" "}
-                                SHARE
+                                <i className="fas fa-share-alt self-center mr-2 "></i> SHARE
                               </button>
                             </div>
-                            <span className="font-semibold">
-                              @{user.username}
-                            </span>
+                            <span className="font-semibold">@{user.username}</span>
                           </div>
                           <div className="flex text-gray-400 py-3 pt-12">
                             <div class="grid grid-flow-rows grid-cols-5   gap-4">
                               <div className="font-bold mx-auto   px-4">
                                 <span className="font-bold text-lg text-gray-700">
-                                  {user.videos ? user.videos.length : 0}{" "}
+                                  {user.videos ? user.videos.length : 0}{' '}
                                 </span>
                                 VIDEOS
                               </div>
                               <div className="font-bold mx-auto   px-4">
                                 <span className="font-bold text-lg text-gray-700">
                                   {/*{user.subscribers ? <>{user.subscribers.length}</> : 0}{" "}*/}
-                                  {followers}{" "}
+                                  {followers}{' '}
                                 </span>
                                 FOLLOWERS
                               </div>
                               <div className="font-bold  mx-auto  px-4">
                                 <span className="font-bold text-lg text-gray-700">
                                   {/*{user.subscribed ? <>{user.subscribed.length}</> : 0}{" "}*/}
-                                  {following}{" "}
+                                  {following}{' '}
                                 </span>
                                 FOLLOWING
                               </div>
@@ -221,10 +207,10 @@ const Profile = (props) => {
                         <Tab
                           className={({ selected }) =>
                             classNames(
-                              "w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ",
+                              'w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ',
                               selected
-                                ? "text-dbeats-light font-bold border-b-2 border-dbeats-light"
-                                : "hover:bg-black/[0.12]  hover:text-gray-900"
+                                ? 'text-dbeats-light font-bold border-b-2 border-dbeats-light'
+                                : 'hover:bg-black/[0.12]  hover:text-gray-900',
                             )
                           }
                         >
@@ -234,10 +220,10 @@ const Profile = (props) => {
                         <Tab
                           className={({ selected }) =>
                             classNames(
-                              "w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ",
+                              'w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ',
                               selected
-                                ? "text-dbeats-light font-bold border-b-2 border-dbeats-light"
-                                : "hover:bg-black/[0.12]  hover:text-gray-900"
+                                ? 'text-dbeats-light font-bold border-b-2 border-dbeats-light'
+                                : 'hover:bg-black/[0.12]  hover:text-gray-900',
                             )
                           }
                         >
@@ -247,10 +233,10 @@ const Profile = (props) => {
                         <Tab
                           className={({ selected }) =>
                             classNames(
-                              "w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ",
+                              'w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ',
                               selected
-                                ? "text-dbeats-light font-bold border-b-2 border-dbeats-light"
-                                : "hover:bg-black/[0.12]  hover:text-gray-900"
+                                ? 'text-dbeats-light font-bold border-b-2 border-dbeats-light'
+                                : 'hover:bg-black/[0.12]  hover:text-gray-900',
                             )
                           }
                         >
@@ -260,10 +246,10 @@ const Profile = (props) => {
                         <Tab
                           className={({ selected }) =>
                             classNames(
-                              "w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ",
+                              'w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ',
                               selected
-                                ? "text-dbeats-light font-bold border-b-2 border-dbeats-light"
-                                : "hover:bg-black/[0.12]  hover:text-gray-900"
+                                ? 'text-dbeats-light font-bold border-b-2 border-dbeats-light'
+                                : 'hover:bg-black/[0.12]  hover:text-gray-900',
                             )
                           }
                         >
@@ -373,39 +359,19 @@ const Profile = (props) => {
                   <Row>
                     <Col className="flex justify-around align-center">
                       <WhatsappShareButton url={sharable_data}>
-                        <WhatsappIcon
-                          iconFillColor="white"
-                          size={60}
-                          round={true}
-                        />
+                        <WhatsappIcon iconFillColor="white" size={60} round={true} />
                       </WhatsappShareButton>
                       <FacebookShareButton url={sharable_data}>
-                        <FacebookIcon
-                          iconFillColor="white"
-                          size={60}
-                          round={true}
-                        />
+                        <FacebookIcon iconFillColor="white" size={60} round={true} />
                       </FacebookShareButton>
                       <EmailShareButton url={sharable_data}>
-                        <EmailIcon
-                          iconFillColor="white"
-                          size={60}
-                          round={true}
-                        />
+                        <EmailIcon iconFillColor="white" size={60} round={true} />
                       </EmailShareButton>
                       <PinterestShareButton url={sharable_data}>
-                        <PinterestIcon
-                          iconFillColor="white"
-                          size={60}
-                          round={true}
-                        />
+                        <PinterestIcon iconFillColor="white" size={60} round={true} />
                       </PinterestShareButton>
                       <TelegramShareButton url={sharable_data}>
-                        <TelegramIcon
-                          iconFillColor="white"
-                          size={60}
-                          round={true}
-                        />
+                        <TelegramIcon iconFillColor="white" size={60} round={true} />
                       </TelegramShareButton>
                     </Col>
                   </Row>
@@ -414,10 +380,7 @@ const Profile = (props) => {
                       text={sharable_data}
                       className="block mx-auto p-2 mt-4 mb-2 w-96 text-white font-semibold rounded-lg bg-dbeats-light"
                     >
-                      <button
-                        type="submit"
-                        onClick={() => setButtonText("Link Copied!")}
-                      >
+                      <button type="submit" onClick={() => setButtonText('Link Copied!')}>
                         {buttonText}
                       </button>
                     </CopyToClipboard>

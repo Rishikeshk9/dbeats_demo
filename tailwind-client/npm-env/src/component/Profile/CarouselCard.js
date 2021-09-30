@@ -1,36 +1,36 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 //import { makeStyles } from '@material-ui/core/styles';
 //import Card from '@material-ui/core/Card';
 //import CardHeader from '@material-ui/core/CardHeader';
 //import Avatar from '@material-ui/core/Avatar';
 //import { red } from '@material-ui/core/colors';
-import ReactPlayer from "react-player";
-import classes from "./Profile.module.css";
-
+import ReactPlayer from 'react-player';
+import classes from './Profile.module.css';
 
 const CarouselCard = (props) => {
-  
   const [playing, setPlaying] = useState(false);
 
   const handleMouseMove = () => {
-    setPlaying(true)
+    setPlaying(true);
   };
 
   const hanldeMouseLeave = () => {
-    setPlaying(false)    
+    setPlaying(false);
   };
 
   //console.log(props.playbackUserData)
 
   return (
-    <div className="w-full h-auto flex py-3 px-3 bg-white rounded-xl" >
+    <div className="w-full h-auto flex py-3 px-3 bg-white rounded-xl">
       <div className={`cursor-pointer w-1/3 my-auto`}>
-        <ReactPlayer 
-          onClick={() => {window.location.href = `/playback/${props.username}/0` } }
+        <ReactPlayer
+          onClick={() => {
+            window.location.href = `/playback/${props.username}/0`;
+          }}
           width="100%"
           height="auto"
           playing={playing}
-          muted={false} 
+          muted={false}
           volume={0.5}
           url={props.playbackUserData.link}
           controls={false}
@@ -48,24 +48,19 @@ const CarouselCard = (props) => {
           <hr />
           <div>
             <div className="text-2xl text-gray-500 px-2">
-              <button  
-                  className="px-1"
-              >
-                  <i className="fas fa-share"></i>
+              <button className="px-1">
+                <i className="fas fa-share"></i>
               </button>
               <i className="px-1 fas fa-heart"></i>
-              <button  
-                  className=""
-              >
-                  <i className="px-1 fas fa-ellipsis-h"></i>
+              <button className="">
+                <i className="px-1 fas fa-ellipsis-h"></i>
               </button>
             </div>
           </div>
-        </p>  
-        
+        </p>
       </div>
     </div>
   );
-}
+};
 
 export default CarouselCard;

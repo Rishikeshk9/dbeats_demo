@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 //import Dropdown from "./dropdown.component";
-import axios from "axios";
+import axios from 'axios';
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import Noty from "noty";
 // import Multiselect from "multiselect-react-dropdown";
 // import logo from "../assets/graphics/DBeatsHori.png";
-import { Transition } from "@headlessui/react";
-import { useEffect } from "react";
+import { Transition } from '@headlessui/react';
+import { useEffect } from 'react';
 //import Switch from "./switch.component";
 
-import { useSelector, useDispatch } from "react-redux";
-import { toggleAudius } from "../actions/index";
-import PopUp from "./popup.component";
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleAudius } from '../actions/index';
+import PopUp from './popup.component';
 
-import BottomBar from "./bottom-player.component";
+import BottomBar from './bottom-player.component';
 
 export default function Track(props) {
   // constructor(props) {
@@ -23,15 +23,15 @@ export default function Track(props) {
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.toggleDarkMode);
   const audius = useSelector((state) => state.toggleAudius);
-  const user = JSON.parse(window.localStorage.getItem("user"));
+  const user = JSON.parse(window.localStorage.getItem('user'));
 
   const [firstPlayed, setFirstPlay] = useState(false);
   const [songDetails, setDetails] = useState({
-    id: "",
-    songLink: "",
-    artwork: "",
-    songTitle: "",
-    author: "",
+    id: '',
+    songLink: '',
+    artwork: '',
+    songTitle: '',
+    author: '',
     playing: false,
   });
   const [playId, setPlayId] = useState(null);
@@ -57,22 +57,20 @@ export default function Track(props) {
   // }
   const get_favorites = async () => {
     await axios
-      .get(
-        `${process.env.REACT_APP_SERVER_URL}/user/${user.username}/favorites`
-      )
+      .get(`${process.env.REACT_APP_SERVER_URL}/user/${user.username}/favorites`)
       .then((value) => {
         setFavorites(value.data.favorite_tracks);
         console.log(value.data);
-        console.log("Favorites fetched!");
+        console.log('Favorites fetched!');
       });
   };
 
-  let audio = new Audio("");
+  let audio = new Audio('');
 
   const getTodos = async () => {
     if (user) get_favorites();
     let data = await axios
-      .get("https://discoveryprovider.audius.co/v1/tracks/trending")
+      .get('https://discoveryprovider.audius.co/v1/tracks/trending')
       .then(function (response) {
         //console.log(response.data.data);
         return response;
@@ -85,7 +83,7 @@ export default function Track(props) {
 
   const getDBeatsTracks = async () => {
     let data = await axios
-      .get("/dbeats-music")
+      .get('/dbeats-music')
       .then(function (response) {
         //console.log(response.data.data);
         return response.data;
@@ -101,13 +99,13 @@ export default function Track(props) {
 
   useEffect(() => {
     // Anything in here is fired on component mount.
-    console.log("GrandChild did mount.");
+    console.log('GrandChild did mount.');
     getTodos();
     getDBeatsTracks();
-    audio.addEventListener("ended", () => setState({ play: false }));
+    audio.addEventListener('ended', () => setState({ play: false }));
     return () => {
       // Anything in here is fired on component unmount.
-      audio.removeEventListener("ended", () => setState({ play: false }));
+      audio.removeEventListener('ended', () => setState({ play: false }));
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -127,7 +125,7 @@ export default function Track(props) {
       };
       setDetails(details);
       state.play = false;
-      console.log("SONG PAUSED");
+      console.log('SONG PAUSED');
     } else {
       //   // audio.play();
       state.play = true;
@@ -142,7 +140,7 @@ export default function Track(props) {
       setDetails(details);
       setPlayId(songDetails.id);
 
-      console.log("SONG RESUME");
+      console.log('SONG RESUME');
     }
   };
 
@@ -155,7 +153,7 @@ export default function Track(props) {
     console.log(postData);
 
     let result = await axios({
-      method: "post",
+      method: 'post',
       url: `${process.env.REACT_APP_SERVER_URL}/user/favorite`,
       data: postData,
     });
@@ -172,7 +170,7 @@ export default function Track(props) {
     console.log(postData);
 
     let result = await axios({
-      method: "post",
+      method: 'post',
       url: `${process.env.REACT_APP_SERVER_URL}/user/unfavorite`,
       data: postData,
     });
@@ -191,7 +189,7 @@ export default function Track(props) {
 
       if (seconds > 3) {
         await axios({
-          method: "post",
+          method: 'post',
           url: `${process.env.REACT_APP_SERVER_URL}/count-play`,
           data: postData,
         });
@@ -224,7 +222,7 @@ export default function Track(props) {
       };
       setDetails(details);
       setPlayId(id);
-      console.log("NEW SONG");
+      console.log('NEW SONG');
     } else {
       pauseResume();
     }
@@ -233,7 +231,7 @@ export default function Track(props) {
   return (
     <>
       <div id="outer-container" className="h-100">
-        <div id="page-wrap" className={`${darkMode && "dark"}  `}>
+        <div id="page-wrap" className={`${darkMode && 'dark'}  `}>
           <div className="pb-10 pt-4 bg-gradient-to-r from-white via-green-100 to-white  dark:bg-gradient-to-t dark:from-dbeats-dark-primary dark:via-dbeats-dark-alt dark:to-dbeats-dark-primary   self-center relative w-full h-screen dark:bg-dbeats-dark-primary   ">
             <div className="flex  w-full md:w-2/3 justify-between px-5 self-center mx-auto">
               <p
@@ -259,9 +257,7 @@ export default function Track(props) {
                 <div className="ml-3 text-gray-500 font-medium">
                   <img
                     src="https://audius.org/img/audius@2x.png"
-                    className={`${
-                      !audius ? "filter grayscale-75 " : ""
-                    }w-10 h-10 filter`}
+                    className={`${!audius ? 'filter grayscale-75 ' : ''}w-10 h-10 filter`}
                     alt="audius"
                   ></img>
                 </div>
@@ -294,16 +290,16 @@ export default function Track(props) {
                             onClick={() =>
                               playAudio(
                                 todo.id,
-                                todo.artwork["150x150"],
+                                todo.artwork['150x150'],
                                 todo.title,
-                                todo.user.name
+                                todo.user.name,
                               )
                             }
                             className="items-center h-26 w-30 md:h-48 md:w-52 flex   cursor-pointer mr-4"
                           >
                             <img
                               id="album-artwork"
-                              src={todo.artwork["150x150"]}
+                              src={todo.artwork['150x150']}
                               className="mr-4 w-full h-full 2 rounded  "
                               alt=""
                             ></img>
@@ -312,13 +308,13 @@ export default function Track(props) {
                                 name={todo.id}
                                 align="center"
                                 style={{
-                                  marginLeft: "65%",
-                                  marginTop: "10%",
+                                  marginLeft: '65%',
+                                  marginTop: '10%',
                                 }}
                                 className={`${
                                   state.play && playId === todo.id
-                                    ? "fa-pause-circle"
-                                    : "fa-play-circle"
+                                    ? 'fa-pause-circle'
+                                    : 'fa-play-circle'
                                 } fas text-5xl md:text-6xl   text-center  `}
                               />
                             </div>
@@ -332,8 +328,7 @@ export default function Track(props) {
                               </h4>
                               <p className="font-semibold text-gray-500">
                                 {Math.floor(todo.duration / 60)}:
-                                {todo.duration -
-                                  Math.floor(todo.duration / 60) * 60}
+                                {todo.duration - Math.floor(todo.duration / 60) * 60}
                               </p>
                             </div>
 
@@ -363,7 +358,7 @@ export default function Track(props) {
                                   />
                                 </svg>
                               ) : (
-                                ""
+                                ''
                               )}
                             </p>
 
@@ -419,19 +414,15 @@ export default function Track(props) {
                                   onClick={() =>
                                     playAudio(
                                       todo.id,
-                                      todo.artwork["150x150"],
+                                      todo.artwork['150x150'],
                                       todo.title,
-                                      todo.user.name
+                                      todo.user.name,
                                     )
                                   }
                                   name={todo.id}
                                   className="  cursor-pointer mr-2 uppercase font-bold  bg-gradient-to-r from-green-400 to-blue-500   text-white block py-2 px-10   hover:scale-95 transform transition-all"
                                 >
-                                  {`${
-                                    state.play && playId === todo.id
-                                      ? "Pause"
-                                      : "Play"
-                                  }`}
+                                  {`${state.play && playId === todo.id ? 'Pause' : 'Play'}`}
                                 </button>
                                 {user ? (
                                   <button
@@ -445,8 +436,8 @@ export default function Track(props) {
                                     className={`${
                                       favorites
                                         ? favorites.indexOf(todo.id) > -1
-                                          ? "text-red-900"
-                                          : "text-gray-600 hover:text-red-300"
+                                          ? 'text-red-900'
+                                          : 'text-gray-600 hover:text-red-300'
                                         : false
                                     } mr-2  block p-2 rounded-full hover:scale-95 dark:hover:bg-dbeats-dark-secondary transform transition-all`}
                                   >
@@ -512,18 +503,18 @@ export default function Track(props) {
                                 onClick={() =>
                                   playAudio(
                                     todo.id,
-                                    todo.artwork["150x150"],
+                                    todo.artwork['150x150'],
                                     todo.title,
-                                    todo.user.name
+                                    todo.user.name,
                                   )
                                 }
                                 name={todo.id}
                                 align="center"
-                                style={{ marginLeft: "55%" }}
+                                style={{ marginLeft: '55%' }}
                                 className={`${
                                   state.play && playId === todo.id
-                                    ? "fa-pause-circle"
-                                    : "fa-play-circle"
+                                    ? 'fa-pause-circle'
+                                    : 'fa-play-circle'
                                 } fas text-6xl   text-center  `}
                               />
                             </div>
@@ -537,8 +528,7 @@ export default function Track(props) {
                               </h4>
                               <p className="font-semibold text-gray-500">
                                 {Math.floor(todo.duration / 60)}:
-                                {todo.duration -
-                                  Math.floor(todo.duration / 60) * 60}
+                                {todo.duration - Math.floor(todo.duration / 60) * 60}
                               </p>
                             </div>
 
@@ -559,17 +549,13 @@ export default function Track(props) {
                                       todo.trackId,
                                       todo.trackImage,
                                       todo.trackName,
-                                      todo.trackName
+                                      todo.trackName,
                                     )
                                   }
                                   name={todo.trackId}
                                   className="  cursor-pointer mr-2 uppercase font-bold  bg-gradient-to-r from-green-400 to-blue-500   text-white block py-2 px-10   hover:scale-95 transform transition-all"
                                 >
-                                  {`${
-                                    state.play && playId === todo.id
-                                      ? "Pause"
-                                      : "Play"
-                                  }`}
+                                  {`${state.play && playId === todo.id ? 'Pause' : 'Play'}`}
                                 </button>
                                 {user ? (
                                   <button
@@ -583,8 +569,8 @@ export default function Track(props) {
                                     className={`${
                                       favorites
                                         ? favorites.indexOf(todo.id) > -1
-                                          ? "text-red-900"
-                                          : "text-gray-600 hover:text-red-300"
+                                          ? 'text-red-900'
+                                          : 'text-gray-600 hover:text-red-300'
                                         : false
                                     } mr-2  block p-2 rounded-full hover:scale-95 dark:hover:bg-dbeats-dark-secondary transform transition-all`}
                                   >

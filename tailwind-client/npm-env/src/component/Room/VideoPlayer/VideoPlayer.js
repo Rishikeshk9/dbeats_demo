@@ -1,13 +1,13 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef } from 'react';
 
-import Container from "@material-ui/core/Container";
-import ReactPlayer from "react-player";
+import Container from '@material-ui/core/Container';
+import ReactPlayer from 'react-player';
 
-import screenful from "screenfull";
-import FullControls from "./FullControls";
-import PlayControls from "./PlayControls";
-import Footer from "../Footer/Footer";
-import classes from "./videoPlayer.module.css";
+import screenful from 'screenfull';
+import FullControls from './FullControls';
+import PlayControls from './PlayControls';
+import Footer from '../Footer/Footer';
+import classes from './videoPlayer.module.css';
 
 const format = (seconds) => {
   if (isNaN(seconds)) {
@@ -16,9 +16,9 @@ const format = (seconds) => {
   const date = new Date(seconds * 1000);
   const hh = date.getUTCHours();
   const mm = date.getUTCMinutes();
-  const ss = date.getUTCSeconds().toString().padStart(2, "0");
+  const ss = date.getUTCSeconds().toString().padStart(2, '0');
   if (hh) {
-    return `${hh}:${mm.toString().padStart(2, "0")}:${ss}`;
+    return `${hh}:${mm.toString().padStart(2, '0')}:${ss}`;
   }
   return `${mm}:${ss}`;
 };
@@ -27,7 +27,7 @@ let count = 0;
 
 function VideoPlayer(props) {
   const [showControls, setShowControls] = useState(false);
-  const [timeDisplayFormat, setTimeDisplayFormat] = React.useState("normal");
+  const [timeDisplayFormat, setTimeDisplayFormat] = React.useState('normal');
   const [state, setState] = useState({
     pip: false,
     playing: true,
@@ -45,8 +45,7 @@ function VideoPlayer(props) {
   const playerRef = useRef(null);
   const playerContainerRef = useRef(null);
   const controlsRef = useRef(null);
-  const { playing, light, muted, loop, playbackRate, pip, played, volume } =
-    state;
+  const { playing, light, muted, loop, playbackRate, pip, played, volume } = state;
 
   const handlePlayPause = () => {
     setState({ ...state, playing: !state.playing });
@@ -62,7 +61,7 @@ function VideoPlayer(props) {
 
   const handleProgress = (changeState) => {
     if (count > 3) {
-      controlsRef.current.style.visibility = "hidden";
+      controlsRef.current.style.visibility = 'hidden';
       count = 0;
     }
     if (!state.seeking) {
@@ -83,7 +82,7 @@ function VideoPlayer(props) {
     console.log({ value: e.target });
     setState({ ...state, seeking: false });
     // console.log(sliderRef.current.value)
-    playerRef.current.seekTo(newValue / 100, "fraction");
+    playerRef.current.seekTo(newValue / 100, 'fraction');
   };
 
   const handleDuration = (duration) => {
@@ -108,9 +107,7 @@ function VideoPlayer(props) {
   };
 
   const handleDisplayFormat = () => {
-    setTimeDisplayFormat(
-      timeDisplayFormat === "normal" ? "remaining" : "normal"
-    );
+    setTimeDisplayFormat(timeDisplayFormat === 'normal' ? 'remaining' : 'normal');
   };
 
   const handlePlaybackRate = (rate) => {
@@ -122,28 +119,22 @@ function VideoPlayer(props) {
   };
 
   const handleMouseMove = () => {
-    controlsRef.current.style.visibility = "visible";
+    controlsRef.current.style.visibility = 'visible';
   };
 
   const hanldeMouseLeave = () => {
-    controlsRef.current.style.visibility = "hidden";
+    controlsRef.current.style.visibility = 'hidden';
   };
 
   const handleClickEvent = () => {
     setState({ ...state, playing: !state.playing });
   };
 
-  const currentTime =
-    playerRef && playerRef.current
-      ? playerRef.current.getCurrentTime()
-      : "00:00";
+  const currentTime = playerRef && playerRef.current ? playerRef.current.getCurrentTime() : '00:00';
 
-  const duration =
-    playerRef && playerRef.current ? playerRef.current.getDuration() : "00:00";
+  const duration = playerRef && playerRef.current ? playerRef.current.getDuration() : '00:00';
   const elapsedTime =
-    timeDisplayFormat === "normal"
-      ? format(currentTime)
-      : `-${format(duration - currentTime)}`;
+    timeDisplayFormat === 'normal' ? format(currentTime) : `-${format(duration - currentTime)}`;
 
   const totalDuration = format(duration);
 
@@ -153,11 +144,11 @@ function VideoPlayer(props) {
     }
   }
 
-  window.addEventListener("keydown", escFunction);
+  window.addEventListener('keydown', escFunction);
 
   return (
     <>
-      <Container style={{ width: "95%", height: "auto" }}>
+      <Container style={{ width: '95%', height: 'auto' }}>
         <div
           onMouseMove={handleMouseMove}
           onMouseLeave={hanldeMouseLeave}

@@ -1,7 +1,7 @@
-import toggleAudius from "./toggleAudius";
-import toggleDarkMode from "./toggleDarkMode";
+import toggleAudius from './toggleAudius';
+import toggleDarkMode from './toggleDarkMode';
 
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
   toggleDarkMode,

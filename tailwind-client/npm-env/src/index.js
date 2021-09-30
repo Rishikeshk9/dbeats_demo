@@ -1,16 +1,16 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import axios from "axios";
-import Noty from "noty";
-import mojs from "@mojs/core";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import axios from 'axios';
+import Noty from 'noty';
+import mojs from '@mojs/core';
 
 //import Home from "./component/home.component";
 
-import store from "./store";
-import { Provider } from "react-redux";
+import store from './store';
+import { Provider } from 'react-redux';
 
 store.subscribe(() => console.log(store.getState()));
 
@@ -20,10 +20,10 @@ axios.interceptors.request.use(
     Noty.closeAll();
     // Do something before request is sent
     new Noty({
-      type: "info",
-      text: "Please Wait",
-      theme: "metroui",
-      layout: "bottomRight",
+      type: 'info',
+      text: 'Please Wait',
+      theme: 'metroui',
+      layout: 'bottomRight',
     }).show();
     return config;
   },
@@ -31,14 +31,14 @@ axios.interceptors.request.use(
     // Do something with request error
     Noty.closeAll();
     new Noty({
-      type: "error",
-      text: "Error :" + JSON.stringify(error),
-      theme: "metroui",
-      layout: "bottomLeft",
+      type: 'error',
+      text: 'Error :' + JSON.stringify(error),
+      theme: 'metroui',
+      layout: 'bottomLeft',
     }).show();
 
     return Promise.reject(error);
-  }
+  },
 );
 
 // For POST requests
@@ -48,17 +48,17 @@ axios.interceptors.response.use(
     // Add configurations here
     if (res.status === 201) {
       new Noty({
-        type: "success",
+        type: 'success',
         text: res.data,
-        theme: "metroui",
-        layout: "bottomRight",
+        theme: 'metroui',
+        layout: 'bottomRight',
         animation: {
           open: function (promise) {
             var n = this;
             var Timeline = new mojs.Timeline();
             var body = new mojs.Html({
               el: n.barDom,
-              x: { 500: 0, delay: 0, duration: 500, easing: "elastic.out" },
+              x: { 500: 0, delay: 0, duration: 500, easing: 'elastic.out' },
               isForce3d: true,
               onComplete: function () {
                 promise(function (resolve) {
@@ -77,8 +77,8 @@ axios.interceptors.response.use(
               isShowStart: true,
             });
 
-            n.barDom.style["overflow"] = "visible";
-            parent.el.style["overflow"] = "hidden";
+            n.barDom.style['overflow'] = 'visible';
+            parent.el.style['overflow'] = 'hidden';
 
             var burst = new mojs.Burst({
               parent: parent.el,
@@ -88,9 +88,9 @@ axios.interceptors.response.use(
               radius: 75,
               angle: { [-90]: 40 },
               children: {
-                fill: "#EBD761",
-                delay: "stagger(500, -50)",
-                radius: "rand(8, 25)",
+                fill: '#EBD761',
+                delay: 'stagger(500, -50)',
+                radius: 'rand(8, 25)',
                 direction: -1,
                 isSwirl: true,
               },
@@ -102,11 +102,11 @@ axios.interceptors.response.use(
               degree: 0,
               angle: 75,
               radius: { 0: 100 },
-              top: "90%",
+              top: '90%',
               children: {
-                fill: "#EBD761",
+                fill: '#EBD761',
                 pathScale: [0.65, 1],
-                radius: "rand(12, 15)",
+                radius: 'rand(12, 15)',
                 direction: [-1, 1],
                 delay: 0.8 * 500,
                 isSwirl: true,
@@ -120,8 +120,8 @@ axios.interceptors.response.use(
             var n = this;
             new mojs.Html({
               el: n.barDom,
-              x: { 0: 500, delay: 10, duration: 500, easing: "cubic.out" },
-              skewY: { 0: 10, delay: 10, duration: 500, easing: "cubic.out" },
+              x: { 0: 500, delay: 10, duration: 500, easing: 'cubic.out' },
+              skewY: { 0: 10, delay: 10, duration: 500, easing: 'cubic.out' },
               isForce3d: true,
               onComplete: function () {
                 promise(function (resolve) {
@@ -132,7 +132,7 @@ axios.interceptors.response.use(
           },
         },
       }).show();
-      console.log("Posted Successfully");
+      console.log('Posted Successfully');
       console.log(res);
     }
     return res;
@@ -140,13 +140,13 @@ axios.interceptors.response.use(
   (err) => {
     Noty.closeAll();
     new Noty({
-      type: "error",
-      text: "Error received : " + JSON.stringify(err),
-      theme: "metroui",
-      layout: "bottomRight",
+      type: 'error',
+      text: 'Error received : ' + JSON.stringify(err),
+      theme: 'metroui',
+      layout: 'bottomRight',
     }).show();
     return Promise.reject(err);
-  }
+  },
 );
 
 ReactDOM.render(
@@ -155,7 +155,7 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function

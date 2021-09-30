@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import { Button, Spinner } from "react-bootstrap";
-import classes from "./Login.module.css";
-import axios from "axios";
+import React, { useState } from 'react';
+import { Button, Spinner } from 'react-bootstrap';
+import classes from './Login.module.css';
+import axios from 'axios';
 
-import useWeb3Modal from "../../hooks/useWeb3Modal";
+import useWeb3Modal from '../../hooks/useWeb3Modal';
 
-const Login = (props) => {
+const Login = () => {
   // Web3
   const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
-  const bcrypt = require("bcryptjs");
+  const bcrypt = require('bcryptjs');
 
   // Form varibles
-  const [form_name, setName] = useState("");
-  const [form_username, setUsername] = useState("");
-  const [form_password, setPassword] = useState("");
-  const [form_confirmPassword, setConfirmPassword] = useState("");
+  const [form_name, setName] = useState('');
+  const [form_username, setUsername] = useState('');
+  const [form_password, setPassword] = useState('');
+  const [form_confirmPassword, setConfirmPassword] = useState('');
   const [login, setLogin] = useState(true);
   const [loader, setLoader] = useState(true);
 
@@ -25,18 +25,18 @@ const Login = (props) => {
     };
 
     axios({
-      method: "post",
+      method: 'post',
       url: `${process.env.REACT_APP_SERVER_URL}/user/login`,
       data: userData,
     })
       .then(function (response) {
         if (response) {
-          console.log(response.data, "resData");
-          window.localStorage.setItem("user", JSON.stringify(response.data));
+          console.log(response.data, 'resData');
+          window.localStorage.setItem('user', JSON.stringify(response.data));
           window.location.reload();
-          window.location.href = "/";
+          window.location.href = '/';
         } else {
-          alert("Invalid Login");
+          alert('Invalid Login');
         }
       })
       .catch(function (error) {
@@ -52,21 +52,21 @@ const Login = (props) => {
       name: `${form_name}`,
       profiles: [
         {
-          name: "720p",
+          name: '720p',
           bitrate: 2000000,
           fps: 30,
           width: 1280,
           height: 720,
         },
         {
-          name: "480p",
+          name: '480p',
           bitrate: 1000000,
           fps: 30,
           width: 854,
           height: 480,
         },
         {
-          name: "360p",
+          name: '360p',
           bitrate: 500000,
           fps: 30,
           width: 640,
@@ -76,7 +76,7 @@ const Login = (props) => {
     };
 
     const stream = await axios({
-      method: "POST",
+      method: 'POST',
       url: `${process.env.REACT_APP_SERVER_URL}/create_stream`,
       data: streamData,
     });
@@ -94,20 +94,20 @@ const Login = (props) => {
     console.log(userData);
 
     axios({
-      method: "post",
+      method: 'post',
       url: `${process.env.REACT_APP_SERVER_URL}/user/add`,
       data: userData,
     })
       .then(function (response) {
         //console.log("esponse", response.data);
-        window.localStorage.setItem("user", JSON.stringify(response.data));
+        window.localStorage.setItem('user', JSON.stringify(response.data));
       })
       .catch(function (error) {
         console.log(error);
       });
 
     setLoader(true);
-    window.location.href = "/";
+    window.location.href = '/';
   };
 
   // Metamask Auth
@@ -127,10 +127,10 @@ const Login = (props) => {
           }}
         >
           {!provider
-            ? "Connect Your Wallet "
+            ? 'Connect Your Wallet '
             : `Wallet Connected (${
                 provider.provider.selectedAddress.slice(0, 4) +
-                "..." +
+                '...' +
                 provider.provider.selectedAddress.slice(-4)
               })`}
         </Button>
@@ -138,6 +138,7 @@ const Login = (props) => {
     );
   }
 
+  // eslint-disable-next-line no-unused-vars
   function LoginWalletButton({ provider, loadWeb3Modal, logoutOfWeb3Modal }) {
     return (
       <div>
@@ -150,19 +151,16 @@ const Login = (props) => {
             if (provider && variable) {
               await axios
                 .get(
-                  `${process.env.REACT_APP_SERVER_URL}/user/getuser_by_wallet/${provider.provider.selectedAddress}`
+                  `${process.env.REACT_APP_SERVER_URL}/user/getuser_by_wallet/${provider.provider.selectedAddress}`,
                 )
                 .then((value) => {
-                  window.localStorage.setItem(
-                    "user",
-                    JSON.stringify(value.data)
-                  );
-                  window.location.href = "/";
+                  window.localStorage.setItem('user', JSON.stringify(value.data));
+                  window.location.href = '/';
                 });
             }
           }}
         >
-          {!provider ? "Login Using Wallet " : `Wallet Connected (Click)`}
+          {!provider ? 'Login Using Wallet ' : `Wallet Connected (Click)`}
         </Button>
       </div>
     );
@@ -195,13 +193,11 @@ const Login = (props) => {
   return (
     <>
       <div>
-        <div id="outer-container" style={{ height: "100vh" }}>
+        <div id="outer-container" style={{ height: '100vh' }}>
           <main id="page-wrap" className={classes.main_homepage_body}>
             <div className={classes.login_container} id="loginPage_container">
               {login ? (
-                <div
-                  className={`${classes.form_container} ${classes.sign_up_container}`}
-                >
+                <div className={`${classes.form_container} ${classes.sign_up_container}`}>
                   <form className={classes.login_form}>
                     <h1>Create Account</h1>
                     <div className={classes.social_container}>
@@ -211,15 +207,9 @@ const Login = (props) => {
                         logoutOfWeb3Modal={logoutOfWeb3Modal}
                       />
                     </div>
-                    <span className={classes.login_span}>
-                      First connect your Wallet
-                    </span>
+                    <span className={classes.login_span}>First connect your Wallet</span>
 
-                    <input
-                      type="text"
-                      placeholder="Name"
-                      onChange={(e) => handleNameChange(e)}
-                    />
+                    <input type="text" placeholder="Name" onChange={(e) => handleNameChange(e)} />
                     <input
                       type="text"
                       placeholder="Username"
@@ -244,7 +234,7 @@ const Login = (props) => {
                       >
                         Sign Up
                       </Button>
-                      <div style={{ marginTop: "16px" }}>
+                      <div style={{ marginTop: '16px' }}>
                         <Spinner
                           animation="border"
                           variant="info"
@@ -259,9 +249,7 @@ const Login = (props) => {
                   </form>
                 </div>
               ) : (
-                <div
-                  className={`${classes.form_container} ${classes.sign_in_container}`}
-                >
+                <div className={`${classes.form_container} ${classes.sign_in_container}`}>
                   <form className={classes.login_form}>
                     <h1>Sign in</h1>
                     <div className={classes.social_container}>
@@ -273,9 +261,7 @@ const Login = (props) => {
                         />
                       </div>
                     </div>
-                    <span className={classes.login_span}>
-                      or use your account
-                    </span>
+                    <span className={classes.login_span}>or use your account</span>
                     <input
                       type="text"
                       placeholder="Username"
@@ -289,10 +275,7 @@ const Login = (props) => {
                     <a className={classes.social} href="/#">
                       Forgot your password?
                     </a>
-                    <button
-                      onClick={handleLogin}
-                      className={classes.login_button}
-                    >
+                    <button onClick={handleLogin} className={classes.login_button}>
                       Sign In
                     </button>
                   </form>
@@ -301,41 +284,18 @@ const Login = (props) => {
               <div className={classes.overlay_container}>
                 <div className={classes.overlay}>
                   {login ? (
-                    <div
-                      className={[
-                        classes.overlay_panel,
-                        classes.overlay_right,
-                      ].join(" ")}
-                    >
+                    <div className={[classes.overlay_panel, classes.overlay_right].join(' ')}>
                       <h1>Welcome Back!</h1>
-                      <p>
-                        To keep connected with us please login with your
-                        personal info
-                      </p>
-                      <button
-                        className={classes.login_button}
-                        id="signIn"
-                        onClick={handleSignUp}
-                      >
+                      <p>To keep connected with us please login with your personal info</p>
+                      <button className={classes.login_button} id="signIn" onClick={handleSignUp}>
                         Sign In
                       </button>
                     </div>
                   ) : (
-                    <div
-                      className={[
-                        classes.overlay_panel,
-                        classes.overlay_right,
-                      ].join(" ")}
-                    >
+                    <div className={[classes.overlay_panel, classes.overlay_right].join(' ')}>
                       <h1>Hello, Friend!</h1>
-                      <p>
-                        Enter your personal details and start journey with us
-                      </p>
-                      <button
-                        className={classes.login_button}
-                        id="signUp"
-                        onClick={handleSignIn}
-                      >
+                      <p>Enter your personal details and start journey with us</p>
+                      <button className={classes.login_button} id="signUp" onClick={handleSignIn}>
                         Sign Up
                       </button>
                     </div>

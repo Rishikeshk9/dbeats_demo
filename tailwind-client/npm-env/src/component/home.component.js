@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 // import Dropdown from "./dropdown.component";
 // import axios from "axios";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,10 +13,10 @@ import React, { useState } from "react";
 //import useWeb3Modal from "../hooks/useWeb3Modal";
 // import ReactAudioPlayer from "react-audio-player";
 // import ReactJkMusicPlayer from "react-jinke-music-player";
-import "react-jinke-music-player/assets/index.css";
-import Logo from "../assets/graphics/light-logo.svg";
-import Logo_light from "../assets/graphics/dark-logo.svg";
-import { useSelector} from "react-redux";
+import 'react-jinke-music-player/assets/index.css';
+import Logo from '../assets/graphics/light-logo.svg';
+import Logo_light from '../assets/graphics/dark-logo.svg';
+import { useSelector } from 'react-redux';
 
 const Form = (props) => {
   const state = {
@@ -35,23 +35,19 @@ const Form = (props) => {
   });
 
   //const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
-  
+
   const darkMode = useSelector((state) => state.toggleDarkMode);
   return (
     <>
       <div className="flex self-center pt-52 mx-auto  ">
         <div className=" self-center   mx-auto   ">
           <img
-            className={`${
-              darkMode && "hidden"
-            } h-32 w-max    self-center  mx-auto `}
+            className={`${darkMode && 'hidden'} h-32 w-max    self-center  mx-auto `}
             src={Logo_light}
             alt=""
           />
           <img
-            className={`${
-              !darkMode && "hidden"
-            } h-32 w-max    self-center  mx-auto`}
+            className={`${!darkMode && 'hidden'} h-32 w-max    self-center  mx-auto`}
             src={Logo}
             alt=""
           />
@@ -60,8 +56,7 @@ const Form = (props) => {
             The only streaming platform you'll ever need.
           </h2>
           <h3 className="drop-shadow text-xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 self-center text-center">
-            Restream with DBeats & stay connected with your fans on more than
-            30+ Platforms.
+            Restream with DBeats & stay connected with your fans on more than 30+ Platforms.
           </h3>
 
           <h3 className="drop-shadow text-lg  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 self-center text-center">

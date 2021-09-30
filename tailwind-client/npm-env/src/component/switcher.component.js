@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { Tab } from "@headlessui/react";
-import Form from "./form.component";
-import { useSelector } from "react-redux";
+import { useState } from 'react';
+import { Tab } from '@headlessui/react';
+import Form from './form.component';
+import { useSelector } from 'react-redux';
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(' ');
 }
 
 export default function Switcher() {
@@ -14,15 +14,15 @@ export default function Switcher() {
     Music: [
       {
         id: 1,
-        title: "Does drinking coffee make you smarter?",
-        date: "5h ago",
+        title: 'Does drinking coffee make you smarter?',
+        date: '5h ago',
         commentCount: 5,
         shareCount: 2,
       },
       {
         id: 2,
         title: "So you've bought coffee... now what?",
-        date: "2h ago",
+        date: '2h ago',
         commentCount: 3,
         shareCount: 2,
       },
@@ -30,15 +30,15 @@ export default function Switcher() {
     Video: [
       {
         id: 1,
-        title: "Is tech making coffee better or worse?",
-        date: "Jan 7",
+        title: 'Is tech making coffee better or worse?',
+        date: 'Jan 7',
         commentCount: 29,
         shareCount: 16,
       },
       {
         id: 2,
-        title: "The most innovative things happening in coffee",
-        date: "Mar 19",
+        title: 'The most innovative things happening in coffee',
+        date: 'Mar 19',
         commentCount: 24,
         shareCount: 12,
       },
@@ -46,15 +46,15 @@ export default function Switcher() {
     NFT: [
       {
         id: 1,
-        title: "Ask Me Anything: 10 answers to your questions about coffee",
-        date: "2d ago",
+        title: 'Ask Me Anything: 10 answers to your questions about coffee',
+        date: '2d ago',
         commentCount: 9,
         shareCount: 5,
       },
       {
         id: 2,
         title: "The worst advice we've ever heard about coffee",
-        date: "4d ago",
+        date: '4d ago',
         commentCount: 1,
         shareCount: 2,
       },
@@ -62,7 +62,7 @@ export default function Switcher() {
   });
 
   return (
-    <div className={`${darkMode && "dark"}  w-full max-w-full mx-auto`}>
+    <div className={`${darkMode && 'dark'}  w-full max-w-full mx-auto`}>
       <div className=" px-2 py-20 sm:px-0  mx-auto bg-dbeats">
         <Tab.Group>
           <Tab.List className="flex p-1 space-x-1 mx-auto max-w-md bg-gray-200  mt-10  rounded-xl transition duration-500 ease-in-out ">
@@ -71,11 +71,11 @@ export default function Switcher() {
                 key={category}
                 className={({ selected }) =>
                   classNames(
-                    "w-full py-2.5 text-sm leading-5 font-medium   rounded-lg  ",
-                    "focus:outline-none   ",
+                    'w-full py-2.5 text-sm leading-5 font-medium   rounded-lg  ',
+                    'focus:outline-none   ',
                     selected
-                      ? "bg-gradient-to-r dark:to-dbeats-dark-secondary dark:from-dbeats-dark-alt from-green-400 to-blue-500 font-bold shadow text-white"
-                      : "text-gray-400 hover:bg-white/[0.12] hover:text-gray-600 "
+                      ? 'bg-gradient-to-r dark:to-dbeats-dark-secondary dark:from-dbeats-dark-alt from-green-400 to-blue-500 font-bold shadow text-white'
+                      : 'text-gray-400 hover:bg-white/[0.12] hover:text-gray-600 ',
                   )
                 }
               >

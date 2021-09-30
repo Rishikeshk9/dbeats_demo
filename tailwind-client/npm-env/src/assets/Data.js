@@ -37,147 +37,136 @@ import vaughn_logo from './images/MultiStream_Img/vaughn_live.png';
 import trovo_logo from './images/MultiStream_Img/trovo_logo.png';
 
 export const Data = [
-    {
-        imgsrc:imgback,
-        title:"Create",
-        delay:"100"
-    },
-    {
-        imgsrc:imgback,
-        title:"Stream",
-        delay:"400"
-    },
-    {
-        imgsrc:imgback,
-        title:"Broadcast",
-        delay:"700"
-    },
-]
+  {
+    imgsrc: imgback,
+    title: 'Create',
+    delay: '100',
+  },
+  {
+    imgsrc: imgback,
+    title: 'Stream',
+    delay: '400',
+  },
+  {
+    imgsrc: imgback,
+    title: 'Broadcast',
+    delay: '700',
+  },
+];
 
 export const MultiStreamData = [
-    {
-        title:"Youtube",
-        rtmp:"rtmp://a.rtmp.youtube.com/live2/",
-        image:youtube,
-        logo:youtube_logo
-
-    },
-    {
-        title:"Twitch",
-        rtmp:"rtmp://rtmp.twitch.tv/live/",
-        image:twitch,
-        logo:twitch_logo      
-
-    },
-    {
-        title:"Facebook",
-        rtmp:"rtmp://live-api-s-facebook.com:443/rtmp/",
-        image:facebook,
-        logo:facebook_logo      
-
-    },
-    {
-        title:"Twitter",
-        rtmp:"rtmp://or.pscp.tv.80/x/",
-        image:twitter,
-        logo:twitter_logo     
-
-    },
-    {
-        title:"Dlive",
-        rtmp:"rtmp://stream.dlive.tv/live/",
-        image:dlive,
-        logo:dlive_logo     
-
-    },
-    {
-        title:"VK",
-        rtmp:"rtmp://ovsu.mycdn.me/input/",
-        image:vk,
-        logo:vk      
-
-    },
-    {
-        title:"Dailymotion",
-        rtmp:"rtmp://publish.dailymotion.com/publish/",
-        image:dailymotion,
-        logo:dailymotion_logo      
-
-    },
-    {
-        title:"Mixcloud",
-        rtmp:"rtmp://rtmp.mixcloud.com/broadcast/",
-        image:mixcloud,
-        logo:mixcloud_logo     
-
-    },
-    {
-        title:"NimoTv",
-        rtmp:"rtmp://txpush.rtmp.nimo.tv/live/",
-        image:nimotv,
-        logo:nimotv_logo      
-
-    },
-    {
-        title:"Bilibili",
-        rtmp:"rtmp://js.live-send.acg.tv/live-js/",
-        image:bilibili,
-        logo:bilibili_logo      
-    },
-    {
-        title:"Trovo",
-        rtmp:"rtmp://livepush.trovo.live/live/",
-        image:trovo,
-        logo:trovo_logo      
-    },
-    {
-        title:"AfreecaTv",
-        rtmp:"rtmp://rtmp-esu.afreecatv.com/app/",
-        image:afreecatv,
-        logo:afreecatv_logo      
-    },
-    {
-        title:"Vaughn Live",
-        rtmp:"rtmp://live.vaughnlive.tv:443/live/",
-        image:vl,
-        logo:vaughn_logo      
-    },
-    {
-        title:"BreakersTv",
-        rtmp:"rtmp://live-ord.vaughnsoft.net/live/",
-        image:breakerstv,
-        logo:breakerstv      
-    },
-    {
-        title:"Mobcrush",
-        rtmp:"rtmp://live.mobcrush.net/stream/",
-        image:mobcrush,
-        logo:mobcrush_logo      
-    },
-    {
-        title:"FC2",
-        rtmp:"rtmp://media.live.fc2.com/live/",
-        image:fc2,
-        logo:fc2_logo     
-    },
-    {
-        title:"Steam",
-        rtmp:"rtmp://ingest-01-lhr1.broadcast.steamcontent.com/app/",
-        image:steam,
-        logo:steam_logo      
-    },
-    {
-        title:"Wowza",
-        rtmp:"rtmp://ingest-01-lhr1.broadcast.steamcontent.com/app/",
-        image:wowza,
-        logo:wowza_logo      
-    },
-    {
-        title:"Akamai",
-        rtmp:"rtmp://ingest-01-lhr1.broadcast.steamcontent.com/app/",
-        image:akamai,
-        logo:akamai_logo     
-    },
-]
-
-
+  {
+    title: 'Youtube',
+    rtmp: 'rtmp://a.rtmp.youtube.com/live2/',
+    image: youtube,
+    logo: youtube_logo,
+  },
+  {
+    title: 'Twitch',
+    rtmp: 'rtmp://rtmp.twitch.tv/live/',
+    image: twitch,
+    logo: twitch_logo,
+  },
+  {
+    title: 'Facebook',
+    rtmp: 'rtmp://live-api-s-facebook.com:443/rtmp/',
+    image: facebook,
+    logo: facebook_logo,
+  },
+  {
+    title: 'Twitter',
+    rtmp: 'rtmp://or.pscp.tv.80/x/',
+    image: twitter,
+    logo: twitter_logo,
+  },
+  {
+    title: 'Dlive',
+    rtmp: 'rtmp://stream.dlive.tv/live/',
+    image: dlive,
+    logo: dlive_logo,
+  },
+  {
+    title: 'VK',
+    rtmp: 'rtmp://ovsu.mycdn.me/input/',
+    image: vk,
+    logo: vk,
+  },
+  {
+    title: 'Dailymotion',
+    rtmp: 'rtmp://publish.dailymotion.com/publish/',
+    image: dailymotion,
+    logo: dailymotion_logo,
+  },
+  {
+    title: 'Mixcloud',
+    rtmp: 'rtmp://rtmp.mixcloud.com/broadcast/',
+    image: mixcloud,
+    logo: mixcloud_logo,
+  },
+  {
+    title: 'NimoTv',
+    rtmp: 'rtmp://txpush.rtmp.nimo.tv/live/',
+    image: nimotv,
+    logo: nimotv_logo,
+  },
+  {
+    title: 'Bilibili',
+    rtmp: 'rtmp://js.live-send.acg.tv/live-js/',
+    image: bilibili,
+    logo: bilibili_logo,
+  },
+  {
+    title: 'Trovo',
+    rtmp: 'rtmp://livepush.trovo.live/live/',
+    image: trovo,
+    logo: trovo_logo,
+  },
+  {
+    title: 'AfreecaTv',
+    rtmp: 'rtmp://rtmp-esu.afreecatv.com/app/',
+    image: afreecatv,
+    logo: afreecatv_logo,
+  },
+  {
+    title: 'Vaughn Live',
+    rtmp: 'rtmp://live.vaughnlive.tv:443/live/',
+    image: vl,
+    logo: vaughn_logo,
+  },
+  {
+    title: 'BreakersTv',
+    rtmp: 'rtmp://live-ord.vaughnsoft.net/live/',
+    image: breakerstv,
+    logo: breakerstv,
+  },
+  {
+    title: 'Mobcrush',
+    rtmp: 'rtmp://live.mobcrush.net/stream/',
+    image: mobcrush,
+    logo: mobcrush_logo,
+  },
+  {
+    title: 'FC2',
+    rtmp: 'rtmp://media.live.fc2.com/live/',
+    image: fc2,
+    logo: fc2_logo,
+  },
+  {
+    title: 'Steam',
+    rtmp: 'rtmp://ingest-01-lhr1.broadcast.steamcontent.com/app/',
+    image: steam,
+    logo: steam_logo,
+  },
+  {
+    title: 'Wowza',
+    rtmp: 'rtmp://ingest-01-lhr1.broadcast.steamcontent.com/app/',
+    image: wowza,
+    logo: wowza_logo,
+  },
+  {
+    title: 'Akamai',
+    rtmp: 'rtmp://ingest-01-lhr1.broadcast.steamcontent.com/app/',
+    image: akamai,
+    logo: akamai_logo,
+  },
+];

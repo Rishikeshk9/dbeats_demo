@@ -1,24 +1,24 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { useState } from "react";
+import { useState } from 'react';
 
-import { Fragment } from "react";
-import React, { useEffect } from "react";
+import { Fragment } from 'react';
+import React, { useEffect } from 'react';
 
-import themeSwitchAnim from "../assets/graphics/sunmoon.json";
-import Toggle from "./toggle.component";
+import themeSwitchAnim from '../assets/graphics/sunmoon.json';
+import Toggle from './toggle.component';
 
-import { Popover, Transition } from "@headlessui/react";
-import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import Logo from "../assets/graphics/Dbeats-dark.svg";
-import Logo_light from "../assets/graphics/Dbeats-light.svg";
-import Web3 from "web3";
-import Web3Modal from "web3modal";
+import { Popover, Transition } from '@headlessui/react';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import Logo from '../assets/graphics/Dbeats-dark.svg';
+import Logo_light from '../assets/graphics/Dbeats-light.svg';
+import Web3 from 'web3';
+import Web3Modal from 'web3modal';
 
-import { useSelector, useDispatch } from "react-redux";
-import { toggleAudius, toggleDarkMode } from "../actions/index";
-const { ethers } = require("ethers");
-const jdenticon = require("jdenticon");
-const fs = require("fs");
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleAudius, toggleDarkMode } from '../actions/index';
+const { ethers } = require('ethers');
+const jdenticon = require('jdenticon');
+const fs = require('fs');
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -27,8 +27,8 @@ export default function Navbar() {
   const darkMode = useSelector((state) => state.toggleDarkMode);
   const [open, setOpen] = useState(false);
 
-  const [connectedWallet, setWalletConnected] = useState("");
-  const [icon, setWalletIcon] = useState("");
+  const [connectedWallet, setWalletConnected] = useState('');
+  const [icon, setWalletIcon] = useState('');
 
   const [toggled, setToggled] = React.useState(true);
   const handleClick = () => {
@@ -37,7 +37,7 @@ export default function Navbar() {
   };
   const providerOptions = {
     /* See Provider Options Section */
-    theme: "dark",
+    theme: 'dark',
   };
 
   const web3Modal = new Web3Modal({
@@ -65,26 +65,26 @@ export default function Navbar() {
     const accounts = await web3.eth.getAccounts();
 
     // Subscribe to accounts change
-    provider.on("accountsChanged", (accounts) => {
+    provider.on('accountsChanged', (accounts) => {
       console.log(accounts);
       setWalletConnected(accounts[0]);
     });
 
     // Subscribe to chainId change
-    provider.on("chainChanged", (chainId) => {
+    provider.on('chainChanged', (chainId) => {
       console.log(chainId);
     });
 
     // Subscribe to provider connection
-    provider.on("connect", (info) => {
+    provider.on('connect', (info) => {
       console.log(info);
       setWalletConnected(accounts[0]);
       setWalletIcon(jdenticon.toSvg(accounts[0], 200));
-      fs.writeFileSync("./profile-icon.svg", icon);
+      fs.writeFileSync('./profile-icon.svg', icon);
     });
 
     // Subscribe to provider disconnection
-    provider.on("disconnect", (error) => {
+    provider.on('disconnect', (error) => {
       console.log(error);
       setWalletConnected(false);
     });
@@ -95,7 +95,7 @@ export default function Navbar() {
     <>
       <div
         className={`${
-          darkMode && "dark"
+          darkMode && 'dark'
         }  font-proxima-reg fixed z-100 w-max transition duration-1000 ease-in-out`}
       >
         <Transition
@@ -209,16 +209,12 @@ export default function Navbar() {
 
                     <a href="/" className="h-14   w-28   self-center   ">
                       <img
-                        className={`${
-                          darkMode && "hidden"
-                        } h-14 w-max    self-center  mx-auto `}
+                        className={`${darkMode && 'hidden'} h-14 w-max    self-center  mx-auto `}
                         src={Logo}
                         alt=""
                       />
                       <img
-                        className={`${
-                          !darkMode && "hidden"
-                        } h-14 w-max    self-center  mx-auto`}
+                        className={`${!darkMode && 'hidden'} h-14 w-max    self-center  mx-auto`}
                         src={Logo_light}
                         alt=""
                       />
@@ -243,9 +239,7 @@ export default function Navbar() {
                     <div className="ml-3 text-gray-500 font-medium">
                       <img
                         src="https://audius.org/img/audius@2x.png"
-                        className={`${
-                          !audius ? "filter grayscale-75 " : ""
-                        }w-10 h-10 filter`}
+                        className={`${!audius ? 'filter grayscale-75 ' : ''}w-10 h-10 filter`}
                         alt="audius"
                       ></img>
                     </div>
@@ -260,7 +254,7 @@ export default function Navbar() {
                   </div>
                   <div
                     className={`${
-                      connectedWallet ? "bg-gray-100" : ""
+                      connectedWallet ? 'bg-gray-100' : ''
                     } px-4 mx-2 py-2 rounded  dark:bg-gray-800   dark:text-white dark:hover:bg-dbeats-light   dark:hover:text-white hover:bg-gray-200`}
                   >
                     <button
@@ -276,12 +270,9 @@ export default function Navbar() {
 
                       {connectedWallet
                         ? connectedWallet.slice(0, 4) +
-                          "...." +
-                          connectedWallet.slice(
-                            connectedWallet.length - 4,
-                            connectedWallet.length
-                          )
-                        : "Connect Wallet"}
+                          '....' +
+                          connectedWallet.slice(connectedWallet.length - 4, connectedWallet.length)
+                        : 'Connect Wallet'}
                     </button>
                   </div>
                 </div>

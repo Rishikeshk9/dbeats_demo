@@ -1,18 +1,18 @@
-import React, { useEffect, useState, Fragment } from "react";
-import classes from "./Info.module.css";
+import React, { useEffect, useState, Fragment } from 'react';
+import classes from './Info.module.css';
 //import playimg from "../../../assets/images/telegram.png";
-import axios from "axios";
-import VideoPlayer from "../VideoPlayer/VideoPlayer";
-import { Menu, Transition } from "@headlessui/react";
-import { WhatsappIcon, WhatsappShareButton } from "react-share";
-import { FacebookShareButton, FacebookIcon } from "react-share";
-import { EmailShareButton, EmailIcon } from "react-share";
-import { PinterestShareButton, PinterestIcon } from "react-share";
-import { TelegramShareButton, TelegramIcon } from "react-share";
-import { Container, Row, Col } from "react-bootstrap";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import RecommendedCard from "./RecommendedCard";
-import Modal from "react-awesome-modal";
+import axios from 'axios';
+import VideoPlayer from '../VideoPlayer/VideoPlayer';
+import { Menu, Transition } from '@headlessui/react';
+import { WhatsappIcon, WhatsappShareButton } from 'react-share';
+import { FacebookShareButton, FacebookIcon } from 'react-share';
+import { EmailShareButton, EmailIcon } from 'react-share';
+import { PinterestShareButton, PinterestIcon } from 'react-share';
+import { TelegramShareButton, TelegramIcon } from 'react-share';
+import { Container, Row, Col } from 'react-bootstrap';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import RecommendedCard from './RecommendedCard';
+import Modal from 'react-awesome-modal';
 
 const PlayBackInfo = (props) => {
   let sharable_data = `https://dbeats-demo.vercel.app /playback/${props.stream_id}/${props.video_id}`;
@@ -21,13 +21,13 @@ const PlayBackInfo = (props) => {
   const [dislike, setDislike] = useState(0);
   const [happy, setHappy] = useState(0);
   const [angry, setAngry] = useState(0);
-  const [userreact, setUserreact] = useState("");
+  const [userreact, setUserreact] = useState('');
 
-  const [videoUsername, setVideoUsername] = useState("");
+  const [videoUsername, setVideoUsername] = useState('');
 
-  const user = JSON.parse(window.localStorage.getItem("user"));
+  const user = JSON.parse(window.localStorage.getItem('user'));
 
-  const [playbackUrl, setPlaybackUrl] = useState("");
+  const [playbackUrl, setPlaybackUrl] = useState('');
 
   const [userData, setUserData] = useState(null);
 
@@ -42,10 +42,10 @@ const PlayBackInfo = (props) => {
   const handleCloseMore = () => setShowMore(false);
   const handleShowMore = () => setShowMore(true);
 
-  const text = "Copy Link To Clipboard";
+  const text = 'Copy Link To Clipboard';
   const [buttonText, setButtonText] = useState(text);
 
-  const [subscribeButtonText, setSubscribeButtonText] = useState("Subscribe");
+  const [subscribeButtonText, setSubscribeButtonText] = useState('Subscribe');
 
   const [arrayData, setArrayData] = useState([]);
 
@@ -61,14 +61,14 @@ const PlayBackInfo = (props) => {
       following: `${userData.username}`,
       follower: `${user.username}`,
     };
-    if (subscribeButtonText === "Subscribe") {
-      setSubscribeButtonText("Unsubscribe");
+    if (subscribeButtonText === 'Subscribe') {
+      setSubscribeButtonText('Unsubscribe');
       axios({
-        method: "POST",
+        method: 'POST',
         url: `${process.env.REACT_APP_SERVER_URL}/user/follow`,
         headers: {
-          "content-type": "application/json",
-          "Access-Control-Allow-Origin": "*",
+          'content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
         },
         data: followData,
       })
@@ -76,20 +76,20 @@ const PlayBackInfo = (props) => {
           if (response) {
             //console.log(response);
           } else {
-            alert("Invalid Login");
+            alert('Invalid Login');
           }
         })
         .catch(function (error) {
           console.log(error);
         });
     } else {
-      setSubscribeButtonText("Subscribe");
+      setSubscribeButtonText('Subscribe');
       axios({
-        method: "POST",
+        method: 'POST',
         url: `${process.env.REACT_APP_SERVER_URL}/user/unfollow`,
         headers: {
-          "content-type": "application/json",
-          "Access-Control-Allow-Origin": "*",
+          'content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
         },
         data: followData,
       })
@@ -97,7 +97,7 @@ const PlayBackInfo = (props) => {
           if (response) {
             //console.log(response);
           } else {
-            alert("Invalid Login");
+            alert('Invalid Login');
           }
         })
         .catch(function (error) {
@@ -107,70 +107,68 @@ const PlayBackInfo = (props) => {
   };
 
   const get_User = async () => {
-    await axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`)
-      .then((value) => {
-        setUserData(value.data);
-        for (let i = 0; i < value.data.follower_count.length; i++) {
-          if (user ? value.data.follower_count[i] === user.username : false) {
-            setSubscribeButtonText("Unsubscribe");
-            break;
-          }
+    await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`).then((value) => {
+      setUserData(value.data);
+      for (let i = 0; i < value.data.follower_count.length; i++) {
+        if (user ? value.data.follower_count[i] === user.username : false) {
+          setSubscribeButtonText('Unsubscribe');
+          break;
         }
+      }
 
-        setVideoUsername(value.data.username);
-        setPlaybackUrl(`${value.data.videos[props.video_id].link}`);
+      setVideoUsername(value.data.username);
+      setPlaybackUrl(`${value.data.videos[props.video_id].link}`);
 
-        let reactionData = {
+      let reactionData = {
+        videousername: value.data.username,
+        videoname: `${props.stream_id}/${props.video_id}`,
+      };
+      console.log('reaction: ', reactionData);
+
+      axios({
+        method: 'POST',
+        url: `${process.env.REACT_APP_SERVER_URL}/user/getreactions`,
+        headers: {
+          'content-type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+        data: reactionData,
+      })
+        .then(function (response) {
+          setLike(response.data.reaction.like.length);
+          setDislike(response.data.reaction.dislike.length);
+          setAngry(response.data.reaction.angry.length);
+          setHappy(response.data.reaction.happy.length);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      if (user) {
+        reactionData = {
+          username: `${user.username}`,
           videousername: value.data.username,
           videoname: `${props.stream_id}/${props.video_id}`,
         };
-        console.log("reaction: ", reactionData);
 
         axios({
-          method: "POST",
-          url: `${process.env.REACT_APP_SERVER_URL}/user/getreactions`,
+          method: 'POST',
+          url: `${process.env.REACT_APP_SERVER_URL}/user/getuserreaction`,
           headers: {
-            "content-type": "application/json",
-            "Access-Control-Allow-Origin": "*",
+            'content-type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
           },
           data: reactionData,
         })
           .then(function (response) {
-            setLike(response.data.reaction.like.length);
-            setDislike(response.data.reaction.dislike.length);
-            setAngry(response.data.reaction.angry.length);
-            setHappy(response.data.reaction.happy.length);
+            console.log(response.data);
+            setUserreact(response.data);
           })
           .catch(function (error) {
             console.log(error);
           });
-
-        if (user) {
-          reactionData = {
-            username: `${user.username}`,
-            videousername: value.data.username,
-            videoname: `${props.stream_id}/${props.video_id}`,
-          };
-
-          axios({
-            method: "POST",
-            url: `${process.env.REACT_APP_SERVER_URL}/user/getuserreaction`,
-            headers: {
-              "content-type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-            },
-            data: reactionData,
-          })
-            .then(function (response) {
-              console.log(response.data);
-              setUserreact(response.data);
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-        }
-      });
+      }
+    });
 
     //console.log(value.data)
   };
@@ -202,26 +200,26 @@ const PlayBackInfo = (props) => {
       videoname: `${props.stream_id}/${props.video_id}`,
     };
 
-    if (videoprops === "like") {
+    if (videoprops === 'like') {
       setLike(like + 1);
-      setUserreact("like");
-    } else if (videoprops === "dislike") {
+      setUserreact('like');
+    } else if (videoprops === 'dislike') {
       setDislike(dislike + 1);
-      setUserreact("dislike");
-    } else if (videoprops === "happy") {
+      setUserreact('dislike');
+    } else if (videoprops === 'happy') {
       setHappy(happy + 1);
-      setUserreact("happy");
+      setUserreact('happy');
     } else {
       setAngry(angry + 1);
-      setUserreact("angry");
+      setUserreact('angry');
     }
 
     axios({
-      method: "POST",
+      method: 'POST',
       url: `${process.env.REACT_APP_SERVER_URL}/user/reactions`,
       headers: {
-        "content-type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        'content-type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
       data: reactionData,
     })
@@ -229,7 +227,7 @@ const PlayBackInfo = (props) => {
         if (response) {
           //console.log(response);
         } else {
-          alert("Invalid Login");
+          alert('Invalid Login');
         }
       })
       .catch(function (error) {
@@ -240,7 +238,7 @@ const PlayBackInfo = (props) => {
   useEffect(() => {
     get_User();
     fetchData();
-    let value = JSON.parse(window.localStorage.getItem("user"));
+    let value = JSON.parse(window.localStorage.getItem('user'));
     console.log(value);
 
     if (user ? value.username === props.stream_id : false) {
@@ -262,9 +260,7 @@ const PlayBackInfo = (props) => {
   //console.log(arrayData);
   return (
     <div className=" ">
-      <div
-        className={`  grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row pt-3 pb-50 `}
-      >
+      <div className={`  grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row pt-3 pb-50 `}>
         <div className=" col-span-2 ">
           <div>
             {userData ? (
@@ -280,14 +276,9 @@ const PlayBackInfo = (props) => {
           <div className="mx-7 px-7">
             <div className="flex justify-between my-2  ">
               <div className="py-4">
-                <div
-                  className=" w-full text-left mt-0"
-                  style={{ padding: "0px" }}
-                >
+                <div className=" w-full text-left mt-0" style={{ padding: '0px' }}>
                   {userData ? (
-                    <p className="font-semibold text-xl pb-4">
-                      {userData.videos[0].videoName}
-                    </p>
+                    <p className="font-semibold text-xl pb-4">{userData.videos[0].videoName}</p>
                   ) : (
                     <></>
                   )}
@@ -305,7 +296,7 @@ const PlayBackInfo = (props) => {
                       <button
                         className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
                         onClick={() => {
-                          window.location.href = "/login";
+                          window.location.href = '/login';
                         }}
                       >
                         <span>Login</span>
@@ -322,10 +313,7 @@ const PlayBackInfo = (props) => {
               </div>
               <div className="text-2xl py-4 flex  ">
                 <div className="  text-center mx-3">
-                  <button
-                    className="border-0 bg-transparent"
-                    onClick={handleShow}
-                  >
+                  <button className="border-0 bg-transparent" onClick={handleShow}>
                     <i className="fas fa-share opacity-50 mx-2"></i>
                   </button>
                   <br />
@@ -335,11 +323,11 @@ const PlayBackInfo = (props) => {
                 <div className="  text-center">
                   <i
                     className={
-                      userreact === "like"
-                        ? "cursor-pointer fas fa-heart mx-3 text-red-700 animate-pulse"
-                        : "cursor-pointer fas fa-heart opacity-20 mx-3 hover:text-red-300  hover:opacity-100"
+                      userreact === 'like'
+                        ? 'cursor-pointer fas fa-heart mx-3 text-red-700 animate-pulse'
+                        : 'cursor-pointer fas fa-heart opacity-20 mx-3 hover:text-red-300  hover:opacity-100'
                     }
-                    onClick={() => handlereaction("like")}
+                    onClick={() => handlereaction('like')}
                   ></i>
                   <br />
                   <p className="text-base">{like}</p>
@@ -347,11 +335,11 @@ const PlayBackInfo = (props) => {
                 <div className="  text-center">
                   <i
                     className={
-                      userreact === "dislike"
-                        ? "cursor-pointer fas fa-heart-broken mx-3   text-purple-500"
-                        : "cursor-pointer fas fa-heart-broken opacity-20 mx-3 hover:text-purple-300 hover:opacity-100"
+                      userreact === 'dislike'
+                        ? 'cursor-pointer fas fa-heart-broken mx-3   text-purple-500'
+                        : 'cursor-pointer fas fa-heart-broken opacity-20 mx-3 hover:text-purple-300 hover:opacity-100'
                     }
-                    onClick={() => handlereaction("dislike")}
+                    onClick={() => handlereaction('dislike')}
                   ></i>
                   <br />
                   <p className="text-base">{dislike}</p>
@@ -359,24 +347,24 @@ const PlayBackInfo = (props) => {
                 <div className="  text-center">
                   <i
                     className={
-                      userreact === "happy"
-                        ? "cursor-pointer far fa-laugh-squint mx-3 text-yellow-500 "
-                        : "cursor-pointer far fa-laugh-squint opacity-20 mx-3 hover:text-yellow-200  hover:opacity-100"
+                      userreact === 'happy'
+                        ? 'cursor-pointer far fa-laugh-squint mx-3 text-yellow-500 '
+                        : 'cursor-pointer far fa-laugh-squint opacity-20 mx-3 hover:text-yellow-200  hover:opacity-100'
                     }
-                    onClick={() => handlereaction("happy")}
-                  ></i>{" "}
+                    onClick={() => handlereaction('happy')}
+                  ></i>{' '}
                   <br />
                   <p className="text-base"> {happy}</p>
                 </div>
                 <div className="  text-center">
                   <i
                     className={
-                      userreact === "angry"
-                        ? "cursor-pointer far fa-angry  mx-3 text-red-800"
-                        : "cursor-pointer far fa-angry  opacity-20 mx-3 hover:text-red-300 hover:opacity-100"
+                      userreact === 'angry'
+                        ? 'cursor-pointer far fa-angry  mx-3 text-red-800'
+                        : 'cursor-pointer far fa-angry  opacity-20 mx-3 hover:text-red-300 hover:opacity-100'
                     }
-                    onClick={() => handlereaction("angry")}
-                  ></i>{" "}
+                    onClick={() => handlereaction('angry')}
+                  ></i>{' '}
                   <br />
                   <p className="text-base"> {angry}</p>
                 </div>
@@ -492,10 +480,7 @@ const PlayBackInfo = (props) => {
                 text={sharable_data}
                 className="block mx-auto p-2 mt-4 mb-2 w-96 text-white font-semibold rounded-lg bg-dbeats-light"
               >
-                <button
-                  type="submit"
-                  onClick={() => setButtonText("Link Copied!")}
-                >
+                <button type="submit" onClick={() => setButtonText('Link Copied!')}>
                   {buttonText}
                 </button>
               </CopyToClipboard>

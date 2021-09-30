@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import { Switch } from '@headlessui/react'
+import { useState } from 'react';
+import { Switch } from '@headlessui/react';
 
 export default function Example() {
-  const [enabled, setEnabled] = useState(false)
+  const [enabled, setEnabled] = useState(false);
 
   return (
     <div className="py-16">
@@ -20,5 +20,5 @@ export default function Example() {
         />
       </Switch>
     </div>
-  )
+  );
 }

@@ -2,35 +2,35 @@ import {
   StackedCarousel,
   ResponsiveContainer,
   StackedCarouselSlideProps,
-} from "react-stacked-center-carousel";
-import Fab from "@material-ui/core/Fab";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import React, { useState, useRef, useEffect } from "react";
-import ReactPlayer from "react-player";
-import person from "../assets/images/profile.svg";
-import classes from "./Home/Home.module.css";
+} from 'react-stacked-center-carousel';
+import Fab from '@material-ui/core/Fab';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import React, { useState, useRef, useEffect } from 'react';
+import ReactPlayer from 'react-player';
+import person from '../assets/images/profile.svg';
+import classes from './Home/Home.module.css';
 
 const data = [
   {
-    cover: "https://coverfiles.alphacoders.com/664/66426.jpg",
-    title: "Interstaller",
+    cover: 'https://coverfiles.alphacoders.com/664/66426.jpg',
+    title: 'Interstaller',
   },
   {
-    cover: "https://coverfiles.alphacoders.com/664/66426.jpg",
-    title: "Interstaller",
+    cover: 'https://coverfiles.alphacoders.com/664/66426.jpg',
+    title: 'Interstaller',
   },
   {
-    cover: "https://coverfiles.alphacoders.com/664/66426.jpg",
-    title: "Interstaller",
+    cover: 'https://coverfiles.alphacoders.com/664/66426.jpg',
+    title: 'Interstaller',
   },
   {
-    cover: "https://coverfiles.alphacoders.com/664/66426.jpg",
-    title: "Interstaller",
+    cover: 'https://coverfiles.alphacoders.com/664/66426.jpg',
+    title: 'Interstaller',
   },
   {
-    cover: "https://coverfiles.alphacoders.com/664/66426.jpg",
-    title: "Interstaller",
+    cover: 'https://coverfiles.alphacoders.com/664/66426.jpg',
+    title: 'Interstaller',
   },
 ];
 
@@ -48,7 +48,7 @@ export default function ResponsiveCarousel(props, { UserData }) {
   }, [UserData]);
   return (
     <>
-      <div style={{ width: "100%", position: "relative" }}>
+      <div style={{ width: '100%', position: 'relative' }}>
         <ResponsiveContainer
           carouselRef={ref}
           render={(parentWidth, carouselRef) => {
@@ -104,9 +104,9 @@ const Slide = React.memo(function (props, { UserData }) {
     <div
       className="w-full h-auto  "
       style={{
-        width: "100%",
+        width: '100%',
         height: 300,
-        userSelect: "none",
+        userSelect: 'none',
       }}
     >
       {activeStreams ? (
@@ -115,8 +115,8 @@ const Slide = React.memo(function (props, { UserData }) {
             return (
               <div className=" cursor-pointer ">
                 <span className="fixed bg-red-600 text-white px-1    mx-1 my-1 rounded-sm font-semibold">
-                  {" "}
-                  Live{" "}
+                  {' '}
+                  Live{' '}
                 </span>
                 <ReactPlayer
                   onClick={() => {
@@ -139,9 +139,7 @@ const Slide = React.memo(function (props, { UserData }) {
                 <div className="col-start-1 row-start-3 pb-2 pt-2  ">
                   <p className="flex items-center text-black text-sm font-medium  ">
                     <div>
-                      <span className="text-sm font-semibold">
-                        {liveUser.username}
-                      </span>
+                      <span className="text-sm font-semibold">{liveUser.username}</span>
                       <br />
                       {/* <span className="text-xs text-gray-500">{props.playbackUserData.videos[props.index].description.slice(0,30)+"..."}</span> */}
                     </div>
@@ -154,9 +152,9 @@ const Slide = React.memo(function (props, { UserData }) {
       ) : (
         <img
           style={{
-            height: "100%",
-            width: "100%",
-            objectFit: "cover",
+            height: '100%',
+            width: '100%',
+            objectFit: 'cover',
             borderRadius: 10,
           }}
           draggable={false}

@@ -1,15 +1,15 @@
 /* This example requires Tailwind CSS v2.0+ */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { Transition } from "@headlessui/react";
+import { Transition } from '@headlessui/react';
 // import { MenuIcon, XIcon } from "@heroicons/react/outline";
 // import Logo from "../assets/graphics/Dbeats-dark.svg";
 // import Logo_light from "../assets/graphics/Dbeats-light.svg";
 // import Web3 from "web3";
 // import Web3Modal from "web3modal";
 
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 //import { toggleAudius, toggleDarkMode } from "../actions/index";
 
 // const { ethers } = require("ethers");
@@ -37,14 +37,14 @@ const BottomBar = ({ songDetails, playing, firstPlayed, setState }) => {
       audio.play();
     }
 
-    console.log("ButtonClicked");
+    console.log('ButtonClicked');
   }, [songDetails, audio]);
 
   return (
     <>
       <div
         className={`${
-          darkMode && "dark"
+          darkMode && 'dark'
         }  font-proxima-reg   bottom-20 fixed  z-100 w-max transition duration-1000 ease-in-out`}
       >
         <Transition
@@ -58,7 +58,7 @@ const BottomBar = ({ songDetails, playing, firstPlayed, setState }) => {
         >
           <div
             className={`${
-              firstPlayed ? "block" : "hidden"
+              firstPlayed ? 'block' : 'hidden'
             }   h-20  bg-white shadow-sm z-100  absolute w-screen dark:bg-dbeats-dark  dark:text-gray-100  bg-opacity-60 dark:bg-opacity-60 backdrop-filter  backdrop-blur-md`}
           >
             <>
@@ -74,9 +74,7 @@ const BottomBar = ({ songDetails, playing, firstPlayed, setState }) => {
                   <p className="capitalize font-bold whitespace-nowrap truncate">
                     {songDetails.songTitle}
                   </p>
-                  <p className="capitalize whitespace-nowrap truncate">
-                    {songDetails.author}
-                  </p>
+                  <p className="capitalize whitespace-nowrap truncate">{songDetails.author}</p>
                 </div>
                 {/* <audio key={songLink} autoPlay>
                 <source src={songLink} type="audio/mpeg" />
