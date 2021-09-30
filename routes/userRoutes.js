@@ -45,7 +45,7 @@ router.route("/login").post(async (req, res) => {
 
     const user_username = await User.findOne({ username: username });
     const isMatch = bcrypt.compare(password, user_username.password);
-
+    console.log(username, " ", password);
     if (isMatch) {
       res.send(user_username);
     } else {

@@ -25,14 +25,14 @@ const Login = () => {
     };
 
     axios({
-      method: 'post',
+      method: 'POST',
       url: `${process.env.REACT_APP_SERVER_URL}/user/login`,
       data: userData,
     })
       .then((response) => {
         if (response.data) {
           window.localStorage.setItem('user', JSON.stringify(response.data));
-          window.location.reload();
+          //window.location.reload();
           window.location.href = '/';
         } else {
           alert('Invalid Login');
@@ -150,6 +150,7 @@ const Login = () => {
     return (
       <div>
         <Button
+          className="font-bold"
           variant="primary"
           type="button"
           size="lg"
@@ -167,7 +168,7 @@ const Login = () => {
             }
           }}
         >
-          {!provider ? 'Login Using Wallet ' : `Wallet Connected (Click)`}
+          {!provider ? 'Login Using MetaMask' : `Wallet Connected (Click)`}
         </Button>
       </div>
     );
@@ -190,11 +191,11 @@ const Login = () => {
   };
 
   const handleSignIn = () => {
-    setLogin(true);
+    setLogin(false);
   };
 
   const handleSignUp = () => {
-    setLogin(false);
+    setLogin(true);
   };
 
   return (
@@ -203,7 +204,7 @@ const Login = () => {
         <div id="outer-container" style={{ height: '100vh' }}>
           <main id="page-wrap" className={classes.main_homepage_body}>
             <div className={classes.login_container} id="loginPage_container">
-              {login ? (
+              {!login ? (
                 <div className={`${classes.form_container} ${classes.sign_up_container}`}>
                   <form className={classes.login_form}>
                     <h1>Create Account</h1>
@@ -256,11 +257,35 @@ const Login = () => {
                   </form>
                 </div>
               ) : (
-                <div className={`${classes.form_container} ${classes.sign_in_container}`}>
-                  <form className={classes.login_form}>
-                    <h1>Sign in</h1>
-                    <div className={classes.social_container}>
-                      <div className={classes.social_container}>
+                <div className="h-100 w-100 ">
+                  <div className="flex flex-col justify-center h-full text-lg ">
+                    <h1 className="self-center py-3 text-2xl font-bold">SIGN IN</h1>
+                    <input
+                      className="self-center my-2 rounded bg-transparent border-0 shadow-md"
+                      type="text"
+                      placeholder="Username"
+                      onChange={(e) => handleUsernameChange(e)}
+                    />
+                    <input
+                      className="self-center my-2 rounded bg-transparent border-0 shadow-md"
+                      type="password"
+                      placeholder="Password"
+                      onChange={(e) => handlePasswordChange(e)}
+                    />
+                    <a className="self-center py-3" href="/#">
+                      Forgot your password?
+                    </a>
+                    <button
+                      onClick={handleLogin}
+                      className="self-center my-3 py-2 text-white font-bold bg-dbeats-light px-10 rounded"
+                    >
+                      Sign In
+                    </button>
+
+                    <hr className="my-3 w-2/3 self-center" />
+
+                    <div className="self-center my-3 text-white bg-green-500 border border-green-600 px-10 py-1 rounded">
+                      <div className="self-center py-3">
                         <LoginWalletButton
                           provider={provider}
                           loadWeb3Modal={loadWeb3Modal}
@@ -268,29 +293,12 @@ const Login = () => {
                         />
                       </div>
                     </div>
-                    <span className={classes.login_span}>or use your account</span>
-                    <input
-                      type="text"
-                      placeholder="Username"
-                      onChange={(e) => handleUsernameChange(e)}
-                    />
-                    <input
-                      type="password"
-                      placeholder="Password"
-                      onChange={(e) => handlePasswordChange(e)}
-                    />
-                    <a className={classes.social} href="/#">
-                      Forgot your password?
-                    </a>
-                    <button onClick={handleLogin} className={classes.login_button}>
-                      Sign In
-                    </button>
-                  </form>
+                  </div>
                 </div>
               )}
               <div className={classes.overlay_container}>
                 <div className={classes.overlay}>
-                  {login ? (
+                  {!login ? (
                     <div className={[classes.overlay_panel, classes.overlay_right].join(' ')}>
                       <h1>Welcome Back!</h1>
                       <p>To keep connected with us please login with your personal info</p>
