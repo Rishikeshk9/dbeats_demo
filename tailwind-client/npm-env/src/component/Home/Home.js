@@ -97,7 +97,7 @@ const Home = () => {
               </div>
             </div>
             {/* {classes.other_videos} */}
-            <div className="col-span-6 lg:col-span-5 h-screen  pt-8 bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-secondary">
+            <div className="col-span-6 lg:col-span-5  pt-8 bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-secondary">
               <div id="display_videos" className="my-6 px-4 h-max">
                 <div className="pt-4 lg:px-4 h-max">
                   {slides.length > 2 ? (

@@ -78,7 +78,7 @@ export default function App() {
           <NavBar />
 
           <Switch className={`${darkMode && 'dark'}  `}>
-            <div className="   dark:bg-gradient-to-b dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary   ">
+            <div className=" h-full  dark:bg-gradient-to-b dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary   ">
               <Route path="/nft" exact component={() => <NFTFeed />} />
               <Route path="/" exact component={() => <VideoHome />} />
 

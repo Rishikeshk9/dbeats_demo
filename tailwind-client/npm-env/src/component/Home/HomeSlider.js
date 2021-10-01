@@ -1,8 +1,6 @@
 import React from 'react';
 import { StackedCarousel, ResponsiveContainer } from 'react-stacked-center-carousel';
 import Fab from '@material-ui/core/Fab';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ReactPlayer from 'react-player';
 
 const ResponsiveCarousel = (props) => {
@@ -32,11 +30,11 @@ const ResponsiveCarousel = (props) => {
         }}
       />
       <div className="absolute flex justify-between w-full -mt-44 z-20">
-        <Fab onClick={() => ref.current.goBack()}>
-          <ArrowBackIcon />
+        <Fab onClick={() => ref.current.goBack()} style={{ background: 'transparent' }}>
+          <i className="fas fa-chevron-left dark:text-white text-gray-900"></i>
         </Fab>
-        <Fab onClick={() => ref.current.goNext()}>
-          <ArrowForwardIcon />
+        <Fab onClick={() => ref.current.goNext()} style={{ background: 'transparent' }}>
+          <i className="fas fa-chevron-right dark:text-white text-gray-900"></i>
         </Fab>
       </div>
     </div>
@@ -48,7 +46,7 @@ const Slide = function (StackedCarouselSlideProps) {
   const value = data[dataIndex];
   return (
     <div
-      className="w-100 h-96 md:h-96 flex mx-auto"
+      className="w-100 h-96 md:h-96 flex mx-auto shadow-xl dark:shadow-3xl"
       onClick={() => {
         window.location.href = `/live/${value.username}/`;
       }}
