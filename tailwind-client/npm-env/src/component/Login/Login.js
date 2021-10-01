@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Spinner } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import classes from './Login.module.css';
 import axios from 'axios';
 
@@ -19,6 +19,7 @@ const Login = () => {
   const [loader, setLoader] = useState(true);
 
   const handleLogin = () => {
+    setLoader(false);
     const userData = {
       username: form_username,
       password: form_password,
@@ -41,6 +42,7 @@ const Login = () => {
       .catch(function (error) {
         console.log(error);
       });
+    setLoader(true);
   };
 
   // Create a Stream Profile
@@ -134,8 +136,8 @@ const Login = () => {
           }}
         >
           {!provider
-            ? 'Connect Your Wallet '
-            : `Wallet Connected (${
+            ? 'Connect Your MetaMask '
+            : `MetaMask Connected (${
                 provider.provider.selectedAddress.slice(0, 4) +
                 '...' +
                 provider.provider.selectedAddress.slice(-4)
@@ -168,7 +170,7 @@ const Login = () => {
             }
           }}
         >
-          {!provider ? 'Login Using MetaMask' : `Wallet Connected (Click)`}
+          {!provider ? 'Login Using MetaMask' : `MetaMask Connected (Click Again)`}
         </Button>
       </div>
     );
@@ -205,56 +207,59 @@ const Login = () => {
           <main id="page-wrap" className={classes.main_homepage_body}>
             <div className={classes.login_container} id="loginPage_container">
               {!login ? (
-                <div className={`${classes.form_container} ${classes.sign_up_container}`}>
-                  <form className={classes.login_form}>
-                    <h1>Create Account</h1>
-                    <div className={classes.social_container}>
-                      <WalletButton
-                        provider={provider}
-                        loadWeb3Modal={loadWeb3Modal}
-                        logoutOfWeb3Modal={logoutOfWeb3Modal}
-                      />
+                <div className="h-100 w-100 py-5">
+                  <div className="flex flex-col justify-center h-full text-lg">
+                    <div className="self-center py-3 text-2xl font-bold">Create Account</div>
+                    <div className="self-center my-3 mx-5  text-white bg-green-500 border border-green-600 px-10 py-1 rounded">
+                      <div className="self-center py-2">
+                        <WalletButton
+                          provider={provider}
+                          loadWeb3Modal={loadWeb3Modal}
+                          logoutOfWeb3Modal={logoutOfWeb3Modal}
+                        />
+                      </div>
                     </div>
-                    <span className={classes.login_span}>First connect your Wallet</span>
+                    <div className="self-center py-3 text-sm font-semibold">
+                      First connect your Wallet
+                    </div>
 
-                    <input type="text" placeholder="Name" onChange={(e) => handleNameChange(e)} />
                     <input
+                      className="self-center my-2 rounded bg-transparent border-0 shadow-md"
+                      type="text"
+                      placeholder="Name"
+                      onChange={(e) => handleNameChange(e)}
+                    />
+                    <input
+                      className="self-center my-2 rounded bg-transparent border-0 shadow-md"
                       type="text"
                       placeholder="Username"
                       onChange={(e) => handleUsernameChange(e)}
                     />
                     <input
+                      className="self-center my-2 rounded bg-transparent border-0 shadow-md"
                       type="password"
                       placeholder="Password"
                       onChange={(e) => handlePasswordChange(e)}
                     />
                     <input
+                      className="self-center my-2 rounded bg-transparent border-0 shadow-md"
                       type="password"
                       placeholder="Confirm Password"
                       onChange={(e) => handleConfirmPasswordChange(e)}
                     />
-                    <div className="d-flex">
-                      <Button
-                        variant="primary"
-                        type="button"
-                        className={classes.login_button}
+                    <div className="flex justify-center">
+                      <button
+                        className="self-center flex my-3 py-2 text-white font-bold bg-dbeats-light px-10 rounded"
                         onClick={createStream}
                       >
                         Sign Up
-                      </Button>
-                      <div style={{ marginTop: '16px' }}>
-                        <Spinner
-                          animation="border"
-                          variant="info"
-                          role="status"
+                        <div
                           hidden={loader}
-                          className={classes.login_spinner}
-                        >
-                          <span className="visually-hidden">Loading...</span>
-                        </Spinner>
-                      </div>
+                          className="w-6 h-6 ml-3 mt-0.5 align-center border-t-4 border-b-4 border-white rounded-full animate-spin"
+                        ></div>
+                      </button>
                     </div>
-                  </form>
+                  </div>
                 </div>
               ) : (
                 <div className="h-100 w-100 ">
@@ -275,17 +280,23 @@ const Login = () => {
                     <a className="self-center py-3" href="/#">
                       Forgot your password?
                     </a>
-                    <button
-                      onClick={handleLogin}
-                      className="self-center my-3 py-2 text-white font-bold bg-dbeats-light px-10 rounded"
-                    >
-                      Sign In
-                    </button>
+                    <div className="flex justify-center">
+                      <button
+                        onClick={handleLogin}
+                        className="self-center flex my-3 py-2 text-white font-bold bg-dbeats-light px-10 rounded"
+                      >
+                        Sign In
+                        <div
+                          hidden={loader}
+                          className="w-6 h-6 ml-3 mt-0.5 align-center border-t-4 border-b-4 border-white rounded-full animate-spin"
+                        ></div>
+                      </button>
+                    </div>
 
                     <hr className="my-3 w-2/3 self-center" />
 
-                    <div className="self-center my-3 text-white bg-green-500 border border-green-600 px-10 py-1 rounded">
-                      <div className="self-center py-3">
+                    <div className="self-center my-3 mx-5 text-white bg-green-500 border border-green-600 px-10 py-1 rounded">
+                      <div className="self-center py-2">
                         <LoginWalletButton
                           provider={provider}
                           loadWeb3Modal={loadWeb3Modal}
