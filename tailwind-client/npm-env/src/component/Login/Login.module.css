@@ -71,8 +71,8 @@
   overflow: hidden;
   width: 60%;
   margin-top: 7%;
-  height: 70vh;
-  min-height: 480px;
+  height: max-content;
+  min-height: 70vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin-left: auto;
