@@ -1,16 +1,16 @@
-const router = require("express").Router();
-const Str = require("@supercharge/strings");
-const bcrypt = require("bcryptjs");
+const router = require('express').Router();
+const Str = require('@supercharge/strings');
+const bcrypt = require('bcryptjs');
 
-let User = require("../models/user.model");
+let User = require('../models/user.model');
 
-router.route("/").get((req, res) => {
+router.route('/').get((req, res) => {
   User.find()
     .then((users) => res.json(users))
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch((err) => res.status(400).json('Error: ' + err));
 });
 
-router.route("/add").post((req, res) => {
+router.route('/add').post((req, res) => {
   const walletID = req.body.wallet_id;
   const fullName = req.body.name;
   const userName = req.body.username;
@@ -34,51 +34,53 @@ router.route("/add").post((req, res) => {
     .then(() => res.json(newUser))
     .catch((err) => {
       //console.log(err);
-      res.status(400).json("Error: " + err);
+      res.status(400).json('Error: ' + err);
     });
 });
 
-router.route("/login").post(async (req, res) => {
+router.route('/login').post(async (req, res) => {
   try {
     const username = req.body.username;
     const password = req.body.password;
 
     const user_username = await User.findOne({ username: username });
     const isMatch = bcrypt.compare(password, user_username.password);
-    console.log(username, " ", password);
+    console.log(username, ' ', password);
     if (isMatch) {
       res.send(user_username);
     } else {
       res.send(false);
     }
   } catch (error) {
-    res.status(400).send("Invalid Login");
+    res.status(400).send('Invalid Login');
   }
 });
 
-router.route("/:username").get(async (req, res) => {
+router.route('/:username').get(async (req, res) => {
   try {
     const getuserData = req.params.username;
 
     const userData = await User.findOne({ username: getuserData });
     res.send(userData);
   } catch (err) {
-    res.send("Try Again");
+    res.send('Try Again');
   }
 });
 
-router.route("/get_user_by_id/:streamID").get(async (req, res) => {
+router.route('/get_user_by_id/:streamID').get(async (req, res) => {
   try {
     const stream_id = req.params.streamID;
 
-    const userData = await User.findOne({ "livepeer_data.id": stream_id });
+    const userData = await User.findOne({
+      'livepeer_data.id': stream_id,
+    });
     res.send(userData);
   } catch (err) {
-    res.send("Try Again");
+    res.send('Try Again');
   }
 });
 
-router.route("/getuser_by_wallet/:walletId").get(async (req, res) => {
+router.route('/getuser_by_wallet/:walletId').get(async (req, res) => {
   try {
     const wallet_id = req.params.walletId;
 
@@ -86,11 +88,11 @@ router.route("/getuser_by_wallet/:walletId").get(async (req, res) => {
     res.send(userData);
   } catch (err) {
     //console.log(err)
-    res.send("Try Again");
+    res.send('Try Again');
   }
 });
 
-router.route("/add_multistream_platform").post(async (req, res) => {
+router.route('/add_multistream_platform').post(async (req, res) => {
   try {
     console.log(req);
     const data = {
@@ -110,16 +112,16 @@ router.route("/add_multistream_platform").post(async (req, res) => {
         } else {
           console.log(success);
         }
-      }
+      },
     );
 
-    res.send("success");
+    res.send('success');
   } catch (err) {
-    res.send("multistream_error");
+    res.send('multistream_error');
   }
 });
 
-router.route("/follow").post(async (req, res) => {
+router.route('/follow').post(async (req, res) => {
   try {
     const following = req.body.following;
     const follower = req.body.follower;
@@ -132,7 +134,7 @@ router.route("/follow").post(async (req, res) => {
         } else {
           console.log(success);
         }
-      }
+      },
     );
     User.findOneAndUpdate(
       { username: follower },
@@ -143,14 +145,14 @@ router.route("/follow").post(async (req, res) => {
         } else {
           console.log(success);
         }
-      }
+      },
     );
   } catch (err) {
     console.log(err);
   }
 });
 
-router.route("/unfollow").post(async (req, res) => {
+router.route('/unfollow').post(async (req, res) => {
   try {
     const following = req.body.following;
     const follower = req.body.follower;
@@ -163,7 +165,7 @@ router.route("/unfollow").post(async (req, res) => {
         } else {
           console.log(success);
         }
-      }
+      },
     );
     User.findOneAndUpdate(
       { username: follower },
@@ -174,32 +176,32 @@ router.route("/unfollow").post(async (req, res) => {
         } else {
           console.log(success);
         }
-      }
+      },
     );
   } catch (err) {
     console.log(err);
   }
 });
 
-router.route("/:username/favorites").get(async (req, res) => {
+router.route('/:username/favorites').get(async (req, res) => {
   try {
     const getuserData = req.params.username;
 
-    console.log("Sharing favorites of : " + getuserData);
+    console.log('Sharing favorites of : ' + getuserData);
     const userData = await User.findOne(
       { username: getuserData },
-      { favorite_tracks: 1, _id: 0 }
+      { favorite_tracks: 1, _id: 0 },
     );
 
     console.log(userData);
 
     res.send(userData);
   } catch (err) {
-    res.send("Try Again");
+    res.send('Try Again');
   }
 });
 
-router.route("/favorite").post(async (req, res) => {
+router.route('/favorite').post(async (req, res) => {
   try {
     const uname = req.body.username;
     const track = req.body.track_id;
@@ -214,14 +216,14 @@ router.route("/favorite").post(async (req, res) => {
           console.log(success);
           res.send(success);
         }
-      }
+      },
     );
   } catch (err) {
     console.log(err);
   }
 });
 
-router.route("/unfavorite").post(async (req, res) => {
+router.route('/unfavorite').post(async (req, res) => {
   try {
     const uname = req.body.username;
     const track = req.body.track_id;
@@ -236,14 +238,14 @@ router.route("/unfavorite").post(async (req, res) => {
           console.log(success);
           res.send(success);
         }
-      }
+      },
     );
   } catch (err) {
     console.log(err);
   }
 });
 
-router.route("/reactions").post(async (req, res) => {
+router.route('/reactions').post(async (req, res) => {
   try {
     console.log(req.body);
     const videoUsername = req.body.videousername;
@@ -265,13 +267,13 @@ router.route("/reactions").post(async (req, res) => {
     if (count != -1) {
       let data = user.reactions;
 
-      if (videoreaction === "like")
+      if (videoreaction === 'like')
         data[count].reaction.like.push(reactUsername);
-      else if (videoreaction === "dislike")
+      else if (videoreaction === 'dislike')
         data[count].reaction.dislike.push(reactUsername);
-      else if (videoreaction === "angry")
+      else if (videoreaction === 'angry')
         data[count].reaction.angry.push(reactUsername);
-      else if (videoreaction === "happy")
+      else if (videoreaction === 'happy')
         data[count].reaction.happy.push(reactUsername);
 
       console.log(data);
@@ -285,7 +287,7 @@ router.route("/reactions").post(async (req, res) => {
           } else {
             res.send(success);
           }
-        }
+        },
       );
     } else {
       let value = {
@@ -298,12 +300,13 @@ router.route("/reactions").post(async (req, res) => {
         },
       };
 
-      if (videoreaction === "like") value.reaction.like.push(reactUsername);
-      else if (videoreaction === "dislike")
+      if (videoreaction === 'like')
+        value.reaction.like.push(reactUsername);
+      else if (videoreaction === 'dislike')
         value.reaction.dislike.push(reactUsername);
-      else if (videoreaction === "angry")
+      else if (videoreaction === 'angry')
         value.reaction.angry.push(reactUsername);
-      else if (videoreaction === "happy")
+      else if (videoreaction === 'happy')
         value.reaction.happy.push(reactUsername);
 
       console.log(value);
@@ -316,7 +319,7 @@ router.route("/reactions").post(async (req, res) => {
           } else {
             res.send(success);
           }
-        }
+        },
       );
     }
   } catch (err) {
@@ -324,7 +327,7 @@ router.route("/reactions").post(async (req, res) => {
   }
 });
 
-router.route("/getreactions").post(async (req, res) => {
+router.route('/getreactions').post(async (req, res) => {
   try {
     const videoUsername = req.body.videousername;
     const videoname = req.body.videoname;
@@ -343,7 +346,7 @@ router.route("/getreactions").post(async (req, res) => {
   }
 });
 
-router.route("/getuserreaction").post(async (req, res) => {
+router.route('/getuserreaction').post(async (req, res) => {
   try {
     const videoUsername = req.body.videousername;
     const reactUsername = req.body.username;
@@ -365,13 +368,19 @@ router.route("/getuserreaction").post(async (req, res) => {
       let data = user.reactions;
 
       if (data[count].reaction.like.indexOf(reactUsername) > -1) {
-        res.send("like");
-      } else if (data[count].reaction.dislike.indexOf(reactUsername) > -1) {
-        res.send("dislike");
-      } else if (data[count].reaction.angry.indexOf(reactUsername) > -1) {
-        res.send("angry");
-      } else if (data[count].reaction.happy.indexOf(reactUsername) > -1) {
-        res.send("happy");
+        res.send('like');
+      } else if (
+        data[count].reaction.dislike.indexOf(reactUsername) > -1
+      ) {
+        res.send('dislike');
+      } else if (
+        data[count].reaction.angry.indexOf(reactUsername) > -1
+      ) {
+        res.send('angry');
+      } else if (
+        data[count].reaction.happy.indexOf(reactUsername) > -1
+      ) {
+        res.send('happy');
       } else {
         res.send(null);
       }
@@ -379,6 +388,107 @@ router.route("/getuserreaction").post(async (req, res) => {
     // else{
     //   res.send(null);
     // }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.route('/removeuserreaction').post(async (req, res) => {
+  try {
+    console.log(req.body);
+    const videoUsername = req.body.videousername;
+    const reactUsername = req.body.reactusername;
+    const videoname = req.body.videoname;
+    const oldreaction = req.body.oldreaction;
+    const newreaction = req.body.newreaction;
+    const user = await User.findOne({ username: videoUsername });
+
+    //console.log(user)
+    let count = -1;
+    for (let i = 0; i < user.reactions.length; i++) {
+      if (user.reactions[i].video === videoname) {
+        count = i;
+        break;
+      }
+    }
+    //console.log(count)
+
+    if (count != -1) {
+      let data = user.reactions;
+      if (oldreaction === newreaction) {
+        if (oldreaction === 'like')
+          data[count].reaction.like.pop(reactUsername);
+        else if (oldreaction === 'dislike')
+          data[count].reaction.dislike.pop(reactUsername);
+        else if (oldreaction === 'angry')
+          data[count].reaction.angry.pop(reactUsername);
+        else if (oldreaction === 'happy')
+          data[count].reaction.happy.pop(reactUsername);
+      } else {
+        if (oldreaction === 'like')
+          data[count].reaction.like.pop(reactUsername);
+        else if (oldreaction === 'dislike')
+          data[count].reaction.dislike.pop(reactUsername);
+        else if (oldreaction === 'angry')
+          data[count].reaction.angry.pop(reactUsername);
+        else if (oldreaction === 'happy')
+          data[count].reaction.happy.pop(reactUsername);
+
+        if (newreaction === 'like')
+          data[count].reaction.like.push(reactUsername);
+        else if (newreaction === 'dislike')
+          data[count].reaction.dislike.push(reactUsername);
+        else if (newreaction === 'angry')
+          data[count].reaction.angry.push(reactUsername);
+        else if (newreaction === 'happy')
+          data[count].reaction.happy.push(reactUsername);
+      }
+      console.log(data);
+
+      User.findOneAndUpdate(
+        { username: videoUsername },
+        { $set: { reactions: data } },
+        function (error, success) {
+          if (error) {
+            res.send(error);
+          } else {
+            res.send(success);
+          }
+        },
+      );
+    } else {
+      let value = {
+        video: videoname,
+        reaction: {
+          like: [],
+          dislike: [],
+          angry: [],
+          happy: [],
+        },
+      };
+
+      if (videoreaction === 'like')
+        value.reaction.like.push(reactUsername);
+      else if (videoreaction === 'dislike')
+        value.reaction.dislike.push(reactUsername);
+      else if (videoreaction === 'angry')
+        value.reaction.angry.push(reactUsername);
+      else if (videoreaction === 'happy')
+        value.reaction.happy.push(reactUsername);
+
+      console.log(value);
+      User.findOneAndUpdate(
+        { username: videoUsername },
+        { $push: { reactions: value } },
+        function (error, success) {
+          if (error) {
+            res.send(error);
+          } else {
+            res.send(success);
+          }
+        },
+      );
+    }
   } catch (err) {
     console.log(err);
   }
