@@ -536,7 +536,6 @@ app.post("/count-play", async (req, res) => {
   //Below part adds the latest played track to the array of last played 1000 Tracks
 
   last1000Played.push(req.body.trackId);
-
   console.log(last1000Played);
   res.send("Play Counted :" + req.body.trackId);
 });

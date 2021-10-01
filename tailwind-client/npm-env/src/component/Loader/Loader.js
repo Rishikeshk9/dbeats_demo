@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image } from 'react-bootstrap';
-import logo from '../../assets/images/logo2.png';
+import logo from '../../assets/images/white-logo.svg';
 import classes from './Loader.module.css';
 
 const Loader = () => {

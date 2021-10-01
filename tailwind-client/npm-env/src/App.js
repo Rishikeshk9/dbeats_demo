@@ -10,6 +10,7 @@ import Loader from './component/Loader/Loader';
 import './App.css';
 import NavBar from '../src/component/Navbar/Navbar';
 import Track from './component/track.component';
+import { useSelector } from 'react-redux';
 
 //import Navbar from "./component/navbar.component";
 //import BottomBar from "./component/bottom-player.component";
@@ -58,8 +59,9 @@ const UploadPage = lazy(() => {
   });
 });
 
-const App = () => {
+export default function App() {
   let user = JSON.parse(window.localStorage.getItem('user'));
+  const darkMode = useSelector((state) => state.toggleDarkMode);
 
   useEffect(() => {
     if (user) {
@@ -70,32 +72,32 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
-      <Suspense fallback={<Loader />}>
-        <NavBar />
+    <>
+      <Router>
+        <Suspense fallback={<Loader />}>
+          <NavBar />
 
-        <Switch>
-          <div style={{ marginTop: '4.1rem' }}>
-            <Route path="/nft" exact component={() => <NFTFeed />} />
-            <Route path="/" exact component={() => <VideoHome />} />
+          <Switch className={`${darkMode && 'dark'}  `}>
+            <div className="   dark:bg-gradient-to-b dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary   ">
+              <Route path="/nft" exact component={() => <NFTFeed />} />
+              <Route path="/" exact component={() => <VideoHome />} />
 
-            <Route path="/upload" exact component={() => <UploadPage />} />
-            <Route path="/music" exact component={() => <Track />} />
+              <Route path="/upload" exact component={() => <UploadPage />} />
+              <Route path="/music" exact component={() => <Track />} />
 
-            {/* <Route exact path="/" component={LandingPage} /> */}
-            <Route exact path="/loader" component={Loader} />
-            {/* <Route exact path="/home" component={VideoHome} />  */}
-            <Route exact path="/streamer/:roomID" component={UserRoom} />
-            <Route exact path="/live/:username" component={PublicRoom} />
-            <Route exact path="/playback/:username/:video_id" component={Playback} />
-            <Route exact path="/profile/:username" component={Profile} />
-            <Route exact path="/login" component={Login} />
-            {/* TODO: <Route exact path="*" component={PageNotFound} /> */}
-          </div>
-        </Switch>
-      </Suspense>
-    </Router>
+              {/* <Route exact path="/" component={LandingPage} /> */}
+              <Route exact path="/loader" component={Loader} />
+              {/* <Route exact path="/home" component={VideoHome} />  */}
+              <Route exact path="/streamer/:roomID" component={UserRoom} />
+              <Route exact path="/live/:username" component={PublicRoom} />
+              <Route exact path="/playback/:username/:video_id" component={Playback} />
+              <Route exact path="/profile/:username" component={Profile} />
+              <Route exact path="/login" component={Login} />
+              {/* TODO: <Route exact path="*" component={PageNotFound} /> */}
+            </div>
+          </Switch>
+        </Suspense>
+      </Router>
+    </>
   );
-};
-
-export default App;
+}

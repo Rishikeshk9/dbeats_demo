@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import classes from './Home.module.css';
+//import classes from './Home.module.css';
 import axios from 'axios';
 import Carousel from 'react-grid-carousel';
 import personImg from '../../assets/images/profile.svg';
@@ -8,10 +8,12 @@ import PlayBackCard from './PlayBackCard';
 import LiveCard from './LiveCard';
 import Skeleton from '@material-ui/lab/Skeleton';
 import ResponsiveCarousel from './HomeSlider';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
   const [activeStreams, setActiveStreams] = useState([]);
   const [slides, setSlides] = useState([]);
+  const darkMode = useSelector((darkmode) => darkmode.toggleDarkMode);
 
   const [arrayData, setArrayData] = useState([]);
 
@@ -61,12 +63,18 @@ const Home = () => {
 
   return (
     <>
-      <div>
-        <div id="outer-container" className="h-100">
-          <main id="page-wrap" className={classes.main_homepage_body}>
-            <div id="recommended_channel" className="w-100 bg-gray-100 lg:block sm:hidden">
-              <div className="px-3 pt-4">
-                <h5 className="font-semibold text-base"> RECOMMENDED CHANNELS ...</h5>
+      <div className={`${darkMode && 'dark'} `}>
+        <div id="outer-container" className="h-100  ">
+          <div id="page-wrap" className={`${darkMode && 'dark'} grid   grid-cols-6`}>
+            <div
+              id="recommended_channel"
+              className="w-100  pt-8 h-screen col-span-1 lg:block sm:hidden  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary"
+            >
+              <div className="px-3 pt-10 ">
+                <h5 className="font-semibold text-base dark:text-gray-200">
+                  {' '}
+                  RECOMMENDED CHANNELS
+                </h5>
                 {recommend_channels.map((channel, i) => {
                   return (
                     <div key={i} className="flex pb-2 pt-2">
@@ -76,7 +84,10 @@ const Home = () => {
                         className="w-14 h-14 rounded-full mr-2 bg-gray-100"
                       />
                       <div>
-                        <span className="font-semibold text-sm"> {channel.name} </span>
+                        <span className="font-semibold text-sm dark:text-gray-200">
+                          {' '}
+                          {channel.name}{' '}
+                        </span>
                         <br />
                         <span className="text-gray-400 text-sm"> Counter Strike... </span>
                       </div>
@@ -85,8 +96,8 @@ const Home = () => {
                 })}
               </div>
             </div>
-
-            <div className={classes.other_videos}>
+            {/* {classes.other_videos} */}
+            <div className="col-span-5  pt-8 bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-secondary">
               <div id="display_videos" className="my-6 px-4 h-max">
                 <div className="pt-4 px-4 h-max">
                   {slides.length > 2 ? (
@@ -94,7 +105,7 @@ const Home = () => {
                   ) : (
                     <>
                       <Skeleton animation="wave" variant="rect" height="35vh" />
-                      <h4 className="font-bold py-2" align="center">
+                      <h4 className="font-bold py-2 dark:text-gray-200" align="center">
                         Waiting for Live Streamers
                       </h4>
                     </>
@@ -105,37 +116,46 @@ const Home = () => {
                 <div id="display_playback_videos" className="mt-10 px-4 ">
                   <div>
                     <h4 className=" font-bold pl-2 mt-10 pb-4 ">
-                      {activeStreams.length <= 2 || activeStreams.length > 5 ? (
-                        <div>
-                          <span className="animate-ping bg-red-900 rounded-full">&nbsp;</span>
-                          &nbsp; Live Now
-                        </div>
+                      {activeStreams ? (
+                        (activeStreams.length <= 2 && activeStreams.length != 0) ||
+                        activeStreams.length > 5 ? (
+                          <>
+                            <p className="mb-3 w-max mx-auto   self-center text-center  drop-shadow text-2xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 dark:from-white dark:to-gray-800">
+                              <span className=" bg-red-900 animate-ping mr-2 rounded-full   inline-block  h-2 w-2 self-center ">
+                                &middot;
+                              </span>
+                              LIVE
+                            </p>
+                            <div className="">
+                              <Carousel cols={5}>
+                                {activeStreams.map((liveUser, i) => {
+                                  if (activeStreams.length <= 2 || i >= 5) {
+                                    return (
+                                      <Carousel.Item key={i}>
+                                        <LiveCard
+                                          className=""
+                                          liveUserData={liveUser}
+                                          username={liveUser.username}
+                                        />
+                                      </Carousel.Item>
+                                    );
+                                  }
+                                })}
+                              </Carousel>
+                            </div>{' '}
+                          </>
+                        ) : (
+                          <></>
+                        )
                       ) : (
-                        <></>
+                        false
                       )}
                     </h4>
-                    <div className="">
-                      <Carousel cols={5}>
-                        {activeStreams.map((liveUser, i) => {
-                          if (activeStreams.length <= 2 || i >= 5) {
-                            return (
-                              <Carousel.Item key={i}>
-                                <LiveCard
-                                  className=""
-                                  liveUserData={liveUser}
-                                  username={liveUser.username}
-                                />
-                              </Carousel.Item>
-                            );
-                          }
-                        })}
-                      </Carousel>
-                    </div>
                   </div>
                 </div>
                 <div id="display_playback_videos" className="px-4 ">
                   <div className="  ">
-                    <h4 className=" font-bold pl-5 pt-3 pb-4">Trending</h4>
+                    <h4 className=" font-bold pl-5 pt-3 pb-4 dark:text-gray-200">Trending</h4>
                     <div className="">
                       <Carousel cols={4}>
                         {arrayData.map((playbackUser, i) => {
@@ -151,7 +171,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-          </main>
+          </div>
         </div>
       </div>
     </>

@@ -39,11 +39,11 @@ const PlayBackCard = (props) => {
         <p className="flex   text-black text-sm font-medium">
           <img src={person} alt="" className="w-10 h-10 rounded-full mr-2 bg-gray-100" />
           <div>
-            <span className="text-sm font-semibold">
+            <span className="text-sm font-semibold dark:text-gray-200">
               {props.playbackUserData.videos[props.index].videoName.slice(0, 45) + '...'}
             </span>
             <br />
-            <span className="text-s text-gray-500">{props.playbackUserData.name}</span>
+            <span className="text-s text-gray-500 ">{props.playbackUserData.name}</span>
           </div>
         </p>
       </div>

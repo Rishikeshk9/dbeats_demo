@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import classes from './Navbar.module.css';
 import { scaleRotate as Menu } from 'react-burger-menu';
-import logo from '../../assets/images/logo2.png';
+import logo from '../../assets/images/white-logo.svg';
+import logoDark from '../../assets/images/dark-logo.svg';
+
 import useWeb3Modal from '../../hooks/useWeb3Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleDarkMode } from '../../actions/index';
@@ -59,7 +61,7 @@ const NavBar = () => {
           outerContainerId={'outer-container'}
           isOpen={showOpen}
           onStateChange={isMenuOpen}
-          className={`w-250 bg-white dark:bg-dbeats-dark text-lg text-bold`}
+          className={`w-250 bg-white dark:bg-dbeats-dark-primary text-lg text-bold`}
         >
           <div className="pt-5 bg-transparent hidden w-0"></div>
           <div className={classes.menu_items}>
@@ -117,7 +119,7 @@ const NavBar = () => {
         className={` w-full fixed top-0 ${darkMode && 'dark'} z-100`}
       >
         <div
-          className={`p-3 bg-white shadow-sm z-50  absolute w-screen dark:bg-dbeats-dark dark:text-gray-100  bg-opacity-60    backdrop-filter  backdrop-blur-md`}
+          className={`p-3 bg-white shadow-sm z-50  absolute w-screen dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-60  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md`}
         >
           <div className="flex w-full self-center">
             <div
@@ -145,15 +147,16 @@ const NavBar = () => {
               className="flex self-center cursor-pointer"
               onClick={() => (window.location.href = '/')}
             >
-              <img src={logo} alt="dbeats_logo" className="h-8 w-max"></img>
-              <span className="mr-5 text-lg font-bold ml-2">DBeats</span>
+              <img src={logo} alt="dbeats_logo" className="h-10 w-max dark:hidden"></img>
+              <img src={logoDark} alt="dbeats_logo" className="h-10 w-max hidden dark:block"></img>
+              <span className="mr-5 text-lg font-bold ml-2"> </span>
             </div>
             <div className="w-1/3 mx-auto  self-center  ">
-              <div className="  self-center rounded  flex bg-gray-200 dark:bg-dbeats-dark-secondary">
+              <div className="  self-center rounded-full  flex bg-gray-100 dark:bg-dbeats-dark-primary">
                 <input
                   type="text"
                   placeholder="Search"
-                  className="w-full rounded border-0 self-center   dark:bg-dbeats-dark-secondary"
+                  className="w-full rounded-full border-0 bg-gray-100 self-center focus:ring-0  px-5 dark:bg-dbeats-dark-secondary"
                 ></input>
                 <a href="/" className="self-center text-gray-900">
                   {' '}
@@ -162,7 +165,7 @@ const NavBar = () => {
                     className="h-6 w-6 self-center mx-3 "
                     fill="none"
                     viewBox="0 0 24 24"
-                    stroke="currentColor"
+                    stroke="#aaa"
                   >
                     <path
                       strokeLinecap="round"
@@ -211,7 +214,7 @@ const NavBar = () => {
             ) : (
               <>
                 <button
-                  className="shadow-sm px-3 py-1 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded font-bold mx-2 flex"
+                  className="shadow-sm px-3 py-1 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light dark:bg-gradient-to-r dark:from-dbeats-secondary-light dark:to-dbeats-light text-white rounded font-bold mx-2 flex"
                   onClick={() => {
                     window.location.href = '/login';
                   }}

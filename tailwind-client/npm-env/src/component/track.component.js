@@ -14,6 +14,9 @@ import { toggleAudius } from '../actions/index';
 import PopUp from './popup.component';
 
 import BottomBar from './bottom-player.component';
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/splide/dist/css/themes/splide-default.min.css';
+import logo from '../assets/images/logo.svg';
 
 export default function Track() {
   // constructor(props) {
@@ -102,6 +105,7 @@ export default function Track() {
     console.log('GrandChild did mount.');
     getTodos();
     getDBeatsTracks();
+
     audio.addEventListener('ended', () => setState({ play: false }));
     return () => {
       // Anything in here is fired on component unmount.
@@ -228,9 +232,60 @@ export default function Track() {
 
   return (
     <>
-      <div id="outer-container" className="h-100">
+      <div id="outer-container" className="h-100 ">
         <div id="page-wrap" className={`${darkMode && 'dark'}  `}>
-          <div className="pb-10 pt-4 bg-gradient-to-r from-white via-green-100 to-white  dark:bg-gradient-to-t dark:from-dbeats-dark-primary dark:via-dbeats-dark-alt dark:to-dbeats-dark-primary   self-center relative w-full h-screen dark:bg-dbeats-dark-primary   ">
+          <div className="pb-10 pt-4 bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary mx-auto  self-center  relative w-full h-screen     ">
+            <div className="w-full pt-16 justify-center text-center mx-auto">
+              <p
+                id="song-title"
+                className="mb-3 w-max mx-auto   self-center text-center  drop-shadow text-2xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 dark:from-white dark:to-gray-800"
+              >
+                <span className=" bg-red-900 animate-ping mr-2 rounded-full   inline-block  h-2 w-2 self-center ">
+                  &middot;
+                </span>
+                LIVE
+              </p>
+              <Splide
+                options={{
+                  drag: true,
+                  arrows: false,
+                  rewind: true,
+                  perPage: 6,
+                }}
+                className="w-2/3 mx-auto self-center p-5 m-5  "
+              >
+                <SplideSlide className=" px-5">
+                  <img className="mx-auto   self-center  " src={logo} alt="Image 1" />
+                </SplideSlide>
+                <SplideSlide className=" px-5">
+                  <img className="mx-auto   self-center  " src={logo} alt="Image 2" />
+                </SplideSlide>
+                <SplideSlide className=" px-5">
+                  <img className="mx-auto   self-center  " src={logo} alt="Image 1" />
+                </SplideSlide>
+                <SplideSlide className=" px-5">
+                  <img className="mx-auto   self-center  " src={logo} alt="Image 2" />
+                </SplideSlide>
+                <SplideSlide className=" px-5">
+                  <img className="mx-auto   self-center  " src={logo} alt="Image 1" />
+                </SplideSlide>
+                <SplideSlide className=" px-5">
+                  <img className="mx-auto   self-center  " src={logo} alt="Image 2" />
+                </SplideSlide>
+                <SplideSlide className=" px-5">
+                  <img className="mx-auto   self-center  " src={logo} alt="Image 1" />
+                </SplideSlide>
+                <SplideSlide className=" px-5">
+                  <img className="mx-auto   self-center  " src={logo} alt="Image 2" />
+                </SplideSlide>
+                <SplideSlide className=" px-5">
+                  <img className="mx-auto   self-center  " src={logo} alt="Image 1" />
+                </SplideSlide>
+                <SplideSlide className=" px-5">
+                  <img className="mx-auto   self-center  " src={logo} alt="Image 2" />
+                </SplideSlide>
+              </Splide>{' '}
+            </div>
             <div className="flex  w-full md:w-2/3 justify-between px-5 self-center mx-auto">
               <p
                 id="song-title"
@@ -248,8 +303,8 @@ export default function Track() {
                     className="sr-only"
                   ></input>
 
-                  <div className="block bg-transparent dark:bg-gray-800 w-14 h-8 rounded-full shadow-inner"></div>
-                  <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition shadow"></div>
+                  <div className="block bg-transparent dark:bg-gray-800 w-14 h-8   shadow-inner"></div>
+                  <div className="dot absolute left-1 top-1 bg-white w-6 h-6   transition shadow"></div>
                 </div>
 
                 <div className="ml-3 text-gray-500 font-medium">
@@ -261,7 +316,6 @@ export default function Track() {
                 </div>
               </label>
             </div>
-
             <Transition
               show={audius}
               enter="transition ease-in-out duration-800"

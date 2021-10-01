@@ -68,14 +68,13 @@
 #tracks-section {
   background-image: linear-gradient(
     90deg,
-    #06172000 20%,
+    #06172000 10%,
     rgba(28, 222, 244, 0.212) 50%,
-    #06172000 80%
+    #06172000 90%
   );
 }
 
 /*FROM THE VIDEO SECTION*/
-
 .slider-left,
 .slider-right {
   width: 18%;
