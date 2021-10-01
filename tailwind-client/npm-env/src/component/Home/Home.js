@@ -68,7 +68,7 @@ const Home = () => {
           <div id="page-wrap" className={`${darkMode && 'dark'} grid   grid-cols-6`}>
             <div
               id="recommended_channel"
-              className="w-100  pt-8 h-screen col-span-1 lg:block sm:hidden  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary"
+              className="w-100  pt-8 h-screen lg:col-span-1 hidden  lg:block sm:hidden  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary"
             >
               <div className="px-3 pt-10 ">
                 <h5 className="font-semibold text-base dark:text-gray-200">
@@ -97,9 +97,9 @@ const Home = () => {
               </div>
             </div>
             {/* {classes.other_videos} */}
-            <div className="col-span-5  pt-8 bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-secondary">
+            <div className="col-span-6 lg:col-span-5 h-screen  pt-8 bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-secondary">
               <div id="display_videos" className="my-6 px-4 h-max">
-                <div className="pt-4 px-4 h-max">
+                <div className="pt-4 lg:px-4 h-max">
                   {slides.length > 2 ? (
                     <ResponsiveCarousel slides={slides} autoplay={false} />
                   ) : (
