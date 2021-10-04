@@ -53,7 +53,7 @@ function ValueLabelComponent(props) {
 
 const Footer = (props) => {
   return (
-    <div className="fixed bottom-0 bg-white w-full h-28 mb-0 pb-0 shadow flex flex-rows justify-center align-center z-10">
+    <div className="fixed hidden lg:block bottom-0 bg-white w-full h-28 mb-0 pb-0 shadow flex flex-rows justify-center align-center z-10">
       <Grid container alignItems="center">
         <div className="flex">
           <img src={playimg} className="h-20 w-20 p-3 ml-4 my-auto" alt="img"></img>

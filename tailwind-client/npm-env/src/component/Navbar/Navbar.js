@@ -54,7 +54,7 @@ const NavBar = () => {
 
   return (
     <>
-      <div className={`${darkMode && 'dark'} `}>
+      <div className={`${darkMode && 'dark'}`}>
         <Menu
           customBurgerIcon={false}
           pageWrapId={'page-wrap'}
@@ -116,10 +116,10 @@ const NavBar = () => {
       <div
         expand="lg"
         id="navbarScroll"
-        className={` w-full fixed top-0 ${darkMode && 'dark'} z-100`}
+        className={` w-max fixed top-0 ${darkMode && 'dark'} z-100`}
       >
         <div
-          className={`p-3 bg-white shadow-sm z-50  absolute w-screen dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-60  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md`}
+          className={`p-3 bg-white w-screen shadow-sm z-50  absolute w-screen dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-60  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md`}
         >
           <div className="flex w-full self-center">
             <div

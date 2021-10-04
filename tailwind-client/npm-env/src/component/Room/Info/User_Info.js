@@ -6,11 +6,13 @@ import { Button, Form, Spinner } from 'react-bootstrap';
 import Modal from 'react-awesome-modal';
 import { MultiStreamData } from '../../../assets/Data';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
+import { useSelector } from 'react-redux';
 
 const UserInfo = () => {
   const [userStreams, setUserStreams] = useState([]);
 
   const user = JSON.parse(window.localStorage.getItem('user'));
+  const darkMode = useSelector((darkmode) => darkmode.toggleDarkMode);
 
   const [playbackUrl, setPlaybackUrl] = useState('');
   const [StreamKey, setKey] = useState('');
@@ -134,30 +136,30 @@ const UserInfo = () => {
 
   return (
     <Fragment>
-      <div className={classes.info_main_body}>
-        <div>
-          <VideoPlayer playbackUrl={playbackUrl} className="rounded" />
+      <div className={`${darkMode && 'dark'} grid grid-cols-3`}>
+        <div className="col-span-3 sm:col-span-2">
+          <VideoPlayer playbackUrl={playbackUrl} className="rounded h-auto w-100" />
         </div>
-        <div>
-          <div className="bg-white py-3 pl-4 mr-3 rounded text-xl shadow">
+        <div className="text-sm self-center">
+          <div className="bg-white w-80 lg-w-100 rounded text-sm sm:lg:text-xl shadow">
             <div className="pb-2">
-              <span className="text-2xl font-semibold">Streamer Name : </span>
+              <span className="font-semibold">Streamer Name : </span>
               <p>{user.name}</p>
             </div>
             <div className="pb-2">
-              <span className="text-2xl font-semibold">Streamer Username : </span>
+              <span className="font-semibold">Streamer Username : </span>
               <p>{user.username}</p>
             </div>
             <div className="pb-2">
-              <span className="text-2xl font-semibold">RTMP URL: </span>
+              <span className="font-semibold">RTMP URL: </span>
               <p>rtmp://rtmp.livepeer.com/live</p>
             </div>
             <div className="pb-2">
-              <span className="text-2xl font-semibold">Streamer Key : </span>
+              <span className="font-semibold">Streamer Key : </span>
               <p>{userStreams.streamKey}</p>
             </div>
             <div className="pb-2  break-words">
-              <span className="text-2xl font-semibold">Playback URL : </span>
+              <span className="font-semibold">Playback URL : </span>
               <p>{playbackUrl}</p>
             </div>
             <hr width="95%" className="mt-2 mb-4" />
@@ -193,35 +195,38 @@ const UserInfo = () => {
             </div>
           </div>
         </div>
-
-        <div></div>
       </div>
 
       <Modal
         visible={showDestinationModal}
-        className="h-max w-max"
+        className="lg:h-max lg:w-max w-100px"
         effect="fadeInUp"
         aria-labelledby="contained-modal-title-vcenter"
-        centered
       >
         <div className="py-6 mx-16 flex">
           <p className="w-full">
-            <div className="font-semibold text-3xl text-center">Add Multistream Platforms</div>
+            <div className="font-semibold text-lg lg:text-3xl text-center">
+              Add Multistream Platforms
+            </div>
           </p>
           <div className="ml-5 self-center" onClick={() => setShowDestinationModal(false)}>
             <i className="fas fa-times"></i>
           </div>
         </div>
         <hr />
-        <main className="py-3 px-4 max-h-60 w-full overflow-y-auto">
-          <div className="grid grid-cols-3">
+        <main className="py-3 px-4 max-h-18 lg:max-h-60 w-full overflow-y-auto">
+          <div className="grid grid-cols-2 lg-grid-cols-3">
             {multiStreamConnected.map((value, index) => {
               return (
                 <div
                   key={index}
-                  className="bg-white-200 mx-8 border-1 border-gray-300 rounded my-2 flex justify-around"
+                  className="col-span-3 lg:col-span-1 bg-white-200 mx-8 border-1 border-gray-300 rounded my-2 flex justify-around"
                 >
-                  <img src={value.platform.logo} alt="logo" className="h-auto w-48 p-4" />
+                  <img
+                    src={value.platform.logo}
+                    alt="logo"
+                    className="h-auto w-24 lg:h-auto lg:w-48 p-4"
+                  />
                   <input
                     type="checkbox"
                     className="h-7 w-7 mx-3 dark:text-dbeats-dark-secondary text-dbeats-light focus:ring-dbeats-light border-gray-300 rounded self-center"
@@ -237,7 +242,7 @@ const UserInfo = () => {
           </div>
         </main>
         <hr />
-        <div className="flex w-full my-5 justify-center align-center px-5">
+        <div className="flex-row lg:flex w-full my-5 justify-center align-center px-5">
           <button
             className="w-2/3 mx-2 rounded-md bg-dbeats-light text-white p-2 text-xl font-semibold"
             onClick={() => {
@@ -258,14 +263,13 @@ const UserInfo = () => {
 
       <Modal
         visible={modalShow}
-        className="h-max w-max"
+        className="lg:h-max lg:w-max w-100px"
         effect="fadeInUp"
         aria-labelledby="contained-modal-title-vcenter"
-        centered
       >
         <div className="py-5 px-16 flex">
           <p id="contained-modal-title-vcenter" className="w-full">
-            <div className="font-semibold text-2xl text-center">
+            <div className="font-semibold text-lg lg:text-2xl text-center">
               Select the MultiStream Platform
             </div>
           </p>
@@ -275,17 +279,17 @@ const UserInfo = () => {
         </div>
         <hr />
         <main className="py-5 ">
-          <div className="grid gap-4 justify-items-center grid-cols-4 px-8 max-w-100 max-h-96 overflow-y-auto">
+          <div className="grid gap-4 justify-items-center grid-cols-2 lg:grid-cols-4 px-8 max-w-100 max-h-96 overflow-y-auto">
             {MultiStreamData.map((value, index) => {
               return (
                 <div
                   key={index}
-                  className="flex justify-center items-center bg-white-200 mx-2 my-2 border-1 h-full w-full shadow border-gray-300 rounded"
+                  className="flex justify-center items-center bg-white-200 mx-1 my-1 border-1 h-full w-full shadow border-gray-300 rounded"
                 >
                   <img
                     src={value.image}
                     alt="logo"
-                    className="h-auto w-40 p-4"
+                    className="h-auto w-20 lg:w-40 p-1 lg:p-4"
                     onClick={() => {
                       setMultiStreamValue(value);
                       setShowStreamModal(true);
@@ -302,23 +306,24 @@ const UserInfo = () => {
 
       <Modal
         visible={showStreamModal}
-        className="h-max w-max"
+        className="lg:h-max lg:w-max w-100px"
         effect="fadeInUp"
         aria-labelledby="contained-modal-title-vcenter"
-        centered
       >
         <div className="py-5 px-6 flex">
           <p id="contained-modal-title-vcenter" className="w-full">
-            <div className="font-semibold text-3xl text-center">{multiStreamValue.title}</div>
+            <div className="font-semibold text-lg lg:text-3xl text-center">
+              {multiStreamValue.title}
+            </div>
           </p>
           <div className="ml-5 self-center" onClick={() => setShowStreamModal(false)}>
             <i className="fas fa-times"></i>
           </div>
         </div>
         <hr />
-        <main className="px-6 py-6">
+        <main className="lg:px-6 lg:py-6">
           <Form>
-            <Form.Group className="mb-3 text-xl">
+            <Form.Group className="mb-3 text-md lg:text-xl">
               <Form.Label>
                 <b>Enter Stream-Key </b>
               </Form.Label>
