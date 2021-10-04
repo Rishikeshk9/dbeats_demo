@@ -75,25 +75,26 @@ export default function App() {
     <>
       <Router>
         <Suspense fallback={<Loader />}>
-          <NavBar />
-
           <Switch className={`${darkMode && 'dark'}  `}>
             <div className=" h-full  dark:bg-gradient-to-b dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary   ">
-              <Route path="/nft" exact component={() => <NFTFeed />} />
-              <Route path="/" exact component={() => <VideoHome />} />
+              <NavBar />
+              <div className="pt-16">
+                <Route path="/nft" exact component={() => <NFTFeed />} />
+                <Route path="/" exact component={() => <VideoHome />} />
 
-              <Route path="/upload" exact component={() => <UploadPage />} />
-              <Route path="/music" exact component={() => <Track />} />
+                <Route path="/upload" exact component={() => <UploadPage />} />
+                <Route path="/music" exact component={() => <Track />} />
 
-              {/* <Route exact path="/" component={LandingPage} /> */}
-              <Route exact path="/loader" component={Loader} />
-              {/* <Route exact path="/home" component={VideoHome} />  */}
-              <Route exact path="/streamer/:roomID" component={UserRoom} />
-              <Route exact path="/live/:username" component={PublicRoom} />
-              <Route exact path="/playback/:username/:video_id" component={Playback} />
-              <Route exact path="/profile/:username" component={Profile} />
-              <Route exact path="/login" component={Login} />
-              {/* TODO: <Route exact path="*" component={PageNotFound} /> */}
+                {/* <Route exact path="/" component={LandingPage} /> */}
+                <Route exact path="/loader" component={Loader} />
+                {/* <Route exact path="/home" component={VideoHome} />  */}
+                <Route exact path="/streamer/:roomID" component={UserRoom} />
+                <Route exact path="/live/:username" component={PublicRoom} />
+                <Route exact path="/playback/:username/:video_id" component={Playback} />
+                <Route exact path="/profile/:username" component={Profile} />
+                <Route exact path="/login" component={Login} />
+                {/* TODO: <Route exact path="*" component={PageNotFound} /> */}
+              </div>
             </div>
           </Switch>
         </Suspense>

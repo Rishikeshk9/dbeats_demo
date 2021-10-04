@@ -119,7 +119,7 @@ const NavBar = () => {
         className={` w-max fixed top-0 ${darkMode && 'dark'} z-100`}
       >
         <div
-          className={`p-3 bg-white w-screen shadow-sm z-50  absolute w-screen dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-60  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md`}
+          className={`p-3 bg-white w-screen shadow-sm z-50  absolute w-screen dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-90  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md`}
         >
           <div className="flex w-full self-center">
             <div

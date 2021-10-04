@@ -3,7 +3,15 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "Proxima";
-  src: local("Proxima"),
-    url(./assets/fonts/reg/ProximaNova-Regular.otf) format("otf");
+  font-family: 'Proxima';
+  src: local('Proxima'), url(./assets/fonts/reg/ProximaNova-Regular.otf) format('otf');
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+.MuiContainer-root {
+  padding: 0 !important;
 }

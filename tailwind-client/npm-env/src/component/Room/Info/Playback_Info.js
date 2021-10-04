@@ -325,7 +325,7 @@ const PlayBackInfo = (props) => {
     <div className=" ">
       <div className={`  grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row pt-3 pb-50 `}>
         <div className=" col-span-2 ">
-          <div>
+          <div className="self-center lg:px-8">
             {userData ? (
               <VideoPlayer
                 playbackUrl={playbackUrl}

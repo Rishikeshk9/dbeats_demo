@@ -148,7 +148,7 @@ function VideoPlayer(props) {
 
   return (
     <>
-      <Container style={{ width: '95%', height: 'auto' }}>
+      <Container style={{ width: '100%', height: 'auto' }}>
         <div
           onMouseMove={handleMouseMove}
           onMouseLeave={hanldeMouseLeave}
