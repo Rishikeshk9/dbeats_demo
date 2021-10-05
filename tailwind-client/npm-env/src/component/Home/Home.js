@@ -9,6 +9,8 @@ import LiveCard from './LiveCard';
 import Skeleton from '@material-ui/lab/Skeleton';
 import ResponsiveCarousel from './HomeSlider';
 import { useSelector } from 'react-redux';
+import Lottie from 'react-lottie';
+import animationData from '../../lotties/gamers.json';
 
 const Home = () => {
   const [activeStreams, setActiveStreams] = useState([]);
@@ -18,7 +20,14 @@ const Home = () => {
   const [arrayData, setArrayData] = useState([]);
 
   const user = JSON.parse(window.localStorage.getItem('user'));
-
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
   const recommend_channels = [
     { name: 'shroud' },
     { name: 'shroud' },
@@ -64,13 +73,13 @@ const Home = () => {
   return (
     <>
       <div className={`${darkMode && 'dark'} `}>
-        <div id="outer-container" className="h-100  ">
+        <div id="outer-container" className="h-100  pl-16">
           <div id="page-wrap" className={`${darkMode && 'dark'} grid   grid-cols-6`}>
             <div
               id="recommended_channel"
-              className="w-100  pt-8 h-screen lg:col-span-1 hidden  lg:block sm:hidden  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary"
+              className="w-100  pt-8 h-full lg:col-span-1 hidden  lg:block sm:hidden  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary"
             >
-              <div className="px-3 pt-10 ">
+              <div className="px-8 pt-10 ">
                 <h5 className="font-semibold text-base dark:text-gray-200">
                   {' '}
                   RECOMMENDED CHANNELS
@@ -169,6 +178,12 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
+                <div className="opacity-10 mb-5 mt-10">
+                  <Lottie options={defaultOptions} height={200} width={300} />
+                </div>
+                <h3 className="text-black   capitalize text-center proxima-reg dark:text-white dark:text-opacity-20">
+                  Developed by Creators for the Creators on a Decentralised Web
+                </h3>
               </div>
             </div>
           </div>
