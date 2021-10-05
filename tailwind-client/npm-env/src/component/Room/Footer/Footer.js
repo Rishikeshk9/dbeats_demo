@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Footer.module.css';
 import { withStyles } from '@material-ui/core/styles';
-import { Typography, Grid, Slider, Tooltip, IconButton } from '@material-ui/core';
+import { Slider, Tooltip, IconButton } from '@material-ui/core';
 import playimg from '../../../assets/images/telegram.png';
 
 import VolumeUp from '@material-ui/icons/VolumeUp';
@@ -53,10 +53,10 @@ function ValueLabelComponent(props) {
 
 const Footer = (props) => {
   return (
-    <div className="fixed bottom-0 bg-white w-full h-28 mb-0 pb-0 shadow flex flex-rows justify-center align-center z-10">
-      <Grid container alignItems="center">
+    <div className="fixed bottom-0 bg-white w-full h-28 mb-0 pb-0 shadow flex flex-rows justify-between align-center z-10">
+      <div className="w-full self-center">
         <div className="flex">
-          <img src={playimg} className="h-20 w-20 p-3 ml-4 my-auto" alt="img"></img>
+          <img src={playimg} className="h-20 w-20 p-3 my-auto" alt="img"></img>
           <div className="my-auto pt-3">
             <a
               href={` /profile/${props.playerUsername}`}
@@ -68,9 +68,9 @@ const Footer = (props) => {
           </div>
           <i className="fas fa-info-circle block mt-3 ml-3 text-lg text-dbeats-light"></i>
         </div>
-      </Grid>
-      <Grid container direction="row" style={{ flexGrow: 1, paddingRight: '30px' }}>
-        <Grid container direction="row" alignItems="center" justify="center">
+      </div>
+      <div className="w-full " align="center">
+        <div className="">
           <IconButton onClick={props.onRewind} className={classes.controlIcons} aria-label="rewind">
             <FastRewindIcon
               className={classes.fast_forward}
@@ -102,8 +102,8 @@ const Footer = (props) => {
               style={{ width: '40px', height: '40px' }}
             />
           </IconButton>
-        </Grid>
-        <Grid container direction="row" alignItems="center" justify="center">
+        </div>
+        <div className="flex self-center">
           <PrettoSlider
             style={{ color: '#00d3ff' }}
             min={0}
@@ -118,56 +118,52 @@ const Footer = (props) => {
             onChangeCommitted={props.onSeekMouseUp}
             onDuration={props.onDuration}
           />
-          <span variant="text" onClick={props.onChangeDispayFormat}>
-            <Typography
-              variant="body1"
-              style={{
-                color: '#1B252F',
-                opacity: '0.8',
-                paddingLeft: '15px',
-                marginTop: '-6px',
-              }}
-            >
+          <div className="self-center px-2 pb-1.5" onClick={props.onChangeDispayFormat}>
+            <p>
               {props.elapsedTime}/{props.totalDuration}
-            </Typography>
-          </span>
-        </Grid>
-      </Grid>
-      <Grid className="my-auto w-4/5" align="right">
-        <IconButton
-          onClick={props.onMute}
-          className={`${classes.bottomIcons} ${classes.volumeButton}`}
-          style={{ color: '#00d3ff' }}
-        >
-          {props.muted ? (
-            <VolumeMute fontSize="large" />
-          ) : props.volume > 0.5 ? (
-            <VolumeUp fontSize="large" />
-          ) : (
-            <VolumeDown fontSize="large" />
-          )}
-        </IconButton>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="w-full">
+        <div className="flex justify-center h-full">
+          <div className="self-center">
+            <IconButton
+              onClick={props.onMute}
+              className={`${classes.bottomIcons} ${classes.volumeButton}`}
+              style={{ color: '#00d3ff' }}
+            >
+              {props.muted ? (
+                <VolumeMute fontSize="large" />
+              ) : props.volume > 0.5 ? (
+                <VolumeUp fontSize="large" />
+              ) : (
+                <VolumeDown fontSize="large" />
+              )}
+            </IconButton>
 
-        <Slider
-          min={0}
-          max={100}
-          value={props.muted ? 0 : props.volume * 100}
-          onChange={props.onVolumeChange}
-          aria-labelledby="input-slider"
-          onMouseDown={props.onSeekMouseDown}
-          onChangeCommitted={props.onVolumeSeekDown}
-          style={{ width: '150px', marginBottom: '-8px', color: '#00d3ff' }}
-        />
-      </Grid>
-      <Grid className="my-auto mr-5" alignItems="right">
-        <IconButton
-          onClick={props.onToggleFullScreen}
-          className={classes.bottomIcons}
-          style={{ paddingLeft: '10px', color: '#00d3ff' }}
-        >
-          <FullScreen fontSize="large" />
-        </IconButton>
-      </Grid>
+            <Slider
+              min={0}
+              max={100}
+              value={props.muted ? 0 : props.volume * 100}
+              onChange={props.onVolumeChange}
+              aria-labelledby="input-slider"
+              onMouseDown={props.onSeekMouseDown}
+              onChangeCommitted={props.onVolumeSeekDown}
+              style={{ width: '150px', marginBottom: '-8px', color: '#00d3ff' }}
+            />
+          </div>
+          <div className="self-center">
+            <IconButton
+              onClick={props.onToggleFullScreen}
+              className={classes.bottomIcons}
+              style={{ paddingLeft: '15px', color: '#00d3ff' }}
+            >
+              <FullScreen fontSize="large" />
+            </IconButton>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -136,8 +136,8 @@ const UserInfo = () => {
 
   return (
     <Fragment className="">
-      <div className={`${darkMode && 'dark'} flex flex-col lg:grid lg:grid-cols-3 pb-32`}>
-        <div className=" h-auto w-full lg:w-full lg:col-span-2 self-center lg:px-8">
+      <div className={`${darkMode && 'dark'} flex flex-col lg:grid lg:grid-cols-3 pb-64`}>
+        <div className=" h-auto w-full lg:w-full lg:col-span-2 self-center">
           <VideoPlayer playbackUrl={playbackUrl} className="rounded h-full w-full" />
         </div>
         <div className="text-sm ">
