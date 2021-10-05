@@ -10,7 +10,8 @@ import Loader from './component/Loader/Loader';
 import './App.css';
 import NavBar from '../src/component/Navbar/Navbar';
 import Track from './component/track.component';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleDarkMode } from '../src/actions/index';
 
 //import Navbar from "./component/navbar.component";
 //import BottomBar from "./component/bottom-player.component";
@@ -62,12 +63,19 @@ const UploadPage = lazy(() => {
 export default function App() {
   let user = JSON.parse(window.localStorage.getItem('user'));
   const darkMode = useSelector((state) => state.toggleDarkMode);
+  let darkmode = JSON.parse(window.localStorage.getItem('darkmode'));
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (user) {
       axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${user.username}`).then((value) => {
         window.localStorage.setItem('user', JSON.stringify(value.data));
       });
+    }
+    if (darkmode === null) {
+      window.localStorage.setItem('darkmode', darkMode);
+    } else {
+      dispatch(toggleDarkMode(darkmode));
     }
   }, []);
 

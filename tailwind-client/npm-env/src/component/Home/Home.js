@@ -74,8 +74,8 @@ const Home = () => {
   return (
     <>
       <div className={`${darkMode && 'dark'} `}>
-        <div id="outer-container" className="h-100  pl-16">
-          <div id="page-wrap" className={`${darkMode && 'dark'} grid   grid-cols-6`}>
+        <div id="outer-container" className="h-100">
+          <div id="page-wrap" className={`${darkMode && 'dark'} grid pl-16 grid-cols-6`}>
             <Pinned_Panel />
             <div
               id="recommended_channel"

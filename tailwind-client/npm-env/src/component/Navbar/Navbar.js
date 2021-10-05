@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from './Navbar.module.css';
 import { push as Menu } from 'react-burger-menu';
 import logo from '../../assets/images/white-logo.svg';
@@ -49,8 +49,12 @@ const NavBar = () => {
   const [toggled, setToggled] = useState(true);
   const handleClick = () => {
     setToggled((s) => !s);
-    dispatch(toggleDarkMode());
+    dispatch(toggleDarkMode(!darkMode));
   };
+
+  useEffect(() => {
+    window.localStorage.setItem('darkmode', darkMode);
+  }, [darkMode]);
 
   return (
     <>

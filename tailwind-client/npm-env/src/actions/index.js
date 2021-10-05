@@ -4,8 +4,9 @@ export const toggleAudius = () => {
   };
 };
 
-export const toggleDarkMode = () => {
+export const toggleDarkMode = (value) => {
   return {
     type: 'DARKMODETOGGLE',
+    payload: value,
   };
 };
