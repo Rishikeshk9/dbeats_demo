@@ -11,6 +11,7 @@ import ResponsiveCarousel from './HomeSlider';
 import { useSelector } from 'react-redux';
 import Lottie from 'react-lottie';
 import animationData from '../../lotties/gamers.json';
+import Pinned_Panel from '../Subscribe_Panel/Pinned_Panel';
 
 const Home = () => {
   const [activeStreams, setActiveStreams] = useState([]);
@@ -75,6 +76,7 @@ const Home = () => {
       <div className={`${darkMode && 'dark'} `}>
         <div id="outer-container" className="h-100  pl-16">
           <div id="page-wrap" className={`${darkMode && 'dark'} grid   grid-cols-6`}>
+            <Pinned_Panel />
             <div
               id="recommended_channel"
               className="w-100  pt-8 h-full lg:col-span-1 hidden  lg:block sm:hidden  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary"
