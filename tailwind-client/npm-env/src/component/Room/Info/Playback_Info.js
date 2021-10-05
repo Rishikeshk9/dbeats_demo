@@ -322,10 +322,10 @@ const PlayBackInfo = (props) => {
 
   //console.log(arrayData);
   return (
-    <div className=" ">
+    <div>
       <div className={`  grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row pt-3 pb-50 `}>
-        <div className=" col-span-2 ">
-          <div className="self-center lg:px-8">
+        <div className=" lg:col-span-2">
+          <div className="self-center lg:px-8 w-screen lg:w-full">
             {userData ? (
               <VideoPlayer
                 playbackUrl={playbackUrl}
@@ -336,8 +336,8 @@ const PlayBackInfo = (props) => {
               <></>
             )}
           </div>
-          <div className="mx-7 px-7">
-            <div className="flex justify-between my-2  ">
+          <div className="lg:mx-7 lg:px-7 px-3">
+            <div className="lg:flex flex-row justify-between lg:my-2 my-1  ">
               <div className="py-4">
                 <div className=" w-full text-left mt-0" style={{ padding: '0px' }}>
                   {userData ? (
@@ -374,8 +374,8 @@ const PlayBackInfo = (props) => {
                   <></>
                 )}
               </div>
-              <div className="text-2xl py-4 flex  ">
-                <div className="  text-center mx-3">
+              <div className="text-2xl lg:py-4 py-2 flex justify-around">
+                <div className="  text-center lg:mx-3">
                   <button className="border-0 bg-transparent" onClick={handleShow}>
                     <i className="fas fa-share opacity-50 mx-2"></i>
                   </button>
@@ -432,9 +432,9 @@ const PlayBackInfo = (props) => {
                   <p className="text-base"> {angry}</p>
                 </div>
 
-                <Menu as="div" className="relative inline-block text-left">
-                  <div>
-                    <Menu.Button className="">
+                <Menu as="div" className="relative inline-block text-left" style={{ zIndex: 100 }}>
+                  <div style={{ zIndex: 50 }}>
+                    <Menu.Button>
                       <i className="fas fa-ellipsis-h opacity-50 mx-2"></i>
                     </Menu.Button>
                   </div>
@@ -486,7 +486,7 @@ const PlayBackInfo = (props) => {
             )}
             <div className={`${classes.comment_section}`}>
               <iframe
-                className={`${classes.convo_frame}`}
+                className="w-full p-0 m-0 h-60 lg:h-88"
                 title="comment"
                 src="https://theconvo.space/embed/dt?threadId=KIGZUnR4RzXDFheXoOwo"
                 allowtransparency="true"
@@ -495,7 +495,7 @@ const PlayBackInfo = (props) => {
             </div>
           </div>
         </div>
-        <div className="  w-full col-span-1 px-5 pt-3">
+        <div className="  w-full col-span-1 px-5 lg:pt-3">
           <div className=" w-full  grid grid-cols-1 grid-flow-row gap-3  ">
             {arrayData.map((value, index) => {
               return <RecommendedCard key={index} value={value} />;

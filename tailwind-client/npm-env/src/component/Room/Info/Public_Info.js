@@ -103,15 +103,14 @@ const PublicInfo = (props) => {
 
   const fetchData = async () => {
     const fileRes = await axios.get(`${process.env.REACT_APP_SERVER_URL}/get_activeusers`);
-    console.log(fileRes);
     for (let i = 0; i < fileRes.data.length; i++) {
       if (user ? fileRes.data[i].username !== user.username : true) {
-        console.log('fileResData', fileRes.data[i]);
         await axios
           .get(`${process.env.REACT_APP_SERVER_URL}/user/get_user_by_id/${fileRes.data[i].id}`)
           .then((response) => {
-            console.log('response', response.data);
-            setArrayData((prevState) => [...prevState, response.data]);
+            if (response.data) {
+              setArrayData((prevState) => [...prevState, response.data]);
+            }
           });
       }
     }
@@ -122,7 +121,6 @@ const PublicInfo = (props) => {
     get_User();
     fetchData();
     let value = JSON.parse(window.localStorage.getItem('user'));
-    console.log(value);
     if (user ? value.username === props.stream_id : false) {
       setPrivate(true);
     } else {
@@ -140,8 +138,8 @@ const PublicInfo = (props) => {
   return (
     <div className=" ">
       <div className={`grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row pt-3 pb-50 `}>
-        <div className=" col-span-2 ">
-          <div>
+        <div className=" lg:col-span-2 ">
+          <div className="self-center lg:px-8 w-screen lg:w-full">
             {userData ? (
               <VideoPlayer
                 playbackUrl={playbackUrl}
@@ -153,8 +151,8 @@ const PublicInfo = (props) => {
             )}
           </div>
 
-          <div className="mx-7 px-7">
-            <div className="flex justify-between my-2  ">
+          <div className="lg:mx-7 lg:px-7 px-3">
+            <div className="lg:flex flex-row justify-between lg:my-2 my-1  ">
               <div className="py-4">
                 <div className=" w-full p-0 text-left mt-0" style={{ padding: '0px' }}>
                   {userData ? <p className="font-semibold text-xl">{userData.username}</p> : <></>}
@@ -187,10 +185,12 @@ const PublicInfo = (props) => {
                   <></>
                 )}
               </div>
-              <div className="text-4xl py-4">
-                <button className="border-0 bg-transparent" onClick={handleShow}>
-                  <i className="fas fa-share opacity-50 mx-2"></i>
-                </button>
+              <div className="text-2xl lg:py-4 py-2 flex justify-around">
+                <div className="  text-center lg:mx-3">
+                  <button className="border-0 bg-transparent" onClick={handleShow}>
+                    <i className="fas fa-share opacity-50 mx-2"></i>
+                  </button>
+                </div>
                 <i className="fas fa-heart opacity-50 mx-2"></i>
                 <i className="fas fa-heart-broken opacity-50 mx-2"></i>
                 <i className="far fa-laugh-squint opacity-50 mx-2"></i>
@@ -249,7 +249,7 @@ const PublicInfo = (props) => {
             )}
             <div className={`${classes.comment_section}`}>
               <iframe
-                className={`${classes.convo_frame}`}
+                className="w-full p-0 m-0 h-60 lg:h-88"
                 title="comment"
                 src="https://theconvo.space/embed/dt?threadId=KIGZUnR4RzXDFheXoOwo"
                 allowtransparency="true"
