@@ -46,7 +46,7 @@ const NavBar = () => {
 
   // console.log(user, "from navbar")
 
-  const [toggled, setToggled] = useState(true);
+  const [toggled, setToggled] = useState(JSON.parse(window.localStorage.getItem('darkmode')));
   const handleClick = () => {
     setToggled((s) => !s);
     dispatch(toggleDarkMode(!darkMode));
