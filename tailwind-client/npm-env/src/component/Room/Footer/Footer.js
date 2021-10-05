@@ -53,27 +53,27 @@ function ValueLabelComponent(props) {
 
 const Footer = (props) => {
   return (
-    <div className="fixed bottom-0 bg-white w-full h-28 mb-0 pb-0 shadow flex flex-rows justify-between align-center z-10">
-      <div className="w-full self-center">
+    <div className="fixed bottom-0 bg-white w-full h-28 mb-0 pb-0 shadow flex flex-col lg:flex-row justify-between lg:-ml-8 align-center z-10">
+      <div className="w-full self-center hidden lg:block">
         <div className="flex">
-          <img src={playimg} className="h-20 w-20 p-3 my-auto" alt="img"></img>
-          <div className="my-auto pt-3">
+          <img src={playimg} className="lg:h-20 lg:w-20 h-16 w-16 p-3 my-auto" alt="img"></img>
+          <div className=" flex lg:block flex-row my-auto lg:pt-3">
             <a
               href={` /profile/${props.playerUsername}`}
               className="no-underline cursor-pointer text-black hover:no-underline"
             >
               <span className="text-2xl font-semibold">{props.playerName}</span>
             </a>
-            <p className="">{props.playerUsername}</p>
+            <p className="hidden lg:block">{props.playerUsername}</p>
           </div>
           <i className="fas fa-info-circle block mt-3 ml-3 text-lg text-dbeats-light"></i>
         </div>
       </div>
       <div className="w-full " align="center">
-        <div className="">
+        <div className="h-10">
           <IconButton onClick={props.onRewind} className={classes.controlIcons} aria-label="rewind">
             <FastRewindIcon
-              className={classes.fast_forward}
+              className="text-dbeats-light"
               style={{ width: '40px', height: '40px' }}
             />
           </IconButton>
@@ -117,8 +117,12 @@ const Footer = (props) => {
             onMouseDown={props.onSeekMouseDown}
             onChangeCommitted={props.onSeekMouseUp}
             onDuration={props.onDuration}
+            className="mx-auto mt-1 lg:mt-3"
           />
-          <div className="self-center px-2 pb-1.5" onClick={props.onChangeDispayFormat}>
+          <div
+            className="self-center px-2 pb-1.5 hidden lg:block"
+            onClick={props.onChangeDispayFormat}
+          >
             <p>
               {props.elapsedTime}/{props.totalDuration}
             </p>
@@ -126,11 +130,11 @@ const Footer = (props) => {
         </div>
       </div>
       <div className="w-full">
-        <div className="flex justify-center h-full">
-          <div className="self-center">
+        <div className="flex lg:justify-center  lg:h-full h-10 -mt-10 lg:mt-0 lg:pb-0 justify-around">
+          <div className="flex lg:block justify-center lg:self-center">
             <IconButton
               onClick={props.onMute}
-              className={`${classes.bottomIcons} ${classes.volumeButton}`}
+              className={`${classes.bottomIcons} ${classes.volumeButton} mt-5`}
               style={{ color: '#00d3ff' }}
             >
               {props.muted ? (
@@ -151,9 +155,10 @@ const Footer = (props) => {
               onMouseDown={props.onSeekMouseDown}
               onChangeCommitted={props.onVolumeSeekDown}
               style={{ width: '150px', marginBottom: '-8px', color: '#00d3ff' }}
+              className="lg:self-center lg:mt-0 "
             />
           </div>
-          <div className="self-center">
+          <div className="self-center hidden lg:block">
             <IconButton
               onClick={props.onToggleFullScreen}
               className={classes.bottomIcons}
