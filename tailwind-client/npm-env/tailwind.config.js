@@ -40,6 +40,7 @@ module.exports = {
       grayscale: { 50: '50%', 75: '75%' },
       width: {
         250: '250px',
+        180: '180px',
       },
       height: {
         88: '21.8rem',

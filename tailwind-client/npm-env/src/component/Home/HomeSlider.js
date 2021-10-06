@@ -28,7 +28,7 @@ const ResponsiveCarousel = (props) => {
           );
         }}
       />
-      <div className="absolute flex justify-between w-full -mt-32 lg:-mt-56 z-20">
+      <div className="absolute flex justify-between w-full -mt-28 lg:-mt-56 z-20">
         <div
           onClick={() => ref.current.goBack()}
           className="h-10 w-10 lg:h-16 lg:w-16 bg-blue-50 dark:bg-dbeats-dark-secondary shadow-lg  rounded-full ml-1 flex justify-center items-center"
@@ -51,7 +51,7 @@ const Slide = function (StackedCarouselSlideProps) {
   const value = data[dataIndex];
   return (
     <div
-      className="w-screen h-full px-3 py-2 lg:px-0 lg:py-0 lg:w-max lg:h-96 md:h-96 flex mx-auto shadow-xl dark:shadow-3xl"
+      className="w-screen h-full bg-gray-300 dark:bg-dbeats-dark-primary py-2 px-0 lg:py-0 lg:w-max lg:h-96 md:h-96 flex mx-auto shadow-xl dark:shadow-3xl"
       onClick={() => {
         window.location.href = `/live/${value.username}/`;
       }}
