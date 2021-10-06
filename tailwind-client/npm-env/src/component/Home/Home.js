@@ -49,8 +49,6 @@ const Home = () => {
 
             if (i < 5) {
               slidesValue.push(value.data);
-              slidesValue.push(value.data);
-              slidesValue.push(value.data);
             }
           });
       }
