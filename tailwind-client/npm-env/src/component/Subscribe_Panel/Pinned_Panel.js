@@ -6,9 +6,9 @@ const Pinned_Panel = () => {
   const darkMode = useSelector((state) => state.toggleDarkMode);
 
   return (
-    <div expand="lg" className={` w-max fixed top-0 ${darkMode && 'dark'} z-10`}>
+    <div expand="lg" className={`hidden w-max fixed top-0 ${darkMode && 'dark'} z-10`}>
       <div
-        className={`pr-3 pt-20 bg-white w-22 shadow-sm z-10 h-screen fixed left-0 dark:bg-dbeats-dark-primary  dark:text-gray-100   `}
+        className={`hidden pr-3 pt-20 bg-white w-22 shadow-sm z-10 h-screen fixed left-0 dark:bg-dbeats-dark-primary  dark:text-gray-100   `}
       >
         {/* Subscribed User Avatar */}
         <div className="grid grid-flow-row grid-cols-12 cursor-pointer  ">

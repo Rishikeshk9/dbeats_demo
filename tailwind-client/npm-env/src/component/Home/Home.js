@@ -49,6 +49,8 @@ const Home = () => {
 
             if (i < 5) {
               slidesValue.push(value.data);
+              slidesValue.push(value.data);
+              slidesValue.push(value.data);
             }
           });
       }
@@ -75,7 +77,7 @@ const Home = () => {
     <>
       <div className={`${darkMode && 'dark'} `}>
         <div id="outer-container" className="h-100">
-          <div id="page-wrap" className={`${darkMode && 'dark'} grid pl-16 grid-cols-6`}>
+          <div id="page-wrap" className={`${darkMode && 'dark'} grid lg:pl-16 grid-cols-6`}>
             <Pinned_Panel />
             <div
               id="recommended_channel"
