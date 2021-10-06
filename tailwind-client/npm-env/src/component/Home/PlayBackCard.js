@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
 //import { useHistory } from "react-router-dom";
 import person from '../../assets/images/profile.svg';
-import classes from './Home.module.css';
 
 const PlayBackCard = (props) => {
   const [playing, setPlaying] = useState(false);
@@ -18,18 +17,17 @@ const PlayBackCard = (props) => {
   };
 
   return (
-    <div className="w-100 h-max mr-2">
+    <div className="w-full h-auto  ">
       <div className={`cursor-pointer`}>
         <a href={`/playback/${props.playbackUserData.username}/0`}>
           <ReactPlayer
             width="100%"
-            height="21.9vh"
+            height="auto"
             playing={playing}
             muted={false}
             volume={0.5}
             url={props.playbackUserData.videos[props.index].link}
             controls={false}
-            className={classes.cards_videos}
             onMouseMove={handleMouseMove}
             onMouseLeave={hanldeMouseLeave}
           />
@@ -43,7 +41,7 @@ const PlayBackCard = (props) => {
               {props.playbackUserData.videos[props.index].videoName.slice(0, 45) + '...'}
             </span>
             <br />
-            <span className="text-s text-gray-500 ">{props.playbackUserData.name}</span>
+            <span className="text-s text-gray-500  ">{props.playbackUserData.name}</span>
           </div>
         </p>
       </div>

@@ -48,6 +48,9 @@ module.exports = {
       padding: {
         xl: '300px',
       },
+      margin: {
+        13: '3.2rem',
+      },
       fontFamily: {
         'proxima-reg': ['Proxima', 'Arial', 'sans-serif'],
       },

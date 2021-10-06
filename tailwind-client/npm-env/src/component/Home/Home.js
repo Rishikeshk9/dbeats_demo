@@ -74,12 +74,12 @@ const Home = () => {
   return (
     <>
       <div className={`${darkMode && 'dark'} `}>
-        <div id="outer-container" className="h-100">
+        <div id="outer-container" className="h-100 ">
           <div id="page-wrap" className={`${darkMode && 'dark'} grid lg:pl-16 grid-cols-6`}>
             <Pinned_Panel />
             <div
               id="recommended_channel"
-              className="w-100  pt-8 h-full lg:col-span-1 hidden  lg:block sm:hidden  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary"
+              className="w-100  pt-8 h-full lg:col-span-1 hidden  lg:block sm:hidden mt-4  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary"
             >
               <div className="px-8 pt-10 ">
                 <h5 className="font-semibold text-base dark:text-gray-200">
@@ -123,10 +123,10 @@ const Home = () => {
                   )}
                 </div>
               </div>
-              <div className="mt-10 px-4 ">
-                <div id="display_playback_videos" className="mt-10 px-4 ">
+              <div className="lg:mt-10 lg:px-4 ">
+                <div id="display_playback_videos" className="mt-10 lg:px-4 px-1 ">
                   <div>
-                    <h4 className=" font-bold pl-2 mt-10 pb-4 ">
+                    <h4 className=" font-bold mt-10 lg:pb-4 ">
                       {activeStreams ? (
                         (activeStreams.length <= 2 && activeStreams.length != 0) ||
                         activeStreams.length > 5 ? (
@@ -164,9 +164,11 @@ const Home = () => {
                     </h4>
                   </div>
                 </div>
-                <div id="display_playback_videos" className="px-4 ">
+                <div id="display_playback_videos" className="lg:px-4 px-1">
                   <div className="  ">
-                    <h4 className=" font-bold pl-5 pt-3 pb-4 dark:text-gray-200">Trending</h4>
+                    <h4 className=" font-bold lg:pl-5 pl-3 pt-3 pb-4 dark:text-gray-200">
+                      Trending
+                    </h4>
                     <div className="">
                       <Carousel cols={4}>
                         {arrayData.map((playbackUser, i) => {

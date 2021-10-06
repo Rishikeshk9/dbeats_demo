@@ -137,9 +137,9 @@ const PublicInfo = (props) => {
 
   return (
     <div className=" ">
-      <div className={`grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row pt-3 pb-50 `}>
-        <div className=" lg:col-span-2 ">
-          <div className="self-center lg:px-8 w-screen lg:w-full">
+      <div className={`grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row pt-3 pb-50 mt-13`}>
+        <div className=" lg:col-span-2">
+          <div className="self-center lg:px-8 w-screen lg:w-full ">
             {userData ? (
               <VideoPlayer
                 playbackUrl={playbackUrl}

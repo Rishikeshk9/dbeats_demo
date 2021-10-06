@@ -19,7 +19,7 @@ const LiveCard = (props) => {
   return (
     <div className="w-full h-auto  ">
       <div className=" cursor-pointer ">
-        <span className="fixed bg-red-600 text-white px-1    mx-1 my-1 rounded-sm font-semibold">
+        <span className="fixed bg-red-600 text-white px-1 mx-1 my-1 rounded-sm font-semibold">
           {' '}
           Live{' '}
         </span>
@@ -44,7 +44,9 @@ const LiveCard = (props) => {
         <p className="flex items-center text-black text-sm font-medium  ">
           <img src={person} alt="" className="w-10 h-10 rounded-full mr-2 bg-gray-100  " />
           <div>
-            <span className="text-sm font-semibold">{props.liveUserData.username}</span>
+            <span className="text-sm font-semibold text-gray-500  ">
+              {props.liveUserData.username}
+            </span>
             <br />
             {/* <span className="text-xs text-gray-500">{props.playbackUserData.videos[props.index].description.slice(0,30)+"..."}</span> */}
           </div>
