@@ -21,6 +21,8 @@ const Profile = (props) => {
 
   const [sharable_data, setSharable_data] = useState('');
 
+  const [pinnedData, setPinnedData] = useState([]);
+
   const [followers, setFollowers] = useState(0);
   const [following, setFollowing] = useState(0);
 
@@ -42,6 +44,9 @@ const Profile = (props) => {
       .get(`${process.env.REACT_APP_SERVER_URL}/user/${props.match.params.username}`)
       .then((value) => {
         setUser(value.data);
+        if (value.pinned) {
+          setPinnedData(value.pinned);
+        }
         for (let i = 0; i < value.data.follower_count.length; i++) {
           if (value.data.follower_count[i] === myData.username) {
             setButtonText('UNSUBSCRIBE');
@@ -108,6 +113,52 @@ const Profile = (props) => {
     }
   };
 
+  const UnPinningUser = (pinnedUser) => {
+    const UnPinningData = {
+      username: myData.username,
+      pinneduser: pinnedUser,
+    };
+
+    axios({
+      method: 'POST',
+      url: `${process.env.REACT_APP_SERVER_URL}/user/unpin`,
+      data: UnPinningData,
+    })
+      .then((response) => {
+        let value = [];
+        for (let i = 0; i < pinnedData.length; i++) {
+          if (pinnedData[i] != pinnedUser) {
+            value.push(pinnedData[i]);
+          }
+        }
+        console.log(response);
+        setPinnedData(value);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const PinningUser = (pinnedUser) => {
+    const PinningData = {
+      username: myData.username,
+      pinneduser: pinnedUser,
+    };
+
+    axios({
+      method: 'POST',
+      url: `${process.env.REACT_APP_SERVER_URL}/user/pinned`,
+      data: PinningData,
+    })
+      .then((response) => {
+        console.log(response);
+        setPinnedData((prevData) => [...prevData, pinnedUser]);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     let value = JSON.parse(window.localStorage.getItem('user'));
     console.log(value);
@@ -117,6 +168,9 @@ const Profile = (props) => {
       setPrivate(true);
       setFollowers(value.follower_count.length);
       setFollowing(value.followee_count.length);
+      if (value.pinned) {
+        setPinnedData(value.pinned);
+      }
     } else {
       get_User();
       setPrivate(false);
@@ -212,6 +266,18 @@ const Profile = (props) => {
                             )
                           }
                         >
+                          Subscribed Channels
+                        </Tab>
+                        <Tab
+                          className={({ selected }) =>
+                            classNames(
+                              'w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ',
+                              selected
+                                ? 'text-dbeats-light font-bold border-b-2 border-dbeats-light'
+                                : 'hover:bg-black/[0.12]  hover:text-gray-900',
+                            )
+                          }
+                        >
                           VIDEOS
                         </Tab>
 
@@ -256,6 +322,35 @@ const Profile = (props) => {
                       </Tab.List>
 
                       <Tab.Panels className="bg-transparent">
+                        <Tab.Panel className="">
+                          <div className="px-5 pt-10">
+                            {user.followee_count ? (
+                              <div>
+                                {user.followee_count.map((following, i) => {
+                                  //console.log(playbackUser)
+                                  return (
+                                    <div key={i} className="flex text-lg shadow px-10 my-5 py-2">
+                                      {pinnedData.indexOf(following) > -1 ? (
+                                        <i
+                                          className="fas fa-map-pin mx-3 my-auto text-2xl cursor-pointer"
+                                          onClick={() => UnPinningUser(following)}
+                                        ></i>
+                                      ) : (
+                                        <i
+                                          className="fas fa-map-pin mx-3 my-auto text-2xl opacity-50 hover:opacity-100 cursor-pointer"
+                                          onClick={() => PinningUser(following)}
+                                        ></i>
+                                      )}
+                                      <h2>{following}</h2>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            ) : (
+                              <p>0 Subscribed</p>
+                            )}
+                          </div>
+                        </Tab.Panel>
                         <Tab.Panel className="">
                           <div className="px-5 pt-10">
                             {user.videos ? (

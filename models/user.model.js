@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const bcrypt = require("bcryptjs");
+const bcrypt = require('bcryptjs');
 
 const userSchema = new Schema(
   {
@@ -47,16 +47,20 @@ const userSchema = new Schema(
       type: Object,
       default: {},
     },
-    reactions:{
-      type:Array,
-      default:[],
+    reactions: {
+      type: Array,
+      default: [],
     },
     multistream_platform: {
       type: Array,
       default: [],
     },
+    pinned: {
+      type: Array,
+      default: [],
+    },
     album_count: { type: Number, default: 0 },
-    bio: { type: String, default: "", trim: true },
+    bio: { type: String, default: '', trim: true },
     cover_photo: { type: String, trim: true },
     followee_count: { type: Array, default: [] },
     follower_count: { type: Array, default: [] },
@@ -74,7 +78,7 @@ const userSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 // userSchema.pre("save", async function (next) {
@@ -86,5 +90,5 @@ const userSchema = new Schema(
 //   next();
 // });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 module.exports = User;

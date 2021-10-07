@@ -494,6 +494,46 @@ router.route('/removeuserreaction').post(async (req, res) => {
   }
 });
 
+router.route('/pinned').post(async (req, res) => {
+  try {
+    const username = req.body.username;
+    const pinnedUser = req.body.pinneduser;
+    User.findOneAndUpdate(
+      { username: username },
+      { $push: { pinned: pinnedUser } },
+      function (error, success) {
+        if (error) {
+          res.send(error);
+        } else {
+          res.send(success);
+        }
+      },
+    );
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.route('/unpin').post(async (req, res) => {
+  try {
+    const username = req.body.username;
+    const pinnedUser = req.body.pinneduser;
+    User.findOneAndUpdate(
+      { username: username },
+      { $pull: { pinned: pinnedUser } },
+      function (error, success) {
+        if (error) {
+          res.send(error);
+        } else {
+          res.send(success);
+        }
+      },
+    );
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 /*router.route("/:id").get((req, res) => {
   User.findById(req.params.id)
     .then((user) => res.json(user))
