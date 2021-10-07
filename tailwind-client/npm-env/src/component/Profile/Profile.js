@@ -256,18 +256,22 @@ const Profile = (props) => {
                   <div className="w-full relative mb-20 ">
                     <Tab.Group>
                       <Tab.List className="flex px-1 space-x-1 bg-white   ">
-                        <Tab
-                          className={({ selected }) =>
-                            classNames(
-                              'w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ',
-                              selected
-                                ? 'text-dbeats-light font-bold border-b-2 border-dbeats-light'
-                                : 'hover:bg-black/[0.12]  hover:text-gray-900',
-                            )
-                          }
-                        >
-                          Subscribed Channels
-                        </Tab>
+                        {privateUser ? (
+                          <Tab
+                            className={({ selected }) =>
+                              classNames(
+                                'w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ',
+                                selected
+                                  ? 'text-dbeats-light font-bold border-b-2 border-dbeats-light'
+                                  : 'hover:bg-black/[0.12]  hover:text-gray-900',
+                              )
+                            }
+                          >
+                            Subscribed Channels
+                          </Tab>
+                        ) : (
+                          <></>
+                        )}
                         <Tab
                           className={({ selected }) =>
                             classNames(
@@ -322,35 +326,39 @@ const Profile = (props) => {
                       </Tab.List>
 
                       <Tab.Panels className="bg-transparent">
-                        <Tab.Panel className="">
-                          <div className="px-5 pt-10">
-                            {user.followee_count ? (
-                              <div>
-                                {user.followee_count.map((following, i) => {
-                                  //console.log(playbackUser)
-                                  return (
-                                    <div key={i} className="flex text-lg shadow px-10 my-5 py-2">
-                                      {pinnedData.indexOf(following) > -1 ? (
-                                        <i
-                                          className="fas fa-map-pin mx-3 my-auto text-2xl cursor-pointer"
-                                          onClick={() => UnPinningUser(following)}
-                                        ></i>
-                                      ) : (
-                                        <i
-                                          className="fas fa-map-pin mx-3 my-auto text-2xl opacity-50 hover:opacity-100 cursor-pointer"
-                                          onClick={() => PinningUser(following)}
-                                        ></i>
-                                      )}
-                                      <h2>{following}</h2>
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            ) : (
-                              <p>0 Subscribed</p>
-                            )}
-                          </div>
-                        </Tab.Panel>
+                        {privateUser ? (
+                          <Tab.Panel className="">
+                            <div className="px-5 pt-10">
+                              {user.followee_count ? (
+                                <div>
+                                  {user.followee_count.map((following, i) => {
+                                    //console.log(playbackUser)
+                                    return (
+                                      <div key={i} className="flex text-lg shadow px-10 my-5 py-2">
+                                        {pinnedData.indexOf(following) > -1 ? (
+                                          <i
+                                            className="fas fa-map-pin mx-3 my-auto text-2xl cursor-pointer"
+                                            onClick={() => UnPinningUser(following)}
+                                          ></i>
+                                        ) : (
+                                          <i
+                                            className="fas fa-map-pin mx-3 my-auto text-2xl opacity-50 hover:opacity-100 cursor-pointer"
+                                            onClick={() => PinningUser(following)}
+                                          ></i>
+                                        )}
+                                        <h2>{following}</h2>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              ) : (
+                                <p>0 Subscribed</p>
+                              )}
+                            </div>
+                          </Tab.Panel>
+                        ) : (
+                          <></>
+                        )}
                         <Tab.Panel className="">
                           <div className="px-5 pt-10">
                             {user.videos ? (
