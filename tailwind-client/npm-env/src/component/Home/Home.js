@@ -76,7 +76,7 @@ const Home = () => {
       <div className={`${darkMode && 'dark'} `}>
         <div id="outer-container" className="h-100 ">
           <div id="page-wrap" className={`${darkMode && 'dark'} grid lg:pl-16 grid-cols-6`}>
-            <Pinned_Panel />
+            <Pinned_Panel userdata={user} />
             <div
               id="recommended_channel"
               className="w-100  pt-8 h-full lg:col-span-1 hidden  lg:block sm:hidden mt-4  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary"

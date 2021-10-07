@@ -1,35 +1,51 @@
 import React from 'react';
 import personImg from '../../assets/images/profile.svg';
 import { useSelector } from 'react-redux';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
-const Pinned_Panel = () => {
+const Pinned_Panel = (props) => {
+  const renderTooltip = (username) => <Tooltip id="button-tooltip">{username}</Tooltip>;
+
   const darkMode = useSelector((state) => state.toggleDarkMode);
-
+  console.log(props);
   return (
-    <div expand="lg" className={`hidden w-max fixed top-0 ${darkMode && 'dark'} z-10`}>
+    <div expand="lg" className={` w-max fixed top-0 ${darkMode && 'dark'} z-10`}>
       <div
-        className={`hidden pr-3 pt-20 bg-white w-22 shadow-sm z-10 h-screen fixed left-0 dark:bg-dbeats-dark-primary  dark:text-gray-100   `}
+        className={`hidden lg:block pr-3 pt-20 bg-white w-22 shadow-sm z-10 h-screen fixed left-0 dark:bg-dbeats-dark-primary  dark:text-gray-100   `}
       >
         {/* Subscribed User Avatar */}
-        <div className="grid grid-flow-row grid-cols-12 cursor-pointer  ">
-          <div className="dark:bg-white bg-blue-100 text-white   h-4 text-4xl rounded-tr-full rounded-br-full my-2 col-span-1 self-center">
-            {' '}
-          </div>
-          <div className="  text-white   h-4 text-4xl rounded-tr-full rounded-br-full my-2 col-span-1 self-center">
-            {' '}
-          </div>
-          <div className="w-14 self-center h-14    my-2   col-span-10 relative">
-            <img
-              src={personImg}
-              alt=""
-              className="w-14 self-center h-14 rounded-full hover:shadow hover:scale-95 transform transition-all   "
-            />
-            <div className="bg-red-500 rounded-full shadow  h-6 w-6 text-sm self-center text-center font-semibold  absolute -bottom-2  -right-1 dark:border-dbeats-dark-primary  border-red-300 border-2 text-white  ">
-              2
+        {props.userdata.subscribed.map((pinnedUser, i) => {
+          return (
+            <div key={i} className="grid grid-flow-row grid-cols-12 cursor-pointer  ">
+              <div className="dark:bg-white bg-blue-100 text-white   h-4 text-4xl rounded-tr-full rounded-br-full my-2 col-span-1 self-center">
+                {' '}
+              </div>
+              <div className="  text-white   h-4 text-4xl rounded-tr-full rounded-br-full my-2 col-span-1 self-center">
+                {' '}
+              </div>
+              <OverlayTrigger
+                placement="right"
+                delay={{ show: 250 }}
+                overlay={() => renderTooltip(pinnedUser.username)}
+                style={{ zIndex: '100' }}
+              >
+                <div className="w-14 self-center h-14    my-2   col-span-10 relative">
+                  <img
+                    src={personImg}
+                    alt=""
+                    className="w-14 self-center h-14 rounded-full hover:shadow hover:scale-95 transform transition-all   "
+                    onClick={() => {
+                      window.location.href = `/public/${pinnedUser.username}/`;
+                    }}
+                  />
+                  <div className="bg-red-500 rounded-full shadow  h-6 w-6 text-sm self-center text-center font-semibold  absolute -bottom-2  -right-1 dark:border-dbeats-dark-primary  border-red-300 border-2 text-white  ">
+                    2
+                  </div>
+                </div>
+              </OverlayTrigger>
             </div>
-          </div>
-        </div>
-
+          );
+        })}
         <div className="grid grid-flow-row grid-cols-12 cursor-pointer  ">
           <div className="dark:bg-white bg-blue-100 text-white   h-4 text-4xl rounded-tr-full rounded-br-full my-2 col-span-1 self-center">
             {' '}

@@ -65,7 +65,8 @@ const NavBar = () => {
           outerContainerId={'outer-container'}
           isOpen={showOpen}
           onStateChange={isMenuOpen}
-          className={`w-180 lg:w-250 bg-white dark:bg-dbeats-dark-primary text-lg text-bold`}
+          className={`w-24 lg:w-250 bg-white dark:bg-dbeats-dark-primary text-lg text-bold`}
+          width={'16.5rem'}
         >
           <div className="pt-5 bg-transparent hidden w-0"></div>
           <div className={classes.menu_items}>
