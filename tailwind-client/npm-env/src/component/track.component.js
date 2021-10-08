@@ -232,7 +232,7 @@ export default function Track() {
 
   return (
     <>
-      <div id="outer-container" className="h-100 ">
+      <div id="outer-container" className="h-full ">
         <div id="page-wrap" className={`${darkMode && 'dark'}  `}>
           <div className="pb-10 pt-4 bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary mx-auto  self-center  relative w-full h-screen     ">
             <div className="w-full pt-16 justify-center text-center mx-auto">

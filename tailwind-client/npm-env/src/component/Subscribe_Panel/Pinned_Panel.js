@@ -20,7 +20,7 @@ const Pinned_Panel = (props) => {
   return (
     <div expand="lg" className={` w-max fixed top-0 ${darkMode && 'dark'} z-10`}>
       <div
-        className={`hidden lg:block pr-3 pt-20 bg-white w-22 shadow-sm z-10 h-screen fixed left-0 dark:bg-dbeats-dark-primary  dark:text-gray-100   `}
+        className={`hidden lg:block pr-3 pt-20 bg-white w-22 shadow-sm z-10 h-full fixed left-0 dark:bg-dbeats-dark-primary  dark:text-gray-100   `}
       >
         {/* Subscribed User Avatar */}
         {pinnedData.map((pinnedUser, i) => {

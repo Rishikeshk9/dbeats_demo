@@ -40,7 +40,7 @@
         <Modal.Footer>
           <div className="flex w-full">
             <button
-              className="w-100 mx-2 rounded-md bg-gradient-to-r from-dbeats-alt to-dbeats-light text-white p-2 text-xl font-semibold"
+              className="w-full mx-2 rounded-md bg-gradient-to-r from-dbeats-alt to-dbeats-light text-white p-2 text-xl font-semibold"
               onClick={() => {
                 setModalShow(true);
                 setShowDestinationModal(false);
@@ -49,7 +49,7 @@
               Add Destination
             </button>
             <button
-              className="w-100 mx-2 rounded-md bg-gradient-to-r from-green-800 to-green-300 text-white p-2 text-xl font-semibold"
+              className="w-full mx-2 rounded-md bg-gradient-to-r from-green-800 to-green-300 text-white p-2 text-xl font-semibold"
               onClick={createMultiStream}
             >
               Apply

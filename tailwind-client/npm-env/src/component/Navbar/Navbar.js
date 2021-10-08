@@ -50,6 +50,11 @@ const NavBar = () => {
   const handleClick = () => {
     setToggled((s) => !s);
     dispatch(toggleDarkMode(!darkMode));
+    if (!darkMode) {
+      document.body.style.backgroundColor = '#101010';
+    } else {
+      document.body.style.backgroundColor = '#fff';
+    }
   };
 
   useEffect(() => {

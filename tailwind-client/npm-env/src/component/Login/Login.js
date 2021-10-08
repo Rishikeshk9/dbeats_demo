@@ -207,7 +207,7 @@ const Login = () => {
           <main id="page-wrap" className={classes.main_homepage_body}>
             <div className={classes.login_container} id="loginPage_container">
               {!login ? (
-                <div className="h-100 w-100 py-5">
+                <div className="h-full w-full py-5">
                   <div className="flex flex-col justify-center h-full text-lg">
                     <div className="self-center py-3 text-2xl font-bold">Create Account</div>
                     <div className="self-center my-3 mx-5  text-white bg-green-500 border border-green-600 px-10 py-1 rounded">
@@ -262,7 +262,7 @@ const Login = () => {
                   </div>
                 </div>
               ) : (
-                <div className="h-100 w-100 ">
+                <div className="h-full w-full ">
                   <div className="flex flex-col justify-center h-full text-lg ">
                     <h1 className="self-center py-3 text-2xl font-bold">SIGN IN</h1>
                     <input

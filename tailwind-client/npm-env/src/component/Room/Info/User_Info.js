@@ -140,8 +140,8 @@ const UserInfo = () => {
         <div className=" h-auto w-full lg:w-full lg:col-span-2 self-center">
           <VideoPlayer playbackUrl={playbackUrl} className="rounded h-full w-full" />
         </div>
-        <div className="text-sm ">
-          <div className="bg-white w-80 lg:w-full  p-5 rounded text-sm sm:lg:text-xl shadow mt-5 ml-5 lg:ml-0 ">
+        <div className="text-sm mx-auto ">
+          <div className="bg-white w-80  lg:w-full  p-5 rounded text-sm sm:lg:text-xl shadow mt-5  lg:ml-0 ">
             <div className="pb-2">
               <span className="font-semibold">Streamer Name : </span>
               <p>{user.name}</p>
@@ -280,7 +280,7 @@ const UserInfo = () => {
         </div>
         <hr />
         <main className="py-5 ">
-          <div className="grid gap-4 justify-items-center grid-cols-2 lg:grid-cols-4 px-8 max-w-100 max-h-96 overflow-y-auto">
+          <div className="grid gap-4 justify-items-center grid-cols-2 lg:grid-cols-4 px-8 max-w-full max-h-96 overflow-y-auto">
             {MultiStreamData.map((value, index) => {
               return (
                 <div

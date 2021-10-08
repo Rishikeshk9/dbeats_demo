@@ -75,8 +75,18 @@ export default function App() {
     }
     if (darkmode === null) {
       window.localStorage.setItem('darkmode', darkMode);
+      if (darkMode) {
+        document.body.style.backgroundColor = '#101010';
+      } else {
+        document.body.style.backgroundColor = '#fff';
+      }
     } else {
       dispatch(toggleDarkMode(darkmode));
+      if (darkmode) {
+        document.body.style.backgroundColor = '#101010';
+      } else {
+        document.body.style.backgroundColor = '#fff';
+      }
     }
   }, []);
 
