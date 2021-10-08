@@ -12,6 +12,7 @@ import NavBar from '../src/component/Navbar/Navbar';
 import Track from './component/track.component';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleDarkMode } from '../src/actions/index';
+import Pinned_Panel from './component/Subscribe_Panel/Pinned_Panel';
 
 //import Navbar from "./component/navbar.component";
 //import BottomBar from "./component/bottom-player.component";
@@ -86,6 +87,7 @@ export default function App() {
           <Switch className={`${darkMode && 'dark'}  `}>
             <div className=" h-full  dark:bg-gradient-to-b dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary   ">
               <NavBar />
+              <Pinned_Panel userdata={user} />
               <div className=" ">
                 <Route path="/nft" exact component={() => <NFTFeed />} />
                 <Route path="/" exact component={() => <VideoHome />} />

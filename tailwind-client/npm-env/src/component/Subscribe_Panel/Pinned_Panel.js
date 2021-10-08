@@ -10,9 +10,10 @@ const Pinned_Panel = (props) => {
   const [pinnedData, setPinnedData] = useState([]);
 
   useEffect(() => {
-    if (props.userdata.pinned) {
-      setPinnedData(props.userdata.pinned);
-    }
+    if (props.userdata)
+      if (props.userdata.pinned) {
+        setPinnedData(props.userdata.pinned);
+      }
   }, []);
 
   console.log(pinnedData);

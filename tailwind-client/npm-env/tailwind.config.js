@@ -47,6 +47,7 @@ module.exports = {
       },
       padding: {
         xl: '300px',
+        18: '4.75rem',
       },
       margin: {
         13: '3.2rem',
