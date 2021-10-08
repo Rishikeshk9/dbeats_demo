@@ -77,7 +77,7 @@ axios.interceptors.response.use(
               isShowStart: true,
             });
 
-            n.barDom.style['overflow'] = 'visible';
+            n.barDom.style['overflow'] = 'hidden';
             parent.el.style['overflow'] = 'hidden';
 
             var burst = new mojs.Burst({
