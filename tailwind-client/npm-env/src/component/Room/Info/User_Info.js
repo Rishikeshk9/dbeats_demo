@@ -135,13 +135,13 @@ const UserInfo = () => {
   };
 
   return (
-    <Fragment className="">
-      <div className={`${darkMode && 'dark'} flex flex-col lg:grid lg:grid-cols-3 pb-64`}>
-        <div className=" h-auto w-full lg:w-full lg:col-span-2 self-center">
+    <Fragment className={`${darkMode && 'dark'}`}>
+      <div className="flex flex-col lg:grid lg:grid-cols-3 pb-64 pt-16 bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary">
+        <div className=" h-auto w-full lg:w-full lg:col-span-2 self-center ">
           <VideoPlayer playbackUrl={playbackUrl} className="rounded h-full w-full" />
         </div>
         <div className="text-sm mx-auto ">
-          <div className="bg-white w-80  lg:w-full  p-5 rounded text-sm sm:lg:text-xl shadow mt-5  lg:ml-0 ">
+          <div className="bg-white w-80  lg:w-full  p-5 rounded text-sm sm:lg:text-xl shadow mt-8  lg:ml-0 ">
             <div className="pb-2">
               <span className="font-semibold">Streamer Name : </span>
               <p>{user.name}</p>
@@ -167,11 +167,11 @@ const UserInfo = () => {
               <div className="flex flex-col">
                 <button
                   variant="primary"
-                  className="bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded font-bold px-4 py-3 lg:text-xl w-full"
+                  className="bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded font-bold px-4 py-3 lg:text-lg w-full"
                   type="button"
                   onClick={() => setShowDestinationModal(true)}
                 >
-                  Add MultiStreaming
+                  Add MultiStreaming Platforms
                 </button>
                 <div className={classes.multistream_form_spinner}>
                   <Spinner
@@ -181,6 +181,7 @@ const UserInfo = () => {
                     hidden={loader}
                   ></Spinner>
                 </div>
+                <p className="text-center">Currently Connected :</p>
                 <div className="flex flex-wrap justify-center">
                   {multiStreamConnected.map((value, index) => {
                     //console.log(value);

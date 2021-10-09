@@ -568,13 +568,11 @@ app.get('/dbeats-music', async (req, res) => {
   const db = client.db(dbName);
   var myquery = { tracks: { $exists: true } };
 
-  var cursor = db
-    .collection('users')
-    .find(myquery, {
-      livepeer_data: 0,
-      multistream_platform: 0,
-      _id: 0,
-    });
+  var cursor = db.collection('users').find(myquery, {
+    livepeer_data: 0,
+    multistream_platform: 0,
+    _id: 0,
+  });
   cursor.forEach(
     function (doc, error) {
       data.push(doc);

@@ -2,7 +2,6 @@ import React from 'react';
 import classes from './Footer.module.css';
 import { withStyles } from '@material-ui/core/styles';
 import { Slider, Tooltip, IconButton } from '@material-ui/core';
-import playimg from '../../../assets/images/telegram.png';
 
 import VolumeUp from '@material-ui/icons/VolumeUp';
 import VolumeDown from '@material-ui/icons/VolumeDown';
@@ -13,6 +12,7 @@ import FastRewindIcon from '@material-ui/icons/FastRewind';
 import FastForwardIcon from '@material-ui/icons/FastForward';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
+import logoDark from '../../../assets/images/dark-logo.svg';
 
 const PrettoSlider = withStyles({
   root: {
@@ -53,10 +53,10 @@ function ValueLabelComponent(props) {
 
 const Footer = (props) => {
   return (
-    <div className="fixed bottom-0 bg-white w-full h-28 mb-0 pb-0 shadow flex flex-col lg:flex-row justify-between lg:-ml-8 align-center z-10">
+    <div className="fixed bottom-0 bg-white w-full h-28 mb-0 pb-0  flex flex-col lg:flex-row justify-between lg:-ml-8 align-center z-10 dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-80 dark:bg-opacity-90  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md">
       <div className="w-full self-center hidden lg:block">
         <div className="flex">
-          <img src={playimg} className="lg:h-20 lg:w-20 h-16 w-16 p-3 my-auto" alt="img"></img>
+          <img src={logoDark} className="lg:h-20 lg:w-20 h-16 w-16 p-3 my-auto" alt="img"></img>
           <div className=" flex lg:block flex-row my-auto lg:pt-3">
             <a
               href={` /profile/${props.playerUsername}`}
@@ -70,7 +70,7 @@ const Footer = (props) => {
         </div>
       </div>
       <div className="w-full " align="center">
-        <div className="h-10">
+        <div className="h-10 mt-4">
           <IconButton onClick={props.onRewind} className={classes.controlIcons} aria-label="rewind">
             <FastRewindIcon
               className="text-dbeats-light"
@@ -131,7 +131,7 @@ const Footer = (props) => {
       </div>
       <div className="w-full">
         <div className="flex lg:justify-center  lg:h-full h-10 -mt-10 lg:mt-0 lg:pb-0 justify-around">
-          <div className="flex lg:block justify-center lg:self-center">
+          <div className="  lg:block justify-center lg:self-center hidden">
             <IconButton
               onClick={props.onMute}
               className={`${classes.bottomIcons} ${classes.volumeButton} mt-5`}
@@ -155,7 +155,7 @@ const Footer = (props) => {
               onMouseDown={props.onSeekMouseDown}
               onChangeCommitted={props.onVolumeSeekDown}
               style={{ width: '150px', marginBottom: '-8px', color: '#00d3ff' }}
-              className="lg:self-center lg:mt-0 "
+              className="lg:self-center lg:mt-0 hidden lg:block"
             />
           </div>
           <div className="self-center hidden lg:block">

@@ -13,7 +13,7 @@ const RecommendedCard = (props) => {
   const hanldeMouseLeave = () => {
     setPlaying(false);
   };
-  console.log('My : ', props.value);
+  //console.log('My : ', props.value);
   return (
     <div className="flex w-full">
       <div className="cursor-pointer">

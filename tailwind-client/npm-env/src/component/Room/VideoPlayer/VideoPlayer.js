@@ -230,6 +230,7 @@ function VideoPlayer(props) {
         volume={volume}
         playerUsername={props.username}
         playerName={props.name}
+        className="lg:-ml-12 "
       />
     </>
   );

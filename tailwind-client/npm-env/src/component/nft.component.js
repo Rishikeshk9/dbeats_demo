@@ -38,8 +38,9 @@ const Form = () => {
 
   //const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
 
+  // eslint-disable-next-line no-unused-vars
   const fetchNFTList = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
 
     // Prompt user for account connections
     await provider.send('eth_requestAccounts', []);
@@ -48,7 +49,7 @@ const Form = () => {
 
     const signer = provider.getSigner();
     const connectedWallet = await signer.getAddress();
-
+    console.log('Account:', await signer.getAddress());
     const zora = new Zora(
       signer,
       50,
@@ -105,7 +106,7 @@ const Form = () => {
 
   useEffect(() => {
     // Anything in here is fired on component mount.
-    fetchNFTList();
+    //fetchNFTList();
   }, []);
 
   function getMediaType(contentURI, mimeType) {

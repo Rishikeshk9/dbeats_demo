@@ -6,7 +6,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const Pinned_Panel = (props) => {
   const darkMode = useSelector((state) => state.toggleDarkMode);
-  console.log(props);
+  //console.log(props);
   const [pinnedData, setPinnedData] = useState([]);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const Pinned_Panel = (props) => {
       }
   }, []);
 
-  console.log(pinnedData);
+  //console.log(pinnedData);
   return (
     <div expand="lg" className={` w-max fixed top-0 ${darkMode && 'dark'} z-10`}>
       <div

@@ -3,10 +3,6 @@
   position: relative;
 }
 
-.video_player video {
-  border-radius: 2px;
-}
-
 .controlsWrapper {
   visibility: hidden;
   position: absolute;
