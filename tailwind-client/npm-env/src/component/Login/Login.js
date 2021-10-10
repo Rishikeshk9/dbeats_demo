@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
-import classes from './Login.module.css';
 import axios from 'axios';
+const Moralis = require('moralis');
 
 import useWeb3Modal from '../../hooks/useWeb3Modal';
+import { useSelector } from 'react-redux';
+import moralisLogo from '../../assets/images/moralis-light.svg';
 
 const Login = () => {
   // Web3
   const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
   const bcrypt = require('bcryptjs');
+
+  Moralis.initialize('RrKpMiHThO0v1tXiKcxJuBacU35i7UidwNwQq0as');
+
+  Moralis.serverURL = 'https://58zywcsvxppw.usemoralis.com:2053/server';
 
   // Form varibles
   const [form_name, setName] = useState('');
@@ -124,9 +130,8 @@ const Login = () => {
     return (
       <div>
         <Button
-          variant="primary"
           type="button"
-          size="lg"
+          className="font-bold flex self-center text-center"
           onClick={async () => {
             if (!provider) {
               loadWeb3Modal();
@@ -135,13 +140,20 @@ const Login = () => {
             }
           }}
         >
-          {!provider
-            ? 'Connect Your MetaMask '
-            : `MetaMask Connected (${
-                provider.provider.selectedAddress.slice(0, 4) +
-                '...' +
-                provider.provider.selectedAddress.slice(-4)
-              })`}
+          <p className="mt-2">
+            {' '}
+            {!provider
+              ? 'Connect MetaMask '
+              : `Connected (${
+                  provider.provider.selectedAddress.slice(0, 4) +
+                  '...' +
+                  provider.provider.selectedAddress.slice(-4)
+                })`}
+          </p>
+          <img
+            className="w-12 h-12 rounded-full self-center"
+            src="https://raw.githubusercontent.com/MetaMask/brand-resources/master/SVG/metamask-fox.svg"
+          ></img>
         </Button>
       </div>
     );
@@ -152,11 +164,12 @@ const Login = () => {
     return (
       <div>
         <Button
-          className="font-bold"
-          variant="primary"
+          className="font-bold flex self-center text-center"
           type="button"
-          size="lg"
           onClick={async () => {
+            Moralis.authenticate().then(function (user) {
+              console.log(user.get('ethAddress'));
+            });
             let variable = await loadWeb3Modal();
             if (provider && variable) {
               await axios
@@ -170,7 +183,11 @@ const Login = () => {
             }
           }}
         >
-          {!provider ? 'Login Using MetaMask' : `MetaMask Connected (Click Again)`}
+          <p className="mt-2">{!provider ? 'Login using ' : `MetaMask Connected (Click Again)`}</p>
+          <img
+            className="w-12 h-12 rounded-full self-center"
+            src="https://raw.githubusercontent.com/MetaMask/brand-resources/master/SVG/metamask-fox.svg"
+          ></img>
         </Button>
       </div>
     );
@@ -199,19 +216,49 @@ const Login = () => {
   const handleSignUp = () => {
     setLogin(true);
   };
+  const darkMode = useSelector((darkmode) => darkmode.toggleDarkMode);
 
   return (
     <>
-      <div>
-        <div id="outer-container" style={{ height: '100vh' }}>
-          <main id="page-wrap" className={classes.main_homepage_body}>
-            <div className={classes.login_container} id="loginPage_container">
+      <div className={`${darkMode && 'dark'} `}>
+        <div className="bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary pt-18">
+          <main className={`    w-max self-center mx-auto mt-24 `}>
+            <div
+              className={`    bg-white dark:bg-dbeats-dark-alt w-max   mx-auto     self-center py-5`}
+            >
               {!login ? (
-                <div className="h-full w-full py-5">
-                  <div className="flex flex-col justify-center h-full text-lg">
-                    <div className="self-center py-3 text-2xl font-bold">Create Account</div>
-                    <div className="self-center my-3 mx-5  text-white bg-green-500 border border-green-600 px-10 py-1 rounded">
-                      <div className="self-center py-2">
+                <div className="  w-full transition-all">
+                  <div className="flex flex-col justify-center   text-lg px-5">
+                    <div className="self-center  text-2xl font-bold text-gray-900 dark:text-white">
+                      SIGN UP
+                    </div>
+
+                    <input
+                      className="self-center my-2 rounded w-full mx-5    border-0   dark:bg-dbeats-dark-primary bg-gray-100 text-gray-900 dark:text-white focus:ring-dbeats-light"
+                      type="text"
+                      placeholder="Name"
+                      onChange={(e) => handleNameChange(e)}
+                    />
+                    <input
+                      className="self-center my-2 rounded w-full mx-5    border-0   dark:bg-dbeats-dark-primary bg-gray-100 text-gray-900 dark:text-white focus:ring-dbeats-light"
+                      type="text"
+                      placeholder="Username"
+                      onChange={(e) => handleUsernameChange(e)}
+                    />
+                    <input
+                      className="self-center my-2 rounded w-full mx-5    border-0   dark:bg-dbeats-dark-primary bg-gray-100 text-gray-900 dark:text-white focus:ring-dbeats-light"
+                      type="password"
+                      placeholder="Password"
+                      onChange={(e) => handlePasswordChange(e)}
+                    />
+                    <input
+                      className="self-center my-2 rounded w-full mx-5    border-0   dark:bg-dbeats-dark-primary bg-gray-100 text-gray-900 dark:text-white focus:ring-dbeats-light"
+                      type="password"
+                      placeholder="Confirm Password"
+                      onChange={(e) => handleConfirmPasswordChange(e)}
+                    />
+                    <div className="self-center my-2 mx-3 px-8  cursor-pointer text-yellow-600 border border-yellow-600 bg-white dark:bg-dbeats-dark-secondary   rounded hover:bg-yellow-600 dark:hover:bg-yellow-600 dark:hover:bg-opacity-5 hover:bg-opacity-5 transform transition-all hover:scale-99">
+                      <div className="self-center  ">
                         <WalletButton
                           provider={provider}
                           loadWeb3Modal={loadWeb3Modal}
@@ -219,40 +266,12 @@ const Login = () => {
                         />
                       </div>
                     </div>
-                    <div className="self-center py-3 text-sm font-semibold">
-                      First connect your Wallet
-                    </div>
-
-                    <input
-                      className="self-center my-2 rounded bg-transparent border-0 shadow-md"
-                      type="text"
-                      placeholder="Name"
-                      onChange={(e) => handleNameChange(e)}
-                    />
-                    <input
-                      className="self-center my-2 rounded bg-transparent border-0 shadow-md"
-                      type="text"
-                      placeholder="Username"
-                      onChange={(e) => handleUsernameChange(e)}
-                    />
-                    <input
-                      className="self-center my-2 rounded bg-transparent border-0 shadow-md"
-                      type="password"
-                      placeholder="Password"
-                      onChange={(e) => handlePasswordChange(e)}
-                    />
-                    <input
-                      className="self-center my-2 rounded bg-transparent border-0 shadow-md"
-                      type="password"
-                      placeholder="Confirm Password"
-                      onChange={(e) => handleConfirmPasswordChange(e)}
-                    />
                     <div className="flex justify-center">
                       <button
-                        className="self-center flex my-3 py-2 text-white font-bold bg-dbeats-light px-10 rounded"
+                        className="self-center w-full  mx-3   flex my-3 py-2 px-24  text-center text-dbeats-light dark:text-white font-bold bg-dbeats-light bg-opacity-5 hover:text-white hover:bg-dbeats-light border  transition-all border-dbeats-light hover:scale-99 transform rounded relative"
                         onClick={createStream}
                       >
-                        Sign Up
+                        SIGN UP
                         <div
                           hidden={loader}
                           className="w-6 h-6 ml-3 mt-0.5 align-center border-t-4 border-b-4 border-white rounded-full animate-spin"
@@ -262,41 +281,43 @@ const Login = () => {
                   </div>
                 </div>
               ) : (
-                <div className="h-full w-full ">
-                  <div className="flex flex-col justify-center h-full text-lg ">
-                    <h1 className="self-center py-3 text-2xl font-bold">SIGN IN</h1>
+                <div className="  w-full  ">
+                  <div className="flex flex-col justify-center   text-lg px-5">
+                    <h1 className="self-center  text-2xl font-bold text-gray-900 dark:text-white">
+                      SIGN IN
+                    </h1>
                     <input
-                      className="self-center my-2 rounded bg-transparent border-0 shadow-md"
+                      className="self-center my-2 rounded w-full mx-5    border-0   dark:bg-dbeats-dark-primary bg-gray-100 text-gray-900 dark:text-white focus:ring-dbeats-light"
                       type="text"
                       placeholder="Username"
                       onChange={(e) => handleUsernameChange(e)}
                     />
                     <input
-                      className="self-center my-2 rounded bg-transparent border-0 shadow-md"
+                      className="self-center my-2 rounded w-full mx-5   border-0   dark:bg-dbeats-dark-primary  bg-gray-100 text-gray-900 dark:text-white focus:ring-dbeats-light"
                       type="password"
                       placeholder="Password"
                       onChange={(e) => handlePasswordChange(e)}
                     />
-                    <a className="self-center py-3" href="/#">
-                      Forgot your password?
-                    </a>
-                    <div className="flex justify-center">
+
+                    <div className="flex justify-center text-center">
                       <button
                         onClick={handleLogin}
-                        className="self-center flex my-3 py-2 text-white font-bold bg-dbeats-light px-10 rounded"
+                        className="self-center w-full  mx-3   flex my-3 py-2 px-24  text-center text-dbeats-light dark:text-white font-bold bg-dbeats-light bg-opacity-5 hover:text-white hover:bg-dbeats-light border  transition-all border-dbeats-light hover:scale-99 transform rounded relative"
                       >
-                        Sign In
+                        SIGN IN
                         <div
                           hidden={loader}
-                          className="w-6 h-6 ml-3 mt-0.5 align-center border-t-4 border-b-4 border-white rounded-full animate-spin"
+                          className="w-6 h-6 absolute right-10 align-center border-t-4 border-b-4 border-white rounded-full animate-spin"
                         ></div>
                       </button>
                     </div>
-
+                    <a className="self-center py-2 text-gray-900 dark:text-white" href="/#">
+                      Forgot your password?
+                    </a>
                     <hr className="my-3 w-2/3 self-center" />
 
-                    <div className="self-center my-3 mx-5 text-white bg-green-500 border border-green-600 px-10 py-1 rounded">
-                      <div className="self-center py-2">
+                    <div className="self-center my-3 mx-5 cursor-pointer text-yellow-600 border border-yellow-600 bg-white dark:bg-dbeats-dark-secondary px-10 py-1 rounded hover:bg-yellow-600 dark:hover:bg-yellow-600 dark:hover:bg-opacity-5 hover:bg-opacity-5 transform transition-all hover:scale-99">
+                      <div className="self-center ">
                         <LoginWalletButton
                           provider={provider}
                           loadWeb3Modal={loadWeb3Modal}
@@ -307,27 +328,36 @@ const Login = () => {
                   </div>
                 </div>
               )}
-              <div className={classes.overlay_container}>
-                <div className={classes.overlay}>
-                  {!login ? (
-                    <div className={[classes.overlay_panel, classes.overlay_right].join(' ')}>
-                      <h1>Welcome Back!</h1>
-                      <p>To keep connected with us please login with your personal info</p>
-                      <button className={classes.login_button} id="signIn" onClick={handleSignUp}>
-                        Sign In
-                      </button>
-                    </div>
-                  ) : (
-                    <div className={[classes.overlay_panel, classes.overlay_right].join(' ')}>
-                      <h1>Hello, Friend!</h1>
-                      <p>Enter your personal details and start journey with us</p>
-                      <button className={classes.login_button} id="signUp" onClick={handleSignIn}>
-                        Sign Up
-                      </button>
-                    </div>
-                  )}
+            </div>
+            <div className="text-center p-5 text-gray-900 dark:text-white">
+              {!login ? (
+                <div>
+                  <button
+                    className="rounded text-dbeats-light dark:text-gray-100 font-semibold"
+                    id="signIn"
+                    onClick={handleSignUp}
+                  >
+                    Already have an Account?
+                  </button>
                 </div>
-              </div>
+              ) : (
+                <div>
+                  <button
+                    className="rounded text-dbeats-light dark:text-gray-100  font-semibold"
+                    id="signUp"
+                    onClick={handleSignIn}
+                  >
+                    Create New Account
+                  </button>
+                </div>
+              )}
+            </div>
+            <div className="self-center text-center mt-5 dark:text-gray-500 font-semibold opacity-50">
+              powered by{' '}
+              <img
+                src={moralisLogo}
+                className="h-10 rounded w-max  self-center mx-auto bg-blue-50 dark:bg-white p-2 dark:bg-opacity-75"
+              ></img>
             </div>
           </main>
         </div>
