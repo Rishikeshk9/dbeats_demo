@@ -36,6 +36,7 @@
     "jdenticon": "^3.1.1",
     "lottie-web": "^5.7.13",
     "minimist": "^1.2.5",
+    "moralis": "^0.0.74",
     "multiselect-react-dropdown": "^2.0.5",
     "noty": "^3.2.0-beta-deprecated",
     "orbit-db": "^0.26.1",
