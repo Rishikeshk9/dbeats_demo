@@ -534,6 +534,55 @@ router.route('/unpin').post(async (req, res) => {
   }
 });
 
+router.route('/announcement').post(async (req, res) => {
+  try {
+    const username = req.body.username;
+    const announcement = req.body.announcement;
+    const user = await User.findOne({ username: username });
+    user.followee_count.forEach(function (id) {
+      User.findOneAndUpdate(
+        { username: id },
+        { $push: { notification: announcement } },
+        function (error, success) {
+          if (error) {
+          } else {
+            console.log(success.notification);
+          }
+        },
+      );
+    });
+    res.send('Hello');
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.route('/seennotification').post(async (req, res) => {
+  try {
+    const username = req.body.username;
+    const user = await User.findOne({ username: username });
+    let data = [];
+    if (user.oldnotification.length > 0) {
+      data = user.oldnotification;
+    }
+    for (let i = 0; i < user.notification.length; i++) {
+      data.push(user.notification[i]);
+    }
+    console.log(data);
+    await User.replaceOne(
+      { username: username },
+      { notification: [] },
+    );
+    await User.replaceOne(
+      { username: username },
+      { oldnotification: data },
+    );
+    res.send('Hello');
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 /*router.route("/:id").get((req, res) => {
   User.findById(req.params.id)
     .then((user) => res.json(user))

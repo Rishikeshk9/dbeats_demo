@@ -163,6 +163,26 @@ const Profile = (props) => {
       });
   };
 
+  const handleAnnouncement = () => {
+    console.log('announcement test');
+    let announcement = 'new data test';
+    const announcementData = {
+      username: myData.username,
+      announcement: announcement,
+    };
+    axios({
+      method: 'POST',
+      url: `${process.env.REACT_APP_SERVER_URL}/user/announcement`,
+      data: announcementData,
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     let value = JSON.parse(window.localStorage.getItem('user'));
     console.log(value);
@@ -261,6 +281,18 @@ const Profile = (props) => {
                   <div className="w-full h-96 relative mb-20 ">
                     <Tab.Group>
                       <Tab.List className="flex px-1 space-x-1 bg-white  dark:bg-dbeats-dark-primary ">
+                        <Tab
+                          className={({ selected }) =>
+                            classNames(
+                              'w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ',
+                              selected
+                                ? 'text-dbeats-light font-bold border-b-2 border-dbeats-light'
+                                : 'hover:bg-black/[0.12]  hover:text-gray-100',
+                            )
+                          }
+                        >
+                          Announcements
+                        </Tab>
                         {privateUser ? (
                           <Tab
                             className={({ selected }) =>
@@ -331,6 +363,13 @@ const Profile = (props) => {
                       </Tab.List>
 
                       <Tab.Panels className="dark:bg-dbeats-dark-alt w-full h-full">
+                        <Tab.Panel className="">
+                          <div className="px-5 pt-10 dark:bg-dbeats-dark-alt">
+                            <buttton className="h-5 w-10 bg-white" onClick={handleAnnouncement}>
+                              Send Announcement
+                            </buttton>
+                          </div>
+                        </Tab.Panel>
                         {privateUser ? (
                           <Tab.Panel className="">
                             <div className="px-5 pt-10 grid grid-cols-4 grid-flow-row  ">

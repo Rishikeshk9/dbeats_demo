@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import classes from './Navbar.module.css';
 import { push as Menu } from 'react-burger-menu';
 import logo from '../../assets/images/white-logo.svg';
 import logoDark from '../../assets/images/dark-logo.svg';
+import { Menu as Dropdown, Transition } from '@headlessui/react';
+import axios from 'axios';
 
 import useWeb3Modal from '../../hooks/useWeb3Modal';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,6 +14,8 @@ import Toggle from '../toggle.component';
 const NavBar = () => {
   // eslint-disable-next-line no-unused-vars
   const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
+
+  const [notification, setNotification] = useState([]);
 
   const user = JSON.parse(window.localStorage.getItem('user'));
 
@@ -57,9 +61,38 @@ const NavBar = () => {
     }
   };
 
+  const handleNotification = () => {
+    const data = {
+      username: user.username,
+    };
+    axios({
+      method: 'POST',
+      url: `${process.env.REACT_APP_SERVER_URL}/user/seennotification`,
+      data: data,
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     window.localStorage.setItem('darkmode', darkMode);
   }, [darkMode]);
+
+  useEffect(() => {
+    if (user) {
+      if (user.notification.length > 0) {
+        setNotification(user.notification.reverse());
+      } else {
+        setNotification(user.oldnotification.reverse());
+      }
+    }
+  }, []);
+
+  console.log(notification);
 
   return (
     <>
@@ -188,8 +221,52 @@ const NavBar = () => {
                 </a>
               </div>
             </div>
+
             {user ? (
               <div id="login-btn" className="flex">
+                <Dropdown as="div" className="relative inline-block text-left mr-2 self-center">
+                  <div>
+                    <Dropdown.Button className="">
+                      <svg
+                        onClick={handleNotification}
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-7 w-7 text-dbeats-light cursor-pointer"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+                      </svg>
+                      {user && user.notification.length > 0 ? (
+                        <div className="bg-red-500 rounded-full shadow  h-6 w-6 text-sm self-center text-center font-semibold  absolute -bottom-1  -right-2 dark:border-dbeats-dark-primary  border-red-300 border-2 text-white  ">
+                          {user.notification.length}
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                    </Dropdown.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Dropdown.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      {notification.map((value, i) => {
+                        return (
+                          <div className="px-1 py-1 " key={i}>
+                            <Dropdown.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                              <button>{value}</button>
+                            </Dropdown.Item>
+                          </div>
+                        );
+                      })}
+                    </Dropdown.Items>
+                  </Transition>
+                </Dropdown>
                 <button
                   className="px-3 py-1 border-dbeats-light border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mx-2 flex"
                   onClick={handleStreamOnClick}
