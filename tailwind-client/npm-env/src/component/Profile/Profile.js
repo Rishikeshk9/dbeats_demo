@@ -165,7 +165,7 @@ const Profile = (props) => {
 
   const handleAnnouncement = () => {
     console.log('announcement test');
-    let announcement = 'new data test';
+    let announcement = 'New Event Anoouncement By Sahil Punjabi';
     const announcementData = {
       username: myData.username,
       announcement: announcement,
