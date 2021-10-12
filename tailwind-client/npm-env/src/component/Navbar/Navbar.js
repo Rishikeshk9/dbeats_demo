@@ -87,13 +87,20 @@ const NavBar = () => {
   useEffect(() => {
     if (user) {
       if (user.notification.length > 0) {
-        let data = user.oldnotification;
-        for (let i = 0; i < user.notification.length; i++) {
-          data.push(user.notification[i]);
+        let data = [];
+        for (let i = 0; i < user.oldnotification.length; i++) {
+          data.push(<p className="pl-2 py-1">{user.oldnotification[i]}</p>);
         }
-        setNotification(user.notification.reverse());
+        for (let i = 0; i < user.notification.length; i++) {
+          data.push(<p className="bg-red-300 pl-2 py-1">{user.notification[i]}</p>);
+        }
+        setNotification(data.reverse());
       } else {
-        setNotification(user.oldnotification.reverse());
+        let data = [];
+        for (let i = 0; i < user.oldnotification.length; i++) {
+          data.push(<p className="pl-2 py-1">{user.oldnotification[i]}</p>);
+        }
+        setNotification(data.reverse());
       }
     }
   }, []);
@@ -263,11 +270,11 @@ const NavBar = () => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Dropdown.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Dropdown.Items className="absolute right-0 w-80 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       {notification.map((value, i) => {
                         return (
                           <div className="px-1 py-1 " key={i}>
-                            <Dropdown.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                            <Dropdown.Item className="w-full text-gray-700 text-left text-lg hover:text-white hover:bg-dbeats-light">
                               <button>{value}</button>
                             </Dropdown.Item>
                           </div>

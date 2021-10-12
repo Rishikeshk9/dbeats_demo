@@ -540,9 +540,17 @@ router.route('/announcement').post(async (req, res) => {
     const announcement = req.body.announcement;
     const user = await User.findOne({ username: username });
     user.follower_count.forEach(function (id) {
-      User.findOneAndUpdate(
+      console.log(id);
+      User.updateOne(
         { username: id },
         { $push: { notification: announcement } },
+        function (error, success) {
+          if (error) {
+            res.send(error);
+          } else {
+            res.send(success.notification);
+          }
+        },
       );
     });
     res.send('Hello');

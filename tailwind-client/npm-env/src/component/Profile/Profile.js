@@ -33,6 +33,13 @@ const Profile = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [showAnnouncement, setShowAnnouncement] = useState(false);
+
+  const handleCloseAnnouncement = () => setShowAnnouncement(false);
+  const handleShowAnnouncement = () => setShowAnnouncement(true);
+
+  const [announcementText, setAnnouncementText] = useState('');
+
   const [buttonText, setButtonText] = useState('SUBSCRIBE');
 
   const myData = JSON.parse(window.localStorage.getItem('user'));
@@ -42,6 +49,11 @@ const Profile = (props) => {
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
   }
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setAnnouncementText(e.target.value);
+  };
 
   const get_User = async () => {
     await axios
@@ -164,11 +176,10 @@ const Profile = (props) => {
   };
 
   const handleAnnouncement = () => {
-    console.log('announcement test');
-    let announcement = 'New Event Anoouncement By Sahil Punjabi';
+    console.log('hello');
     const announcementData = {
       username: myData.username,
-      announcement: announcement,
+      announcement: announcementText,
     };
     axios({
       method: 'POST',
@@ -181,6 +192,7 @@ const Profile = (props) => {
       .catch(function (error) {
         console.log(error);
       });
+    setShowAnnouncement(false);
   };
 
   useEffect(() => {
@@ -365,7 +377,10 @@ const Profile = (props) => {
                       <Tab.Panels className="dark:bg-dbeats-dark-alt w-full h-full">
                         <Tab.Panel className="">
                           <div className="px-5 pt-10 dark:bg-dbeats-dark-alt">
-                            <buttton className="h-5 w-10 bg-white" onClick={handleAnnouncement}>
+                            <buttton
+                              className="h-5 w-10 bg-white px-3 py-2 bg-dbeats-light text-white border-0 rounded-sm cursor-pointer"
+                              onClick={handleShowAnnouncement}
+                            >
                               Send Announcement
                             </buttton>
                           </div>
@@ -533,6 +548,48 @@ const Profile = (props) => {
                           {buttonText}
                         </button>
                       </CopyToClipboard>
+                    </Row>
+                  </Container>
+                </div>
+                <hr className="py-2 dark:bg-dbeats-dark-alt" />
+              </div>
+            </Modal>
+            <Modal
+              visible={showAnnouncement}
+              className=""
+              effect="fadeInUp"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+              height="40%"
+              width="40%"
+            >
+              <div className={`${darkMode && 'dark'}`}>
+                <h2 className="grid grid-cols-5 justify-items-center text-2xl py-4 dark:bg-dbeats-dark-primary bg-white dark:text-white">
+                  <div className="col-span-4 pl-14">Announcement Details</div>
+                  <div className="ml-5" onClick={handleCloseAnnouncement}>
+                    <i className="fas fa-times"></i>
+                  </div>
+                </h2>
+                <hr className="py-4 dark:bg-dbeats-dark-alt" />
+                <div className="h-72 flex align-center">
+                  <Container className="px-12 pb-4 h-full dark:bg-dbeats-dark-alt">
+                    <Row>
+                      <Col className="align-center">
+                        <textarea
+                          className="w-full h-36"
+                          placeholder=""
+                          onChange={(e) => handleChange(e)}
+                        ></textarea>
+                      </Col>
+                    </Row>
+                    <Row className="w-full flex justify-center">
+                      <button
+                        type="submit"
+                        onClick={handleAnnouncement}
+                        className="mt-4 bg-white px-3 py-2 text-lg bg-dbeats-light text-white border-0 w-80 rounded-sm cursor-pointer "
+                      >
+                        Announce
+                      </button>
                     </Row>
                   </Container>
                 </div>
