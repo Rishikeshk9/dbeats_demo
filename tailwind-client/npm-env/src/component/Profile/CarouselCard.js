@@ -21,8 +21,8 @@ const CarouselCard = (props) => {
   //console.log(props.playbackUserData)
 
   return (
-    <div className="w-full  flex py-3 px-3 bg-white rounded-xl dark:bg-dbeats-dark-primary dark:text-gray-100 my-2">
-      <div className={`cursor-pointer w-1/3 my-auto`}>
+    <div className="w-full  flex lg:flex-row flex-col py-3 px-3 bg-white rounded-xl dark:bg-dbeats-dark-primary dark:text-gray-100 my-2">
+      <div className={`cursor-pointer lg:w-1/3 w-full  my-auto`}>
         <ReactPlayer
           onClick={() => {
             window.location.href = `/playback/${props.username}/0`;
@@ -45,7 +45,7 @@ const CarouselCard = (props) => {
             <p className="text-2xl font-semibold">{props.playbackUserData.videoName}</p>
             <p className="text-xs text-gray-500">{props.playbackUserData.description}</p>
           </div>
-          <hr />
+          <hr className="my-3" />
           <div>
             <div className="text-2xl text-gray-500 px-2">
               <button className="px-1">

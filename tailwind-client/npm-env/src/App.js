@@ -111,7 +111,7 @@ export default function App() {
                 <Route exact path="/streamer/:roomID" component={UserRoom} />
                 <Route exact path="/live/:username" component={PublicRoom} />
                 <Route exact path="/playback/:username/:video_id" component={Playback} />
-                <Route exact path="/profile/:username" component={Profile} />
+                <Route exact path="/profile/:username/:tab?" component={Profile} />
                 <Route exact path="/login" component={Login} />
                 {/* TODO: <Route exact path="*" component={PageNotFound} /> */}
               </div>

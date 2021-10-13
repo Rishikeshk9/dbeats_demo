@@ -71,7 +71,7 @@ const Pinned_Panel = (props) => {
           <div
             className="w-14 self-center h-14    my-2 rounded-full hover:shadow hover:scale-95 transition-all transform col-span-10 relative bg-blue-100 dark:bg-dbeats-dark-alt justify-self-center "
             onClick={() => {
-              window.location.href = `/profile/${props.userdata.username}/`;
+              window.location.href = `/profile/${props.userdata.username}/subscribed_channels`;
             }}
           >
             <div className="self-center  w-max mx-auto my-auto mt-3">

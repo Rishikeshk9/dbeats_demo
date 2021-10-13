@@ -37,7 +37,7 @@ const ChannelSection = (props) => {
   const [selected, setSelected] = useState(channels[0]);
 
   return (
-    <div className={`${darkMode && 'dark'} h-full`}>
+    <div className={`${darkMode && 'dark'} h-full hidden lg:block`}>
       <div
         id="recommended_channel"
         className="w-full h-full pt-8 lg:col-span-1 hidden  lg:block sm:hidden mt-4  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary"
@@ -57,7 +57,7 @@ const ChannelSection = (props) => {
             {props.user.name}&apos;s Channels
             {props.privateUser ? (
               <i
-                className="fas fa-plus mr-2 absolute right-0 cursor-pointer rounded p-2 -top-1 hover:bg-dbeats-dark-primary"
+                className="fas fa-plus mr-2 absolute right-0 cursor-pointer rounded p-2 -top-1 hover:text-white dark:hover:bg-dbeats-dark-primary hover:bg-dbeats-light"
                 onClick={handleShowChannelModal}
               ></i>
             ) : (
@@ -69,7 +69,7 @@ const ChannelSection = (props) => {
             return (
               <div key={i} className="  pb-2 pt-2">
                 <div>
-                  <div className="font-semibold cursor-pointer text-sm dark:text-gray-200 w-full justify-between self-center hover:bg-dbeats-dark-primary rounded p-2 relative">
+                  <div className="font-semibold cursor-pointer text-sm dark:text-gray-200 hover:text-white w-full justify-between self-center hover:bg-dbeats-light dark:hover:bg-dbeats-dark-primary  rounded p-2 relative">
                     {' '}
                     {channel.type == 'text' ? <i className="fas fa-hashtag mr-2"></i> : ''}
                     {channel.type == 'voice' ? <i className="fas fa-headphones-alt mr-2"></i> : ''}
@@ -78,7 +78,7 @@ const ChannelSection = (props) => {
                     <i className="fas fa-user-plus ml-5 absolute right-3 self-center text-center mt-1"></i>
                   </div>
 
-                  <span className="text-gray-400 text-sm cursor-pointer ml-5 hover:text-white">
+                  <span className="text-gray-400 text-sm cursor-pointer ml-5 dark:hover:text-white hover:text-dbeats-light">
                     {' '}
                     Counter Strike...{' '}
                   </span>

@@ -42,6 +42,8 @@ const Profile = (props) => {
 
   const [buttonText, setButtonText] = useState('SUBSCRIBE');
 
+  const [tabIndex, setTabIndex] = useState(0);
+
   const myData = JSON.parse(window.localStorage.getItem('user'));
 
   const darkMode = useSelector((darkmode) => darkmode.toggleDarkMode);
@@ -197,6 +199,29 @@ const Profile = (props) => {
 
   useEffect(() => {
     let value = JSON.parse(window.localStorage.getItem('user'));
+    let tabname = props.match.params.tab;
+    switch (tabname) {
+      case 'announcements':
+        setTabIndex(0);
+        break;
+      case 'subscribed_channels':
+        setTabIndex(1);
+        break;
+      case 'videos':
+        setTabIndex(2);
+        break;
+      case 'albums':
+        setTabIndex(3);
+        break;
+      case 'playlists':
+        setTabIndex(4);
+        break;
+      case 'reposts':
+        setTabIndex(5);
+        break;
+      default:
+        setTabIndex(0);
+    }
     console.log(value);
     if (value.username === props.match.params.username) {
       setUser(value);
@@ -220,26 +245,31 @@ const Profile = (props) => {
           <div id="outer-container" className="">
             <div id="page-wrap" className={`${darkMode && 'dark'} grid lg:pl-18 grid-cols-6`}>
               <ChannelSection privateUser={privateUser} user={user} />
-              <div className="px-5 h-max col-span-5 w-full mt-16">
+              <div className="px-5 h-max lg:col-span-5 col-span-6 w-full mt-16">
                 <div id="display_details" className="  pt-3 h-full">
                   <div className="bg-white dark:bg-dbeats-dark-primary pb-3 ">
+                    {privateUser ? (
+                      <i className="fas fa-edit absolute ml-2 mt-2 text-white p-3 rounded-full hover:bg-dbeats-dark-alt hover:opacity-100 opacity-25 z-30 cursor-pointer"></i>
+                    ) : (
+                      false
+                    )}
                     <div className="block">
-                      <img src={background} style={{ width: '100%', height: '22rem' }} />
+                      <img src={background} className="lg:h-88 h-56 w-full" />
                     </div>
                     <div className="w-full">
-                      <div className="w-full flex -mt-28 ml-5">
-                        <div className="w-56 ">
-                          <div className="px-1 py-1 shadow-sm w-44 h-44   bg-white rounded-full   dark:bg-dbeats-dark-primary">
+                      <div className="w-full flex flex-col lg:flex-row lg:-mt-28 -mt-20 lg:ml-5 ml-0">
+                        <div className="lg:w-56 w-full flex justify-center ">
+                          <div className="px-1 py-1 shadow-sm lg:w-44 lg:h-44 h-28 w-28 bg-white rounded-full   dark:bg-dbeats-dark-primary">
                             <img
                               src={person}
                               alt=""
-                              className="relative w-42 h-42 align-middle items-center  rounded-full "
+                              className="relative lg:w-42 lg:h-42  align-middle items-center  rounded-full "
                             />
                           </div>
                         </div>
                         <div className="w-full flex flex-col ml-3 mr-5 ">
                           <div className="text-white pb-5">
-                            <div className="flex w-max">
+                            <div className="flex w-max pt-2 lg:pt-0">
                               <span className="font-bold text-3xl mr-3">{user.name}</span>
                               {!privateUser ? (
                                 <button
@@ -262,27 +292,27 @@ const Profile = (props) => {
                             </div>
                             <span className="font-semibold">@{user.username}</span>
                           </div>
-                          <div className="flex text-gray-400 py-3 pt-12 dark:bg-dbeats-dark-primary">
-                            <div className="grid grid-flow-rows grid-cols-5   gap-4">
-                              <div className="font-bold mx-auto   px-4">
-                                <span className="font-bold text-lg text-gray-700">
+                          <div className="flex text-gray-400 py-3   lg:pt-12 pt-5 dark:bg-dbeats-dark-primary">
+                            <div className="lg:grid lg:grid-flow-rows lg:grid-cols-5   lg:gap-4 flex justify-between">
+                              <div className="font-bold mx-auto lg:px-4 px-2 flex flex-col lg:flex-row justify-center align-center">
+                                <div className="font-bold text-lg text-gray-700 w-full flex justify-center mr-2 ">
                                   {user.videos ? user.videos.length : 0}{' '}
-                                </span>
-                                VIDEOS
+                                </div>
+                                <div className="mt-0.5">VIDEOS</div>
                               </div>
-                              <div className="font-bold mx-auto   px-4">
-                                <span className="font-bold text-lg text-gray-700">
+                              <div className="font-bold mx-auto lg:px-4 px-2 flex flex-col lg:flex-row justify-center align-center">
+                                <div className="font-bold text-lg text-gray-700 w-full flex justify-center mr-2 ">
                                   {/*{user.subscribers ? <>{user.subscribers.length}</> : 0}{" "}*/}
                                   {followers}{' '}
-                                </span>
-                                FOLLOWERS
+                                </div>
+                                <div className="mt-0.5">FOLLOWERS</div>
                               </div>
-                              <div className="font-bold  mx-auto  px-4">
-                                <span className="font-bold text-lg text-gray-700">
+                              <div className="font-bold mx-auto lg:px-4 px-2 flex flex-col lg:flex-row justify-center align-center">
+                                <div className="font-bold text-lg text-gray-700 w-full flex justify-center mr-2 ">
                                   {/*{user.subscribed ? <>{user.subscribed.length}</> : 0}{" "}*/}
                                   {following}{' '}
-                                </span>
-                                FOLLOWING
+                                </div>
+                                <div className="mt-0.5">FOLLOWING</div>
                               </div>
                             </div>
                           </div>
@@ -291,8 +321,8 @@ const Profile = (props) => {
                     </div>
                   </div>
                   <div className="w-full h-96 relative mb-20 ">
-                    <Tab.Group>
-                      <Tab.List className="flex px-1 space-x-1 bg-white  dark:bg-dbeats-dark-primary ">
+                    <Tab.Group defaultIndex={tabIndex}>
+                      <Tab.List className="flex px-1 space-x-1 bg-white lg:flex-nowrap flex-wrap dark:bg-dbeats-dark-primary ">
                         <Tab
                           className={({ selected }) =>
                             classNames(
@@ -303,7 +333,7 @@ const Profile = (props) => {
                             )
                           }
                         >
-                          Announcements
+                          ANNOUNCEMENTS
                         </Tab>
                         {privateUser ? (
                           <Tab
@@ -316,7 +346,7 @@ const Profile = (props) => {
                               )
                             }
                           >
-                            Subscribed Channels
+                            SUBSCRIBED CHANNELS
                           </Tab>
                         ) : (
                           <></>
@@ -387,7 +417,7 @@ const Profile = (props) => {
                         </Tab.Panel>
                         {privateUser ? (
                           <Tab.Panel className="">
-                            <div className="px-5 pt-10 grid grid-cols-4 grid-flow-row  ">
+                            <div className="px-5 pt-10 grid grid-cols-4 grid-flow-row ">
                               {user.followee_count ? (
                                 <div>
                                   {user.followee_count.map((following, i) => {
@@ -395,7 +425,7 @@ const Profile = (props) => {
                                     return (
                                       <div
                                         key={i}
-                                        className="flex text-lg shadow px-10 my-5 py-2 dark:bg-dbeats-dark-primary dark:text-gray-100"
+                                        className="flex lg:text-lg text-md shadow px-10 w-max lg:w-full  my-5 py-2 dark:bg-dbeats-dark-primary dark:text-gray-100"
                                       >
                                         {pinnedData.indexOf(following) > -1 ? (
                                           <i
