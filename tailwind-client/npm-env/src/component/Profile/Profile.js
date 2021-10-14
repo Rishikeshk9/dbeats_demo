@@ -177,6 +177,8 @@ const Profile = (props) => {
       });
   };
 
+  console.log(myData);
+
   const handleAnnouncement = () => {
     console.log('hello');
     const announcementData = {
@@ -524,7 +526,7 @@ const Profile = (props) => {
                         </Tab.Panel>
 
                         <Tab.Panel>
-                          <div className="px-5 pt-10 h-72">Reposts</div>
+                          <div className="px-5 pt-10 h-72"></div>
                         </Tab.Panel>
                       </Tab.Panels>
                     </Tab.Group>

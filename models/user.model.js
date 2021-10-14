@@ -67,6 +67,10 @@ const userSchema = new Schema(
       type: Array,
       default: [],
     },
+    your_reactions: {
+      type: Array,
+      default: [],
+    },
     album_count: { type: Number, default: 0 },
     bio: { type: String, default: '', trim: true },
     cover_photo: { type: String, trim: true },

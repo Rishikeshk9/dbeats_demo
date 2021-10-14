@@ -234,7 +234,8 @@ const PlayBackInfo = (props) => {
         reactusername: `${user.username}`,
         videousername: `${userData.username}`,
         reaction: videoprops,
-        videoname: `${props.stream_id}/${props.video_id}`,
+        videostreamid: `${props.stream_id}`,
+        videoindex: `${props.video_id}`,
       };
 
       if (videoprops === 'like') {
@@ -276,7 +277,8 @@ const PlayBackInfo = (props) => {
         videousername: `${userData.username}`,
         newreaction: videoprops,
         oldreaction: userreact,
-        videoname: `${props.stream_id}/${props.video_id}`,
+        videostreamid: `${props.stream_id}`,
+        videoindex: `${props.video_id}`,
       };
 
       if (videoprops === userreact) {

@@ -1,6 +1,10 @@
 const router = require('express').Router();
 const Str = require('@supercharge/strings');
 const bcrypt = require('bcryptjs');
+const axios = require('axios');
+
+const livepeerKey = process.env.LIVEPEER_KEY;
+const AuthStr = 'Bearer '.concat(livepeerKey);
 
 let User = require('../models/user.model');
 
@@ -37,15 +41,15 @@ router.route('/add').post(async (req, res) => {
       res.status(400).json('Error: ' + err);
     });
 
-  let webTriggerUrl = `https://dbeats-host-heroku.herokuapp.com/user/triggernotification/${userName}`;
+  let webTriggerUrl = `http://localhost:5000/user/triggernotification/${userName}`;
 
   let webData = {
-    events: ['stream.started', 'stream.idle'],
-    url: { webTriggerUrl },
+    events: ['stream.started'],
+    url: webTriggerUrl,
     name: `Dbeats webhooks`,
   };
 
-  const value = await axios({
+  axios({
     method: 'post',
     url: 'https://livepeer.com/api/webhook',
     data: webData,
@@ -53,9 +57,14 @@ router.route('/add').post(async (req, res) => {
       'content-type': 'application/json',
       Authorization: AuthStr,
     },
-  });
-
-  console.log(value);
+  })
+    .then(function (response) {
+      //console.log("esponse", response.data);
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error.data);
+    });
 });
 
 router.route('/login').post(async (req, res) => {
@@ -114,23 +123,17 @@ router.route('/getuser_by_wallet/:walletId').get(async (req, res) => {
 
 router.route('/add_multistream_platform').post(async (req, res) => {
   try {
-    console.log(req);
     const data = {
       selected: 0,
       platform: req.body.platform,
     };
     const user = req.body.username;
-
-    console.log(data);
-    console.log(user);
     User.findOneAndUpdate(
       { username: user },
       { $push: { multistream_platform: data } },
       function (error, success) {
         if (error) {
-          console.log(error);
         } else {
-          console.log(success);
         }
       },
     );
@@ -150,9 +153,7 @@ router.route('/follow').post(async (req, res) => {
       { $push: { follower_count: follower } },
       function (error, success) {
         if (error) {
-          console.log(error);
         } else {
-          console.log(success);
         }
       },
     );
@@ -161,9 +162,7 @@ router.route('/follow').post(async (req, res) => {
       { $push: { followee_count: following } },
       function (error, success) {
         if (error) {
-          console.log(error);
         } else {
-          console.log(success);
         }
       },
     );
@@ -181,9 +180,7 @@ router.route('/unfollow').post(async (req, res) => {
       { $pull: { follower_count: follower } },
       function (error, success) {
         if (error) {
-          console.log(error);
         } else {
-          console.log(success);
         }
       },
     );
@@ -192,9 +189,16 @@ router.route('/unfollow').post(async (req, res) => {
       { $pull: { followee_count: following } },
       function (error, success) {
         if (error) {
-          console.log(error);
         } else {
-          console.log(success);
+        }
+      },
+    );
+    User.findOneAndUpdate(
+      { username: follower },
+      { $pull: { pinned: following } },
+      function (error, success) {
+        if (error) {
+        } else {
         }
       },
     );
@@ -207,13 +211,10 @@ router.route('/:username/favorites').get(async (req, res) => {
   try {
     const getuserData = req.params.username;
 
-    console.log('Sharing favorites of : ' + getuserData);
     const userData = await User.findOne(
       { username: getuserData },
       { favorite_tracks: 1, _id: 0 },
     );
-
-    console.log(userData);
 
     res.send(userData);
   } catch (err) {
@@ -230,10 +231,8 @@ router.route('/favorite').post(async (req, res) => {
       { $push: { favorite_tracks: track } },
       function (error, success) {
         if (error) {
-          console.log(error);
           res.send(error);
         } else {
-          console.log(success);
           res.send(success);
         }
       },
@@ -252,10 +251,8 @@ router.route('/unfavorite').post(async (req, res) => {
       { $pull: { favorite_tracks: track } },
       function (error, success) {
         if (error) {
-          console.log(error);
           res.send(error);
         } else {
-          console.log(success);
           res.send(success);
         }
       },
@@ -267,11 +264,12 @@ router.route('/unfavorite').post(async (req, res) => {
 
 router.route('/reactions').post(async (req, res) => {
   try {
-    console.log(req.body);
     const videoUsername = req.body.videousername;
     const reactUsername = req.body.reactusername;
     const videoreaction = req.body.reaction;
-    const videoname = req.body.videoname;
+    const videostreamid = req.body.videostreamid;
+    const videoindex = req.body.videoindex;
+    const videoname = `${videostreamid}/${videoindex}`;
     const user = await User.findOne({ username: videoUsername });
 
     //console.log(user)
@@ -283,6 +281,12 @@ router.route('/reactions').post(async (req, res) => {
       }
     }
     //console.log(count)
+
+    let yourdata = {
+      reaction: videoreaction,
+      video: user.videos[videoindex],
+      link: videoname,
+    };
 
     if (count != -1) {
       let data = user.reactions;
@@ -296,16 +300,21 @@ router.route('/reactions').post(async (req, res) => {
       else if (videoreaction === 'happy')
         data[count].reaction.happy.push(reactUsername);
 
-      console.log(data);
-
       User.findOneAndUpdate(
         { username: videoUsername },
         { $set: { reactions: data } },
         function (error, success) {
           if (error) {
-            res.send(error);
           } else {
-            res.send(success);
+          }
+        },
+      );
+      User.findOneAndUpdate(
+        { username: reactUsername },
+        { $push: { your_reactions: yourdata } },
+        function (error, success) {
+          if (error) {
+          } else {
           }
         },
       );
@@ -329,19 +338,26 @@ router.route('/reactions').post(async (req, res) => {
       else if (videoreaction === 'happy')
         value.reaction.happy.push(reactUsername);
 
-      console.log(value);
       User.findOneAndUpdate(
         { username: videoUsername },
         { $push: { reactions: value } },
         function (error, success) {
           if (error) {
-            res.send(error);
           } else {
-            res.send(success);
+          }
+        },
+      );
+      User.findOneAndUpdate(
+        { username: reactUsername },
+        { $push: { your_reactions: yourdata } },
+        function (error, success) {
+          if (error) {
+          } else {
           }
         },
       );
     }
+    res.send('success');
   } catch (err) {
     console.log(err);
   }
@@ -418,10 +434,13 @@ router.route('/removeuserreaction').post(async (req, res) => {
     console.log(req.body);
     const videoUsername = req.body.videousername;
     const reactUsername = req.body.reactusername;
-    const videoname = req.body.videoname;
     const oldreaction = req.body.oldreaction;
     const newreaction = req.body.newreaction;
+    const videostreamid = req.body.videostreamid;
+    const videoindex = req.body.videoindex;
+    const videoname = `${videostreamid}/${videoindex}`;
     const user = await User.findOne({ username: videoUsername });
+    const reactuser = await User.findOne({ username: reactUsername });
 
     //console.log(user)
     let count = -1;
@@ -470,9 +489,7 @@ router.route('/removeuserreaction').post(async (req, res) => {
         { $set: { reactions: data } },
         function (error, success) {
           if (error) {
-            res.send(error);
           } else {
-            res.send(success);
           }
         },
       );
@@ -502,13 +519,44 @@ router.route('/removeuserreaction').post(async (req, res) => {
         { $push: { reactions: value } },
         function (error, success) {
           if (error) {
-            res.send(error);
           } else {
-            res.send(success);
           }
         },
       );
     }
+    //video: user.videos[videoindex],
+    let yourReactionData = {
+      reaction: newreaction,
+
+      link: videoname,
+    };
+
+    let yourcount = -1;
+    for (let i = 0; i < reactuser.your_reactions.length; i++) {
+      if (reactuser.your_reactions[i].link === videoname) {
+        yourcount = i;
+        break;
+      }
+    }
+    console.log(yourcount);
+    if (yourcount != -1) {
+      let yourdata = reactuser.your_reactions;
+      console.log(yourdata);
+      yourdata.splice(yourcount, 1);
+      console.log(yourdata);
+      yourdata.push(yourReactionData);
+      console.log(yourdata);
+      User.findOneAndUpdate(
+        { username: reactUsername },
+        { $set: { your_reactions: yourReactionData } },
+        function (error, success) {
+          if (error) {
+          } else {
+          }
+        },
+      );
+    }
+    res.send('success');
   } catch (err) {
     console.log(err);
   }
@@ -601,6 +649,17 @@ router.route('/seennotification').post(async (req, res) => {
     console.log(err);
   }
 });
+
+router
+  .route('/triggernotification/:username')
+  .get(async (req, res) => {
+    try {
+      const username = req.params.username;
+      console.log(username);
+    } catch (err) {
+      console.log(err);
+    }
+  });
 
 /*router.route("/:id").get((req, res) => {
   User.findById(req.params.id)
