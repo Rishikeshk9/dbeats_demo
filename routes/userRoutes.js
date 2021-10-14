@@ -10,7 +10,7 @@ router.route('/').get((req, res) => {
     .catch((err) => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res) => {
+router.route('/add').post(async (req, res) => {
   const walletID = req.body.wallet_id;
   const fullName = req.body.name;
   const userName = req.body.username;
@@ -36,6 +36,26 @@ router.route('/add').post((req, res) => {
       //console.log(err);
       res.status(400).json('Error: ' + err);
     });
+
+  let webTriggerUrl = `https://dbeats-host-heroku.herokuapp.com/user/triggernotification/${userName}`;
+
+  let webData = {
+    events: ['stream.started', 'stream.idle'],
+    url: { webTriggerUrl },
+    name: `Dbeats webhooks`,
+  };
+
+  const value = await axios({
+    method: 'post',
+    url: 'https://livepeer.com/api/webhook',
+    data: webData,
+    headers: {
+      'content-type': 'application/json',
+      Authorization: AuthStr,
+    },
+  });
+
+  console.log(value);
 });
 
 router.route('/login').post(async (req, res) => {
