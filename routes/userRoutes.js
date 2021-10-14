@@ -559,14 +559,16 @@ router.route('/announcement').post(async (req, res) => {
     const username = req.body.username;
     const announcement = req.body.announcement;
     const user = await User.findOne({ username: username });
-    user.followee_count.forEach(function (id) {
-      User.findOneAndUpdate(
+    user.follower_count.forEach(function (id) {
+      console.log(id);
+      User.updateOne(
         { username: id },
         { $push: { notification: announcement } },
         function (error, success) {
           if (error) {
+            res.send(error);
           } else {
-            console.log(success.notification);
+            res.send(success.notification);
           }
         },
       );
@@ -589,11 +591,8 @@ router.route('/seennotification').post(async (req, res) => {
       data.push(user.notification[i]);
     }
     console.log(data);
-    await User.replaceOne(
-      { username: username },
-      { notification: [] },
-    );
-    await User.replaceOne(
+    await User.update({ username: username }, { notification: [] });
+    await User.update(
       { username: username },
       { oldnotification: data },
     );

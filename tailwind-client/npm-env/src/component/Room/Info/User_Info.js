@@ -331,6 +331,7 @@ const UserInfo = () => {
                 <b>Enter Stream-Key </b>
               </Form.Label>
               <Form.Control
+                required
                 type="text"
                 placeholder="Enter SECRET Key"
                 onChange={(e) => handleChange(e)}
@@ -344,7 +345,8 @@ const UserInfo = () => {
                 <Button
                   variant="primary"
                   className=" border-0 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light rounded px-4 py-2"
-                  type="button"
+                  type="submit"
+                  hidden={StreamKey ? false : true}
                   onClick={() => {
                     let rtmp = multiStreamValue.rtmp + StreamKey;
                     addStreamingPlatform(rtmp);

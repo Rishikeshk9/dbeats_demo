@@ -62,20 +62,22 @@ const NavBar = () => {
   };
 
   const handleNotification = () => {
-    const data = {
-      username: user.username,
-    };
-    axios({
-      method: 'POST',
-      url: `${process.env.REACT_APP_SERVER_URL}/user/seennotification`,
-      data: data,
-    })
-      .then((response) => {
-        console.log(response);
+    if (user && user.notification.length > 0) {
+      const data = {
+        username: user.username,
+      };
+      axios({
+        method: 'POST',
+        url: `${process.env.REACT_APP_SERVER_URL}/user/seennotification`,
+        data: data,
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+        .then((response) => {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   };
 
   useEffect(() => {
@@ -85,9 +87,20 @@ const NavBar = () => {
   useEffect(() => {
     if (user) {
       if (user.notification.length > 0) {
-        setNotification(user.notification.reverse());
+        let data = [];
+        for (let i = 0; i < user.oldnotification.length; i++) {
+          data.push(<p className="pl-2 py-1">{user.oldnotification[i]}</p>);
+        }
+        for (let i = 0; i < user.notification.length; i++) {
+          data.push(<p className="bg-red-300 pl-2 py-1">{user.notification[i]}</p>);
+        }
+        setNotification(data.reverse());
       } else {
-        setNotification(user.oldnotification.reverse());
+        let data = [];
+        for (let i = 0; i < user.oldnotification.length; i++) {
+          data.push(<p className="pl-2 py-1">{user.oldnotification[i]}</p>);
+        }
+        setNotification(data.reverse());
       }
     }
   }, []);
@@ -228,16 +241,19 @@ const NavBar = () => {
                   <div>
                     <Dropdown.Button className="">
                       <svg
-                        onClick={handleNotification}
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-7 w-7 text-dbeats-light cursor-pointer"
+                        className="h-7 w-7 text-dbeats-light cursor-pointer z-50"
                         viewBox="0 0 20 20"
                         fill="currentColor"
+                        onClick={handleNotification}
                       >
                         <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
                       </svg>
                       {user && user.notification.length > 0 ? (
-                        <div className="bg-red-500 rounded-full shadow  h-6 w-6 text-sm self-center text-center font-semibold  absolute -bottom-1  -right-2 dark:border-dbeats-dark-primary  border-red-300 border-2 text-white  ">
+                        <div
+                          className="bg-red-500 rounded-full shadow  h-6 w-6 text-sm self-center text-center font-semibold  absolute -bottom-1  -right-2 dark:border-dbeats-dark-primary  border-red-300 border-2 text-white  "
+                          onClick={handleNotification}
+                        >
                           {user.notification.length}
                         </div>
                       ) : (
@@ -254,11 +270,11 @@ const NavBar = () => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Dropdown.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Dropdown.Items className="absolute right-0 w-80 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       {notification.map((value, i) => {
                         return (
                           <div className="px-1 py-1 " key={i}>
-                            <Dropdown.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                            <Dropdown.Item className="w-full text-gray-700 text-left text-lg hover:text-white hover:bg-dbeats-light">
                               <button>{value}</button>
                             </Dropdown.Item>
                           </div>
