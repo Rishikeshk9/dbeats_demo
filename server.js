@@ -379,9 +379,13 @@ app.post('/upload', (req, res) => {
 
   file.mv(filePath, async (err) => {
     try {
-      const fileHash = await addFile(filePath);
+      const fileHash = req.body.trackHash;
 
-      trackHashLink = 'https://ipfs.io/ipfs/' + fileHash;
+      trackHashLink =
+        'https://ipfs.io/ipfs/' +
+        fileHash +
+        '/' +
+        req.files.trackFile.name;
       console.log('Track Uploaded Successfully!: ' + fileHash);
 
       fs.unlink(filePath, (err) => {
@@ -391,11 +395,12 @@ app.post('/upload', (req, res) => {
       // Track Uploaded Now Upload AlbumArt
       albumFile.mv(trackArtPath, async (err) => {
         try {
-          const fileHash = await addFile(trackArtPath);
+          const albumHash = req.files.trackImage.name;
 
-          albumhashLink = 'https://ipfs.io/ipfs/' + fileHash;
+          albumhashLink =
+            'https://ipfs.io/ipfs/' + fileHash + '/' + albumHash;
           console.log(
-            'Album Art Uploaded Successfully!: ' + fileHash,
+            'Album Art Uploaded Successfully!: ' + albumHash,
           );
 
           fs.unlink(trackArtPath, (err) => {

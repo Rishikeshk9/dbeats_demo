@@ -31,7 +31,6 @@ async function mintNFT(provider, formData, file, name, description) {
   //   '0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7', //mediaAddress
   //   '0xE5BFAB544ecA83849c53464F85B7164375Bdaac1', //marketAddress
   // );
-
   // console.log(mime.lookup(path.extname(file.name)));
   // const metadata = {
   //   version: 'zora-20210101',

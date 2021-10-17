@@ -32,12 +32,13 @@
     "cross-spawn": "^7.0.3",
     "express": "^4.17.1",
     "gun": "^0.2020.1234",
-    "ipfs-car": "^0.5.5",
+    "ipfs-car": "^0.5.8",
     "jdenticon": "^3.1.1",
     "lottie-web": "^5.7.13",
     "minimist": "^1.2.5",
     "moralis": "^0.0.74",
     "multiselect-react-dropdown": "^2.0.5",
+    "nft.storage": "^3.3.0",
     "noty": "^3.2.0-beta-deprecated",
     "orbit-db": "^0.26.1",
     "react": "^17.0.2",
@@ -74,7 +75,7 @@
     "tsparticles": "^1.34.0",
     "uuid": "^8.3.2",
     "web-vitals": "^1.0.1",
-    "web3.storage": "^3.1.0",
+    "web3.storage": "^3.3.2",
     "web3modal": "^1.9.4"
   },
   "scripts": {

@@ -20,9 +20,19 @@ import Dropdown from './dropdown.component';
 import axios from 'axios';
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Noty from 'noty';
-import mintNFT from './Mint';
+//import mintNFT from './Mint';
 import Webupload from './uploadWeb3.component';
 import { useSelector } from 'react-redux';
+import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
+
+import { NFTStorage, File } from 'nft.storage';
+
+function makeStorageClient() {
+  return new Web3Storage({
+    token:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDBhNzk3MkY3QTRDNUNkZDJlOENBQzE1RDJCZjJBRUFlQTg1QmM3MzEiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2Mjc1MTY1MTgyMjUsIm5hbWUiOiJEQmVhdHMifQ.16-okZlX7RmNcszqLq06lvzDkZ-Z8CHnmAIRXjQ2q5Q',
+  });
+}
 
 const Form = (props) => {
   //const [provider, loadWeb3Modal, logoutOfWeb3Modal] = useWeb3Modal();
@@ -57,6 +67,7 @@ const Form = (props) => {
     trackName: '',
     trackImage: '',
     trackFile: '',
+    cid: '',
     genre: '',
     mood: '',
     tags: '',
@@ -103,6 +114,33 @@ const Form = (props) => {
 
     setVideo({ ...video, [name]: value });
   };
+  async function storeWithProgress() {
+    // show the root cid as soon as it's ready
+    const onRootCidReady = (cid) => {
+      console.log('uploading files with cid:', cid);
+      track.cid = cid;
+    };
+
+    // when each chunk is stored, update the percentage complete and display
+
+    const blob = new Blob([JSON.stringify(track)], { type: 'application/json' });
+
+    const files = [track.trackFile, track.trackImage, new File([blob], 'meta.json')];
+    const totalSize = track.trackFile.size;
+    let uploaded = 0;
+    const onStoredChunk = (size) => {
+      uploaded += size;
+      const pct = totalSize / uploaded;
+      console.log(`Uploading... ${pct.toFixed(2)}% complete`);
+    };
+
+    // makeStorageClient returns an authorized Web3.Storage client instance
+    const client = makeStorageClient();
+
+    // client.put will invoke our callbacks during the upload
+    // and return the root cid when the upload completes
+    return client.put(files, { onRootCidReady, onStoredChunk });
+  }
 
   const onFileChange = (e) => {
     if (e.target.name === 'trackFile') {
@@ -192,15 +230,26 @@ const Form = (props) => {
       let formDatanft = new FormData();
       formDatanft.append('videoFile', track.trackFile);
 
-      if (document.getElementById('is_nft').checked)
-        await mintNFT(
-          user.wallet_id,
-          formDatanft,
-          track.trackFile,
-          track.trackName,
-          track.description,
-        );
+      if (document.getElementById('is_nft').checked) {
+        // await mintNFT(
+        //   user.wallet_id,
+        //   formDatanft,
+        //   track.trackFile,
+        //   track.trackName,
+        //   track.description,
+        // );
+        const apiKey =
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDhhMzIwRGQxRDBBNTBmMUQyYjNGNmZGZDM0MUI3ODdkNTYzQzBFYjUiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTYzNDQ0ODE3MDg4MCwibmFtZSI6IkRCZWF0cyJ9.wGuicvEMGBKmKxqsiC4YhesIjBF11oP9EZXNYYN6w5k';
+        const client = new NFTStorage({ token: apiKey });
 
+        const metadata = await client.store({
+          name: track.trackName,
+          description: 'Minted at : ' + new Date(),
+          image: track.trackImage,
+          properties: { track: track.trackFile },
+        });
+        console.log(metadata.url);
+      }
       const {
         trackName,
         trackImage,
@@ -215,64 +264,67 @@ const Form = (props) => {
         commercialUse,
         derivativeWorks,
       } = track;
+      storeWithProgress().then(() => {
+        formData = new FormData(); // Currently empty
+        formData.append('userName', user.username);
+        formData.append('trackName', trackName);
+        formData.append('genre', genre);
 
-      formData = new FormData(); // Currently empty
-      formData.append('userName', user.username);
-      formData.append('trackName', trackName);
-      formData.append('genre', genre);
+        formData.append('mood', mood);
+        formData.append('tags', tags);
+        formData.append('description', description);
 
-      formData.append('mood', mood);
-      formData.append('tags', tags);
-      formData.append('description', description);
+        formData.append('isrc', isrc);
+        formData.append('iswc', iswc);
+        formData.append('allowAttribution', allowAttribution);
+        formData.append('commercialUse', commercialUse);
+        formData.append('derivativeWorks', derivativeWorks);
 
-      formData.append('isrc', isrc);
-      formData.append('iswc', iswc);
-      formData.append('allowAttribution', allowAttribution);
-      formData.append('commercialUse', commercialUse);
-      formData.append('derivativeWorks', derivativeWorks);
+        formData.append('trackFile', trackFile);
+        formData.append('trackImage', trackImage);
+        formData.append('trackHash', track.cid);
 
-      formData.append('trackFile', trackFile);
-      formData.append('trackImage', trackImage);
+        if (
+          track.trackFile.length !== 0 &&
+          track.trackImage.length !== 0 &&
+          track.trackName.length !== 0 &&
+          track.cid.length !== 0
+        ) {
+          axios
+            .post('/upload', formData)
+            .then(function (response) {
+              Noty.closeAll();
+              new Noty({
+                type: 'success',
+                text: response.data,
+                theme: 'metroui',
+                layout: 'bottomRight',
+              }).show();
 
-      if (
-        track.trackFile.length !== 0 &&
-        track.trackImage.length !== 0 &&
-        track.trackName.length !== 0
-      ) {
-        axios
-          .post('/upload', formData)
-          .then(function (response) {
-            Noty.closeAll();
-            new Noty({
-              type: 'success',
-              text: response.data,
-              theme: 'metroui',
-              layout: 'bottomRight',
-            }).show();
+              // console.log(response.data);
+            })
+            .catch((error) => {
+              Noty.closeAll();
+              new Noty({
+                type: 'error',
+                text: error.data,
+                theme: 'metroui',
+                layout: 'bottomRight',
+              }).show();
+              // console.log(error);
 
-            // console.log(response.data);
-          })
-          .catch((error) => {
-            Noty.closeAll();
-            new Noty({
-              type: 'error',
-              text: error.data,
-              theme: 'metroui',
-              layout: 'bottomRight',
-            }).show();
-            // console.log(error);
-
-            // console.log(error.data);
-          });
-      } else {
-        Noty.closeAll();
-        new Noty({
-          type: 'error',
-          text: 'Choose Audio File & Fill other Details',
-          theme: 'metroui',
-          layout: 'bottomRight',
-        }).show();
-      }
+              // console.log(error.data);
+            });
+        } else {
+          Noty.closeAll();
+          new Noty({
+            type: 'error',
+            text: 'Choose Audio File & Fill other Details',
+            theme: 'metroui',
+            layout: 'bottomRight',
+          }).show();
+        }
+      });
     }
   };
 

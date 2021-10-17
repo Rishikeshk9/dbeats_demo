@@ -83,6 +83,7 @@ export default function Switcher() {
               </Tab>
             ))}
           </Tab.List>
+
           <Tab.Panel
             index={0}
             className="  transition-all transform h-64 flex flex-col"
