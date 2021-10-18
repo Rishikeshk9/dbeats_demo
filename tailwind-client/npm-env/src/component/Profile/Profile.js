@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CarouselCard from './CarouselCard';
+import ReactionCard from './ReactionCard';
 import person from '../../assets/images/profile.svg';
 import background from '../../assets/images/wallpaper.jpg';
 import ChannelSection from './ChannelSection';
@@ -322,9 +323,9 @@ const Profile = (props) => {
                       </div>
                     </div>
                   </div>
-                  <div className="w-full h-96 relative mb-20 ">
+                  <div className="w-full relative mb-20 ">
                     <Tab.Group defaultIndex={tabIndex}>
-                      <Tab.List className="flex px-1 space-x-1 bg-white lg:flex-nowrap flex-wrap dark:bg-dbeats-dark-primary ">
+                      <Tab.List className="flex px-1  space-x-1 bg-white lg:flex-nowrap flex-wrap dark:bg-dbeats-dark-primary ">
                         <Tab
                           className={({ selected }) =>
                             classNames(
@@ -402,11 +403,11 @@ const Profile = (props) => {
                             )
                           }
                         >
-                          REPOSTS
+                          REACTIONS
                         </Tab>
                       </Tab.List>
 
-                      <Tab.Panels className="dark:bg-dbeats-dark-alt w-full h-full">
+                      <Tab.Panels className="dark:bg-dbeats-dark-alt w-full h-max pb-10">
                         <Tab.Panel className="">
                           <div className="px-5 pt-10 dark:bg-dbeats-dark-alt">
                             <buttton
@@ -526,7 +527,27 @@ const Profile = (props) => {
                         </Tab.Panel>
 
                         <Tab.Panel>
-                          <div className="px-5 pt-10 h-72"></div>
+                          <div className="px-5 pt-5">
+                            {user.your_reactions.length > 0 ? (
+                              <div>
+                                {user.your_reactions.map((playbackUser, i) => {
+                                  //console.log(playbackUser)
+                                  return (
+                                    <div key={i} className="">
+                                      <ReactionCard
+                                        playbackUserData={playbackUser}
+                                        index={i}
+                                        username={user.username}
+                                        type="video"
+                                      />
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            ) : (
+                              <p>No Reactions till now</p>
+                            )}
+                          </div>
                         </Tab.Panel>
                       </Tab.Panels>
                     </Tab.Group>

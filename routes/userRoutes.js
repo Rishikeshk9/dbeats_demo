@@ -524,11 +524,11 @@ router.route('/removeuserreaction').post(async (req, res) => {
         },
       );
     }
-    //video: user.videos[videoindex],
+
     let yourReactionData = {
       reaction: newreaction,
-
       link: videoname,
+      video: user.videos[videoindex],
     };
 
     let yourcount = -1;
