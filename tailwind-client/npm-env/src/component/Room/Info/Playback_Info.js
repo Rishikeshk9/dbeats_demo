@@ -156,7 +156,7 @@ const PlayBackInfo = (props) => {
       let reactionData = {
         videousername: value.data.username,
         videoname: `${props.stream_id}/${props.video_id}`,
-        videolink: `${value.data.videos.link}`,
+        videolink: `${value.data.videos[props.video_id].link}`,
       };
       //console.log('reaction: ', reactionData);
 
@@ -170,6 +170,7 @@ const PlayBackInfo = (props) => {
         data: reactionData,
       })
         .then(function (response) {
+          console.log(response);
           setLike(response.data.reaction.like.length);
           setDislike(response.data.reaction.dislike.length);
           setAngry(response.data.reaction.angry.length);
@@ -184,7 +185,7 @@ const PlayBackInfo = (props) => {
           username: `${user.username}`,
           videousername: value.data.username,
           videoname: `${props.stream_id}/${props.video_id}`,
-          videolink: `${user.videos.link}`,
+          videolink: `${value.data.videos[props.video_id].link}`,
         };
 
         axios({
@@ -228,7 +229,8 @@ const PlayBackInfo = (props) => {
     //await sf.initialize();
   };
 
-  //console.log(userData);
+  // console.log('userData', userData);
+  // console.log(userData ? userData.videos[props.video_id].link : '');
 
   const handlereaction = (videoprops) => {
     if (userreact == '') {
@@ -238,7 +240,7 @@ const PlayBackInfo = (props) => {
         reaction: videoprops,
         videostreamid: `${props.stream_id}`,
         videoindex: `${props.video_id}`,
-        videolink: `${user.videos.link}`,
+        videolink: `${userData.videos[props.video_id].link}`,
       };
 
       if (videoprops === 'like') {
@@ -282,6 +284,7 @@ const PlayBackInfo = (props) => {
         oldreaction: userreact,
         videostreamid: `${props.stream_id}`,
         videoindex: `${props.video_id}`,
+        videolink: `${userData.videos[props.video_id].link}`,
       };
 
       if (videoprops === userreact) {
