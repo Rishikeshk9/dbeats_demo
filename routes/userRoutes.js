@@ -282,10 +282,9 @@ router.route('/reactions').post(async (req, res) => {
       }
     }
     //console.log(count)
-
+    //video: user.videos[videoindex],
     let yourdata = {
       reaction: videoreaction,
-      video: user.videos[videoindex],
       link: videoname,
     };
 
@@ -474,10 +473,11 @@ router.route('/removeuserreaction').post(async (req, res) => {
       );
     }
 
+    //video: user.videos[videoindex],
+
     let yourReactionData = {
       reaction: newreaction,
       link: videoname,
-      video: user.videos[videoindex],
     };
 
     let yourcount = -1;
@@ -490,14 +490,14 @@ router.route('/removeuserreaction').post(async (req, res) => {
     console.log(yourcount);
     if (yourcount != -1) {
       let yourdata = reactuser.your_reactions;
-      console.log(yourdata);
+      console.log('all data', yourdata);
       yourdata.splice(yourcount, 1);
-      console.log(yourdata);
+      console.log('splice', yourdata);
       yourdata.push(yourReactionData);
-      console.log(yourdata);
+      console.log('push', yourdata);
       User.findOneAndUpdate(
         { username: reactUsername },
-        { $set: { your_reactions: yourReactionData } },
+        { $set: { your_reactions: yourdata } },
         function (error, success) {
           if (error) {
           } else {
