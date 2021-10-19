@@ -29,7 +29,7 @@ const ReactionCard = (props) => {
   const text = 'Copy Link To Clipboard';
   const [buttonText, setButtonText] = useState(text);
 
-  let sharable_data = `https://dbeats-demo.vercel.app /playback/${props.playbackUserData.link}`;
+  let sharable_data = `https://dbeats-demo.vercel.app/playback/${props.playbackUserData.link}`;
 
   const [like, setLike] = useState(0);
   const [dislike, setDislike] = useState(0);

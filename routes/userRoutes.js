@@ -269,13 +269,13 @@ router.route('/reactions').post(async (req, res) => {
     const videoreaction = req.body.reaction;
     const videostreamid = req.body.videostreamid;
     const videoindex = req.body.videoindex;
-    const videoname = `${videostreamid}/${videoindex}`;
+    const videolink = req.body.videolink;
     const user = await User.findOne({ username: videoUsername });
 
     //console.log(user)
     let count = -1;
     for (let i = 0; i < user.reactions.length; i++) {
-      if (user.reactions[i].video === videoname) {
+      if (user.videos[i].link === videolink) {
         count = i;
         break;
       }
@@ -285,7 +285,7 @@ router.route('/reactions').post(async (req, res) => {
     let yourdata = {
       reaction: videoreaction,
       video: user.videos[videoindex],
-      link: videoname,
+      link: videolink,
     };
 
     if (count != -1) {
@@ -320,7 +320,7 @@ router.route('/reactions').post(async (req, res) => {
       );
     } else {
       let value = {
-        video: videoname,
+        video: videolink,
         reaction: {
           like: [],
           dislike: [],
@@ -366,14 +366,14 @@ router.route('/reactions').post(async (req, res) => {
 router.route('/getreactions').post(async (req, res) => {
   try {
     const videoUsername = req.body.videousername;
-    const videoname = req.body.videoname;
+    const videolink = req.body.videolink;
     const user = await User.findOne({ username: videoUsername });
 
     let count = -1;
     for (let i = 0; i < user.reactions.length; i++) {
-      if (user.reactions[i].video === videoname) {
-        console.log(user.reactions[i].video);
-        res.send(user.reactions[i]);
+      if (user.videos[i].link === videolink) {
+        console.log(user.videos[i].link);
+        res.send(user.videos[i]);
         break;
       }
     }
@@ -387,6 +387,7 @@ router.route('/getuserreaction').post(async (req, res) => {
     const videoUsername = req.body.videousername;
     const reactUsername = req.body.username;
     const videoname = req.body.videoname;
+    const videolink = req.body.videolink;
     const user = await User.findOne({ username: videoUsername });
 
     console.log(req.body);
@@ -394,7 +395,7 @@ router.route('/getuserreaction').post(async (req, res) => {
 
     let count = -1;
     for (let i = 0; i < user.reactions.length; i++) {
-      if (user.reactions[i].video === videoname) {
+      if (user.videos[i].link === videolink) {
         count = i;
         break;
       }
@@ -445,7 +446,7 @@ router.route('/removeuserreaction').post(async (req, res) => {
     //console.log(user)
     let count = -1;
     for (let i = 0; i < user.reactions.length; i++) {
-      if (user.reactions[i].video === videoname) {
+      if (user.videos[i].link === videolink) {
         count = i;
         break;
       }
@@ -495,7 +496,7 @@ router.route('/removeuserreaction').post(async (req, res) => {
       );
     } else {
       let value = {
-        video: videoname,
+        video: videolink,
         reaction: {
           like: [],
           dislike: [],
@@ -525,37 +526,37 @@ router.route('/removeuserreaction').post(async (req, res) => {
       );
     }
 
-    let yourReactionData = {
-      reaction: newreaction,
-      link: videoname,
-      video: user.videos[videoindex],
-    };
+    // let yourReactionData = {
+    //   reaction: newreaction,
+    //   link: videolink,
+    //   video: user.videos[videoindex],
+    // };
 
-    let yourcount = -1;
-    for (let i = 0; i < reactuser.your_reactions.length; i++) {
-      if (reactuser.your_reactions[i].link === videoname) {
-        yourcount = i;
-        break;
-      }
-    }
-    console.log(yourcount);
-    if (yourcount != -1) {
-      let yourdata = reactuser.your_reactions;
-      console.log(yourdata);
-      yourdata.splice(yourcount, 1);
-      console.log(yourdata);
-      yourdata.push(yourReactionData);
-      console.log(yourdata);
-      User.findOneAndUpdate(
-        { username: reactUsername },
-        { $set: { your_reactions: yourReactionData } },
-        function (error, success) {
-          if (error) {
-          } else {
-          }
-        },
-      );
-    }
+    // let yourcount = -1;
+    // for (let i = 0; i < reactuser.your_reactions.length; i++) {
+    //   if (reactuser.your_reactions[i].link === videoname) {
+    //     yourcount = i;
+    //     break;
+    //   }
+    // }
+    // console.log(yourcount);
+    // if (yourcount != -1) {
+    //   let yourdata = reactuser.your_reactions;
+    //   console.log(yourdata);
+    //   yourdata.splice(yourcount, 1);
+    //   console.log(yourdata);
+    //   yourdata.push(yourReactionData);
+    //   console.log(yourdata);
+    //   User.findOneAndUpdate(
+    //     { username: reactUsername },
+    //     { $set: { your_reactions: yourReactionData } },
+    //     function (error, success) {
+    //       if (error) {
+    //       } else {
+    //       }
+    //     },
+    //   );
+    // }
     res.send('success');
   } catch (err) {
     console.log(err);

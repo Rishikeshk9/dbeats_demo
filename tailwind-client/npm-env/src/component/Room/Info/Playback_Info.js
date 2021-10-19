@@ -156,6 +156,7 @@ const PlayBackInfo = (props) => {
       let reactionData = {
         videousername: value.data.username,
         videoname: `${props.stream_id}/${props.video_id}`,
+        videolink: `${value.data.videos.link}`,
       };
       //console.log('reaction: ', reactionData);
 
@@ -183,6 +184,7 @@ const PlayBackInfo = (props) => {
           username: `${user.username}`,
           videousername: value.data.username,
           videoname: `${props.stream_id}/${props.video_id}`,
+          videolink: `${user.videos.link}`,
         };
 
         axios({
@@ -236,6 +238,7 @@ const PlayBackInfo = (props) => {
         reaction: videoprops,
         videostreamid: `${props.stream_id}`,
         videoindex: `${props.video_id}`,
+        videolink: `${user.videos.link}`,
       };
 
       if (videoprops === 'like') {

@@ -117,6 +117,12 @@ const DatabaseJSONStructure = {
       commercialUse: '',
       derivativeWorks: '',
       time: 0,
+      reaction: {
+        like: [],
+        dislike: [],
+        angry: [],
+        happy: [],
+      },
     },
   ],
   tracks: [
@@ -240,6 +246,13 @@ app.post('/upload-video', (req, res) => {
     derivativeWorks,
   } = req.body;
 
+  const reaction = {
+    like: [],
+    dislike: [],
+    angry: [],
+    happy: [],
+  };
+
   const { videoImage, videoFile } = req.files;
 
   const userId = req.body.userName;
@@ -306,6 +319,7 @@ app.post('/upload-video', (req, res) => {
               commercialUse,
               derivativeWorks,
               time,
+              reaction,
             );
 
             return res
@@ -730,6 +744,7 @@ async function saveVideoToDB(
   commercialUse,
   derivativeWorks,
   time,
+  reaction,
 ) {
   // Use connect method to connect to the server
   await client.connect();
@@ -753,6 +768,7 @@ async function saveVideoToDB(
         commercialUse: commercialUse,
         derivativeWorks: derivativeWorks,
         time: time,
+        reaction: reaction,
       },
     },
   };

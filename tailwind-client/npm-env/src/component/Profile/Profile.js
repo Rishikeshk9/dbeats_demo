@@ -410,12 +410,16 @@ const Profile = (props) => {
                       <Tab.Panels className="dark:bg-dbeats-dark-alt w-full h-max pb-10">
                         <Tab.Panel className="">
                           <div className="px-5 pt-10 dark:bg-dbeats-dark-alt">
-                            <buttton
-                              className="h-5 w-10 bg-white px-3 py-2 bg-dbeats-light text-white border-0 rounded-sm cursor-pointer"
-                              onClick={handleShowAnnouncement}
-                            >
-                              Send Announcement
-                            </buttton>
+                            {privateUser ? (
+                              <buttton
+                                className="h-5 w-10 bg-white px-3 py-2 bg-dbeats-light text-white border-0 rounded-sm cursor-pointer"
+                                onClick={handleShowAnnouncement}
+                              >
+                                Send Announcement
+                              </buttton>
+                            ) : (
+                              <></>
+                            )}
                           </div>
                         </Tab.Panel>
                         {privateUser ? (
