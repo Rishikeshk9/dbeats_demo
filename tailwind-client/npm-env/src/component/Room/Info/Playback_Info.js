@@ -422,7 +422,9 @@ const PlayBackInfo = (props) => {
               <div className="py-4">
                 <div className=" w-full text-left mt-0" style={{ padding: '0px' }}>
                   {userData ? (
-                    <p className="font-semibold text-xl pb-4">{userData.videos[0].videoName}</p>
+                    <p className="font-semibold text-xl pb-4">
+                      {userData.videos[props.video_id].videoName}
+                    </p>
                   ) : (
                     <></>
                   )}
@@ -559,7 +561,7 @@ const PlayBackInfo = (props) => {
               <div className="w-full">
                 <hr />
                 <h4 className="py-2">Description : </h4>
-                <p className="pb-2">{userData.videos[0].description}</p>
+                <p className="pb-2">{userData.videos[props.video_id].description}</p>
                 <hr />
               </div>
             ) : (

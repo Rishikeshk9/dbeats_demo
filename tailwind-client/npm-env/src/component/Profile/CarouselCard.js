@@ -25,7 +25,7 @@ const CarouselCard = (props) => {
       <div className={`cursor-pointer lg:w-1/3 w-full  my-auto`}>
         <ReactPlayer
           onClick={() => {
-            window.location.href = `/playback/${props.username}/0`;
+            window.location.href = `/playback/${props.username}/${props.index}`;
           }}
           width="100%"
           height="auto"

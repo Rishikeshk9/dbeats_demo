@@ -5,7 +5,6 @@ import logo from '../../assets/images/white-logo.svg';
 import logoDark from '../../assets/images/dark-logo.svg';
 import { Menu as Dropdown, Transition } from '@headlessui/react';
 import axios from 'axios';
-
 import useWeb3Modal from '../../hooks/useWeb3Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleDarkMode } from '../../actions/index';
@@ -21,6 +20,8 @@ const NavBar = () => {
 
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.toggleDarkMode);
+
+  const [alluser, setAllUser] = useState([]);
 
   //  Modal
   const [showOpen, setOnOpen] = useState(false);
@@ -80,12 +81,62 @@ const NavBar = () => {
     }
   };
 
+  const [filteredData, setFilteredData] = useState([]);
+  const [filteredVideoData, setFilteredVideoData] = useState([]);
+  const [wordEntered, setWordEntered] = useState('');
+
+  const handleFilter = (event) => {
+    const searchWord = event.target.value;
+    setWordEntered(searchWord);
+    const newFilter = alluser.filter((value) => {
+      return value.username.toLowerCase().includes(searchWord.toLowerCase());
+    });
+
+    const newVideoFilter = [];
+
+    alluser.map((value) => {
+      if (value.videos) {
+        value.videos.map((video, index) => {
+          if (video.videoName.toLowerCase().includes(searchWord.toLowerCase())) {
+            let data = {
+              username: value.username,
+              index: index,
+              video: video,
+            };
+            newVideoFilter.push(data);
+          }
+        });
+      }
+    });
+
+    console.log('Videofilter', newVideoFilter);
+
+    if (searchWord === '') {
+      setFilteredData([]);
+      setFilteredVideoData([]);
+    } else {
+      setFilteredData(newFilter);
+      setFilteredVideoData(newVideoFilter);
+    }
+  };
+
   useEffect(() => {
     window.localStorage.setItem('darkmode', darkMode);
   }, [darkMode]);
 
   useEffect(() => {
-    if (user) {
+    axios({
+      method: 'GET',
+      url: `${process.env.REACT_APP_SERVER_URL}/user`,
+    })
+      .then((response) => {
+        setAllUser(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    if (user && user.notification) {
       if (user.notification.length > 0) {
         let data = [];
         for (let i = 0; i < user.oldnotification.length; i++) {
@@ -214,6 +265,8 @@ const NavBar = () => {
                   type="text"
                   placeholder="Search"
                   className="w-full rounded-full border-0 bg-gray-100 self-center focus:ring-0  px-5 dark:bg-dbeats-dark-secondary"
+                  value={wordEntered}
+                  onChange={handleFilter}
                 ></input>
                 <a href="/" className="self-center text-gray-900">
                   {' '}
@@ -233,8 +286,40 @@ const NavBar = () => {
                   </svg>
                 </a>
               </div>
+              <div className=" bg-white  dark:bg-dbeats-dark-secondary dark:text-white self-center absolute w-1/3 h-max max-h-80 overflow-hidden overflow-y-auto text-black">
+                {filteredVideoData.length != 0 && (
+                  <>
+                    {filteredVideoData.slice(0, 15).map((value, key) => {
+                      return (
+                        <a
+                          className="w-full h-10 flex align-center dark:hover:bg-dbeats-dark-primary hover:bg-gray-200 py-2 px-2 my-1 "
+                          href={`/playback/${value.username}/${value.index}`}
+                          key={key}
+                        >
+                          <p>{value.video.videoName} </p>
+                        </a>
+                      );
+                    })}
+                  </>
+                )}
+                {filteredData.length != 0 && (
+                  <>
+                    <hr className=" px-2 dark:bg-white" />
+                    {filteredData.slice(0, 15).map((value, key) => {
+                      return (
+                        <a
+                          className="w-full h-10 flex align-center dark:hover:bg-dbeats-dark-primary hover:bg-gray-200 py-2 px-2 my-1"
+                          href={`/profile/${value.username}`}
+                          key={key}
+                        >
+                          <p>{value.username} </p>
+                        </a>
+                      );
+                    })}
+                  </>
+                )}
+              </div>
             </div>
-
             {user ? (
               <div id="login-btn" className="flex">
                 <Dropdown as="div" className="relative inline-block text-left mr-2 self-center">
@@ -249,7 +334,7 @@ const NavBar = () => {
                       >
                         <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
                       </svg>
-                      {user && user.notification.length > 0 ? (
+                      {user.notification && user.notification.length > 0 ? (
                         <div
                           className="bg-red-500 rounded-full shadow  h-6 w-6 text-sm self-center text-center font-semibold  absolute -bottom-1  -right-2 dark:border-dbeats-dark-primary  border-red-300 border-2 text-white  "
                           onClick={handleNotification}
