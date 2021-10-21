@@ -9,6 +9,7 @@ import useWeb3Modal from '../../hooks/useWeb3Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleDarkMode } from '../../actions/index';
 import Toggle from '../toggle.component';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
   // eslint-disable-next-line no-unused-vars
@@ -158,6 +159,11 @@ const NavBar = () => {
 
   console.log(notification);
 
+  const searchData = {
+    usernameData: filteredData,
+    videoData: filteredVideoData,
+  };
+
   return (
     <>
       <div className={`${darkMode && 'dark'}`}>
@@ -268,7 +274,17 @@ const NavBar = () => {
                   value={wordEntered}
                   onChange={handleFilter}
                 ></input>
-                <a href="/" className="self-center text-gray-900">
+                <Link
+                  to={{
+                    pathname: '/search',
+                  }}
+                  className="self-center text-gray-900"
+                  onClick={() => {
+                    setFilteredData([]);
+                    setFilteredVideoData([]);
+                    window.sessionStorage.setItem('searchResult', JSON.stringify(searchData));
+                  }}
+                >
                   {' '}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -284,7 +300,7 @@ const NavBar = () => {
                       d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                     />
                   </svg>
-                </a>
+                </Link>
               </div>
               <div className=" bg-white  dark:bg-dbeats-dark-secondary dark:text-white self-center absolute w-1/3 h-max max-h-80 overflow-hidden overflow-y-auto text-black">
                 {filteredVideoData.length != 0 && (

@@ -61,6 +61,12 @@ const UploadPage = lazy(() => {
   });
 });
 
+const SearchPage = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import('./component/Navbar/SearchResult')), 1000);
+  });
+});
+
 export default function App() {
   let user = JSON.parse(window.localStorage.getItem('user'));
   const darkMode = useSelector((state) => state.toggleDarkMode);
@@ -113,6 +119,7 @@ export default function App() {
                 <Route exact path="/playback/:username/:video_id" component={Playback} />
                 <Route exact path="/profile/:username/:tab?" component={Profile} />
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/search" component={() => <SearchPage />} />
                 {/* TODO: <Route exact path="*" component={PageNotFound} /> */}
               </div>
             </div>
