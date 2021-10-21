@@ -23,6 +23,18 @@ router.route('/add').post(async (req, res) => {
   const confirmPassword = req.body.confirm_password;
   const userId = Str.random(5);
 
+  let data = {
+    username: userName,
+    id: userId,
+    name: fullName,
+    wallet_id: walletID,
+    livepeer_data: livepeerData,
+    password: password,
+    confirm_password: confirmPassword,
+  };
+
+  console.log('add data', data);
+
   const newUser = new User({
     username: userName,
     id: userId,

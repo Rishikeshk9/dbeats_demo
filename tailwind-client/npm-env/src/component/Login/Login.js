@@ -114,7 +114,7 @@ const Login = () => {
       data: userData,
     })
       .then(function (response) {
-        //console.log("esponse", response.data);
+        console.log('response', response.data);
         window.localStorage.setItem('user', JSON.stringify(response.data));
       })
       .catch(function (error) {
@@ -122,7 +122,7 @@ const Login = () => {
       });
 
     setLoader(true);
-    window.location.href = '/';
+    //window.location.href = '/';
   };
 
   // Metamask Auth
