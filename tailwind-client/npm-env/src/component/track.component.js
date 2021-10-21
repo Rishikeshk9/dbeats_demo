@@ -294,17 +294,17 @@ export default function Track() {
                 TRENDING NOW
               </p>
               <label className="flex items-center cursor-pointer mx-3 self-center">
-                <div className="relative">
+                <div className="relative ">
                   <input
                     type="checkbox"
                     id="audius"
                     defaultChecked={audius}
                     onClick={() => dispatch(toggleAudius())}
-                    className="sr-only"
+                    className="sr-only "
                   ></input>
 
-                  <div className="block bg-transparent dark:bg-gray-800 w-14 h-8   shadow-inner"></div>
-                  <div className="dot absolute left-1 top-1 bg-white w-6 h-6   transition shadow"></div>
+                  <div className="block bg-transparent dark:bg-gray-800 w-14 h-8 rounded-full  shadow-inner"></div>
+                  <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full  transition shadow"></div>
                 </div>
 
                 <div className="ml-3 text-gray-500 font-medium">
@@ -332,12 +332,12 @@ export default function Track() {
                   return (
                     <div
                       id="tracks-section"
-                      className={` text-gray-200  md:w-2/3 mx-auto  py-1 md:py-2 w-full  px-5 my-0 `}
+                      className={` text-gray-200  md:w-2/3 mx-auto  py-1 md:py-2 w-full  px-5 my-0 group`}
                       key={todo.id}
                     >
                       {/* header */}
-                      <div className="  ">
-                        <div className="bg-white  dark:bg-dbeats-dark-alt dark:text-blue-300 shadow-md  flex p-2  mx-auto  rounded-lg  w-full hover:scale-101 transform transition-all">
+                      <div className=" group ">
+                        <div className="bg-white  group dark:bg-dbeats-dark-alt dark:text-blue-300 shadow-md  flex p-2  mx-auto  rounded-lg  w-full hover:scale-101 transform transition-all">
                           <div
                             onClick={() =>
                               playAudio(
@@ -414,7 +414,7 @@ export default function Track() {
                               )}
                             </p>
 
-                            <div className=" flex mt-2 ">
+                            <div className=" flex mt-2">
                               <p
                                 id="plays"
                                 className="mt-0   md:mb-2 mr-3   text-gray-400 text-sm flex   "
@@ -440,11 +440,11 @@ export default function Track() {
 
                               <p
                                 id="favorites"
-                                className="mt-0   md:mb-2  text-gray-400 text-sm flex  "
+                                className="mt-0   md:mb-2  text-gray-400 text-sm flex"
                               >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
-                                  className="h-5 w-5"
+                                  className="h-5 w-5 "
                                   viewBox="0 0 20 20"
                                   fill="currentColor"
                                 >
@@ -461,7 +461,7 @@ export default function Track() {
                             {/* action buttons */}
 
                             <div className=" flex mt-2   ">
-                              <div className=" sm:flex hidden">
+                              <div className=" sm:flex opacity-0 group-hover:opacity-100">
                                 <button
                                   onClick={() =>
                                     playAudio(
@@ -494,8 +494,8 @@ export default function Track() {
                                     } mr-2  block p-2 rounded-full hover:scale-95 dark:hover:bg-dbeats-dark-secondary transform transition-all`}
                                   >
                                     <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      className={`  h-6 w-6 `}
+                                      xmlns="http://www.w3.org/2000/svg "
+                                      className={`  h-6 w-6  `}
                                       fill="none"
                                       viewBox="0 0 24 24"
                                       stroke="currentColor"

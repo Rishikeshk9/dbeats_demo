@@ -307,13 +307,23 @@ const NavBar = () => {
                   <>
                     {filteredVideoData.slice(0, 15).map((value, key) => {
                       return (
-                        <a
-                          className="w-full h-10 flex align-center dark:hover:bg-dbeats-dark-primary hover:bg-gray-200 py-2 px-2 my-1 "
-                          href={`/playback/${value.username}/${value.index}`}
+                        <Link
+                          to={{
+                            pathname: '/search',
+                          }}
                           key={key}
+                          className="w-full h-10 flex align-center dark:hover:bg-dbeats-dark-primary hover:bg-gray-200 py-2 px-2 my-1"
+                          onClick={() => {
+                            setFilteredData([]);
+                            setFilteredVideoData([]);
+                            window.sessionStorage.setItem(
+                              'searchResult',
+                              JSON.stringify(searchData),
+                            );
+                          }}
                         >
                           <p>{value.video.videoName} </p>
-                        </a>
+                        </Link>
                       );
                     })}
                   </>
@@ -323,13 +333,23 @@ const NavBar = () => {
                     <hr className=" px-2 dark:bg-white" />
                     {filteredData.slice(0, 15).map((value, key) => {
                       return (
-                        <a
-                          className="w-full h-10 flex align-center dark:hover:bg-dbeats-dark-primary hover:bg-gray-200 py-2 px-2 my-1"
-                          href={`/profile/${value.username}`}
+                        <Link
+                          to={{
+                            pathname: '/search',
+                          }}
                           key={key}
+                          className="w-full h-10 flex align-center dark:hover:bg-dbeats-dark-primary hover:bg-gray-200 py-2 px-2 my-1"
+                          onClick={() => {
+                            setFilteredData([]);
+                            setFilteredVideoData([]);
+                            window.sessionStorage.setItem(
+                              'searchResult',
+                              JSON.stringify(searchData),
+                            );
+                          }}
                         >
                           <p>{value.username} </p>
-                        </a>
+                        </Link>
                       );
                     })}
                   </>
