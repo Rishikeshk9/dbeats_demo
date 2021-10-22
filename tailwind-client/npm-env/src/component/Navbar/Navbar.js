@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleDarkMode } from '../../actions/index';
 import Toggle from '../toggle.component';
 import { Link } from 'react-router-dom';
+import { AnnouncementModal } from './PopModals';
 
 const NavBar = () => {
   // eslint-disable-next-line no-unused-vars
@@ -18,6 +19,11 @@ const NavBar = () => {
   const [notification, setNotification] = useState([]);
 
   const user = JSON.parse(window.localStorage.getItem('user'));
+
+  //Popup
+  const [showAnnouncement, setShowAnnouncement] = useState(false);
+  const handleCloseAnnouncement = () => setShowAnnouncement(false);
+  const handleShowAnnouncement = () => setShowAnnouncement(true);
 
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.toggleDarkMode);
@@ -32,7 +38,6 @@ const NavBar = () => {
   const isMenuOpen = (state) => setOnOpen(state.isOpen);
 
   // Auth functions
-
   const handleLogout = () => {
     window.location.href = '/';
     window.localStorage.clear();
@@ -356,6 +361,68 @@ const NavBar = () => {
                 )}
               </div>
             </div>
+            <div className="my-auto mr-3">
+              <Dropdown as="div" className="relative inline-block text-left mr-2 self-center">
+                <div>
+                  <Dropdown.Button className="">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-7 w-7"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    {user.notification && user.notification.length > 0 ? (
+                      <div
+                        className="bg-red-500 rounded-full shadow  h-6 w-6 text-sm self-center text-center font-semibold  absolute -bottom-1  -right-2 dark:border-dbeats-dark-primary  border-red-300 border-2 text-white  "
+                        onClick={handleNotification}
+                      >
+                        {user.notification.length}
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </Dropdown.Button>
+                </div>
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <Dropdown.Items className="absolute right-0 w-80 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none w-max">
+                    <Dropdown.Item className="w-full text-gray-700 text-left text-lg  flex justify-around align-center h-24 w-full">
+                      <div className="p-10 m-10 ">
+                        <button
+                          className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white"
+                          onClick={handleShowAnnouncement}
+                        >
+                          Announcements
+                        </button>
+
+                        <button className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white">
+                          Upload Video
+                        </button>
+                        <button className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white">
+                          Upload Track
+                        </button>
+                        <button className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white">
+                          NFT
+                        </button>
+                      </div>
+                    </Dropdown.Item>
+                  </Dropdown.Items>
+                </Transition>
+              </Dropdown>
+            </div>
             {user ? (
               <div id="login-btn" className="flex">
                 <Dropdown as="div" className="relative inline-block text-left mr-2 self-center">
@@ -452,6 +519,13 @@ const NavBar = () => {
           </div>
         </div>
       </div>
+      <AnnouncementModal
+        showAnnouncement={showAnnouncement}
+        setShowAnnouncement={setShowAnnouncement}
+        handleCloseAnnouncement={handleCloseAnnouncement}
+        handleShowAnnouncement={handleShowAnnouncement}
+        userData={user}
+      />
     </>
   );
 };
