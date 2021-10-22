@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleDarkMode } from '../../actions/index';
 import Toggle from '../toggle.component';
 import { Link } from 'react-router-dom';
-import { AnnouncementModal } from './PopModals';
+import { AnnouncementModal, UploadMusic, UploadVideo } from './PopModals';
 
 const NavBar = () => {
   // eslint-disable-next-line no-unused-vars
@@ -24,6 +24,14 @@ const NavBar = () => {
   const [showAnnouncement, setShowAnnouncement] = useState(false);
   const handleCloseAnnouncement = () => setShowAnnouncement(false);
   const handleShowAnnouncement = () => setShowAnnouncement(true);
+
+  const [showVideoUpload, setShowVideoUpload] = useState(false);
+  const handleCloseVideoUpload = () => setShowVideoUpload(false);
+  const handleShowVideoUpload = () => setShowVideoUpload(true);
+
+  const [showTrackUpload, setShowTrackUpload] = useState(false);
+  const handleCloseTrackUpload = () => setShowTrackUpload(false);
+  const handleShowTrackUpload = () => setShowTrackUpload(true);
 
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.toggleDarkMode);
@@ -367,7 +375,7 @@ const NavBar = () => {
                   <Dropdown.Button className="">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-7 w-7"
+                      className="h-7 w-7 text-dbeats-light"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -377,16 +385,6 @@ const NavBar = () => {
                         clipRule="evenodd"
                       />
                     </svg>
-                    {user.notification && user.notification.length > 0 ? (
-                      <div
-                        className="bg-red-500 rounded-full shadow  h-6 w-6 text-sm self-center text-center font-semibold  absolute -bottom-1  -right-2 dark:border-dbeats-dark-primary  border-red-300 border-2 text-white  "
-                        onClick={handleNotification}
-                      >
-                        {user.notification.length}
-                      </div>
-                    ) : (
-                      <></>
-                    )}
                   </Dropdown.Button>
                 </div>
                 <Transition
@@ -398,24 +396,42 @@ const NavBar = () => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Dropdown.Items className="absolute right-0 w-80 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none w-max">
-                    <Dropdown.Item className="w-full text-gray-700 text-left text-lg  flex justify-around align-center h-24 w-full">
-                      <div className="p-10 m-10 ">
+                  <Dropdown.Items className="absolute right-0 w-80 mt-2 origin-top-right bg-white dark:bg-dbeats-dark-alt  divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none w-max">
+                    <Dropdown.Item className="w-full text-gray-700 text-left text-lg  flex justify-between align-center ring-1 rounded-md ring-white h-24 w-full">
+                      <div className="p-10 m-10 dark:border-2 dark:text-white ">
                         <button
-                          className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white"
-                          onClick={handleShowAnnouncement}
+                          className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
+                          onClick={() => {
+                            handleShowAnnouncement();
+                            handleCloseVideoUpload();
+                            handleCloseTrackUpload();
+                          }}
                         >
-                          Announcements
+                          Create Announcement
                         </button>
 
-                        <button className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white">
+                        <button
+                          className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
+                          onClick={() => {
+                            handleCloseAnnouncement();
+                            handleShowVideoUpload();
+                            handleCloseTrackUpload();
+                          }}
+                        >
                           Upload Video
                         </button>
-                        <button className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white">
+                        <button
+                          className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
+                          onClick={() => {
+                            handleCloseAnnouncement();
+                            handleShowTrackUpload();
+                            handleCloseVideoUpload();
+                          }}
+                        >
                           Upload Track
                         </button>
-                        <button className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white">
-                          NFT
+                        <button className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white">
+                          Mint NFT
                         </button>
                       </div>
                     </Dropdown.Item>
@@ -524,7 +540,18 @@ const NavBar = () => {
         setShowAnnouncement={setShowAnnouncement}
         handleCloseAnnouncement={handleCloseAnnouncement}
         handleShowAnnouncement={handleShowAnnouncement}
-        userData={user}
+      />
+      <UploadVideo
+        showVideoUpload={showVideoUpload}
+        setShowVideoUpload={setShowVideoUpload}
+        handleCloseVideoUpload={handleCloseVideoUpload}
+        handleShowVideoUpload={handleShowVideoUpload}
+      />
+      <UploadMusic
+        showTrackUpload={showTrackUpload}
+        setShowTrackUpload={setShowTrackUpload}
+        handleCloseTrackUpload={handleCloseTrackUpload}
+        handleShowTrackUpload={handleShowTrackUpload}
       />
     </>
   );

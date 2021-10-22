@@ -20,9 +20,6 @@ const SearchResult = () => {
                   id="song-title"
                   className="mb-3 w-max mx-auto   self-center text-center  drop-shadow text-2xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 dark:from-white dark:to-gray-800"
                 >
-                  <span className=" bg-red-900 animate-ping mr-2 rounded-full   inline-block  h-2 w-2 self-center ">
-                    &middot;
-                  </span>
                   Search Results
                 </p>
                 {data.usernameData && data.usernameData.length > 0 ? (

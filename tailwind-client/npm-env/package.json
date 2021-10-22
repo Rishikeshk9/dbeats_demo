@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "3d-react-carousal": "^4.0.2",
     "@barba/core": "^2.9.7",
     "@craco/craco": "^6.2.0",
     "@ethersproject/contracts": "^5.4.1",
@@ -25,7 +26,6 @@
     "@walletconnect/web3-provider": "^1.5.5",
     "@zoralabs/nft-hooks": "^0.4.7-pre2",
     "@zoralabs/zdk": "^1.2.3",
-    "3d-react-carousal": "^4.0.2",
     "a11y-react-emoji": "^1.1.3",
     "aos": "^2.3.4",
     "axios": "^0.21.1",
@@ -56,6 +56,7 @@
     "react-hls-player": "^3.0.7",
     "react-jinke-music-player": "^4.24.1",
     "react-lottie": "^1.2.3",
+    "react-modal": "^3.14.3",
     "react-multi-select-component": "^4.1.11",
     "react-particles-js": "^3.5.3",
     "react-perfect-scrollbar": "^1.5.8",
