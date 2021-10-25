@@ -5,7 +5,8 @@ import ReactionCard from './ReactionCard';
 import person from '../../assets/images/profile.svg';
 import background from '../../assets/images/wallpaper.jpg';
 import ChannelSection from './ChannelSection';
-
+import Carousel from 'react-grid-carousel';
+import PlaylistCard from './PlaylistCard';
 import Modal from 'react-awesome-modal';
 import { WhatsappIcon, WhatsappShareButton } from 'react-share';
 import { FacebookShareButton, FacebookIcon } from 'react-share';
@@ -465,24 +466,35 @@ const Profile = (props) => {
 
                         <Tab.Panel className="">
                           <div className="px-5 pt-10">
-                            {user.videos ? (
+                            {user.my_playlists ? (
                               <div>
-                                {user.videos.map((playbackUser, i) => {
+                                {user.my_playlists.map((playlist, i) => {
                                   //console.log(playbackUser)
                                   return (
-                                    <div key={i}>
-                                      <CarouselCard
-                                        playbackUserData={playbackUser}
-                                        index={i}
-                                        username={user.username}
-                                        type="video"
-                                      />
-                                    </div>
+                                    <>
+                                      <div key={i} className="">
+                                        <h2 className="dark:text-white text-2xl ml-5 mb-3">
+                                          {playlist.playlistname}
+                                        </h2>
+                                        <div>
+                                          <Carousel cols={4}>
+                                            {playlist.videos.map((video, i) => {
+                                              return (
+                                                <Carousel.Item key={i}>
+                                                  <PlaylistCard videoData={video} />
+                                                </Carousel.Item>
+                                              );
+                                            })}
+                                          </Carousel>
+                                        </div>
+                                      </div>
+                                      <hr className="my-7" />
+                                    </>
                                   );
                                 })}
                               </div>
                             ) : (
-                              <p>No Videos till now</p>
+                              <p>No Existing PlayLists</p>
                             )}
                           </div>
                         </Tab.Panel>

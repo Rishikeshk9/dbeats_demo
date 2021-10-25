@@ -369,76 +369,80 @@ const NavBar = () => {
                 )}
               </div>
             </div>
-            <div className="my-auto mr-3">
-              <Dropdown as="div" className="relative inline-block text-left mr-2 self-center">
-                <div>
-                  <Dropdown.Button className="">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-7 w-7 text-dbeats-light"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </Dropdown.Button>
-                </div>
-                <Transition
-                  as={Fragment}
-                  enter="transition ease-out duration-100"
-                  enterFrom="transform opacity-0 scale-95"
-                  enterTo="transform opacity-100 scale-100"
-                  leave="transition ease-in duration-75"
-                  leaveFrom="transform opacity-100 scale-100"
-                  leaveTo="transform opacity-0 scale-95"
-                >
-                  <Dropdown.Items className="absolute right-0 w-80 mt-2 origin-top-right bg-white dark:bg-dbeats-dark-alt  divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none w-max">
-                    <Dropdown.Item className="w-full text-gray-700 text-left text-lg  flex justify-between align-center ring-1 rounded-md ring-white h-24 w-full">
-                      <div className="p-10 m-10 dark:border-2 dark:text-white ">
-                        <button
-                          className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
-                          onClick={() => {
-                            handleShowAnnouncement();
-                            handleCloseVideoUpload();
-                            handleCloseTrackUpload();
-                          }}
-                        >
-                          Create Announcement
-                        </button>
+            {user ? (
+              <div className="my-auto mr-3">
+                <Dropdown as="div" className="relative inline-block text-left mr-2 self-center">
+                  <div>
+                    <Dropdown.Button className="">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-7 w-7 text-dbeats-light"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </Dropdown.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Dropdown.Items className="absolute right-0 w-80 mt-2 origin-top-right bg-white dark:bg-dbeats-dark-alt  divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none w-max">
+                      <Dropdown.Item className="w-full text-gray-700 text-left text-lg  flex justify-between align-center ring-1 rounded-md ring-white h-24 w-full">
+                        <div className="p-10 m-10 dark:border-2 dark:text-white ">
+                          <button
+                            className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
+                            onClick={() => {
+                              handleShowAnnouncement();
+                              handleCloseVideoUpload();
+                              handleCloseTrackUpload();
+                            }}
+                          >
+                            Create Announcement
+                          </button>
 
-                        <button
-                          className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
-                          onClick={() => {
-                            handleCloseAnnouncement();
-                            handleShowVideoUpload();
-                            handleCloseTrackUpload();
-                          }}
-                        >
-                          Upload Video
-                        </button>
-                        <button
-                          className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
-                          onClick={() => {
-                            handleCloseAnnouncement();
-                            handleShowTrackUpload();
-                            handleCloseVideoUpload();
-                          }}
-                        >
-                          Upload Track
-                        </button>
-                        <button className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white">
-                          Mint NFT
-                        </button>
-                      </div>
-                    </Dropdown.Item>
-                  </Dropdown.Items>
-                </Transition>
-              </Dropdown>
-            </div>
+                          <button
+                            className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
+                            onClick={() => {
+                              handleCloseAnnouncement();
+                              handleShowVideoUpload();
+                              handleCloseTrackUpload();
+                            }}
+                          >
+                            Upload Video
+                          </button>
+                          <button
+                            className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
+                            onClick={() => {
+                              handleCloseAnnouncement();
+                              handleShowTrackUpload();
+                              handleCloseVideoUpload();
+                            }}
+                          >
+                            Upload Track
+                          </button>
+                          <button className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white">
+                            Mint NFT
+                          </button>
+                        </div>
+                      </Dropdown.Item>
+                    </Dropdown.Items>
+                  </Transition>
+                </Dropdown>
+              </div>
+            ) : (
+              <></>
+            )}
             {user ? (
               <div id="login-btn" className="flex">
                 <Dropdown as="div" className="relative inline-block text-left mr-2 self-center">

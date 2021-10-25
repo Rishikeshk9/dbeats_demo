@@ -624,6 +624,59 @@ router
     }
   });
 
+router.route('/playlist').post(async (req, res) => {
+  try {
+    const playlistname = req.body.playlistname;
+    const videoData = req.body.videoData;
+    const username = req.body.username;
+    const user = await User.findOne({ username: username });
+
+    let count = -1;
+    if (user.my_playlists) {
+      for (let i = 0; i < user.my_playlists.length; i++) {
+        if (user.my_playlists[i].playlistname === playlistname) {
+          count = i;
+          break;
+        }
+      }
+    }
+
+    if (count === -1) {
+      let videos = [];
+      videos.push(videoData);
+
+      const playlistData = {
+        playlistname: playlistname,
+        videos: videos,
+      };
+      User.findOneAndUpdate(
+        { username: username },
+        { $push: { my_playlists: playlistData } },
+        function (error, success) {
+          if (error) {
+          } else {
+          }
+        },
+      );
+    } else {
+      let data = user.my_playlists;
+      data[count].videos.push(videoData);
+      User.findOneAndUpdate(
+        { username: username },
+        { $set: { my_playlists: data } },
+        function (error, success) {
+          if (error) {
+          } else {
+          }
+        },
+      );
+    }
+    res.send('success');
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 /*router.route("/:id").get((req, res) => {
   User.findById(req.params.id)
     .then((user) => res.json(user))

@@ -21,6 +21,7 @@ import animationDataGiraffee from '../../../lotties/giraffee.json';
 
 import Lottie from 'react-lottie';
 import superfluid from '../../../assets/images/superfluid-black.svg';
+import { Playlist } from '../../Navbar/PopModals';
 
 const PlayBackInfo = (props) => {
   let sharable_data = `https://dbeats-demo.vercel.app /playback/${props.stream_id}/${props.video_id}`;
@@ -35,6 +36,10 @@ const PlayBackInfo = (props) => {
   const [happy, setHappy] = useState(0);
   const [angry, setAngry] = useState(0);
   const [userreact, setUserreact] = useState('');
+
+  const [showPlaylist, setShowPlaylist] = useState(false);
+  const handleClosePlaylist = () => setShowPlaylist(false);
+  const handleShowPlaylist = () => setShowPlaylist(true);
 
   const defaultOptions = {
     loop: true,
@@ -346,6 +351,8 @@ const PlayBackInfo = (props) => {
     }
   };
 
+  //const handlePlaylist = () => {};
+
   useEffect(() => {
     get_User();
     fetchData();
@@ -536,7 +543,13 @@ const PlayBackInfo = (props) => {
                           <button>Edit</button>
                         </Menu.Item>
                         <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
-                          <button>Duplicate</button>
+                          <button
+                            onClick={() => {
+                              handleShowPlaylist();
+                            }}
+                          >
+                            Add to Playlist
+                          </button>
                         </Menu.Item>
                       </div>
                       <div className="px-1 py-1">
@@ -728,6 +741,17 @@ const PlayBackInfo = (props) => {
           </div>
         </div>
       </Modal>
+      {userData && userData.videos ? (
+        <Playlist
+          showPlaylist={showPlaylist}
+          setShowPlaylist={setShowPlaylist}
+          handleClosePlaylist={handleClosePlaylist}
+          handleShowPlaylist={handleShowPlaylist}
+          videoData={userData.videos[props.video_id]}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
