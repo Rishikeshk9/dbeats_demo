@@ -182,15 +182,18 @@ export const UploadVideo = (props) => {
       formData.append('videoFile', videoFile);
       formData.append('videoImage', videoImage);
 
+      console.log(formData);
+
       if (
         video.videoFile.length !== 0 &&
         video.videoImage.length !== 0 &&
         video.videoName.length !== 0
       ) {
-        axios
+        await axios
           .post('/upload-video', formData)
           .then(function (response) {
             console.log(response.data);
+            props.setShowVideoUpload(false);
           })
           .catch((error) => {
             console.log(error);
@@ -205,7 +208,6 @@ export const UploadVideo = (props) => {
         }).show();
       }
     }
-    props.setShowVideoUpload(false);
   };
 
   return (
