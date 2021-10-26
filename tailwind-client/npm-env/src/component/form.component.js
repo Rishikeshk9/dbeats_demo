@@ -18,7 +18,7 @@
 import React, { useState } from 'react';
 import Dropdown from './dropdown.component';
 import axios from 'axios';
-//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Noty from 'noty';
 //import mintNFT from './Mint';
 import Webupload from './uploadWeb3.component';
@@ -114,32 +114,59 @@ const Form = (props) => {
 
     setVideo({ ...video, [name]: value });
   };
-  async function storeWithProgress() {
+  async function storeWithProgress(type) {
     // show the root cid as soon as it's ready
-    const onRootCidReady = (cid) => {
-      console.log('uploading files with cid:', cid);
-      track.cid = cid;
-    };
+    if (type === 'Upload Audio') {
+      const onRootCidReady = (cid) => {
+        console.log('uploading files with cid:', cid);
+        track.cid = cid;
+      };
 
-    // when each chunk is stored, update the percentage complete and display
+      // when each chunk is stored, update the percentage complete and display
 
-    const blob = new Blob([JSON.stringify(track)], { type: 'application/json' });
+      const blob = new Blob([JSON.stringify(track)], { type: 'application/json' });
 
-    const files = [track.trackFile, track.trackImage, new File([blob], 'meta.json')];
-    const totalSize = track.trackFile.size;
-    let uploaded = 0;
-    const onStoredChunk = (size) => {
-      uploaded += size;
-      const pct = totalSize / uploaded;
-      console.log(`Uploading... ${pct.toFixed(2)}% complete`);
-    };
+      const files = [track.trackFile, track.trackImage, new File([blob], 'meta.json')];
+      const totalSize = track.trackFile.size;
+      let uploaded = 0;
+      const onStoredChunk = (size) => {
+        uploaded += size;
+        const pct = totalSize / uploaded;
+        console.log(`Uploading... ${pct.toFixed(2)}% complete`);
+      };
 
-    // makeStorageClient returns an authorized Web3.Storage client instance
-    const client = makeStorageClient();
+      // makeStorageClient returns an authorized Web3.Storage client instance
+      const client = makeStorageClient();
 
-    // client.put will invoke our callbacks during the upload
-    // and return the root cid when the upload completes
-    return client.put(files, { onRootCidReady, onStoredChunk });
+      // client.put will invoke our callbacks during the upload
+      // and return the root cid when the upload completes
+      return client.put(files, { onRootCidReady, onStoredChunk });
+    } else if (type === 'Upload Video') {
+      const onRootCidReady = (cid) => {
+        console.log('uploading files with cid:', cid);
+        video.cid = cid;
+      };
+
+      // when each chunk is stored, update the percentage complete and display
+
+      const blob = new Blob([JSON.stringify(video)], { type: 'application/json' });
+
+      const files = [video.videoFile, video.videoImage, new File([blob], 'meta.json')];
+      const totalSize = video.videoFile.size;
+      let uploaded = 0;
+      const onStoredChunk = (size) => {
+        uploaded += size;
+        const pct = totalSize / uploaded;
+        console.log(`Uploading... ${pct.toFixed(2)}% complete`);
+      };
+
+      // makeStorageClient returns an authorized Web3.Storage client instance
+      const client = makeStorageClient();
+
+      // client.put will invoke our callbacks during the upload
+      // and return the root cid when the upload completes
+      return client.put(files, { onRootCidReady, onStoredChunk });
+    }
   }
 
   const onFileChange = (e) => {
@@ -186,46 +213,48 @@ const Form = (props) => {
         commercialUse,
         derivativeWorks,
       } = video;
+      storeWithProgress(e.target.value).then(() => {
+        var formData = new FormData(); // Currently empty
+        formData.append('userName', user.username);
 
-      var formData = new FormData(); // Currently empty
-      formData.append('userName', user.username);
+        formData.append('videoName', videoName);
 
-      formData.append('videoName', videoName);
+        formData.append('tags', tags);
+        formData.append('description', description);
 
-      formData.append('tags', tags);
-      formData.append('description', description);
+        formData.append('category', category);
+        formData.append('ratings', ratings);
+        formData.append('allowAttribution', allowAttribution);
+        formData.append('commercialUse', commercialUse);
+        formData.append('derivativeWorks', derivativeWorks);
 
-      formData.append('category', category);
-      formData.append('ratings', ratings);
-      formData.append('allowAttribution', allowAttribution);
-      formData.append('commercialUse', commercialUse);
-      formData.append('derivativeWorks', derivativeWorks);
+        formData.append('videoFile', videoFile);
+        formData.append('videoImage', videoImage);
+        formData.append('videoHash', video.cid);
 
-      formData.append('videoFile', videoFile);
-      formData.append('videoImage', videoImage);
-
-      if (
-        video.videoFile.length !== 0 &&
-        video.videoImage.length !== 0 &&
-        video.videoName.length !== 0
-      ) {
-        axios
-          .post('/upload-video', formData)
-          .then(function (response) {
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else {
-        Noty.closeAll();
-        new Noty({
-          type: 'error',
-          text: 'Choose Video File & Fill other Details',
-          theme: 'metroui',
-          layout: 'bottomRight',
-        }).show();
-      }
+        if (
+          video.videoFile.length !== 0 &&
+          video.videoImage.length !== 0 &&
+          video.videoName.length !== 0
+        ) {
+          axios
+            .post('/upload-video', formData)
+            .then(function (response) {
+              console.log(response.data);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          Noty.closeAll();
+          new Noty({
+            type: 'error',
+            text: 'Choose Video File & Fill other Details',
+            theme: 'metroui',
+            layout: 'bottomRight',
+          }).show();
+        }
+      });
     } else if (e.target.value === 'Upload Audio') {
       let formDatanft = new FormData();
       formDatanft.append('videoFile', track.trackFile);
@@ -264,26 +293,22 @@ const Form = (props) => {
         commercialUse,
         derivativeWorks,
       } = track;
-      storeWithProgress().then(() => {
-        formData = new FormData(); // Currently empty
+      storeWithProgress(e.target.value).then(() => {
+        let formData = new FormData(); // Currently empty
         formData.append('userName', user.username);
         formData.append('trackName', trackName);
         formData.append('genre', genre);
-
         formData.append('mood', mood);
         formData.append('tags', tags);
         formData.append('description', description);
-
         formData.append('isrc', isrc);
         formData.append('iswc', iswc);
         formData.append('allowAttribution', allowAttribution);
         formData.append('commercialUse', commercialUse);
         formData.append('derivativeWorks', derivativeWorks);
-
         formData.append('trackFile', trackFile);
         formData.append('trackImage', trackImage);
         formData.append('trackHash', track.cid);
-
         if (
           track.trackFile.length !== 0 &&
           track.trackImage.length !== 0 &&
@@ -300,7 +325,6 @@ const Form = (props) => {
                 theme: 'metroui',
                 layout: 'bottomRight',
               }).show();
-
               // console.log(response.data);
             })
             .catch((error) => {
@@ -312,7 +336,6 @@ const Form = (props) => {
                 layout: 'bottomRight',
               }).show();
               // console.log(error);
-
               // console.log(error.data);
             });
         } else {

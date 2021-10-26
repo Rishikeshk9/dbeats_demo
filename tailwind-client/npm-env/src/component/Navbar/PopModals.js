@@ -165,39 +165,39 @@ export const UploadVideo = (props) => {
         derivativeWorks,
       } = video;
 
-      var formData = new FormData(); // Currently empty
-      formData.append('userName', user.username);
+      //var formData = new FormData(); // Currently empty
+      let data = {};
+      data['userName'] = user.username;
 
-      formData.append('videoName', videoName);
+      data['videoName'] = videoName;
 
-      formData.append('tags', tags);
-      formData.append('description', description);
+      data['tags'] = tags;
+      data['description'] = description;
 
-      formData.append('category', category);
-      formData.append('ratings', ratings);
-      formData.append('allowAttribution', allowAttribution);
-      formData.append('commercialUse', commercialUse);
-      formData.append('derivativeWorks', derivativeWorks);
+      data['category'] = category;
+      data['ratings'] = ratings;
+      data['allowAttribution'] = allowAttribution;
+      data['commercialUse'] = commercialUse;
+      data['derivativeWorks'] = derivativeWorks;
 
-      formData.append('videoFile', videoFile);
-      formData.append('videoImage', videoImage);
+      data['videoFile'] = videoFile;
+      data['videoImage'] = videoImage;
 
-      console.log(formData);
-
+      console.log(data);
       if (
         video.videoFile.length !== 0 &&
         video.videoImage.length !== 0 &&
         video.videoName.length !== 0
       ) {
-        await axios
-          .post('/upload-video', formData)
-          .then(function (response) {
-            console.log(response.data);
-            props.setShowVideoUpload(false);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        // await axios
+        //   .post('/upload-video', data)
+        //   .then(function (response) {
+        //     console.log(response.data);
+        //     props.setShowVideoUpload(false);
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
       } else {
         Noty.closeAll();
         new Noty({

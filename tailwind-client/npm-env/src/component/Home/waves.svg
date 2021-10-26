@@ -1,156 +1,60 @@
-<Modal
-        show={showDestinationModal}
-        onHide={() => setShowDestinationModal(false)}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter" className="w-full">
-            <div className="font-semibold text-3xl text-center">
-              Add Multistream Platforms
-            </div>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div>
-            {multiStreamConnected.map((value, index) => {
-              return (
-                <div className="bg-white-200 mx-1 border-1 border-gray-300 rounded my-2 flex justify-around">
-                  <img
-                    src={value.platform.image}
-                    alt="logo"
-                    className="h-32 w-auto"
-                  />
-                  <ToggleButton
-                    className="h-15 my-auto w-auto"
-                    value="check"
-                    selected={value.selected}
-                    onChange={() => {
-                      editPlatform(value, index);
-                    }}
-                  >
-                    <CheckIcon />
-                  </ToggleButton>
-                </div>
-              );
-            })}
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <div className="flex w-full">
-            <button
-              className="w-full mx-2 rounded-md bg-gradient-to-r from-dbeats-alt to-dbeats-light text-white p-2 text-xl font-semibold"
-              onClick={() => {
-                setModalShow(true);
-                setShowDestinationModal(false);
-              }}
-            >
-              Add Destination
-            </button>
-            <button
-              className="w-full mx-2 rounded-md bg-gradient-to-r from-green-800 to-green-300 text-white p-2 text-xl font-semibold"
-              onClick={createMultiStream}
-            >
-              Apply
-            </button>
-          </div>
-        </Modal.Footer>
-      </Modal>
+const PostData = async (e) => {
+    e.preventDefault();
+    if (e.target.value === 'Upload Video') {
+      const {
+        videoName,
+        videoImage,
+        videoFile,
+        category,
+        ratings,
+        tags,
+        description,
+        allowAttribution,
+        commercialUse,
+        derivativeWorks,
+      } = video;
 
-      <Modal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter" className="w-full">
-            <div className="font-semibold text-2xl text-center">
-              Select the MultiStream Platform
-            </div>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="flex">
-            {MultiStreamData.map((value, index) => {
-              return (
-                <div className="bg-white-200 mx-1 border-1 border-gray-300 rounded">
-                  <img
-                    src={value.image}
-                    alt="logo"
-                    className="h-32 w-auto"
-                    onClick={() => {
-                      setMultiStreamValue(value);
-                      setShowStreamModal(true);
-                      setModalShow(false);
-                    }}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </Modal.Body>
-        <Modal.Footer></Modal.Footer>
-      </Modal>
+      //var formData = new FormData(); // Currently empty
+      let data = {};
+      data['userName'] = user.username;
 
-      <Modal
-        show={showStreamModal}
-        onHide={() => setShowStreamModal(false)}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter" className="w-full">
-            <div className="font-semibold text-3xl text-center">
-              {multiStreamValue.title}
-            </div>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3 text-xl">
-              <Form.Label>
-                <b>Enter Stream-Key </b>
-              </Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter SECRET Key"
-                onChange={(e) => handleChange(e)}
-                style={{ width: "80%" }}
-              />
-              <div className="py-2 pt-3 pl-1">
-                RTMP : {multiStreamValue.rtmp + StreamKey}
-              </div>
+      data['videoName'] = videoName;
 
-              <div style={{ display: "flex" }}>
-                <Button
-                  variant="primary"
-                  className=" border-0 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light rounded px-4 py-2"
-                  type="button"
-                  onClick={() => {
-                    let rtmp = multiStreamValue.rtmp + StreamKey;
-                    addStreamingPlatform(rtmp);
-                  }}
-                >
-                  <div className="text-white text-lg font-semibold">
-                    Add {multiStreamValue.title}
-                  </div>
-                </Button>
+      data['tags'] = tags;
+      data['description'] = description;
 
-                <div className={classes.multistream_form_spinner}>
-                  <Spinner
-                    animation="border"
-                    variant="info"
-                    role="status"
-                    hidden={loader}
-                  ></Spinner>
-                </div>
-              </div>
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer></Modal.Footer>
-      </Modal>
+      data['category'] = category;
+      data['ratings'] = ratings;
+      data['allowAttribution'] = allowAttribution;
+      data['commercialUse'] = commercialUse;
+      data['derivativeWorks'] = derivativeWorks;
+
+      data['videoFile'] = videoFile;
+      data['videoImage'] = videoImage;
+
+      console.log(data);
+      if (
+        video.videoFile.length !== 0 &&
+        video.videoImage.length !== 0 &&
+        video.videoName.length !== 0
+      ) {
+        await axios
+          .post('/upload-video', data)
+          .then(function (response) {
+            console.log(response.data);
+            props.setShowVideoUpload(false);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        Noty.closeAll();
+        new Noty({
+          type: 'error',
+          text: 'Choose Video File & Fill other Details',
+          theme: 'metroui',
+          layout: 'bottomRight',
+        }).show();
+      }
+    }
+  };

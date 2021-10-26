@@ -273,9 +273,13 @@ app.post('/upload-video', (req, res) => {
 
   file.mv(filePath, async (err) => {
     try {
-      const fileHash = await addFile(filePath);
+      const fileHash = req.body.videoHash;
 
-      videoHashLink = 'https://ipfs.io/ipfs/' + fileHash;
+      videoHashLink =
+        'https://ipfs.io/ipfs/' +
+        fileHash +
+        '/' +
+        req.files.videoFile.name;
       console.log('video Uploaded Successfully!: ' + fileHash);
 
       fs.unlink(filePath, (err) => {
@@ -285,9 +289,10 @@ app.post('/upload-video', (req, res) => {
       // video Uploaded Now Upload AlbumArt
       albumFile.mv(videoArtPath, async (err) => {
         try {
-          const fileHash = await addFile(videoArtPath);
+          const imageHash = req.files.videoImage.name;
 
-          albumhashLink = 'https://ipfs.io/ipfs/' + fileHash;
+          albumhashLink =
+            'https://ipfs.io/ipfs/' + fileHash + '/' + imageHash;
           console.log(
             'Album Art Uploaded Successfully!: ' + fileHash,
           );

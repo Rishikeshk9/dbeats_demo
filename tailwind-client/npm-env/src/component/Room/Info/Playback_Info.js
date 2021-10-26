@@ -542,15 +542,19 @@ const PlayBackInfo = (props) => {
                         <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
                           <button>Edit</button>
                         </Menu.Item>
-                        <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
-                          <button
-                            onClick={() => {
-                              handleShowPlaylist();
-                            }}
-                          >
-                            Add to Playlist
-                          </button>
-                        </Menu.Item>
+                        {user ? (
+                          <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                            <button
+                              onClick={() => {
+                                handleShowPlaylist();
+                              }}
+                            >
+                              Add to Playlist
+                            </button>
+                          </Menu.Item>
+                        ) : (
+                          <> </>
+                        )}
                       </div>
                       <div className="px-1 py-1">
                         <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
