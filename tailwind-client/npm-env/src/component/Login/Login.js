@@ -88,7 +88,7 @@ const Login = () => {
       data: streamData,
     });
 
-    console.log(stream);
+    //console.log(stream);
 
     let walletId = '';
     if (provider) {
@@ -107,7 +107,7 @@ const Login = () => {
       livepeer_data: stream.data,
     };
     
-    console.log(userData);
+    //console.log(userData);
 
     axios({
       method: 'post',
@@ -115,9 +115,9 @@ const Login = () => {
       data: userData,
     })
       .then(function (response) {
-        console.log('response', response.data);
+        //console.log('response', response.data);
         window.localStorage.setItem('user', JSON.stringify(response.data));
-        //window.location.href = '/';
+        window.location.href = '/';
       })
       .catch(function (error) {
         console.log(error);
