@@ -106,7 +106,8 @@ const Login = () => {
       wallet_id: walletId,
       livepeer_data: stream.data,
     };
-    // console.log(userData);
+    
+    console.log(userData);
 
     axios({
       method: 'post',
@@ -114,15 +115,16 @@ const Login = () => {
       data: userData,
     })
       .then(function (response) {
-        //console.log('response', response.data);
+        console.log('response', response.data);
         window.localStorage.setItem('user', JSON.stringify(response.data));
+        //window.location.href = '/';
       })
       .catch(function (error) {
         console.log(error);
       });
 
     setLoader(true);
-    window.location.href = '/';
+    
   };
 
   // Metamask Auth
