@@ -134,6 +134,31 @@ export const UploadVideo = (props) => {
     setVideo({ ...video, [name]: value });
   };
 
+  async function storeWithProgress() {
+    // show the root cid as soon as it's ready
+    const onRootCidReady = (cid) => {
+      console.log('uploading files with cid:', cid);
+      video.cid = cid;
+    };
+    const blob = new Blob([JSON.stringify(video)], { type: 'application/json' });
+
+    const files = [video.videoFile, video.videoImage, new File([blob], 'meta.json')];
+    const totalSize = video.videoFile.size;
+    let uploaded = 0;
+    const onStoredChunk = (size) => {
+      uploaded += size;
+      const pct = totalSize / uploaded;
+      console.log(`Uploading... ${pct.toFixed(2)}% complete`);
+    };
+
+    // makeStorageClient returns an authorized Web3.Storage client instance
+    const client = makeStorageClient();
+
+    // client.put will invoke our callbacks during the upload
+    // and return the root cid when the upload completes
+    return client.put(files, { onRootCidReady, onStoredChunk });
+  }
+
   const onVideoFileChange = (e) => {
     if (e.target.name === 'videoFile') {
       video.videoFile = e.target.files[0];

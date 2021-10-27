@@ -208,7 +208,7 @@ const NavBar = () => {
               <span className={classes.menu_item_name}>Music </span>
             </a>
           </div>
-          {user ? (
+          {/* {user ? (
             <div
               className={`${classes.menu_item_logout} text-black text-xl text-bold dark:text-white`}
             >
@@ -220,7 +220,7 @@ const NavBar = () => {
             </div>
           ) : (
             <> </>
-          )}
+          )} */}
           {user ? (
             <div
               className={`${classes.menu_item_logout} text-black text-xl text-bold dark:text-white`}
