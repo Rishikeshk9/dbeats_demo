@@ -164,49 +164,54 @@ export const UploadVideo = (props) => {
         commercialUse,
         derivativeWorks,
       } = video;
+      storeWithProgress(e.target.value).then(() => {
+        let formData = new FormData(); // Currently empty
+        formData.append('userName', user.username);
 
-      //var formData = new FormData(); // Currently empty
-      let data = {};
-      data['userName'] = user.username;
+        formData.append('videoName', videoName);
 
-      data['videoName'] = videoName;
+        formData.append('tags', tags);
+        formData.append('description', description);
 
-      data['tags'] = tags;
-      data['description'] = description;
+        formData.append('category', category);
+        formData.append('ratings', ratings);
+        formData.append('allowAttribution', allowAttribution);
+        formData.append('commercialUse', commercialUse);
+        formData.append('derivativeWorks', derivativeWorks);
 
-      data['category'] = category;
-      data['ratings'] = ratings;
-      data['allowAttribution'] = allowAttribution;
-      data['commercialUse'] = commercialUse;
-      data['derivativeWorks'] = derivativeWorks;
+        formData.append('videoFile', videoFile, videoFile.name);
+        formData.append('videoImage', videoImage, videoImage.name);
+        formData.append('videoHash', video.cid);
 
-      data['videoFile'] = videoFile;
-      data['videoImage'] = videoImage;
+        console.log(formData.values());
 
-      console.log(data);
-      if (
-        video.videoFile.length !== 0 &&
-        video.videoImage.length !== 0 &&
-        video.videoName.length !== 0
-      ) {
-        // await axios
-        //   .post('/upload-video', data)
-        //   .then(function (response) {
-        //     console.log(response.data);
-        //     props.setShowVideoUpload(false);
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
-      } else {
-        Noty.closeAll();
-        new Noty({
-          type: 'error',
-          text: 'Choose Video File & Fill other Details',
-          theme: 'metroui',
-          layout: 'bottomRight',
-        }).show();
-      }
+        if (
+          video.videoFile.length !== 0 &&
+          video.videoImage.length !== 0 &&
+          video.videoName.length !== 0
+        ) {
+          axios
+            .post(`${process.env.REACT_APP_SERVER_URL}/upload-video`, formData, {
+              headers: {
+                'content-type': 'multipart/form-data',
+              },
+            })
+            .then(function (response) {
+              console.log(response.data);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          Noty.closeAll();
+          new Noty({
+            type: 'error',
+            text: 'Choose Video File & Fill other Details',
+            theme: 'metroui',
+            layout: 'bottomRight',
+          }).show();
+        }
+      });
     }
   };
 
@@ -596,26 +601,22 @@ export const UploadMusic = (props) => {
       commercialUse,
       derivativeWorks,
     } = track;
-    storeWithProgress().then(() => {
-      const formData = new FormData(); // Currently empty
+    storeWithProgress(e.target.value).then(() => {
+      let formData = new FormData(); // Currently empty
       formData.append('userName', user.username);
       formData.append('trackName', trackName);
       formData.append('genre', genre);
-
       formData.append('mood', mood);
       formData.append('tags', tags);
       formData.append('description', description);
-
       formData.append('isrc', isrc);
       formData.append('iswc', iswc);
       formData.append('allowAttribution', allowAttribution);
       formData.append('commercialUse', commercialUse);
       formData.append('derivativeWorks', derivativeWorks);
-
-      formData.append('trackFile', trackFile);
-      formData.append('trackImage', trackImage);
+      formData.append('trackFile', trackFile, trackFile.name);
+      formData.append('trackImage', trackImage, trackImage.name);
       formData.append('trackHash', track.cid);
-
       if (
         track.trackFile.length !== 0 &&
         track.trackImage.length !== 0 &&
@@ -623,7 +624,11 @@ export const UploadMusic = (props) => {
         track.cid.length !== 0
       ) {
         axios
-          .post('/upload', formData)
+          .post(`${process.env.REACT_APP_SERVER_URL}/upload`, formData, {
+            headers: {
+              'content-type': 'multipart/form-data',
+            },
+          })
           .then(function (response) {
             Noty.closeAll();
             new Noty({
@@ -632,7 +637,6 @@ export const UploadMusic = (props) => {
               theme: 'metroui',
               layout: 'bottomRight',
             }).show();
-
             // console.log(response.data);
           })
           .catch((error) => {
@@ -644,7 +648,6 @@ export const UploadMusic = (props) => {
               layout: 'bottomRight',
             }).show();
             // console.log(error);
-
             // console.log(error.data);
           });
       } else {
