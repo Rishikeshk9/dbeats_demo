@@ -214,7 +214,7 @@ const Form = (props) => {
         derivativeWorks,
       } = video;
       storeWithProgress(e.target.value).then(() => {
-        var formData = new FormData(); // Currently empty
+        let formData = new FormData(); // Currently empty
         formData.append('userName', user.username);
 
         formData.append('videoName', videoName);
@@ -228,9 +228,11 @@ const Form = (props) => {
         formData.append('commercialUse', commercialUse);
         formData.append('derivativeWorks', derivativeWorks);
 
-        formData.append('videoFile', videoFile);
-        formData.append('videoImage', videoImage);
+        formData.append('videoFile', videoFile, videoFile.name);
+        formData.append('videoImage', videoImage, videoImage.name);
         formData.append('videoHash', video.cid);
+
+        console.log(formData.values());
 
         if (
           video.videoFile.length !== 0 &&
@@ -238,7 +240,11 @@ const Form = (props) => {
           video.videoName.length !== 0
         ) {
           axios
-            .post('/upload-video', formData)
+            .post(`${process.env.REACT_APP_SERVER_URL}/upload-video`, formData, {
+              headers: {
+                'content-type': 'multipart/form-data',
+              },
+            })
             .then(function (response) {
               console.log(response.data);
             })
