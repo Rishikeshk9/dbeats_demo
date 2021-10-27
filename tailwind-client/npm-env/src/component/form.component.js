@@ -312,8 +312,8 @@ const Form = (props) => {
         formData.append('allowAttribution', allowAttribution);
         formData.append('commercialUse', commercialUse);
         formData.append('derivativeWorks', derivativeWorks);
-        formData.append('trackFile', trackFile);
-        formData.append('trackImage', trackImage);
+        formData.append('trackFile', trackFile, trackFile.name);
+        formData.append('trackImage', trackImage, trackImage.name);
         formData.append('trackHash', track.cid);
         if (
           track.trackFile.length !== 0 &&
@@ -322,7 +322,11 @@ const Form = (props) => {
           track.cid.length !== 0
         ) {
           axios
-            .post('/upload', formData)
+            .post(`${process.env.REACT_APP_SERVER_URL}/upload`, formData, {
+              headers: {
+                'content-type': 'multipart/form-data',
+              },
+            })
             .then(function (response) {
               Noty.closeAll();
               new Noty({
