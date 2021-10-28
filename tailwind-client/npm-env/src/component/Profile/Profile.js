@@ -7,7 +7,7 @@ import background from '../../assets/images/wallpaper.jpg';
 import ChannelSection from './ChannelSection';
 import Carousel from 'react-grid-carousel';
 import PlaylistCard from './PlaylistCard';
-import Modal from 'react-awesome-modal';
+import Modal from 'react-modal';
 import { WhatsappIcon, WhatsappShareButton } from 'react-share';
 import { FacebookShareButton, FacebookIcon } from 'react-share';
 import { EmailShareButton, EmailIcon } from 'react-share';
@@ -37,6 +37,9 @@ const Profile = (props) => {
 
   const [buttonText, setButtonText] = useState('SUBSCRIBE');
 
+  const text = 'Copy To Clipboard';
+  const [copybuttonText, setCopyButtonText] = useState(text);
+
   const [tabIndex, setTabIndex] = useState(0);
 
   const myData = JSON.parse(window.localStorage.getItem('user'));
@@ -61,7 +64,7 @@ const Profile = (props) => {
             break;
           }
         }
-        setSharable_data(`https://dbeats-demo.vercel.app /profile/${value.data.username}`);
+        setSharable_data(`https://dbeats.live/profile/${value.data.username}`);
         setFollowers(value.data.follower_count.length);
         setFollowing(value.data.followee_count.length);
       });
@@ -209,6 +212,13 @@ const Profile = (props) => {
       setPrivate(false);
     }
   }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setButtonText(text);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [buttonText]);
 
   return (
     <>
@@ -525,55 +535,60 @@ const Profile = (props) => {
             </div>
 
             <Modal
-              visible={show}
-              className="h-max w-max"
-              effect="fadeInUp"
-              aria-labelledby="contained-modal-title-vcenter"
-              centered
+              isOpen={show}
+              className="h-max lg:w-max w-5/6 bg-white mx-auto lg:mt-60 mt-32 shadow "
             >
-              <div className={`${darkMode && 'dark'}`}>
-                <h2 className="grid grid-cols-5 justify-items-center text-2xl py-4 dark:bg-dbeats-dark-primary bg-white dark:text-white">
-                  <div className="col-span-4 pl-14">Share link on</div>
-                  <div className="ml-5" onClick={handleClose}>
-                    <i className="fas fa-times"></i>
-                  </div>
-                </h2>
-                <hr className="py-4 dark:bg-dbeats-dark-alt" />
-                <div>
-                  <Container className="px-12 pb-4 dark:bg-dbeats-dark-alt">
-                    <Row>
-                      <Col className="flex justify-around align-center">
+              <h2 className="grid grid-cols-5 justify-items-center text-2xl py-4">
+                <div className="col-span-4 pl-14">Share link on</div>
+                <div className="ml-5" onClick={handleClose}>
+                  <i className="fas fa-times"></i>
+                </div>
+              </h2>
+              <hr className="py-4" />
+              <div>
+                <Container className="px-12 pb-4">
+                  <Row>
+                    <Col className="flex lg:justify-around justify-center align-center flex-wrap">
+                      <div className="px-1 py-1">
                         <WhatsappShareButton url={sharable_data}>
                           <WhatsappIcon iconFillColor="white" size={60} round={true} />
                         </WhatsappShareButton>
+                      </div>
+                      <div className="px-1 py-1">
                         <FacebookShareButton url={sharable_data}>
                           <FacebookIcon iconFillColor="white" size={60} round={true} />
                         </FacebookShareButton>
+                      </div>
+                      <div className="px-1 py-1">
                         <EmailShareButton url={sharable_data}>
                           <EmailIcon iconFillColor="white" size={60} round={true} />
                         </EmailShareButton>
+                      </div>
+                      <div className="px-1 py-1">
                         <PinterestShareButton url={sharable_data}>
                           <PinterestIcon iconFillColor="white" size={60} round={true} />
                         </PinterestShareButton>
+                      </div>
+                      <div className="px-1 py-1">
                         <TelegramShareButton url={sharable_data}>
                           <TelegramIcon iconFillColor="white" size={60} round={true} />
                         </TelegramShareButton>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <CopyToClipboard
-                        text={sharable_data}
-                        className="block mx-auto p-2 mt-4 mb-2 w-96 text-white font-semibold rounded-lg bg-dbeats-light"
-                      >
-                        <button type="submit" onClick={() => setButtonText('Link Copied!')}>
-                          {buttonText}
-                        </button>
-                      </CopyToClipboard>
-                    </Row>
-                  </Container>
-                </div>
-                <hr className="py-2 dark:bg-dbeats-dark-alt" />
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <CopyToClipboard
+                      text={sharable_data}
+                      className="block mx-auto p-2 mt-4 mb-2 lg:w-96 w-full  text-white font-semibold rounded-lg bg-dbeats-light"
+                    >
+                      <button type="submit" onClick={() => setCopyButtonText('Link Copied!')}>
+                        {copybuttonText}
+                      </button>
+                    </CopyToClipboard>
+                  </Row>
+                </Container>
               </div>
+              <hr className="py-2" />
             </Modal>
           </div>
         </div>

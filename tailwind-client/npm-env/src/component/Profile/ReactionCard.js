@@ -8,7 +8,7 @@ import { PinterestShareButton, PinterestIcon } from 'react-share';
 import { TelegramShareButton, TelegramIcon } from 'react-share';
 import { Container, Row, Col } from 'react-bootstrap';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import Modal from 'react-awesome-modal';
+import Modal from 'react-modal';
 
 const ReactionCard = (props) => {
   const [playing, setPlaying] = useState(false);
@@ -21,15 +21,15 @@ const ReactionCard = (props) => {
     setPlaying(false);
   };
 
+  const [show, setShow] = useState(false);
+  console.log(show);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  const [show, setShow] = useState(false);
 
   const text = 'Copy Link To Clipboard';
   const [buttonText, setButtonText] = useState(text);
 
-  let sharable_data = `https://dbeats-demo.vercel.app/playback/${props.playbackUserData.link}`;
+  let sharable_data = `https://dbeats.live/playback/${props.playbackUserData.link}`;
 
   const [like, setLike] = useState(0);
   const [dislike, setDislike] = useState(0);
@@ -55,7 +55,7 @@ const ReactionCard = (props) => {
     return () => clearTimeout(timer);
   }, [buttonText]);
 
-  //console.log(props.playbackUserData)
+  console.log(show);
 
   return (
     <div className="w-full  flex lg:flex-row flex-col py-3 px-3 bg-white rounded-xl dark:bg-dbeats-dark-primary dark:text-gray-100 my-2">
@@ -96,13 +96,8 @@ const ReactionCard = (props) => {
           </div>
         </p>
       </div>
-      <Modal
-        visible={show}
-        effect="fadeInUp"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <h2 className="grid grid-cols-5 justify-items-center text-2xl text-black py-4">
+      <Modal isOpen={show} className="h-max lg:w-max w-5/6 bg-white mx-auto lg:mt-60 mt-32 shadow ">
+        <h2 className="grid grid-cols-5 justify-items-center text-2xl py-4">
           <div className="col-span-4 pl-14">Share link on</div>
           <div className="ml-5" onClick={handleClose}>
             <i className="fas fa-times"></i>
@@ -112,28 +107,38 @@ const ReactionCard = (props) => {
         <div>
           <Container className="px-12 pb-4">
             <Row>
-              <Col className="flex justify-around align-center">
-                <WhatsappShareButton url={sharable_data}>
-                  <WhatsappIcon iconFillColor="white" size={60} round={true} />
-                </WhatsappShareButton>
-                <FacebookShareButton url={sharable_data}>
-                  <FacebookIcon iconFillColor="white" size={60} round={true} />
-                </FacebookShareButton>
-                <EmailShareButton url={sharable_data}>
-                  <EmailIcon iconFillColor="white" size={60} round={true} />
-                </EmailShareButton>
-                <PinterestShareButton url={sharable_data}>
-                  <PinterestIcon iconFillColor="white" size={60} round={true} />
-                </PinterestShareButton>
-                <TelegramShareButton url={sharable_data}>
-                  <TelegramIcon iconFillColor="white" size={60} round={true} />
-                </TelegramShareButton>
+              <Col className="flex lg:justify-around justify-center align-center flex-wrap">
+                <div className="px-1 py-1">
+                  <WhatsappShareButton url={sharable_data}>
+                    <WhatsappIcon iconFillColor="white" size={60} round={true} />
+                  </WhatsappShareButton>
+                </div>
+                <div className="px-1 py-1">
+                  <FacebookShareButton url={sharable_data}>
+                    <FacebookIcon iconFillColor="white" size={60} round={true} />
+                  </FacebookShareButton>
+                </div>
+                <div className="px-1 py-1">
+                  <EmailShareButton url={sharable_data}>
+                    <EmailIcon iconFillColor="white" size={60} round={true} />
+                  </EmailShareButton>
+                </div>
+                <div className="px-1 py-1">
+                  <PinterestShareButton url={sharable_data}>
+                    <PinterestIcon iconFillColor="white" size={60} round={true} />
+                  </PinterestShareButton>
+                </div>
+                <div className="px-1 py-1">
+                  <TelegramShareButton url={sharable_data}>
+                    <TelegramIcon iconFillColor="white" size={60} round={true} />
+                  </TelegramShareButton>
+                </div>
               </Col>
             </Row>
             <Row>
               <CopyToClipboard
                 text={sharable_data}
-                className="block mx-auto p-2 mt-4 mb-2 w-96 text-white font-semibold rounded-lg bg-dbeats-light"
+                className="block mx-auto p-2 mt-4 mb-2 lg:w-96 w-full  text-white font-semibold rounded-lg bg-dbeats-light"
               >
                 <button type="submit" onClick={() => setButtonText('Link Copied!')}>
                   {buttonText}

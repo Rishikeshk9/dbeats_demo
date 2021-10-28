@@ -2,8 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import classes from './Info.module.css';
 import axios from 'axios';
 import { Button, Form, Spinner } from 'react-bootstrap';
-
-import Modal from 'react-awesome-modal';
+import Modal from 'react-modal';
 import { MultiStreamData } from '../../../assets/Data';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
 import { useSelector } from 'react-redux';
@@ -199,24 +198,21 @@ const UserInfo = () => {
       </div>
 
       <Modal
-        visible={showDestinationModal}
-        className="h-max w-max w-screen"
-        effect="fadeInUp"
-        aria-labelledby="contained-modal-title-vcenter"
-        width="90%"
+        isOpen={showDestinationModal}
+        className="h-max lg:w-max w-5/6  mx-auto lg:mt-40 mt-28 shadow-xl bg-white"
       >
-        <div className="lg:py-6 py-3 lg:mx-16 mx-6 flex">
-          <p className="w-full">
-            <div className="font-semibold text-lg lg:text-3xl text-center">
-              Add Multistream Platforms
-            </div>
-          </p>
-          <div className="ml-5 self-center" onClick={() => setShowDestinationModal(false)}>
-            <i className="fas fa-times"></i>
+        <h2 className="grid grid-cols-5 justify-items-center rounded-t-xl w-full dark:rounded-t-sm text-2xl py-4 dark:bg-dbeats-dark-alt bg-white dark:text-white">
+          <div className="col-span-4 pl-14 text-lg lg:text-2xl">Add Multistream Platforms</div>
+          <div
+            className="mr-7 flex justify-end w-full"
+            onClick={() => setShowDestinationModal(false)}
+          >
+            <i className="fas fa-times cursor-pointer mr-3"></i>
           </div>
-        </div>
+        </h2>
+
         <hr />
-        <main className="lg:py-3 py-0.5  px-4 max-h-48 lg:max-h-96 sm:max-h-40 w-full overflow-y-auto">
+        <main className="lg:py-3 py-0.5  px-4 max-h-56 lg:max-h-96 sm:max-h-40 w-full overflow-y-auto">
           <div className="grid grid-cols-2 lg:grid-cols-5">
             {multiStreamConnected.map((value, index) => {
               return (
@@ -244,9 +240,9 @@ const UserInfo = () => {
           </div>
         </main>
         <hr />
-        <div className="flex-row lg:flex w-full my-5 justify-center align-center px-4">
+        <div className="flex-row lg:flex w-full lg:py-5 py-3 justify-center align-center px-4 ">
           <button
-            className="lg:w-2/3 w-full mx-auto lg:mx-2 my-1 rounded-md bg-dbeats-light text-white lg:p-2 p-1 lg:text-xl text-lg  font-semibold"
+            className="lg:w-2/3 w-full mx-auto lg:mx-2 my-1 rounded-md bg-dbeats-light text-white lg:p-2 p-1 lg:text-xl text-base  font-semibold"
             onClick={() => {
               setModalShow(true);
               setShowDestinationModal(false);
@@ -255,7 +251,7 @@ const UserInfo = () => {
             Add Destination
           </button>
           <button
-            className="lg:w-1/3 w-full my-1 lg:mx-2 mx-auto rounded-md bg-green-500 text-white lg:p-2 p-1 lg:text-xl text-lg font-semibold"
+            className="lg:w-1/3 w-full my-1 lg:mx-2 mx-auto rounded-md bg-green-500 text-white lg:p-2 p-1 lg:text-xl text-base font-semibold"
             onClick={createMultiStream}
           >
             Apply
@@ -264,24 +260,20 @@ const UserInfo = () => {
       </Modal>
 
       <Modal
-        visible={modalShow}
-        className="h-max w-max"
-        effect="fadeInUp"
-        aria-labelledby="contained-modal-title-vcenter"
+        isOpen={modalShow}
+        className="h-max lg:w-1/2 w-5/6 mx-auto lg:mt-48 mt-24 shadow-xl bg-white"
       >
-        <div className="lg:py-6 py-3 lg:mx-16 mx-6 flex">
-          <p id="contained-modal-title-vcenter" className="w-full">
-            <div className="font-semibold text-lg lg:text-2xl text-center">
-              Select the MultiStream Platform
-            </div>
-          </p>
-          <div className="ml-5 self-center" onClick={() => setModalShow(false)}>
-            <i className="fas fa-times"></i>
+        <h2 className="grid grid-cols-5 justify-items-center rounded-t-xl w-full dark:rounded-t-sm text-2xl py-4 dark:bg-dbeats-dark-alt bg-white dark:text-white">
+          <div className="col-span-4 pl-14 text-lg lg:text-2xl">
+            Select the MultiStream Platform
           </div>
-        </div>
+          <div className="mr-7 flex justify-end w-full" onClick={() => setModalShow(false)}>
+            <i className="fas fa-times cursor-pointer mr-3"></i>
+          </div>
+        </h2>
         <hr />
         <main className="py-5 ">
-          <div className="grid gap-4 justify-items-center grid-cols-2 lg:grid-cols-4 px-8 max-w-full max-h-96 overflow-y-auto">
+          <div className="grid gap-4 justify-items-center grid-cols-2 lg:grid-cols-4 px-8 max-w-full lg:max-h-96 max-h-72  overflow-y-auto">
             {MultiStreamData.map((value, index) => {
               return (
                 <div
@@ -303,26 +295,18 @@ const UserInfo = () => {
             })}
           </div>
         </main>
-        <hr className="py-6" />
       </Modal>
 
       <Modal
-        visible={showStreamModal}
-        className="h-max w-max"
-        effect="fadeInUp"
-        aria-labelledby="contained-modal-title-vcenter"
-        width="80%"
+        isOpen={showStreamModal}
+        className="h-max lg:w-1/3 w-5/6 mx-auto mt-60 shadow-xl bg-white"
       >
-        <div className="lg:py-6 py-3 lg:mx-16 mx-6 flex">
-          <p id="contained-modal-title-vcenter" className="w-full">
-            <div className="font-semibold text-lg lg:text-3xl text-center">
-              {multiStreamValue.title}
-            </div>
-          </p>
-          <div className="ml-5 self-center" onClick={() => setShowStreamModal(false)}>
-            <i className="fas fa-times"></i>
+        <h2 className="grid grid-cols-5 justify-items-center rounded-t-xl w-full dark:rounded-t-sm text-2xl py-4 dark:bg-dbeats-dark-alt bg-white dark:text-white">
+          <div className="col-span-4 pl-14 text-lg lg:text-2xl">{multiStreamValue.title}</div>
+          <div className="mr-7 flex justify-end w-full" onClick={() => setShowStreamModal(false)}>
+            <i className="fas fa-times cursor-pointer mr-3"></i>
           </div>
-        </div>
+        </h2>
         <hr />
         <main className="lg:px-6 lg:py-6 px-4 py-2">
           <Form>
@@ -369,7 +353,6 @@ const UserInfo = () => {
             </Form.Group>
           </Form>
         </main>
-        <hr className="pb-3" />
       </Modal>
     </Fragment>
   );
