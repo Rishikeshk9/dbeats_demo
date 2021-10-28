@@ -18,10 +18,11 @@ import { useSelector } from 'react-redux';
 import animationData from '../../../lotties/fans.json';
 import animationDataConfetti from '../../../lotties/confetti.json';
 import animationDataGiraffee from '../../../lotties/giraffee.json';
-
 import Lottie from 'react-lottie';
 import superfluid from '../../../assets/images/superfluid-black.svg';
 import { Playlist } from '../../Navbar/PopModals';
+import moment from 'moment';
+moment().format();
 
 const PlayBackInfo = (props) => {
   let sharable_data = `https://dbeats-demo.vercel.app /playback/${props.stream_id}/${props.video_id}`;
@@ -88,6 +89,13 @@ const PlayBackInfo = (props) => {
 
   const [arrayData, setArrayData] = useState([]);
 
+  const [time, setTime] = useState(null);
+
+  const convertTimestampToTime = (timeData) => {
+    const timestamp = new Date(timeData.time * 1000); // This would be the timestamp you want to format
+    setTime(moment(timestamp).fromNow());
+  };
+
   // const SuperfluidSDK = require("@superfluid-finance/js-sdk");
   // const { Web3Provider } = require("@ethersproject/providers");
 
@@ -148,6 +156,7 @@ const PlayBackInfo = (props) => {
   const get_User = async () => {
     await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`).then((value) => {
       setUserData(value.data);
+      convertTimestampToTime(value.data.videos[props.video_id]);
       for (let i = 0; i < value.data.follower_count.length; i++) {
         if (user ? value.data.follower_count[i] === user.username : false) {
           setSubscribeButtonText('Unsubscribe');
@@ -432,6 +441,11 @@ const PlayBackInfo = (props) => {
                     <p className="font-semibold text-xl pb-4">
                       {userData.videos[props.video_id].videoName}
                     </p>
+                  ) : (
+                    <></>
+                  )}
+                  {user.videos ? (
+                    <p className="font-semibold text-md text-gray-400 pb-4">{time}</p>
                   ) : (
                     <></>
                   )}

@@ -408,7 +408,7 @@ const NavBar = () => {
                               handleCloseTrackUpload();
                             }}
                           >
-                            Create Announcement
+                            Create Post
                           </button>
 
                           <button

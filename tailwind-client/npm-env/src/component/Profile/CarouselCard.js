@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 //import { makeStyles } from '@material-ui/core/styles';
 //import Card from '@material-ui/core/Card';
 //import CardHeader from '@material-ui/core/CardHeader';
@@ -6,9 +6,14 @@ import React, { useState } from 'react';
 //import { red } from '@material-ui/core/colors';
 import ReactPlayer from 'react-player';
 import classes from './Profile.module.css';
+import moment from 'moment';
+moment().format();
 
 const CarouselCard = (props) => {
+  console.log(props);
   const [playing, setPlaying] = useState(false);
+
+  const [time, setTime] = useState(null);
 
   const handleMouseMove = () => {
     setPlaying(true);
@@ -17,6 +22,15 @@ const CarouselCard = (props) => {
   const hanldeMouseLeave = () => {
     setPlaying(false);
   };
+
+  const convertTimestampToTime = () => {
+    const timestamp = new Date(props.playbackUserData.time * 1000); // This would be the timestamp you want to format
+    setTime(moment(timestamp).fromNow());
+  };
+
+  useEffect(() => {
+    convertTimestampToTime();
+  }, []);
 
   //console.log(props.playbackUserData)
 
@@ -43,7 +57,8 @@ const CarouselCard = (props) => {
         <p className="text-black text-sm font-medium dark:text-gray-100">
           <div className="px-2">
             <p className="text-2xl font-semibold">{props.playbackUserData.videoName}</p>
-            <p className="text-xs text-gray-500">{props.playbackUserData.description}</p>
+            <p className="text-lg text-gray-500">{props.playbackUserData.description}</p>
+            <p className="text-sm text-gray-500">{time}</p>
           </div>
           <hr className="my-3" />
           <div>

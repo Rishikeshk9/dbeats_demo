@@ -58,7 +58,7 @@ export const AnnouncementModal = (props) => {
       <div className={`${darkMode && 'dark'} p-5 `}>
         <div className="border border-gray-400 rounded-xl  dark:border-black dark:rounded-none">
           <h2 className="grid grid-cols-5 justify-items-center rounded-t-xl dark:rounded-t-sm text-2xl py-4 dark:bg-dbeats-dark-alt bg-white dark:text-white">
-            <div className="col-span-4 pl-14">Announcement Details</div>
+            <div className="col-span-4 pl-14">Post Details</div>
             <div className="mr-7 flex justify-end w-full" onClick={props.handleCloseAnnouncement}>
               <i className="fas fa-times cursor-pointer"></i>
             </div>
@@ -81,7 +81,7 @@ export const AnnouncementModal = (props) => {
                   onClick={handleAnnouncement}
                   className="mt-4 bg-white px-3 py-2 text-lg bg-dbeats-light text-white border-0 w-80 rounded-sm cursor-pointer "
                 >
-                  Announce
+                  Post
                 </button>
               </Row>
             </Container>

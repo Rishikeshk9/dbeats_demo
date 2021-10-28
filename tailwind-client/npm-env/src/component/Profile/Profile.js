@@ -16,7 +16,7 @@ import { TelegramShareButton, TelegramIcon } from 'react-share';
 import { Container, Row, Col } from 'react-bootstrap';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useSelector } from 'react-redux';
-
+import TrackCard from './TrackCard';
 import { Tab } from '@headlessui/react';
 
 const Profile = (props) => {
@@ -305,7 +305,7 @@ const Profile = (props) => {
                             )
                           }
                         >
-                          ANNOUNCEMENTS
+                          POSTS
                         </Tab>
                         {privateUser ? (
                           <Tab
@@ -346,7 +346,7 @@ const Profile = (props) => {
                             )
                           }
                         >
-                          ALBUMS
+                          TRACKS
                         </Tab>
 
                         <Tab
@@ -442,24 +442,19 @@ const Profile = (props) => {
 
                         <Tab.Panel className="">
                           <div className="px-5 pt-10">
-                            {user.videos ? (
-                              <div>
-                                {user.videos.map((playbackUser, i) => {
+                            {user.tracks ? (
+                              <div className="w-full">
+                                {user.tracks.map((track, i) => {
                                   //console.log(playbackUser)
                                   return (
-                                    <div key={i}>
-                                      <CarouselCard
-                                        playbackUserData={playbackUser}
-                                        index={i}
-                                        username={user.username}
-                                        type="video"
-                                      />
+                                    <div key={i} className="w-full">
+                                      <TrackCard track={track} index={i} username={user.username} />
                                     </div>
                                   );
                                 })}
                               </div>
                             ) : (
-                              <p>No Videos till now</p>
+                              <p>No Tracks till now</p>
                             )}
                           </div>
                         </Tab.Panel>
