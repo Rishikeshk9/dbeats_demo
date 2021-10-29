@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import classes from './Info.module.css';
 import axios from 'axios';
-import { Button, Form, Spinner } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 import Modal from 'react-modal';
 import { MultiStreamData } from '../../../assets/Data';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
@@ -51,6 +51,7 @@ const UserInfo = () => {
   };
 
   const addStreamingPlatform = async (props) => {
+    setLoader(false);
     let postData = {
       username: user.username,
       platform: {
@@ -72,6 +73,7 @@ const UserInfo = () => {
 
     setMultiStreamConnected([...multiStreamConnected, postData]);
     setShowStreamModal(false);
+    setLoader(true);
   };
 
   const createMultiStream = async () => {
@@ -309,12 +311,12 @@ const UserInfo = () => {
         </h2>
         <hr />
         <main className="lg:px-6 lg:py-6 px-4 py-2">
-          <Form>
-            <Form.Group className="mb-3 text-md lg:text-xl">
-              <Form.Label>
+          <div>
+            <div className="mb-3 text-md lg:text-xl">
+              <div>
                 <b>Enter Stream-Key </b>
-              </Form.Label>
-              <Form.Control
+              </div>
+              <input
                 required
                 type="text"
                 placeholder="Enter SECRET Key"
@@ -326,10 +328,8 @@ const UserInfo = () => {
               </div> */}
 
               <div className="flex pt-4">
-                <Button
-                  variant="primary"
-                  className=" border-0 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light rounded px-4 py-2"
-                  type="submit"
+                <button
+                  className=" border-0 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light rounded px-4 py-2 bg-dbeats-primary"
                   hidden={StreamKey ? false : true}
                   onClick={() => {
                     let rtmp = multiStreamValue.rtmp + StreamKey;
@@ -339,7 +339,7 @@ const UserInfo = () => {
                   <div className="text-white text-lg font-semibold">
                     Add {multiStreamValue.title}
                   </div>
-                </Button>
+                </button>
 
                 <div className={classes.multistream_form_spinner}>
                   <Spinner
@@ -350,8 +350,8 @@ const UserInfo = () => {
                   ></Spinner>
                 </div>
               </div>
-            </Form.Group>
-          </Form>
+            </div>
+          </div>
         </main>
       </Modal>
     </Fragment>

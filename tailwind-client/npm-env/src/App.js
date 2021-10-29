@@ -67,6 +67,12 @@ const SearchPage = lazy(() => {
   });
 });
 
+const TrackPlayback = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import('./component/Room/Info/TrackInfo')), 1000);
+  });
+});
+
 export default function App() {
   let user = JSON.parse(window.localStorage.getItem('user'));
   const darkMode = useSelector((state) => state.toggleDarkMode);
@@ -120,6 +126,11 @@ export default function App() {
                 <Route exact path="/profile/:username/:tab?" component={Profile} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/search" component={() => <SearchPage />} />
+                <Route
+                  exact
+                  path="/track/:username/:track_id"
+                  component={() => <TrackPlayback />}
+                />
                 {/* TODO: <Route exact path="*" component={PageNotFound} /> */}
               </div>
             </div>
