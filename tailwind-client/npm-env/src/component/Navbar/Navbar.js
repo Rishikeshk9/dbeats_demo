@@ -243,7 +243,7 @@ const NavBar = () => {
       <div
         expand="lg"
         id="navbarScroll"
-        className={` w-max fixed top-0 ${darkMode && 'dark'} z-50`}
+        className={` w-max fixed top-0 ${darkMode && 'dark'} z-50 `}
       >
         <div
           className={`p-3 bg-white w-screen shadow-sm z-50  absolute dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-90  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md`}
@@ -370,13 +370,13 @@ const NavBar = () => {
               </div>
             </div>
             {user ? (
-              <div className="my-auto mr-3">
+              <div className="my-auto lg:mr-3">
                 <Dropdown as="div" className="relative inline-block text-left mr-2 self-center">
                   <div>
                     <Dropdown.Button className="">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-7 w-7 text-dbeats-light"
+                        className="lg:h-7 lg:w-7 w-5 h-5 text-dbeats-light"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                       >
@@ -445,12 +445,12 @@ const NavBar = () => {
             )}
             {user ? (
               <div id="login-btn" className="flex">
-                <Dropdown as="div" className="relative inline-block text-left mr-2 self-center">
+                <Dropdown as="div" className="relative inline-block text-left lg:mr-2 self-center">
                   <div>
                     <Dropdown.Button className="">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-7 w-7 text-dbeats-light cursor-pointer z-50"
+                        className="lg:h-7 lg:w-7 w-5 h-5 text-dbeats-light cursor-pointer z-50"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                         onClick={handleNotification}
@@ -492,12 +492,12 @@ const NavBar = () => {
                   </Transition>
                 </Dropdown>
                 <button
-                  className="px-3 py-1 border-dbeats-light border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mx-2 flex"
+                  className="lg:px-3 py-1 border-dbeats-light border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mx-2 flex"
                   onClick={handleStreamOnClick}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 self-center md:mr-2"
+                    className="h-5 w-5 lg:self-center mt-1 lg:mt-0 md:mr-2"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -506,12 +506,12 @@ const NavBar = () => {
                   <span className="self-center md:flex hidden">Go Live</span>
                 </button>
                 <button
-                  className="shadow-sm h-10 self-center w-10 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded-full font-bold mx-2 flex"
+                  className="shadow-sm lg:h-10 self-center lg:w-10 h-8 w-8 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded-full font-bold mx-2 flex"
                   onClick={handleProfileOnClick}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-7 w-7  mx-auto self-center"
+                    className="lg:h-7 lg:w-7 h-6 w-6  mx-auto self-center"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >

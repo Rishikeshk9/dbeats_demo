@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const TrackCard = (props) => {
   console.log(props);
+
+  const [play, setPlay] = useState(false);
+
+  // eslint-disable-next-line no-unused-vars
+  const [audio, setAudio] = useState(new Audio(props.track.link));
+
+  useEffect(() => {
+    if (!play) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+  }, [play, audio]);
+
+  const handlePlay = () => {
+    setPlay(!play);
+  };
 
   return (
     <div
@@ -49,15 +66,12 @@ const TrackCard = (props) => {
             {/* action buttons */}
 
             <div className=" flex mt-2   ">
-              <div className=" sm:flex opacity-0 group-hover:opacity-100">
+              <div className=" sm:flex ">
                 <button
-                //   onClick={() =>
-                //     playAudio(todo.id, todo.artwork['150x150'], todo.title, todo.user.name)
-                //   }
-                //   name={todo.id}
-                //   className="  cursor-pointer mr-2 uppercase font-bold  bg-gradient-to-r from-green-400 to-blue-500   text-white block py-2 px-10   hover:scale-95 transform transition-all"
+                  onClick={handlePlay}
+                  className="  cursor-pointer mr-2 uppercase font-bold  bg-gradient-to-r from-green-400 to-blue-500   text-white block py-2 px-10   hover:scale-95 transform transition-all"
                 >
-                  {/* {`${state.play && playId === todo.id ? 'Pause' : 'Play'}`} */}
+                  {`${play ? 'Pause' : 'Play'}`}
                 </button>
               </div>
             </div>

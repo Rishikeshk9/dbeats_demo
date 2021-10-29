@@ -444,7 +444,7 @@ const PlayBackInfo = (props) => {
                   ) : (
                     <></>
                   )}
-                  {user.videos ? (
+                  {time ? (
                     <p className="font-semibold text-md text-gray-400 pb-4">{time}</p>
                   ) : (
                     <></>
