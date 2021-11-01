@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 //import Modal from 'react-awesome-modal';
 import { Container, Row, Col } from 'react-bootstrap';
-import Dropdown from '../dropdown.component';
+import Dropdown from '../../dropdown.component';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import Noty from 'noty';

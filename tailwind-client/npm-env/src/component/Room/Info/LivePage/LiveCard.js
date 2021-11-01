@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player';
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 
-const RecommendedCard = (props) => {
+const LiveCard = (props) => {
   const [playing, setPlaying] = useState(false);
 
   const handleMouseMove = () => {
@@ -86,4 +86,4 @@ const RecommendedCard = (props) => {
   );
 };
 
-export default RecommendedCard;
+export default LiveCard;

@@ -27,19 +27,19 @@ const VideoHome = lazy(() => {
 
 const PublicRoom = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('./component/Room/PublicRoomPage')), 1000);
+    setTimeout(() => resolve(import('./component/Room/Info/LivePage/PublicRoomPage')), 1000);
   });
 });
 
 const Playback = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('./component/Room/PlaybackRoomPage')), 1000);
+    setTimeout(() => resolve(import('./component/Room/Info/PlayBack/PlaybackRoomPage')), 1000);
   });
 });
 
 const UserRoom = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('./component/Room/UserRoomPage')), 1000);
+    setTimeout(() => resolve(import('./component/Room/Info/GoLive/UserRoomPage')), 1000);
   });
 });
 
@@ -69,7 +69,7 @@ const SearchPage = lazy(() => {
 
 const TrackPlayback = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('./component/Room/Info/TrackInfo')), 1000);
+    setTimeout(() => resolve(import('./component/Room/Info/TrackPage/TrackInfo')), 1000);
   });
 });
 

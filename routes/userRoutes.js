@@ -163,21 +163,12 @@ router.route('/follow').post(async (req, res) => {
     User.findOneAndUpdate(
       { username: following },
       { $push: { follower_count: follower } },
-      function (error, success) {
-        if (error) {
-        } else {
-        }
-      },
     );
     User.findOneAndUpdate(
       { username: follower },
       { $push: { followee_count: following } },
-      function (error, success) {
-        if (error) {
-        } else {
-        }
-      },
     );
+    res.send('success');
   } catch (err) {
     console.log(err);
   }
@@ -190,30 +181,16 @@ router.route('/unfollow').post(async (req, res) => {
     User.findOneAndUpdate(
       { username: following },
       { $pull: { follower_count: follower } },
-      function (error, success) {
-        if (error) {
-        } else {
-        }
-      },
     );
     User.findOneAndUpdate(
       { username: follower },
       { $pull: { followee_count: following } },
-      function (error, success) {
-        if (error) {
-        } else {
-        }
-      },
     );
     User.findOneAndUpdate(
       { username: follower },
       { $pull: { pinned: following } },
-      function (error, success) {
-        if (error) {
-        } else {
-        }
-      },
     );
+    res.send('success');
   } catch (err) {
     console.log(err);
   }

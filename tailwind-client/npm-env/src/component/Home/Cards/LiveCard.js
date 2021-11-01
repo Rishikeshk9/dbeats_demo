@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
-import person from '../../assets/images/profile.svg';
-import classes from './Home.module.css';
+import person from '../../../assets/images/profile.svg';
+import classes from '../Home.module.css';
 
 const LiveCard = (props) => {
   const [playing, setPlaying] = useState(false);

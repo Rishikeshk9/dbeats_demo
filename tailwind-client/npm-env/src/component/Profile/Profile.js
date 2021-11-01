@@ -200,7 +200,7 @@ const Profile = (props) => {
     console.log(value);
     if (value.username === props.match.params.username) {
       setUser(value);
-      setSharable_data(`https://dbeats-demo.vercel.app /profile/${value.username}`);
+      setSharable_data(`https://dbeats.live/profile/${value.username}`);
       setPrivate(true);
       setFollowers(value.follower_count.length);
       setFollowing(value.followee_count.length);
@@ -215,10 +215,10 @@ const Profile = (props) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setButtonText(text);
+      setCopyButtonText(text);
     }, 2000);
     return () => clearTimeout(timer);
-  }, [buttonText]);
+  }, [copybuttonText]);
 
   return (
     <>

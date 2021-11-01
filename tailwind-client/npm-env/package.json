@@ -5,6 +5,7 @@
   "dependencies": {
     "@barba/core": "^2.9.7",
     "@craco/craco": "^6.2.0",
+    "@dschoon/react-waves": "^4.0.3",
     "@ethersproject/contracts": "^5.4.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/react-fontawesome": "^0.1.15",
@@ -60,7 +61,7 @@
     "web3modal": "^1.9.4"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "craco --max_old_space_size=8000  start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",

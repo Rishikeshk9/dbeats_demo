@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 //import playimg from "../../../assets/images/telegram.png";
 import axios from 'axios';
-import VideoPlayer from '../VideoPlayer/VideoPlayer';
+import VideoPlayer from '../../VideoPlayer/VideoPlayer';
 import { Menu, Transition } from '@headlessui/react';
 import { WhatsappIcon, WhatsappShareButton } from 'react-share';
 import { FacebookShareButton, FacebookIcon } from 'react-share';
@@ -15,12 +15,12 @@ import Modal from 'react-modal';
 import SuperfluidSDK from '@superfluid-finance/js-sdk';
 import { Web3Provider } from '@ethersproject/providers';
 import { useSelector } from 'react-redux';
-import animationData from '../../../lotties/fans.json';
-import animationDataConfetti from '../../../lotties/confetti.json';
-import animationDataGiraffee from '../../../lotties/giraffee.json';
+import animationData from '../../../../lotties/fans.json';
+import animationDataConfetti from '../../../../lotties/confetti.json';
+import animationDataGiraffee from '../../../../lotties/giraffee.json';
 import Lottie from 'react-lottie';
-import superfluid from '../../../assets/images/superfluid-black.svg';
-import { Playlist } from '../../Navbar/PopModals';
+import superfluid from '../../../../assets/images/superfluid-black.svg';
+import { Playlist } from '../../../Modals/NavbarModals/PopModals';
 import moment from 'moment';
 moment().format();
 

@@ -1,16 +1,16 @@
 import React from 'react';
-import PublicInfo from './Info/Public_Info';
+import UserInfo from './User_Info';
 
-const PublicRoomPage = (props) => {
+const UserRoomPage = (props) => {
   return (
     <>
       <div id="outer-container" style={{ height: '100%' }}>
         <main id="page-wrap">
-          <PublicInfo stream_id={props.match.params.username} />
+          <UserInfo stream_id={props.match.params.roomID} />
         </main>
       </div>
     </>
   );
 };
 
-export default PublicRoomPage;
+export default UserRoomPage;

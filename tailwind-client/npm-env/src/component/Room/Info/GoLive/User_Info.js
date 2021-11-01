@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import classes from './Info.module.css';
+import classes from '../Info.module.css';
 import axios from 'axios';
 import { Spinner } from 'react-bootstrap';
 import Modal from 'react-modal';
-import { MultiStreamData } from '../../../assets/Data';
-import VideoPlayer from '../VideoPlayer/VideoPlayer';
+import { MultiStreamData } from '../../../../assets/Data';
+import VideoPlayer from '../../VideoPlayer/VideoPlayer';
 import { useSelector } from 'react-redux';
 
 const UserInfo = () => {

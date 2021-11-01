@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleDarkMode } from '../../actions/index';
 import Toggle from '../toggle.component';
 import { Link } from 'react-router-dom';
-import { AnnouncementModal, UploadMusic, UploadVideo } from './PopModals';
+import { AnnouncementModal, UploadMusic, UploadVideo } from '../Modals/NavbarModals/PopModals';
 
 const NavBar = () => {
   // eslint-disable-next-line no-unused-vars
