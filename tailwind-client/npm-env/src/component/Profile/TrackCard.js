@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const TrackCard = (props) => {
   console.log(props);
@@ -29,12 +30,18 @@ const TrackCard = (props) => {
       <div className=" group ">
         <div className="bg-white  group dark:bg-dbeats-dark-primary dark:text-blue-300 shadow-md  flex p-2  mx-auto  rounded-lg  w-full hover:scale-101 transform transition-all">
           <div className="items-center h-26 w-30 md:h-48 md:w-52 flex   cursor-pointer mr-4">
-            <img
-              id="album-artwork"
-              src={props.track.trackImage}
-              className="mr-4 w-full h-full 2 rounded  "
-              alt=""
-            ></img>
+            <Link
+              to={{
+                pathname: `/track/${props.username}/${props.index}`,
+              }}
+            >
+              <img
+                id="album-artwork"
+                src={props.track.trackImage}
+                className="mr-4 w-full h-full 2 rounded "
+                alt=""
+              ></img>
+            </Link>
           </div>
 
           <div className="flex flex-col justify-center m-0 p-0  w-full  truncate  ">

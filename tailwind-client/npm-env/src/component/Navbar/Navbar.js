@@ -315,7 +315,7 @@ const NavBar = () => {
                   </svg>
                 </Link>
               </div>
-              <div className=" bg-white  dark:bg-dbeats-dark-secondary dark:text-white self-center absolute w-1/3 h-max max-h-80 overflow-hidden overflow-y-auto text-black">
+              <div className=" bg-white  dark:bg-dbeats-dark-secondary dark:text-white self-center absolute lg:w-1/3 w-3/5 h-max max-h-80 overflow-hidden overflow-y-auto text-black">
                 {filteredVideoData.length != 0 && (
                   <>
                     {filteredVideoData.slice(0, 15).map((value, key) => {
@@ -325,7 +325,7 @@ const NavBar = () => {
                             pathname: '/search',
                           }}
                           key={key}
-                          className="w-full h-10 flex align-center dark:hover:bg-dbeats-dark-primary hover:bg-gray-200 py-2 px-2 my-1"
+                          className="w-full h-10  dark:hover:bg-dbeats-dark-primary hover:bg-gray-200 py-2 px-2 my-1"
                           onClick={() => {
                             setFilteredData([]);
                             setFilteredVideoData([]);
@@ -335,7 +335,7 @@ const NavBar = () => {
                             );
                           }}
                         >
-                          <p>{value.video.videoName} </p>
+                          <div className="ml-3">{value.video.videoName} </div>
                         </Link>
                       );
                     })}
@@ -351,7 +351,7 @@ const NavBar = () => {
                             pathname: '/search',
                           }}
                           key={key}
-                          className="w-full h-10 flex align-center dark:hover:bg-dbeats-dark-primary hover:bg-gray-200 py-2 px-2 my-1"
+                          className="w-full h-10 dark:hover:bg-dbeats-dark-primary hover:bg-gray-200 py-2 px-2 my-1"
                           onClick={() => {
                             setFilteredData([]);
                             setFilteredVideoData([]);
@@ -361,7 +361,7 @@ const NavBar = () => {
                             );
                           }}
                         >
-                          <p>{value.username} </p>
+                          <div className="ml-3">{value.username} </div>
                         </Link>
                       );
                     })}
@@ -492,7 +492,7 @@ const NavBar = () => {
                   </Transition>
                 </Dropdown>
                 <button
-                  className="lg:px-3 py-1 border-dbeats-light border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mx-2 flex"
+                  className="lg:px-3 px-1.5 py-1 border-dbeats-light border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mx-2 flex"
                   onClick={handleStreamOnClick}
                 >
                   <svg

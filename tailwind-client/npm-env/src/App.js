@@ -126,11 +126,7 @@ export default function App() {
                 <Route exact path="/profile/:username/:tab?" component={Profile} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/search" component={() => <SearchPage />} />
-                <Route
-                  exact
-                  path="/track/:username/:track_id"
-                  component={() => <TrackPlayback />}
-                />
+                <Route exact path="/track/:username/:track_id" component={TrackPlayback} />
                 {/* TODO: <Route exact path="*" component={PageNotFound} /> */}
               </div>
             </div>

@@ -301,7 +301,7 @@ const UserInfo = () => {
 
       <Modal
         isOpen={showStreamModal}
-        className="h-max lg:w-1/3 w-5/6 mx-auto mt-60 shadow-xl bg-white"
+        className="h-max lg:w-1/3 w-5/6 mx-auto mt-24 shadow-xl bg-white"
       >
         <h2 className="grid grid-cols-5 justify-items-center rounded-t-xl w-full dark:rounded-t-sm text-2xl py-4 dark:bg-dbeats-dark-alt bg-white dark:text-white">
           <div className="col-span-4 pl-14 text-lg lg:text-2xl">{multiStreamValue.title}</div>
