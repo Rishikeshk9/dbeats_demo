@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import Waves from './Visual/Visual';
 
 const AudioPlayer = ({ userData }) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -27,9 +28,9 @@ const AudioPlayer = ({ userData }) => {
     lableRef.current.style.marginLeft = `calc(${newValue - 2}%)`;
   }, [currentTime]);
 
-  useEffect(() => {
-    togglePlayPause();
-  }, []);
+  // useEffect(() => {
+  //   togglePlayPause();
+  // }, []);
 
   const togglePlayPause = () => {
     const prevValue = isPlaying;
@@ -82,7 +83,15 @@ const AudioPlayer = ({ userData }) => {
 
   return (
     <>
-      <audio ref={audioPlayer} src={userData.link}></audio>
+      <div>
+        <Waves
+          src={userData.link}
+          isPlaying={isPlaying}
+          currentTime={currentTime}
+          setIsPlaying={setIsPlaying}
+        />
+      </div>
+      <audio ref={audioPlayer} src={userData.link} muted={true}></audio>
       <div className="flex items-center">
         <div className="flex justify-around items-center w-96 pt-5">
           <button onClick={seekBack}>

@@ -42,6 +42,10 @@ const PlayBackInfo = (props) => {
   const handleClosePlaylist = () => setShowPlaylist(false);
   const handleShowPlaylist = () => setShowPlaylist(true);
 
+  const [showLogin, setShowLogin] = useState(false);
+  const handleLoginClose = () => setShowLogin(false);
+  const handleLoginShow = () => setShowLogin(true);
+
   const defaultOptions = {
     loop: true,
     autoplay: false,
@@ -247,6 +251,10 @@ const PlayBackInfo = (props) => {
   // console.log(userData ? userData.videos[props.video_id].link : '');
 
   const handlereaction = (videoprops) => {
+    if (!user) {
+      handleLoginShow();
+      return;
+    }
     if (userreact == '') {
       const reactionData = {
         reactusername: `${user.username}`,
@@ -453,12 +461,18 @@ const PlayBackInfo = (props) => {
                 {!privateUser ? (
                   <div>
                     {user ? (
-                      <button
-                        className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
-                        onClick={trackFollowers}
-                      >
-                        <span>{subscribeButtonText}</span>
-                      </button>
+                      <>
+                        <button
+                          className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
+                          onClick={trackFollowers}
+                        >
+                          <span>{subscribeButtonText}</span>
+                        </button>
+                        <button className="bg-dbeats-light    p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white ">
+                          <i className="fas fa-dice-d20  mr-1 cursor-pointer"></i>
+                          <span onClick={handleShowSubscriptionModal}>Become a SuperFan</span>
+                        </button>
+                      </>
                     ) : (
                       <button
                         className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
@@ -466,13 +480,9 @@ const PlayBackInfo = (props) => {
                           window.location.href = '/login';
                         }}
                       >
-                        <span>Login</span>
+                        <span>Login to Subscribe and Become a SuperFan</span>
                       </button>
                     )}
-                    <button className="bg-dbeats-light    p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white ">
-                      <i className="fas fa-dice-d20  mr-1 cursor-pointer"></i>
-                      <span onClick={handleShowSubscriptionModal}>Become a SuperFan</span>
-                    </button>
                   </div>
                 ) : (
                   <></>
@@ -671,11 +681,8 @@ const PlayBackInfo = (props) => {
         <hr className="py-2" />
       </Modal>
       <Modal
-        visible={showSubscriptionModal}
-        className="h-max w-max"
-        effect="fadeInUp"
-        aria-labelledby="contained-modal-title-vcenter "
-        centered
+        isOpen={showSubscriptionModal}
+        className="h-max lg:w-max w-5/6 bg-white mx-auto lg:mt-60 mt-32 shadow "
       >
         <div className={`${darkMode && 'dark'} h-max w-max`}>
           <h2 className="grid grid-cols-5 justify-items-center text-2xl py-4   text-center relative bg-gradient-to-b from-blue-50 via-blue-50 to-blue-50  dark:bg-gradient-to-b dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary">
@@ -763,6 +770,39 @@ const PlayBackInfo = (props) => {
           </div>
         </div>
       </Modal>
+      <Modal
+        isOpen={showLogin}
+        className="h-max lg:w-1/3 w-5/6 bg-white mx-auto lg:mt-60 mt-32 rounded-lg"
+      >
+        <div className={`${darkMode && 'dark'}`}>
+          <Container className="px-5 pb-4 dark:bg-dbeats-dark-primary rounded-lg">
+            <Row>
+              <h2 className="grid grid-cols-5 justify-items-center text-2xl py-4  pt-7  text-center relative  ">
+                <div className="col-span-5 text-gray-900 dark:text-gray-100 font-bold">
+                  To react on Video Please Login
+                </div>
+                <div
+                  className="ml-5 cursor-pointer text-gray-900 dark:text-gray-100 dark:bg-dbeats-dark-primary absolute right-10 top-4"
+                  onClick={handleLoginClose}
+                >
+                  <i className="fas fa-times"></i>
+                </div>
+              </h2>
+            </Row>
+            <Row>
+              <button
+                className="block mx-auto p-2 mt-4 mb-2 lg:w-96 w-full  text-white font-semibold rounded-lg bg-dbeats-light"
+                type="submit"
+                onClick={() => (window.location.href = '/login')}
+              >
+                Login
+              </button>
+            </Row>
+          </Container>
+        </div>
+        <hr className="py-2" />
+      </Modal>
+
       {userData && userData.videos ? (
         <Playlist
           showPlaylist={showPlaylist}

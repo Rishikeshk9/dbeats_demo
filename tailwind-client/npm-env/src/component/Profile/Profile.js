@@ -35,7 +35,7 @@ const Profile = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [buttonText, setButtonText] = useState('SUBSCRIBE');
+  const [buttonText, setButtonText] = useState('Subscribe');
 
   const text = 'Copy To Clipboard';
   const [copybuttonText, setCopyButtonText] = useState(text);
@@ -59,8 +59,13 @@ const Profile = (props) => {
           setPinnedData(value.pinned);
         }
         for (let i = 0; i < value.data.follower_count.length; i++) {
-          if (value.data.follower_count[i] === myData.username) {
-            setButtonText('UNSUBSCRIBE');
+          if (myData) {
+            if (value.data.follower_count[i] === myData.username) {
+              setButtonText('Unsubscribe');
+              break;
+            }
+          } else {
+            setButtonText('Login to Subscribe');
             break;
           }
         }
@@ -72,13 +77,17 @@ const Profile = (props) => {
 
   //console.log(user);
   const trackFollowers = () => {
+    if (buttonText === 'Login to Subscribe') {
+      window.location.href = '/login';
+    }
     console.log(followers);
     const followData = {
       following: `${user.username}`,
       follower: `${myData.username}`,
     };
-    if (buttonText === 'SUBSCRIBE') {
-      setButtonText('UNSUBSCRIBE');
+
+    if (buttonText === 'Subscribe') {
+      setButtonText('Unsubscribe');
       setFollowers(followers + 1);
       axios({
         method: 'POST',
@@ -100,7 +109,7 @@ const Profile = (props) => {
           console.log(error);
         });
     } else {
-      setButtonText('SUBSCRIBE');
+      setButtonText('Subscribe');
       setFollowers(followers - 1);
       axios({
         method: 'POST',
@@ -198,14 +207,19 @@ const Profile = (props) => {
         setTabIndex(0);
     }
     console.log(value);
-    if (value.username === props.match.params.username) {
-      setUser(value);
-      setSharable_data(`https://dbeats.live/profile/${value.username}`);
-      setPrivate(true);
-      setFollowers(value.follower_count.length);
-      setFollowing(value.followee_count.length);
-      if (value.pinned) {
-        setPinnedData(value.pinned);
+    if (value) {
+      if (value.username === props.match.params.username) {
+        setUser(value);
+        setSharable_data(`https://dbeats.live/profile/${value.username}`);
+        setPrivate(true);
+        setFollowers(value.follower_count.length);
+        setFollowing(value.followee_count.length);
+        if (value.pinned) {
+          setPinnedData(value.pinned);
+        }
+      } else {
+        get_User();
+        setPrivate(false);
       }
     } else {
       get_User();
@@ -328,7 +342,7 @@ const Profile = (props) => {
                               )
                             }
                           >
-                            SUBSCRIBED CHANNELS
+                            Subscribed Channels
                           </Tab>
                         ) : (
                           <></>
