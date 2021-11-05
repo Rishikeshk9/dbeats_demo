@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Spinner } from 'react-bootstrap';
 import Modal from 'react-modal';
 import { MultiStreamData } from '../../../../assets/Data';
-import VideoPlayer from '../../VideoPlayer/VideoPlayer';
+import VideoPlayer from '../../../VideoPlayer/VideoPlayer';
 import { useSelector } from 'react-redux';
 
 const UserInfo = () => {

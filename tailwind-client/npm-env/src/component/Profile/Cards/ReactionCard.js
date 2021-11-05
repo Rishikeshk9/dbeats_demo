@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
-import classes from './Profile.module.css';
-import { WhatsappIcon, WhatsappShareButton } from 'react-share';
-import { FacebookShareButton, FacebookIcon } from 'react-share';
-import { EmailShareButton, EmailIcon } from 'react-share';
-import { PinterestShareButton, PinterestIcon } from 'react-share';
-import { TelegramShareButton, TelegramIcon } from 'react-share';
-import { Container, Row, Col } from 'react-bootstrap';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import Modal from 'react-modal';
+import classes from '../Profile.module.css';
+import { ShareModal } from '../../Modals/ShareModal/ShareModal';
 
 const ReactionCard = (props) => {
   const [playing, setPlaying] = useState(false);
@@ -96,59 +89,13 @@ const ReactionCard = (props) => {
           </div>
         </p>
       </div>
-      <Modal isOpen={show} className="h-max lg:w-max w-5/6 bg-white mx-auto lg:mt-60 mt-32 shadow ">
-        <h2 className="grid grid-cols-5 justify-items-center text-2xl py-4">
-          <div className="col-span-4 pl-14">Share link on</div>
-          <div className="ml-5" onClick={handleClose}>
-            <i className="fas fa-times"></i>
-          </div>
-        </h2>
-        <hr className="py-4" />
-        <div>
-          <Container className="px-12 pb-4">
-            <Row>
-              <Col className="flex lg:justify-around justify-center align-center flex-wrap">
-                <div className="px-1 py-1">
-                  <WhatsappShareButton url={sharable_data}>
-                    <WhatsappIcon iconFillColor="white" size={60} round={true} />
-                  </WhatsappShareButton>
-                </div>
-                <div className="px-1 py-1">
-                  <FacebookShareButton url={sharable_data}>
-                    <FacebookIcon iconFillColor="white" size={60} round={true} />
-                  </FacebookShareButton>
-                </div>
-                <div className="px-1 py-1">
-                  <EmailShareButton url={sharable_data}>
-                    <EmailIcon iconFillColor="white" size={60} round={true} />
-                  </EmailShareButton>
-                </div>
-                <div className="px-1 py-1">
-                  <PinterestShareButton url={sharable_data}>
-                    <PinterestIcon iconFillColor="white" size={60} round={true} />
-                  </PinterestShareButton>
-                </div>
-                <div className="px-1 py-1">
-                  <TelegramShareButton url={sharable_data}>
-                    <TelegramIcon iconFillColor="white" size={60} round={true} />
-                  </TelegramShareButton>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <CopyToClipboard
-                text={sharable_data}
-                className="block mx-auto p-2 mt-4 mb-2 lg:w-96 w-full  text-white font-semibold rounded-lg bg-dbeats-light"
-              >
-                <button type="submit" onClick={() => setButtonText('Link Copied!')}>
-                  {buttonText}
-                </button>
-              </CopyToClipboard>
-            </Row>
-          </Container>
-        </div>
-        <hr className="py-2" />
-      </Modal>
+      <ShareModal
+        show={show}
+        handleClose={handleClose}
+        sharable_data={sharable_data}
+        copybuttonText={buttonText}
+        setCopyButtonText={setButtonText}
+      />
     </div>
   );
 };

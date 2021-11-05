@@ -2,14 +2,8 @@ import React, { Fragment, useEffect, useState } from 'react';
 import classes from '../Info.module.css';
 //import playimg from "../../../assets/images/telegram.png";
 import axios from 'axios';
-import VideoPlayer from '../../VideoPlayer/VideoPlayer';
-import { WhatsappIcon, WhatsappShareButton } from 'react-share';
-import { FacebookShareButton, FacebookIcon } from 'react-share';
-import { EmailShareButton, EmailIcon } from 'react-share';
-import { PinterestShareButton, PinterestIcon } from 'react-share';
-import { TelegramShareButton, TelegramIcon } from 'react-share';
-import { Container, Row, Col } from 'react-bootstrap';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import VideoPlayer from '../../../VideoPlayer/VideoPlayer';
+import { Container, Row } from 'react-bootstrap';
 import LiveCard from './LiveCard';
 import Modal from 'react-awesome-modal';
 import { Menu, Transition } from '@headlessui/react';
@@ -22,6 +16,7 @@ import animationDataGiraffee from '../../../../lotties/giraffee.json';
 import Lottie from 'react-lottie';
 import SuperfluidSDK from '@superfluid-finance/js-sdk';
 import { Web3Provider } from '@ethersproject/providers';
+import { ShareModal } from '../../../Modals/ShareModal/ShareModal';
 
 const PublicInfo = (props) => {
   let sharable_data = `https://dbeats-demo.vercel.app /live/${props.stream_id}`;
@@ -343,55 +338,14 @@ const PublicInfo = (props) => {
           </div>
         </div>
       </div>
-      <Modal
-        visible={show}
-        className="h-max w-max"
-        effect="fadeInUp"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <h2 className="grid grid-cols-5 justify-items-center text-2xl py-4">
-          <div className="col-span-4 pl-14">Share link on</div>
-          <div className="ml-5" onClick={handleClose}>
-            <i className="fas fa-times"></i>
-          </div>
-        </h2>
-        <hr className="py-4" />
-        <div>
-          <Container className="px-12 pb-4">
-            <Row>
-              <Col className="flex justify-around align-center">
-                <WhatsappShareButton url={sharable_data}>
-                  <WhatsappIcon iconFillColor="white" size={60} round={true} />
-                </WhatsappShareButton>
-                <FacebookShareButton url={sharable_data}>
-                  <FacebookIcon iconFillColor="white" size={60} round={true} />
-                </FacebookShareButton>
-                <EmailShareButton url={sharable_data}>
-                  <EmailIcon iconFillColor="white" size={60} round={true} />
-                </EmailShareButton>
-                <PinterestShareButton url={sharable_data}>
-                  <PinterestIcon iconFillColor="white" size={60} round={true} />
-                </PinterestShareButton>
-                <TelegramShareButton url={sharable_data}>
-                  <TelegramIcon iconFillColor="white" size={60} round={true} />
-                </TelegramShareButton>
-              </Col>
-            </Row>
-            <Row>
-              <CopyToClipboard
-                text={sharable_data}
-                className="block mx-auto p-2 mt-4 mb-2 w-96 text-white font-semibold rounded-lg bg-dbeats-light"
-              >
-                <button type="submit" onClick={() => setButtonText('Link Copied!')}>
-                  {buttonText}
-                </button>
-              </CopyToClipboard>
-            </Row>
-          </Container>
-        </div>
-        <hr className="py-2" />
-      </Modal>{' '}
+      <ShareModal
+        show={show}
+        handleClose={handleClose}
+        sharable_data={sharable_data}
+        copybuttonText={buttonText}
+        setCopyButtonText={setButtonText}
+      />
+
       <Modal
         visible={showSubscriptionModal}
         className="h-max w-max"

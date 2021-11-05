@@ -27,7 +27,7 @@ const VideoHome = lazy(() => {
 
 const PublicRoom = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('./component/Room/Info/LivePage/PublicRoomPage')), 1000);
+    setTimeout(() => resolve(import('./component/Room/Info/LivePublicPage/PublicRoomPage')), 1000);
   });
 });
 
@@ -39,7 +39,7 @@ const Playback = lazy(() => {
 
 const UserRoom = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('./component/Room/Info/GoLive/UserRoomPage')), 1000);
+    setTimeout(() => resolve(import('./component/Room/Info/GoLive_UserPage/UserRoomPage')), 1000);
   });
 });
 

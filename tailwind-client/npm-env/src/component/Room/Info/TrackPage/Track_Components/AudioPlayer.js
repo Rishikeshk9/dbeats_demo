@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Waves from './Visual/Visual';
+import Waves from './Visual';
 
 const AudioPlayer = ({ userData }) => {
   const [isPlaying, setIsPlaying] = useState(false);

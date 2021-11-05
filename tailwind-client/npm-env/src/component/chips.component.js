@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Chips, { Chip } from '../src';
+import Chips from '../src';
 
 class YourComponent extends Component {
   constructor(props) {

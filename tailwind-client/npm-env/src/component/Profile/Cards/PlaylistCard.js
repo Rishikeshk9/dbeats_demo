@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
 //import { useHistory } from "react-router-dom";
-import person from '../../assets/images/profile.svg';
+import person from '../../../assets/images/profile.svg';
 
 const PlaylistCard = (props) => {
   const [playing, setPlaying] = useState(false);

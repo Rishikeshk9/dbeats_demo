@@ -6,7 +6,7 @@ import ReactPlayer from 'react-player';
 import screenful from 'screenfull';
 import FullControls from './FullControls';
 import PlayControls from './PlayControls';
-import Footer from '../Footer/Footer';
+import Footer from '../Room/Footer/Footer';
 import classes from './videoPlayer.module.css';
 
 const format = (seconds) => {

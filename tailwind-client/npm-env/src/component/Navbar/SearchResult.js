@@ -3,7 +3,7 @@ import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 import logo from '../../assets/images/logo.svg';
 import { useSelector } from 'react-redux';
-import CarouselCard from '../Profile/CarouselCard';
+import CarouselCard from '../Profile/Cards/CarouselCard';
 
 const SearchResult = () => {
   const darkMode = useSelector((state) => state.toggleDarkMode);

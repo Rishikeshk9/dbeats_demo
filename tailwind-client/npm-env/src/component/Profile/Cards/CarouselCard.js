@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 //import Avatar from '@material-ui/core/Avatar';
 //import { red } from '@material-ui/core/colors';
 import ReactPlayer from 'react-player';
-import classes from './Profile.module.css';
+import classes from '../Profile.module.css';
 import moment from 'moment';
 moment().format();
 
