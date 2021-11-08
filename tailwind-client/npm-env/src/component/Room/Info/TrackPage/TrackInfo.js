@@ -21,6 +21,7 @@ const TrackInfo = (props) => {
 
   const fetchData = async () => {
     const fileRes = await axios.get(`${process.env.REACT_APP_SERVER_URL}/user`);
+    let track_data = [];
     for (let i = 0; i < fileRes.data.length; i++) {
       if (fileRes.data[i].tracks) {
         if (user ? fileRes.data[i].username === user.username : false) {
@@ -28,8 +29,17 @@ const TrackInfo = (props) => {
         }
         if (fileRes.data[i].username !== username && fileRes.data[i].tracks.length > 0) {
           setArrayData((prevState) => [...prevState, fileRes.data[i]]);
+          track_data.push(fileRes.data[i]);
         }
       }
+    }
+    console.log('fetch', track_data);
+    if (
+      JSON.parse(window.sessionStorage.getItem('Track_Array')) !== '' ||
+      !JSON.parse(window.sessionStorage.getItem('Track_Array'))
+    ) {
+      window.sessionStorage.setItem('Track_Array', JSON.stringify(track_data));
+      window.sessionStorage.setItem('Track_Array_Size', track_data.length);
     }
   };
 

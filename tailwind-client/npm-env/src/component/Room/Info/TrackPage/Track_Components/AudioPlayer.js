@@ -9,6 +9,7 @@ const AudioPlayer = ({ userData }) => {
   const lableRef = useRef();
   const [duration, setDuration] = useState();
   const [currentTime, setCurrentTime] = useState(0);
+  const [hidePlay, setHidePlay] = useState(true);
 
   useEffect(() => {
     const seconds = Math.floor(audioPlayer.current.duration);
@@ -59,9 +60,11 @@ const AudioPlayer = ({ userData }) => {
   };
 
   const whilePlaying = () => {
-    progressRef.current.value = audioPlayer.current.currentTime;
-    changePlayerCurrentTime();
-    animationRef.current = requestAnimationFrame(whilePlaying);
+    if (audioPlayer.current) {
+      progressRef.current.value = audioPlayer.current.currentTime;
+      changePlayerCurrentTime();
+      animationRef.current = requestAnimationFrame(whilePlaying);
+    }
   };
 
   const changePlayerCurrentTime = () => {
@@ -89,6 +92,7 @@ const AudioPlayer = ({ userData }) => {
           isPlaying={isPlaying}
           currentTime={currentTime}
           setIsPlaying={setIsPlaying}
+          setHidden={setHidePlay}
         />
       </div>
       <audio ref={audioPlayer} src={userData.link} muted={true}></audio>
@@ -97,7 +101,7 @@ const AudioPlayer = ({ userData }) => {
           <button onClick={seekBack}>
             <i className="text-3xl fas fa-backward"></i>
           </button>
-          <button onClick={togglePlayPause}>
+          <button onClick={togglePlayPause} hidden={hidePlay}>
             {isPlaying ? (
               <i className="text-5xl far fa-pause-circle"></i>
             ) : (
