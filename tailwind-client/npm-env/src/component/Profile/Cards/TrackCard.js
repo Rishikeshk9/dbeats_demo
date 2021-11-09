@@ -39,7 +39,7 @@ const TrackCard = (props) => {
               <img
                 id="album-artwork"
                 src={props.track.trackImage}
-                className="mr-4 w-full h-full 2 rounded "
+                className="px-2 w-full h-full 2 rounded "
                 alt=""
               ></img>
             </div>

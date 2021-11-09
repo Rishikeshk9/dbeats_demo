@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import TrackCard from './Track_Components/TrackCard';
 import AudioPlayer from './Track_Components/AudioPlayer';
-import { Playlist } from '../../../Modals/NavbarModals/PopModals';
+import { Playlist } from '../../../Modals/PlaylistModals/PlaylistModal';
 
 const TrackInfo = (props) => {
   const username = props.match.params.username;
@@ -110,7 +110,7 @@ const TrackInfo = (props) => {
           setShowPlaylist={setShowPlaylist}
           handleClosePlaylist={handleClosePlaylist}
           handleShowPlaylist={handleShowPlaylist}
-          data={userData.tracks[props.track_id]}
+          data={userData.tracks[track_id]}
         />
       ) : (
         <></>

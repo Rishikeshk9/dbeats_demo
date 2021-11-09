@@ -52,9 +52,9 @@ const Pinned_Panel = (props) => {
                       window.location.href = `/profile/${pinnedUser}/`;
                     }}
                   />{' '}
-                  <div className="bg-red-500 rounded-full shadow  h-6 w-6 text-sm self-center text-center font-semibold  absolute -bottom-2  -right-1 dark:border-dbeats-dark-primary  border-red-300 border-2 text-white  ">
+                  {/* <div className="bg-red-500 rounded-full shadow  h-6 w-6 text-sm self-center text-center font-semibold  absolute -bottom-2  -right-1 dark:border-dbeats-dark-primary  border-red-300 border-2 text-white  ">
                     2
-                  </div>
+                  </div> */}
                 </div>
               </OverlayTrigger>
             </div>

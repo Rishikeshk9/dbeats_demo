@@ -490,10 +490,10 @@ const Profile = (props) => {
                                         </h2>
                                         <div>
                                           <Carousel cols={4}>
-                                            {playlist.playlistdata.map((video, i) => {
+                                            {playlist.playlistdata.map((data, i) => {
                                               return (
                                                 <Carousel.Item key={i}>
-                                                  <PlaylistCard videoData={video} />
+                                                  <PlaylistCard playlistData={data} />
                                                 </Carousel.Item>
                                               );
                                             })}

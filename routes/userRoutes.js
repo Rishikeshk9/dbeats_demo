@@ -636,11 +636,12 @@ router.route('/playlist').post(async (req, res) => {
         },
       );
     } else {
-      let data = user.my_playlists;
-      data[count].playlistdata.push(data);
+      let playlistdata = user.my_playlists;
+      playlistdata[count].playlistdata.push(data);
+
       User.findOneAndUpdate(
         { username: username },
-        { $set: { my_playlists: data } },
+        { $set: { my_playlists: playlistdata } },
         function (error, success) {
           if (error) {
           } else {

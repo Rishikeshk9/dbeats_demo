@@ -14,7 +14,7 @@ import animationDataConfetti from '../../../../lotties/confetti.json';
 import animationDataGiraffee from '../../../../lotties/giraffee.json';
 import Lottie from 'react-lottie';
 import superfluid from '../../../../assets/images/superfluid-black.svg';
-import { Playlist } from '../../../Modals/NavbarModals/PopModals';
+import { Playlist } from '../../../Modals/PlaylistModals/PlaylistModal';
 import moment from 'moment';
 import { ShareModal } from '../../../Modals/ShareModal/ShareModal';
 moment().format();

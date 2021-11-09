@@ -461,7 +461,7 @@ export default function Track() {
                             {/* action buttons */}
 
                             <div className=" flex mt-2   ">
-                              <div className=" sm:flex opacity-0 group-hover:opacity-100">
+                              <div className=" sm:flex ">
                                 <button
                                   onClick={() =>
                                     playAudio(
@@ -472,46 +472,50 @@ export default function Track() {
                                     )
                                   }
                                   name={todo.id}
-                                  className="  cursor-pointer mr-2 uppercase font-bold  bg-gradient-to-r from-green-400 to-blue-500   text-white block py-2 px-10   hover:scale-95 transform transition-all"
+                                  className="hidden lg:block  cursor-pointer mr-2 uppercase font-bold  bg-gradient-to-r from-green-400 to-blue-500   text-white block py-2 px-10   hover:scale-95 transform transition-all"
                                 >
                                   {`${state.play && playId === todo.id ? 'Pause' : 'Play'}`}
                                 </button>
-                                {user ? (
-                                  <button
-                                    onClick={
-                                      favorites
-                                        ? favorites.indexOf(todo.id) > -1
-                                          ? () => removeFavorite(todo.id)
-                                          : () => setFavorite(todo.id)
-                                        : false
-                                    }
-                                    className={`${
-                                      favorites
-                                        ? favorites.indexOf(todo.id) > -1
-                                          ? 'text-red-900'
-                                          : 'text-gray-600 hover:text-red-300'
-                                        : false
-                                    } mr-2  block p-2 rounded-full hover:scale-95 dark:hover:bg-dbeats-dark-secondary transform transition-all`}
-                                  >
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg "
-                                      className={`  h-6 w-6  `}
-                                      fill="none"
-                                      viewBox="0 0 24 24"
-                                      stroke="currentColor"
+                                <div className="flex">
+                                  {user ? (
+                                    <button
+                                      onClick={
+                                        favorites
+                                          ? favorites.indexOf(todo.id) > -1
+                                            ? () => removeFavorite(todo.id)
+                                            : () => setFavorite(todo.id)
+                                          : false
+                                      }
+                                      className={`${
+                                        favorites
+                                          ? favorites.indexOf(todo.id) > -1
+                                            ? 'text-red-900'
+                                            : 'text-gray-600 hover:text-red-300'
+                                          : false
+                                      } mr-2 block p-2 rounded-full hover:scale-95 dark:hover:bg-dbeats-dark-secondary transform transition-all`}
                                     >
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                                      />
-                                    </svg>
-                                  </button>
-                                ) : (
-                                  false
-                                )}
-                                <PopUp />
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg "
+                                        className={`  h-6 w-6  `}
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                      >
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth={2}
+                                          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                        />
+                                      </svg>
+                                    </button>
+                                  ) : (
+                                    false
+                                  )}
+                                  <div className="opacity-0 group-hover:opacity-100">
+                                    <PopUp />
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -529,7 +533,7 @@ export default function Track() {
               leave="transition ease-in-out duration-800"
               leaveFrom="transform opacity-100   translate-x-0"
               leaveTo="transform   opacity-0 -translate-x-full"
-              className="dark:bg-dbeats-dark-primary"
+              className="dark:bg-dbeats-dark-primary "
             >
               {!audius &&
                 dbeatsTracks.dbeatsTracks &&
