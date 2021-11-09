@@ -74,7 +74,7 @@ const Waves = ({ src, isPlaying, currentTime, setIsPlaying, setHidden }) => {
 
   return (
     <>
-      <div ref={waveformRef}></div>
+      <div ref={waveformRef} className="z-0"></div>
     </>
   );
 };

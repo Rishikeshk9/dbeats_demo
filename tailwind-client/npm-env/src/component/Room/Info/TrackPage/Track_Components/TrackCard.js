@@ -12,14 +12,20 @@ const TrackCard = (props) => {
       <div className=" group ">
         <div className="bg-white py-3 group dark:bg-dbeats-dark-primary dark:text-blue-300 shadow-md  flex p-2  mx-auto  rounded-lg  w-full hover:scale-101 transform transition-all">
           <div className=" flex items-center h-26 w-30 md:h-max md:w-52 cursor-pointer mr-4">
-            <a href={`/track/${props.username}/${props.index}`}>
+            <div
+              onClick={() => {
+                window.sessionStorage.setItem('Track_Array', JSON.stringify(''));
+                window.sessionStorage.setItem('Track_Array_Size', 0);
+                window.location.href = `/track/${props.username}/${props.index}`;
+              }}
+            >
               <img
                 id="album-artwork"
                 src={props.track.trackImage}
                 className="mx-auto p-3 w-full h-full rounded"
                 alt=""
               ></img>
-            </a>
+            </div>
           </div>
 
           <div className="flex flex-col justify-center m-0 p-0 w-full">

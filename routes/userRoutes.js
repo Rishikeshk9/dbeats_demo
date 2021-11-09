@@ -604,7 +604,7 @@ router
 router.route('/playlist').post(async (req, res) => {
   try {
     const playlistname = req.body.playlistname;
-    const videoData = req.body.videoData;
+    const data = req.body.data;
     const username = req.body.username;
     const user = await User.findOne({ username: username });
 
@@ -619,12 +619,12 @@ router.route('/playlist').post(async (req, res) => {
     }
 
     if (count === -1) {
-      let videos = [];
-      videos.push(videoData);
+      let playlistdata = [];
+      playlistdata.push(data);
 
       const playlistData = {
         playlistname: playlistname,
-        videos: videos,
+        playlistdata: playlistdata,
       };
       User.findOneAndUpdate(
         { username: username },
@@ -637,7 +637,7 @@ router.route('/playlist').post(async (req, res) => {
       );
     } else {
       let data = user.my_playlists;
-      data[count].videos.push(videoData);
+      data[count].playlistdata.push(data);
       User.findOneAndUpdate(
         { username: username },
         { $set: { my_playlists: data } },

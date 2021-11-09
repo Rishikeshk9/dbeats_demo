@@ -1036,7 +1036,7 @@ const NewPlaylist = (props) => {
   const handleSubmitPlaylist = async () => {
     const data = {
       playlistname: playlist,
-      videoData: props.videoData,
+      data: props.data,
       username: user.username,
     };
 
@@ -1062,6 +1062,9 @@ const NewPlaylist = (props) => {
         }
       >
         <div className={`${darkMode && 'dark'} dark:text-white p-5`}>
+          <div className=" flex justify-end w-full" onClick={props.handleCloseNewPlaylist}>
+            <i className="fas fa-times cursor-pointer text-lg text-white mr-5 mt-2"></i>
+          </div>
           <div className="h-32 w-full flex flex-col justify-center items-center">
             <input
               type="text"
@@ -1094,7 +1097,7 @@ export const Playlist = (props) => {
   const handleSubmitPlaylist = async (playlistTitle) => {
     const data = {
       playlistname: playlistTitle,
-      videoData: props.videoData,
+      data: props.data,
       username: user.username,
     };
 
@@ -1109,17 +1112,20 @@ export const Playlist = (props) => {
   };
 
   return (
-    <>
+    <div className="z-100">
       <Modal
         isOpen={props.showPlaylist}
         className={
           darkMode
-            ? 'h-max w-80 mx-auto mt-28  bg-dbeats-dark-primary rounded-xl '
-            : 'h-max w-80 mx-auto mt-28  bg-gray-50 rounded-xl shadow-2xl'
+            ? 'h-max w-80 mx-auto mt-28  bg-dbeats-dark-primary rounded-xl z-100'
+            : 'h-max w-80 mx-auto mt-28  bg-gray-50 rounded-xl shadow-2xl z-100'
         }
       >
-        <div className={`${darkMode && 'dark'} dark:text-white`}>
-          <div className="dark:text-white text-xl flex flex-col justify-center items-center w-full pt-5">
+        <div className={`${darkMode && 'dark'} dark:text-white z-100`}>
+          <div className="mr-7 flex justify-end w-full" onClick={props.handleClosePlaylist}>
+            <i className="fas fa-times cursor-pointer text-lg text-white mr-5 mt-2"></i>
+          </div>
+          <div className="dark:text-white text-xl flex flex-col justify-center items-center w-full ">
             <p>Add to Existing</p>
             <div className="pt-3 w-full ">
               {user && user.my_playlists ? (
@@ -1158,7 +1164,13 @@ export const Playlist = (props) => {
                   clipRule="evenodd"
                 />
               </svg>
-              <p className="dark:text-white text-xl" onClick={handleShowNewPlaylist}>
+              <p
+                className="dark:text-white text-xl"
+                onClick={() => {
+                  handleShowNewPlaylist();
+                  props.handleClosePlaylist();
+                }}
+              >
                 Create New Playlist
               </p>
             </div>
@@ -1171,8 +1183,8 @@ export const Playlist = (props) => {
         handleCloseNewPlaylist={handleCloseNewPlaylist}
         handleShowNewPlaylist={handleShowNewPlaylist}
         handleClosePlaylist={props.handleClosePlaylist}
-        videoData={props.videoData}
+        data={props.data}
       />
-    </>
+    </div>
   );
 };

@@ -12,6 +12,12 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
+.ReactModal__Overlay--after-open {
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
 /* Toggle B */
 #audius:checked ~ .dot {
   transform: translateX(100%);

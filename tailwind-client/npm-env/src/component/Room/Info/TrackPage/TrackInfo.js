@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import TrackCard from './Track_Components/TrackCard';
 import AudioPlayer from './Track_Components/AudioPlayer';
+import { Playlist } from '../../../Modals/NavbarModals/PopModals';
 
 const TrackInfo = (props) => {
   const username = props.match.params.username;
@@ -12,6 +13,10 @@ const TrackInfo = (props) => {
   const [userData, setUserData] = useState(null);
 
   const [arrayData, setArrayData] = useState([]);
+
+  const [showPlaylist, setShowPlaylist] = useState(false);
+  const handleClosePlaylist = () => setShowPlaylist(false);
+  const handleShowPlaylist = () => setShowPlaylist(true);
 
   const get_User = async () => {
     await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${username}`).then((value) => {
@@ -35,7 +40,7 @@ const TrackInfo = (props) => {
     }
     console.log('fetch', track_data);
     if (
-      JSON.parse(window.sessionStorage.getItem('Track_Array')) !== '' ||
+      JSON.parse(window.sessionStorage.getItem('Track_Array')) === '' ||
       !JSON.parse(window.sessionStorage.getItem('Track_Array'))
     ) {
       window.sessionStorage.setItem('Track_Array', JSON.stringify(track_data));
@@ -73,6 +78,13 @@ const TrackInfo = (props) => {
           <div className="self-center lg:px-8 lg:w-full lg:mt-3 mt-0.5">
             {userData ? <AudioPlayer userData={userData.tracks[track_id]} /> : <></>}
           </div>
+          <button
+            onClick={() => {
+              handleShowPlaylist();
+            }}
+          >
+            Add to Playlist
+          </button>
         </div>
         <div className="  w-full col-span-1 px-5 lg:pt-3 dark:bg-dbeats-dark-secondary text-black  dark:text-white">
           <div className=" w-full  grid grid-cols-1 grid-flow-row gap-3  ">
@@ -92,6 +104,17 @@ const TrackInfo = (props) => {
           </div>
         </div>
       </div>
+      {userData && userData.tracks ? (
+        <Playlist
+          showPlaylist={showPlaylist}
+          setShowPlaylist={setShowPlaylist}
+          handleClosePlaylist={handleClosePlaylist}
+          handleShowPlaylist={handleShowPlaylist}
+          data={userData.tracks[props.track_id]}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
