@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 //import Modal from 'react-awesome-modal';
 import { Container, Row, Col } from 'react-bootstrap';
 import Dropdown from '../../dropdown.component';
@@ -173,6 +173,16 @@ export const UploadVideo = (props) => {
       document.getElementById('video-thumbnail-label').textContent = videoImage;
     }
   };
+
+  useEffect(() => {
+    setVideo({
+      ...video,
+      category: selectedCategory,
+      allowAttribution: selectedAttribution,
+      commercialUse: selectedCommercialUse,
+      derivativeWorks: selectedDerivativeWorks,
+    });
+  }, [selectedCategory, selectedCommercialUse, selectedDerivativeWorks, selectedAttribution]);
 
   const PostData = async (e) => {
     e.preventDefault();
@@ -573,6 +583,8 @@ export const UploadMusic = (props) => {
     return client.put(files, { onRootCidReady, onStoredChunk });
   }
 
+  console.log(track);
+
   const onFileChange = (e) => {
     if (e.target.name === 'trackFile') {
       track.trackFile = e.target.files[0];
@@ -586,6 +598,23 @@ export const UploadMusic = (props) => {
       document.getElementById('audio-thumbnail-label').textContent = trcImage;
     }
   };
+
+  useEffect(() => {
+    setTrack({
+      ...track,
+      genre: selectedGenre,
+      mood: selectedMood,
+      allowAttribution: selectedAttribution,
+      commercialUse: selectedCommercialUse,
+      derivativeWorks: selectedDerivativeWorks,
+    });
+  }, [
+    selectedGenre,
+    selectedCommercialUse,
+    selectedDerivativeWorks,
+    selectedAttribution,
+    selectedMood,
+  ]);
 
   const PostData = async (e) => {
     e.preventDefault();
