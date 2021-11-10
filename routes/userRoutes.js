@@ -33,7 +33,7 @@ router.route('/add').post(async (req, res) => {
     confirm_password: confirmPassword,
   };
 
-  console.log('add data', data);
+  //console.log('add data', data);
 
   const newUser = new User({
     username: userName,
@@ -72,7 +72,7 @@ router.route('/add').post(async (req, res) => {
   })
     .then(function (response) {
       //console.log("esponse", response.data);
-      console.log(response.data);
+      res.send('success');
     })
     .catch(function (error) {
       console.log(error.data);
@@ -86,7 +86,7 @@ router.route('/login').post(async (req, res) => {
 
     const user_username = await User.findOne({ username: username });
     const isMatch = bcrypt.compare(password, user_username.password);
-    console.log(username, ' ', password);
+    //console.log(username, ' ', password);
     if (isMatch) {
       res.send(user_username);
     } else {
@@ -333,7 +333,7 @@ router.route('/getreactions').post(async (req, res) => {
     let count = -1;
     for (let i = 0; i < user.videos.length; i++) {
       if (user.videos[i].link === videolink) {
-        console.log(user.videos[i].link);
+        //console.log(user.videos[i].link);
         res.send(user.videos[i]);
         break;
       }
@@ -351,8 +351,8 @@ router.route('/getuserreaction').post(async (req, res) => {
     const videolink = req.body.videolink;
     const user = await User.findOne({ username: videoUsername });
 
-    console.log(req.body);
-    console.log(user);
+    // console.log(req.body);
+    // console.log(user);
 
     let count = -1;
     for (let i = 0; i < user.videos.length; i++) {
@@ -398,7 +398,7 @@ router.route('/getuserreaction').post(async (req, res) => {
 
 router.route('/removeuserreaction').post(async (req, res) => {
   try {
-    console.log(req.body);
+    //console.log(req.body);
     const videoUsername = req.body.videousername;
     const reactUsername = req.body.reactusername;
     const oldreaction = req.body.oldreaction;
@@ -450,7 +450,7 @@ router.route('/removeuserreaction').post(async (req, res) => {
         else if (newreaction === 'happy')
           data[count].reaction.happy.push(reactUsername);
       }
-      console.log(data);
+      //console.log(data);
 
       User.findOneAndUpdate(
         { username: videoUsername },
@@ -476,7 +476,7 @@ router.route('/removeuserreaction').post(async (req, res) => {
         break;
       }
     }
-    console.log(yourcount);
+    //console.log(yourcount);
     if (yourcount != -1) {
       let yourdata = reactuser.your_reactions;
       // console.log('all data', yourdata);
@@ -548,7 +548,7 @@ router.route('/announcement').post(async (req, res) => {
     const announcement = req.body.announcement;
     const user = await User.findOne({ username: username });
     user.follower_count.forEach(function (id) {
-      console.log(id);
+      //console.log(id);
       User.updateOne(
         { username: id },
         { $push: { notification: announcement } },
@@ -578,7 +578,7 @@ router.route('/seennotification').post(async (req, res) => {
     for (let i = 0; i < user.notification.length; i++) {
       data.push(user.notification[i]);
     }
-    console.log(data);
+    //console.log(data);
     await User.update({ username: username }, { notification: [] });
     await User.update(
       { username: username },
@@ -595,7 +595,7 @@ router
   .get(async (req, res) => {
     try {
       const username = req.params.username;
-      console.log(username);
+      //console.log(username);
     } catch (err) {
       console.log(err);
     }
@@ -606,6 +606,9 @@ router.route('/playlist').post(async (req, res) => {
     const playlistname = req.body.playlistname;
     const data = req.body.data;
     const username = req.body.username;
+    const playlist_username = req.body.playlistUsername;
+    const playlist_data_index = req.body.playlistDataIndex;
+
     const user = await User.findOne({ username: username });
 
     let count = -1;
@@ -620,7 +623,14 @@ router.route('/playlist').post(async (req, res) => {
 
     if (count === -1) {
       let playlistdata = [];
-      playlistdata.push(data);
+
+      let sendData = {
+        username: playlist_username,
+        index: playlist_data_index,
+        data: data,
+      };
+
+      playlistdata.push(sendData);
 
       const playlistData = {
         playlistname: playlistname,
@@ -637,7 +647,14 @@ router.route('/playlist').post(async (req, res) => {
       );
     } else {
       let playlistdata = user.my_playlists;
-      playlistdata[count].playlistdata.push(data);
+
+      let sendData = {
+        username: playlist_username,
+        index: playlist_data_index,
+        data: data,
+      };
+
+      playlistdata[count].playlistdata.push(sendData);
 
       User.findOneAndUpdate(
         { username: username },

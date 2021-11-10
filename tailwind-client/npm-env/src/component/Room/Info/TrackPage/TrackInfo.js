@@ -60,13 +60,23 @@ const TrackInfo = (props) => {
           darkMode && 'dark'
         }  grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row pb-50  mt-10 lg:ml-12  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary`}
       >
-        <div className=" lg:col-span-2 dark:bg-dbeats-dark-alt h-screen text-black   dark:text-white">
-          <div className="pl-7 pt-5">
+        <div className=" lg:col-span-2 pl-7 dark:bg-dbeats-dark-alt h-screen text-black   dark:text-white">
+          <div className=" pt-5">
             {userData ? (
               <>
-                <p className="overflow-ellipsis  w-full max-w-full mt-0 mb-1 md:mb-2 drop-shadow xl:text-3xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
-                  {userData.tracks[track_id].trackName}
-                </p>
+                <div className="flex justify-between">
+                  <p className="overflow-ellipsis mt-0 mb-1 md:mb-2 drop-shadow xl:text-3xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
+                    {userData.tracks[track_id].trackName}
+                  </p>
+                  <button
+                    onClick={() => {
+                      handleShowPlaylist();
+                    }}
+                    className="py-2 px-3 mr-10 bg-dbeats-light text-xl font-bold rounded-lg"
+                  >
+                    Add to Playlist
+                  </button>
+                </div>
                 <p className="mt-0  mb-1 md:mb-2   text-gray-600 tracking-widest  text-lg flex font-semibold">
                   {userData.username}
                 </p>
@@ -75,17 +85,11 @@ const TrackInfo = (props) => {
               <></>
             )}
           </div>
-          <div className="self-center lg:px-8 lg:w-full lg:mt-3 mt-0.5">
+          <div className="self-center lg:pr-4 lg:w-full lg:mt-3 mt-0.5">
             {userData ? <AudioPlayer userData={userData.tracks[track_id]} /> : <></>}
           </div>
-          <button
-            onClick={() => {
-              handleShowPlaylist();
-            }}
-          >
-            Add to Playlist
-          </button>
         </div>
+
         <div className="  w-full col-span-1 px-5 lg:pt-3 dark:bg-dbeats-dark-secondary text-black  dark:text-white">
           <div className=" w-full  grid grid-cols-1 grid-flow-row gap-3  ">
             {arrayData.map((value, index) => {
@@ -110,7 +114,9 @@ const TrackInfo = (props) => {
           setShowPlaylist={setShowPlaylist}
           handleClosePlaylist={handleClosePlaylist}
           handleShowPlaylist={handleShowPlaylist}
-          data={userData.tracks[track_id]}
+          data={userData}
+          id={track_id}
+          datatype="track"
         />
       ) : (
         <></>
