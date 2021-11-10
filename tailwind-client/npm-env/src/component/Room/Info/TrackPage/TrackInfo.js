@@ -17,10 +17,23 @@ const TrackInfo = (props) => {
   const [showPlaylist, setShowPlaylist] = useState(false);
   const handleClosePlaylist = () => setShowPlaylist(false);
   const handleShowPlaylist = () => setShowPlaylist(true);
+  const [hidePlaylistButton, setHidePlaylistButton] = useState(false);
 
   const get_User = async () => {
     await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${username}`).then((value) => {
       setUserData(value.data);
+      for (let i = 0; i < user.my_playlists.length; i++) {
+        let getdata = user.my_playlists[i].playlistdata;
+        console.log('getdata', getdata);
+        for (let j = 0; j < getdata.length; j++) {
+          console.log('usernames', getdata[j].username, '  ', value.data.username);
+          console.log('index', getdata[j].index, '  ', track_id);
+          if (getdata[j].username === value.data.username && getdata[j].index === track_id) {
+            setHidePlaylistButton(true);
+            return;
+          }
+        }
+      }
     });
   };
 
@@ -53,6 +66,8 @@ const TrackInfo = (props) => {
     fetchData();
   }, []);
 
+  useEffect(() => {}, []);
+
   return (
     <div className="w-full p-12 dark:text-white">
       <div
@@ -72,6 +87,7 @@ const TrackInfo = (props) => {
                     onClick={() => {
                       handleShowPlaylist();
                     }}
+                    hidden={hidePlaylistButton}
                     className="py-2 px-3 mr-10 bg-dbeats-light text-xl font-bold rounded-lg"
                   >
                     Add to Playlist
