@@ -546,12 +546,21 @@ router.route('/announcement').post(async (req, res) => {
   try {
     const username = req.body.username;
     const announcement = req.body.announcement;
+    const post_image = req.body.postImage;
+    const post_video = req.body.postVideo;
+    const link = req.body.link;
     const user = await User.findOne({ username: username });
+    const announcementData = {
+      announcement: announcement,
+      post_image: post_image,
+      post_video: post_video,
+      link: link,
+    };
     user.follower_count.forEach(function (id) {
       //console.log(id);
       User.updateOne(
         { username: id },
-        { $push: { notification: announcement } },
+        { $push: { notification: announcementData } },
         function (error, success) {
           if (error) {
             res.send(error);

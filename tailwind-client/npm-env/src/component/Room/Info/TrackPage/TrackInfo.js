@@ -24,10 +24,10 @@ const TrackInfo = (props) => {
       setUserData(value.data);
       for (let i = 0; i < user.my_playlists.length; i++) {
         let getdata = user.my_playlists[i].playlistdata;
-        console.log('getdata', getdata);
+        // console.log('getdata', getdata);
         for (let j = 0; j < getdata.length; j++) {
-          console.log('usernames', getdata[j].username, '  ', value.data.username);
-          console.log('index', getdata[j].index, '  ', track_id);
+          // console.log('usernames', getdata[j].username, '  ', value.data.username);
+          // console.log('index', getdata[j].index, '  ', track_id);
           if (getdata[j].username === value.data.username && getdata[j].index === track_id) {
             setHidePlaylistButton(true);
             return;
