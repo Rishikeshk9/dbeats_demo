@@ -114,6 +114,7 @@ const Form = (props) => {
 
     setVideo({ ...video, [name]: value });
   };
+
   async function storeWithProgress(type) {
     // show the root cid as soon as it's ready
     if (type === 'Upload Audio') {

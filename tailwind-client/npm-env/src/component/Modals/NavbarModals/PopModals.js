@@ -8,6 +8,7 @@ import Noty from 'noty';
 import Modal from 'react-modal';
 import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
 import Chips from 'react-chips';
+import { theme, chipTheme } from './Theme';
 
 const user = JSON.parse(window.localStorage.getItem('user'));
 
@@ -154,7 +155,6 @@ export const AnnouncementModal = (props) => {
 
 export const UploadVideo = (props) => {
   const darkMode = useSelector((darkmode) => darkmode.toggleDarkMode);
-
   const attribution = [{ name: 'No Attribution' }, { name: 'Allow Attribution' }];
 
   const commercialUse = [{ name: 'Non Commercial' }, { name: 'Commercial Use' }];
@@ -167,7 +167,7 @@ export const UploadVideo = (props) => {
 
   const category = [{ name: 'Automobiles' }, { name: 'Astronomy' }, { name: 'Sci-Fi' }];
 
-  const suggestions = ['Games', 'Edu', 'Sci-Fi'];
+  const suggestions = ['Games', 'Edu', 'Sci-Fi', 'Counter-Strike'];
 
   const [selectedAttribution, setSelectedAttribution] = useState(attribution[0].name);
   const [selectedCommercialUse, setSelectedCommercialUse] = useState(commercialUse[0].name);
@@ -188,17 +188,38 @@ export const UploadVideo = (props) => {
     derivativeWorks: '',
   });
 
-  //let name, value;
+  const handleVideoTags = (e) => {
+    setTags(e);
+  };
 
-  const handleVideoInputs = ({ e }) => {
-    // name = e.target.name;
-    // value = e.target.value;
-    // let tag = tags;
-    // tag.push(e.target.value);
-    // setTags(tags);
-    // setVideo({ ...video, tags: tags });
-    console.log(e);
-    setTags([]);
+  let name, value;
+
+  const handleVideoInputs = (e) => {
+    name = e.target.name;
+    value = e.target.value;
+    setVideo({ ...video, [name]: value });
+  };
+
+  const fetchSuggestions = (value) => {
+    return new Promise((resolve) => {
+      if (value.length >= 1) {
+        setTimeout(() => {
+          let filtered = suggestions.filter(
+            (opt) => opt.toLowerCase().indexOf(value.toLowerCase()) !== -1,
+          );
+          if (filtered.length === 0) {
+            if (filtered[0] !== value) {
+              let data = [value];
+              resolve(data);
+            }
+          } else {
+            resolve(filtered);
+          }
+        }, 1000);
+      } else {
+        resolve([]);
+      }
+    });
   };
 
   async function storeWithProgress() {
@@ -248,9 +269,11 @@ export const UploadVideo = (props) => {
       allowAttribution: selectedAttribution,
       commercialUse: selectedCommercialUse,
       derivativeWorks: selectedDerivativeWorks,
+      tags: tags,
     });
-  }, [selectedCategory, selectedCommercialUse, selectedDerivativeWorks, selectedAttribution]);
+  }, [selectedCategory, selectedCommercialUse, selectedDerivativeWorks, selectedAttribution, tags]);
 
+  console.log(video);
   const PostData = async (e) => {
     e.preventDefault();
     if (e.target.value === 'Upload Video') {
@@ -322,11 +345,11 @@ export const UploadVideo = (props) => {
       isOpen={props.showVideoUpload}
       className={
         darkMode
-          ? 'h-max lg:w-max w-5/6 mx-auto lg:mt-40 mt-20 bg-dbeats-dark-primary rounded-xl'
-          : 'h-max lg:w-max w-5/6 mx-auto lg:mt-40 mt-20 bg-gray-50 rounded-xl shadow-2xl'
+          ? 'h-max lg:w-max w-5/6 mx-auto lg:mt-32 mt-20 bg-dbeats-dark-primary rounded-xl'
+          : 'h-max lg:w-max w-5/6 mx-auto lg:mt-32 mt-20 bg-gray-50 rounded-xl shadow-2xl'
       }
     >
-      <div className={`${darkMode && 'dark'} px-5 py-5 `}>
+      <div className={`${darkMode && 'dark'} px-5 py-5 h-max`}>
         <h2 className="grid grid-cols-5 justify-items-center lg:text-2xl text-lg py-4 dark:bg-dbeats-dark-alt bg-white dark:text-white">
           <div className="col-span-4 pl-14 ">Upload Video</div>
           <div className="mr-7 flex justify-end w-full" onClick={props.handleCloseVideoUpload}>
@@ -456,20 +479,15 @@ export const UploadVideo = (props) => {
                         >
                           Tags
                         </label>
-                        <div className="mt-1 flex rounded-md shadow-sm">
-                          {/* <input
-                            type="text"
-                            name="videoTags"
-                            id="videoTags"
-                            value={video.videoTags}
-                            onChange={handleVideoInputs}
-                            className="focus:ring-dbeats-dark-primary border-0 dark:bg-dbeats-dark-primary ring-dbeats-dark-secondary  ring-0   flex-1 block w-full rounded-md sm:text-sm  "
-                            placeholder=" "
-                          /> */}
+                        <div className="mt-1 flex rounded-md max-w-sm shadow-sm text-black">
                           <Chips
+                            theme={theme(darkMode)[0]}
+                            chipTheme={chipTheme(darkMode)[0]}
                             value={tags}
-                            onChange={handleVideoInputs}
+                            onChange={handleVideoTags}
                             suggestions={suggestions}
+                            fromSuggestionsOnly={false}
+                            fetchSuggestions={fetchSuggestions}
                           />
                         </div>
                       </div>
@@ -511,7 +529,7 @@ export const UploadVideo = (props) => {
                       </div>
                     </div>
 
-                    <div className="grid grid-col-2 gap-6">
+                    <div className="grid grid-col-2 gap-6 lg:pb-20">
                       <div className="grid lg:grid-cols-3 grid-col-1 gap-6">
                         <div className="col-span-2  sm:col-span-1">
                           <label
@@ -529,7 +547,7 @@ export const UploadVideo = (props) => {
                           </div>
                         </div>
 
-                        <div className=" col-span-2 sm:col-span-1">
+                        <div className="col-span-2  sm:col-span-1">
                           <label
                             htmlFor="company-website"
                             className="block text-sm font-medium dark:text-gray-100 text-gray-700"
@@ -545,7 +563,7 @@ export const UploadVideo = (props) => {
                           </div>
                         </div>
 
-                        <div className="col-span-2 sm:col-span-1">
+                        <div className="col-span-2  sm:col-span-1">
                           <label
                             htmlFor="company-website"
                             className="block text-sm font-medium dark:text-gray-100 text-gray-700"
