@@ -758,7 +758,9 @@ const PlayBackInfo = (props) => {
           setShowPlaylist={setShowPlaylist}
           handleClosePlaylist={handleClosePlaylist}
           handleShowPlaylist={handleShowPlaylist}
-          data={userData.videos[props.video_id]}
+          data={userData}
+          id={props.video_id}
+          datatype="video"
         />
       ) : (
         <></>

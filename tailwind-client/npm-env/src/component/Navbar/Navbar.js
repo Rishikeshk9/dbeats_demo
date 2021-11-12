@@ -398,10 +398,10 @@ const NavBar = () => {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Dropdown.Items className="absolute right-0 w-80 mt-2 origin-top-right bg-white dark:bg-dbeats-dark-alt  divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none w-max">
-                      <Dropdown.Item className="w-full text-gray-700 text-left text-lg  flex justify-between align-center ring-1 rounded-md ring-white h-24 w-full">
+                      <Dropdown.Item className="w-full text-gray-700 text-left lg:text-lg text-md  flex lg:flex-row flex-col justify-between align-center ring-1 rounded-md ring-white lg:h-24 h-48 w-full">
                         <div className="p-10 m-10 dark:border-2 dark:text-white ">
                           <button
-                            className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
+                            className="lg:mx-3 mx-4 rounded hover:bg-dbeats-light lg:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
                             onClick={() => {
                               handleShowAnnouncement();
                               handleCloseVideoUpload();
@@ -412,7 +412,7 @@ const NavBar = () => {
                           </button>
 
                           <button
-                            className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
+                            className="lg:mx-3 mx-4 rounded hover:bg-dbeats-light lg:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
                             onClick={() => {
                               handleCloseAnnouncement();
                               handleShowVideoUpload();
@@ -422,7 +422,7 @@ const NavBar = () => {
                             Upload Video
                           </button>
                           <button
-                            className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
+                            className="lg:mx-3 mx-4 rounded hover:bg-dbeats-light lg:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
                             onClick={() => {
                               handleCloseAnnouncement();
                               handleShowTrackUpload();
@@ -431,7 +431,7 @@ const NavBar = () => {
                           >
                             Upload Track
                           </button>
-                          <button className="mx-3 rounded hover:bg-dbeats-light h-10 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white">
+                          <button className="lg:mx-3 mx-4 rounded hover:bg-dbeats-light lg:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white">
                             Mint NFT
                           </button>
                         </div>

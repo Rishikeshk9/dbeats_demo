@@ -15,11 +15,24 @@ const NewPlaylist = (props) => {
   };
 
   const handleSubmitPlaylist = async () => {
-    const data = {
-      playlistname: playlist,
-      data: props.data,
-      username: user.username,
-    };
+    let data;
+    if (props.datatype === 'video') {
+      data = {
+        playlistname: playlist,
+        data: props.data.videos[props.id],
+        username: user.username,
+        playlistUsername: props.data.username,
+        playlistDataIndex: props.id,
+      };
+    } else {
+      data = {
+        playlistname: playlist,
+        data: props.data.tracks[props.id],
+        username: user.username,
+        playlistUsername: props.data.username,
+        playlistDataIndex: props.id,
+      };
+    }
 
     console.log(data);
     await axios({
@@ -76,11 +89,24 @@ export const Playlist = (props) => {
   const handleShowNewPlaylist = () => setShowNewPlaylist(true);
 
   const handleSubmitPlaylist = async (playlistTitle) => {
-    const data = {
-      playlistname: playlistTitle,
-      data: props.data,
-      username: user.username,
-    };
+    let data;
+    if (props.datatype === 'video') {
+      data = {
+        playlistname: playlistTitle,
+        data: props.data.videos[props.id],
+        username: user.username,
+        playlistUsername: props.data.username,
+        playlistDataIndex: props.id,
+      };
+    } else {
+      data = {
+        playlistname: playlistTitle,
+        data: props.data.tracks[props.id],
+        username: user.username,
+        playlistUsername: props.data.username,
+        playlistDataIndex: props.id,
+      };
+    }
 
     console.log(data);
     await axios({
@@ -165,6 +191,8 @@ export const Playlist = (props) => {
         handleShowNewPlaylist={handleShowNewPlaylist}
         handleClosePlaylist={props.handleClosePlaylist}
         data={props.data}
+        id={props.id}
+        datatype={props.datatype}
       />
     </div>
   );
