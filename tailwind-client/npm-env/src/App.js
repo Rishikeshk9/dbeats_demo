@@ -14,6 +14,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleDarkMode } from '../src/actions/index';
 import Pinned_Panel from './component/Subscribe_Panel/Pinned_Panel';
 
+import ChatRoom from './component/Profile/ChatRoom/ChatRoom'
+
 //import Navbar from "./component/navbar.component";
 //import BottomBar from "./component/bottom-player.component";
 
@@ -127,6 +129,7 @@ export default function App() {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/search" component={() => <SearchPage />} />
                 <Route exact path="/track/:username/:track_id" component={TrackPlayback} />
+                <Route exact path="/profile/chat/:username" component={ChatRoom} />
                 {/* TODO: <Route exact path="*" component={PageNotFound} /> */}
               </div>
             </div>

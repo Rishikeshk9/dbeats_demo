@@ -29,6 +29,7 @@
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
+    "gun": "^0.2020.1235",
     "jdenticon": "^3.1.1",
     "mini-css-extract-plugin": "^2.4.4",
     "moment": "^2.29.1",
@@ -63,7 +64,7 @@
     "web3modal": "^1.9.4"
   },
   "scripts": {
-    "start": "craco --max_old_space_size=8000  start",
+    "start": "craco --max_old_space_size=50000 start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
