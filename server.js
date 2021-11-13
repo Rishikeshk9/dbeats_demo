@@ -29,13 +29,13 @@ app.use(express.json());
 app.use(fileUpload());
 app.use(express.static('public'));
 
-//Database Linking
-//app.use(Gun.serve);
-app.listen(port, () => {
+// Database Linking
+app.use(Gun.serve);
+const server = app.listen(port, () => {
   console.log(`server is listening on Port  ${port}`);
 });
 
-//Gun({ web: server });
+
 
 // or as an es module:
 // import { MongoClient } from 'mongodb'
@@ -1023,3 +1023,5 @@ app.post('/patch_multistream', async (req, res) => {
 // app.listen(port, function () {
 //   console.log("Listening on port");
 // });
+
+Gun({ web: server });

@@ -35,7 +35,12 @@ const ChannelSection = (props) => {
   ];
 
   const [selected, setSelected] = useState(channels[0]);
-
+// Handle OnClick On Channel Like TextChannel Voice Channel etc
+const handleChannelClick = (channel)=>{
+if(channel.type == 'text'){
+  window.location.href = `/chat/${props.user.username}`;
+}
+}
   return (
     <div className={`${darkMode && 'dark'} h-full hidden lg:block`}>
       <div
@@ -69,7 +74,7 @@ const ChannelSection = (props) => {
             return (
               <div key={i} className="  pb-2 pt-2">
                 <div>
-                  <div className="font-semibold cursor-pointer text-sm dark:text-gray-200 hover:text-white w-full justify-between self-center hover:bg-dbeats-light dark:hover:bg-dbeats-dark-primary  rounded p-2 relative">
+                  <div onClick={()=>handleChannelClick(channel)}className="font-semibold cursor-pointer text-sm dark:text-gray-200 hover:text-white w-full justify-between self-center hover:bg-dbeats-light dark:hover:bg-dbeats-dark-primary  rounded p-2 relative">
                     {' '}
                     {channel.type == 'text' ? <i className="fas fa-hashtag mr-2"></i> : ''}
                     {channel.type == 'voice' ? <i className="fas fa-headphones-alt mr-2"></i> : ''}

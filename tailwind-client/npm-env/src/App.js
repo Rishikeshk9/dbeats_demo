@@ -129,7 +129,7 @@ export default function App() {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/search" component={() => <SearchPage />} />
                 <Route exact path="/track/:username/:track_id" component={TrackPlayback} />
-                <Route exact path="/profile/chat/:username" component={ChatRoom} />
+                <Route exact path="/chat/:username" component={ChatRoom} />
                 {/* TODO: <Route exact path="*" component={PageNotFound} /> */}
               </div>
             </div>

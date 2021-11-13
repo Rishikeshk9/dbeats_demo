@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useReducer } from 'react';
+import React, { useEffect, useState, useReducer, useRef } from 'react';
 import Gun from 'gun';
 import './chatroom.css';
 const gun = Gun({
-	peers: [ 'http://localhost:3030/gun' ]
+	peers: [ `${process.env.REACT_APP_SERVER_URL}/gun` ]
 });
 console.log('lslsls');
 // create the initial state to hold the messages
@@ -21,6 +21,7 @@ function reducer(state, message) {
 const user = JSON.parse(window.localStorage.getItem('user'));
 
 function ChatRoom(props) {
+	const chatRef = useRef(null);
 	// the form state manages the form input for creating a new message
 	const [ formState, setForm ] = useState({
 		message: ''
@@ -35,16 +36,19 @@ function ChatRoom(props) {
 	useEffect(() => {
 		// initialize gun locally
 		console.log(props.match.params.username);
-		console.log(user);
-		const messages = gun.get('messages').get(props.match.params.username);
-		messages.map().once((m) => {
-			console.log(m);
-			dispatch({
-				username: m.username,
-				message: m.message,
-				createdAt: m.createdAt
-			});
-		}, true);
+		if (user) {
+			const messages = gun.get('messages').get(props.match.params.username);
+			messages.map().once((m) => {
+				dispatch({
+					username: m.username,
+					message: m.message,
+					createdAt: m.createdAt
+				});
+				chatRef.current?.scrollIntoView({behavior:"smooth"});
+			}, true);
+		}else{
+			window.location.href = "/";
+		}
 	}, []);
 
 	// set a new message in gun, update the local state to reset the form field
@@ -87,13 +91,16 @@ function ChatRoom(props) {
 						</h3>
 						<ul id="users" />
 					</div>
-					<div className="chat-messages">
+					<div className="chat-messages" >
 						{state.messages.map((message) => (
 							<div className="message" key={message.createdAt}>
-								<p className="meta">{message.username} <span>{message.createdAt}</span></p>
+								<p className="meta">
+									{message.username} <span>{message.createdAt}</span>
+								</p>
 								<p className="text">{message.message}</p>
 							</div>
 						))}
+						<div ref={chatRef} />
 					</div>
 				</main>
 				<div className="chat-form-container">
