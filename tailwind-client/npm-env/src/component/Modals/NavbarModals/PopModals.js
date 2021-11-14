@@ -9,6 +9,7 @@ import Modal from 'react-modal';
 import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
 import Chips from 'react-chips';
 import { theme, chipTheme } from './Theme';
+import { NFTStorage } from 'nft.storage';
 
 const user = JSON.parse(window.localStorage.getItem('user'));
 
@@ -627,11 +628,14 @@ export const UploadMusic = (props) => {
     trackName: '',
     trackImage: '',
     trackFile: '',
+    albumArt: '',
+    fileName: '',
     cid: '',
     genre: '',
     mood: '',
     tags: '',
     description: '',
+    royalty: 5,
     isrc: '',
     iswc: '',
     allowAttribution: '',
@@ -650,13 +654,71 @@ export const UploadMusic = (props) => {
 
   async function storeWithProgress() {
     // show the root cid as soon as it's ready
-    const onRootCidReady = (cid) => {
+    const onRootCidReady = async (cid) => {
       console.log('uploading files with cid:', cid);
       track.cid = cid;
-    };
-    const blob = new Blob([JSON.stringify(track)], { type: 'application/json' });
 
-    const files = [track.trackFile, track.trackImage, new File([blob], 'meta.json')];
+      const apiKey =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDhhMzIwRGQxRDBBNTBmMUQyYjNGNmZGZDM0MUI3ODdkNTYzQzBFYjUiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTYzNDQ0ODE3MDg4MCwibmFtZSI6IkRCZWF0cyJ9.wGuicvEMGBKmKxqsiC4YhesIjBF11oP9EZXNYYN6w5k';
+      const client = new NFTStorage({ token: apiKey });
+
+      const metadata = await client.store({
+        name: track.trackName,
+        image: track.trackImage,
+        file_url: 'https://ipfs.io/ipfs/' + cid + '/' + track.trackFile.name,
+        description: track.description,
+        attributes: [
+          {
+            trait_type: 'Genre',
+            value: track.genre,
+          },
+          {
+            trait_type: 'Mood',
+            value: track.mood,
+          },
+          {
+            trait_type: 'Tags',
+            value: track.tags,
+          },
+          {
+            display_type: 'boost_percentage',
+            trait_type: 'royalty',
+            value: track.royalty,
+          },
+          {
+            display_type: 'number',
+            trait_type: 'ISRC',
+            value: track.isrc,
+          },
+          {
+            display_type: 'number',
+            trait_type: 'ISWC',
+            value: track.iswc,
+          },
+          {
+            trait_type: 'Allow Attribution',
+            value: track.allowAttribution,
+          },
+          {
+            trait_type: 'Commercial Use',
+            value: track.commercialUse,
+          },
+          {
+            trait_type: 'Derivative Works',
+            value: track.derivativeWorks,
+          },
+        ],
+      });
+      console.log("Metada.json URL", metadata.url);
+
+    };
+    track.albumArt = track.trackImage.name;
+    track.fileName = track.trackFile.name;
+    console.log(track);
+
+    // const blob = new Blob([JSON.stringify(metadata)], { type: 'application/json' });
+
+    const files = [track.trackFile, track.trackImage];
     const totalSize = track.trackFile.size;
     let uploaded = 0;
     const onStoredChunk = (size) => {
@@ -670,7 +732,9 @@ export const UploadMusic = (props) => {
 
     // client.put will invoke our callbacks during the upload
     // and return the root cid when the upload completes
-    return client.put(files, { onRootCidReady, onStoredChunk });
+    client.put(files, { onRootCidReady, onStoredChunk });
+
+  return      client.put(files, { onRootCidReady, onStoredChunk });
   }
 
   console.log(track);
