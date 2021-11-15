@@ -641,6 +641,8 @@ export const UploadMusic = (props) => {
     allowAttribution: '',
     commercialUse: '',
     derivativeWorks: '',
+    tokenId: '',
+    mintTrxHash: '',
   });
 
   let name, value;
@@ -653,6 +655,7 @@ export const UploadMusic = (props) => {
   };
 
   async function storeWithProgress() {
+    const contract_address = process.env.CONTRACT_ADDRESS;
     // show the root cid as soon as it's ready
     const onRootCidReady = async (cid) => {
       console.log('uploading files with cid:', cid);
@@ -665,7 +668,7 @@ export const UploadMusic = (props) => {
       const metadata = await client.store({
         name: track.trackName,
         image: track.trackImage,
-        file_url: 'https://ipfs.io/ipfs/' + cid + '/' + track.trackFile.name,
+        animation_url: 'https://ipfs.io/ipfs/' + cid + '/' + track.trackFile.name,
         description: track.description,
         attributes: [
           {
@@ -709,8 +712,68 @@ export const UploadMusic = (props) => {
           },
         ],
       });
-      console.log("Metada.json URL", metadata.url);
+      // Split ipfs metadata link into two parts
+      const ipfsMetadata = metadata.url.split('ipfs://')[1];
+      console.log("WalletId: ",user)
+      const options = {
+        method: 'POST',
+        url: 'https://api.nftport.xyz/v0/mints/customizable',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'ad092d8e-feb0-4430-92f7-1fa501b83bec',
+        },
+        data: {
+          chain: 'polygon',
+          contract_address: contract_address || '0x03160747B94BE986261D9340D01128d4d5566383',
+          metadata_uri: `https://ipfs.io/ipfs/${ipfsMetadata}`,
+          mint_to_address: user.wallet_id,
+        },
+      };
+      axios
+        .request(options)
+        .then(function (response) {
+          console.log(response.data);
+          console.log(response.status);
+          track.mintTrxHash = response.data.transaction_hash;
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
 
+        const nftTokenOptions = {
+          method: 'GET',
+          url: `https://api.nftport.xyz/v0/mints/${track.mintTrxHash}`,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'ad092d8e-feb0-4430-92f7-1fa501b83bec',
+          },
+          data: {
+            chain: 'polygon',
+          },
+        };
+
+        axios
+          .request(nftTokenOptions)
+          .then(function (tokenIdRes) {
+            let tokenId = tokenIdRes.data.tokenId;
+
+            track.tokenId = tokenId;
+            console.log(tokenIdRes.data);
+          })
+          .catch(function (e) {
+            console.error(e);
+          });
+        console.log(
+          'OpenSea Url of nft: ',
+          `https://opensea.io/assets/matic/${process.env.CONTRACT_ADDRESS}/${track.tokenId}`,
+        );
+      // axios.post('https://api.nftport.xyz/v0/mints/customizable', {
+      //   "chain": "polygon",
+      //   "contract_address": "0x5dbea8eb2b4e407b31663a4148724114178b5494",
+      //   "metadata_uri": "https://ipfs.io/ipfs/bafyreidmdlj6xr55taqq6gglmjnjdegqmyn47sqlgqxdxv3ro5vpyyxxti/metadata.json",
+      //   "mint_to_address": "0x5d55407a341d96418cEDa98E06C244a502fC9572"
+      // });
+      console.log('Metada.json URL', metadata.url);
     };
     track.albumArt = track.trackImage.name;
     track.fileName = track.trackFile.name;
@@ -732,9 +795,9 @@ export const UploadMusic = (props) => {
 
     // client.put will invoke our callbacks during the upload
     // and return the root cid when the upload completes
-    client.put(files, { onRootCidReady, onStoredChunk });
+    // client.put(files, { onRootCidReady, onStoredChunk });
 
-  return      client.put(files, { onRootCidReady, onStoredChunk });
+    return client.put(files, { onRootCidReady, onStoredChunk });
   }
 
   console.log(track);
@@ -1200,6 +1263,15 @@ export const UploadMusic = (props) => {
               value="Upload Audio"
               className="cursor-pointer inline-flex justify-center lg:py-2 py-1 lg:px-5 px-3 border border-transparent shadow-sm lg:text-lg text-md  font-bold rounded-md text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-0 focus:ring-offset-2 focus:ring-blue-500"
             ></input>
+             
+            {
+               track.tokenId?
+             
+              <a
+                href={`https://opensea.io/assets/matic/${process.env.CONTRACT_ADDRESS}/${track.tokenId}`}
+              ></a>
+            :""
+          }
           </div>
         </form>
       </div>
