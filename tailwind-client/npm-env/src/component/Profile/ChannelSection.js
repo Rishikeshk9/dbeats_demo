@@ -29,18 +29,18 @@ const ChannelSection = (props) => {
       ram: 'Post Images, GIFs, Stickers, Links & everything else',
     },
     {
-      name: 'Stage',
-      ram: 'Go Live! host events & Podcast with your audience',
+      name: 'Events',
+      ram: 'Go Live! host events & Podcasts, sell tickets to your audience',
     },
   ];
 
   const [selected, setSelected] = useState(channels[0]);
-// Handle OnClick On Channel Like TextChannel Voice Channel etc
-const handleChannelClick = (channel)=>{
-if(channel.type == 'text'){
-  window.location.href = `/chat/${props.user.username}`;
-}
-}
+  // Handle OnClick On Channel Like TextChannel Voice Channel etc
+  const handleChannelClick = (channel) => {
+    if (channel.type == 'text') {
+      window.location.href = `/chat/${props.user.username}`;
+    }
+  };
   return (
     <div className={`${darkMode && 'dark'} h-full hidden lg:block`}>
       <div
@@ -74,7 +74,10 @@ if(channel.type == 'text'){
             return (
               <div key={i} className="  pb-2 pt-2">
                 <div>
-                  <div onClick={()=>handleChannelClick(channel)}className="font-semibold cursor-pointer text-sm dark:text-gray-200 hover:text-white w-full justify-between self-center hover:bg-dbeats-light dark:hover:bg-dbeats-dark-primary  rounded p-2 relative">
+                  <div
+                    onClick={() => handleChannelClick(channel)}
+                    className="font-semibold cursor-pointer text-sm dark:text-gray-200 hover:text-white w-full justify-between self-center hover:bg-dbeats-light dark:hover:bg-dbeats-dark-primary  rounded p-2 relative"
+                  >
                     {' '}
                     {channel.type == 'text' ? <i className="fas fa-hashtag mr-2"></i> : ''}
                     {channel.type == 'voice' ? <i className="fas fa-headphones-alt mr-2"></i> : ''}

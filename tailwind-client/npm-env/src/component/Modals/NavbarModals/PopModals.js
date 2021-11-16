@@ -714,7 +714,7 @@ export const UploadMusic = (props) => {
       });
       // Split ipfs metadata link into two parts
       const ipfsMetadata = metadata.url.split('ipfs://')[1];
-      console.log("WalletId: ",user)
+      console.log('WalletId: ', user);
       const options = {
         method: 'POST',
         url: 'https://api.nftport.xyz/v0/mints/customizable',
@@ -735,38 +735,43 @@ export const UploadMusic = (props) => {
           console.log(response.data);
           console.log(response.status);
           track.mintTrxHash = response.data.transaction_hash;
+
+          const nftTokenOptions = {
+            method: 'GET',
+            url: `https://api.nftport.xyz/v0/mints/${response.data.transaction_hash}?chain=polygon`,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'ad092d8e-feb0-4430-92f7-1fa501b83bec',
+            },
+          };
+          document.getElementById('nftAddress').innerHTML = `Sailing Data from OpenSea...`;
+          setTimeout(() => {
+            axios
+              .request(nftTokenOptions)
+              .then(function (tokenIdRes) {
+                track.tokenId = tokenIdRes.data.token_id;
+
+                console.log('TOKEN ID DATA: ', tokenIdRes.data);
+                console.log(
+                  'OpenSea Url of nft: ',
+                  `https://opensea.io/assets/matic/0x03160747b94be986261d9340d01128d4d5566383/${tokenIdRes.data.token_id}`,
+                );
+
+                document.getElementById('nftAddress').innerHTML = `Check on OpenSea`;
+                document.getElementById(
+                  'nftAddress',
+                ).href = `https://opensea.io/assets/matic/0x03160747b94be986261d9340d01128d4d5566383/${tokenIdRes.data.token_id}`;
+              })
+              .catch(function (e) {
+                console.error(e);
+              });
+          }, 10000);
         })
+
         .catch(function (error) {
           console.error(error);
         });
 
-        const nftTokenOptions = {
-          method: 'GET',
-          url: `https://api.nftport.xyz/v0/mints/${track.mintTrxHash}`,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'ad092d8e-feb0-4430-92f7-1fa501b83bec',
-          },
-          data: {
-            chain: 'polygon',
-          },
-        };
-
-        axios
-          .request(nftTokenOptions)
-          .then(function (tokenIdRes) {
-            let tokenId = tokenIdRes.data.tokenId;
-
-            track.tokenId = tokenId;
-            console.log(tokenIdRes.data);
-          })
-          .catch(function (e) {
-            console.error(e);
-          });
-        console.log(
-          'OpenSea Url of nft: ',
-          `https://opensea.io/assets/matic/${process.env.CONTRACT_ADDRESS}/${track.tokenId}`,
-        );
       // axios.post('https://api.nftport.xyz/v0/mints/customizable', {
       //   "chain": "polygon",
       //   "contract_address": "0x5dbea8eb2b4e407b31663a4148724114178b5494",
@@ -1261,17 +1266,14 @@ export const UploadMusic = (props) => {
               type="submit"
               onClick={PostData}
               value="Upload Audio"
-              className="cursor-pointer inline-flex justify-center lg:py-2 py-1 lg:px-5 px-3 border border-transparent shadow-sm lg:text-lg text-md  font-bold rounded-md text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-0 focus:ring-offset-2 focus:ring-blue-500"
+              className="cursor-pointer inline-flex self-center justify-center lg:py-2 py-1 lg:px-5 px-3 border border-transparent shadow-sm lg:text-lg text-md  font-bold rounded-md text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-0 focus:ring-offset-2 focus:ring-blue-500"
             ></input>
-             
-            {
-               track.tokenId?
-             
-              <a
-                href={`https://opensea.io/assets/matic/${process.env.CONTRACT_ADDRESS}/${track.tokenId}`}
-              ></a>
-            :""
-          }
+            <br></br>
+            <a
+              className="text-sm font-medium dark:text-gray-100 text-gray-700 "
+              id="nftAddress"
+              target="_blank"
+            ></a>
           </div>
         </form>
       </div>
