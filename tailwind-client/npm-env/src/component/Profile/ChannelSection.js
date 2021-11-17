@@ -29,12 +29,13 @@ const ChannelSection = (props) => {
       ram: 'Post Images, GIFs, Stickers, Links & everything else',
     },
     {
-      name: 'Stage',
-      ram: 'Go Live! host events & Podcast with your audience',
+      name: 'Events',
+      ram: 'Go Live! host events & Podcasts, sell tickets to your audience',
     },
   ];
 
   const [selected, setSelected] = useState(channels[0]);
+
   return (
     <div className={`${darkMode && 'dark'} h-full hidden lg:block`}>
       <div
