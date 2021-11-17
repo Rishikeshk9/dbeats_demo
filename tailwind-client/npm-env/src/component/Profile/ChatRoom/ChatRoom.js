@@ -35,9 +35,8 @@ function ChatRoom(props) {
 
 	useEffect(() => {
 		// initialize gun locally
-		console.log(props.match.params.username);
 		if (user) {
-			const messages = gun.get('messages').get(props.match.params.username);
+			const messages = gun.get('messages').get(props.userp.username);
 			messages.map().once((m) => {
 				dispatch({
 					username: m.username,
@@ -53,7 +52,7 @@ function ChatRoom(props) {
 
 	// set a new message in gun, update the local state to reset the form field
 	function saveMessage() {
-		const messages = gun.get('messages').get(props.match.params.username);
+		const messages = gun.get('messages').get(props.userp.username);
 		messages.set({
 			username: user.username,
 			message: formState.message,
@@ -70,13 +69,13 @@ function ChatRoom(props) {
 	}
 
 	return (
-		<div className="voicechannel">
+		<div className="voicechannel px-5 h-max lg:col-span-5 col-span-6 w-full mt-16">
 			<div className="chat-container">
 				<header className="chat-header">
 					<h1>
 						<i className="fas fa-smile" /> ChatCord
 					</h1>
-					<a href="index.html" className="btn">
+					<a onClick={()=> window.location.href = '/'} className="btn">
 						Leave Room
 					</a>
 				</header>
@@ -85,11 +84,7 @@ function ChatRoom(props) {
 						<h3>
 							<i className="fas fa-comments" /> Room Name:
 						</h3>
-						<h2 id="room-name" />
-						<h3>
-							<i className="fas fa-users" /> Users
-						</h3>
-						<ul id="users" />
+						<h2 id="room-name">{props.userp.username}</h2>
 					</div>
 					<div className="chat-messages" >
 						{state.messages.map((message) => (
