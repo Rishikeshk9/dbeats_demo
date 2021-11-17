@@ -23,6 +23,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "@truffle/contract": "^4.3.38",
+    "@unlock-protocol/unlock-js": "^0.20.4",
     "@walletconnect/web3-provider": "^1.5.5",
     "@zoralabs/nft-hooks": "^0.4.7-pre2",
     "@zoralabs/zdk": "^1.2.3",

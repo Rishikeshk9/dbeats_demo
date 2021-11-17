@@ -6,6 +6,7 @@ const Moralis = require('moralis');
 import useWeb3Modal from '../../hooks/useWeb3Modal';
 import { useSelector } from 'react-redux';
 import moralisLogo from '../../assets/images/moralis-light.svg';
+import Ticket from '../Profile/ProfileSections/Ticket/Ticket';
 
 const Login = () => {
   // Web3
@@ -354,6 +355,7 @@ const Login = () => {
           </main>
         </div>
       </div>
+      <Ticket></Ticket>
     </>
   );
 };

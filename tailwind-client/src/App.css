@@ -80,6 +80,14 @@
   );
 }
 
+#store-section {
+  background-image: linear-gradient(
+    0deg,
+    rgb(28, 222, 244) 10%,
+    rgba(28, 222, 244, 0.986) 50%,
+    rgb(28, 222, 244) 90%
+  );
+}
 /*FROM THE VIDEO SECTION*/
 .slider-left,
 .slider-right {
