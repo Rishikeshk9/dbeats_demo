@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const TrackCard = (props) => {
-  console.log(props);
+  //console.log(props);
 
   const [play, setPlay] = useState(false);
 

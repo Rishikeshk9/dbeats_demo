@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RadioGroup } from '@headlessui/react';
-import background from '../../assets/images/wallpaper.jpg';
+import background from '../../../assets/images/wallpaper.jpg';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import Modal from 'react-awesome-modal';
@@ -69,14 +69,19 @@ const ChannelSection = (props) => {
             return (
               <div key={i} className="  pb-2 pt-2">
                 <div>
-                  <Link to={`/profile/${props.user.username}/${channel.type}`}><div className="font-semibold cursor-pointer text-sm dark:text-gray-200 hover:text-white w-full justify-between self-center hover:bg-dbeats-light dark:hover:bg-dbeats-dark-primary  rounded p-2 relative">
-                    {' '}
-                    {channel.type == 'text' ? <i className="fas fa-hashtag mr-2"></i> : ''}
-                    {channel.type == 'voice' ? <i className="fas fa-headphones-alt mr-2"></i> : ''}
-                    {channel.type == 'store' ? <i className="fas fa-store mr-2 "></i> : ''}
-                    {channel.name}
-                    <i className="fas fa-user-plus ml-5 absolute right-3 self-center text-center mt-1"></i>
-                  </div>
+                  <Link to={`/profile/${props.user.username}/${channel.type}`}>
+                    <div className="font-semibold cursor-pointer text-sm dark:text-gray-200 hover:text-white w-full justify-between self-center hover:bg-dbeats-light dark:hover:bg-dbeats-dark-primary  rounded p-2 relative">
+                      {' '}
+                      {channel.type == 'text' ? <i className="fas fa-hashtag mr-2"></i> : ''}
+                      {channel.type == 'voice' ? (
+                        <i className="fas fa-headphones-alt mr-2"></i>
+                      ) : (
+                        ''
+                      )}
+                      {channel.type == 'store' ? <i className="fas fa-store mr-2 "></i> : ''}
+                      {channel.name}
+                      <i className="fas fa-user-plus ml-5 absolute right-3 self-center text-center mt-1"></i>
+                    </div>
                   </Link>
 
                   <span className="text-gray-400 text-sm cursor-pointer ml-5 dark:hover:text-white hover:text-dbeats-light">

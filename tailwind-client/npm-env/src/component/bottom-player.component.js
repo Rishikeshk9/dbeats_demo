@@ -19,7 +19,7 @@ const BottomBar = ({ songDetails, playing, firstPlayed, setState }) => {
       audio.play();
     }
 
-    console.log('ButtonClicked');
+    //console.log('ButtonClicked');
   }, [songDetails, audio]);
 
   return (

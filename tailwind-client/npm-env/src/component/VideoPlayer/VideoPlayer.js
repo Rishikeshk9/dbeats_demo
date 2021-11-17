@@ -6,7 +6,7 @@ import ReactPlayer from 'react-player';
 import screenful from 'screenfull';
 import FullControls from './FullControls';
 import PlayControls from './PlayControls';
-import Footer from '../Room/Footer/Footer';
+import Footer from '../VideoPages/Footer/Footer';
 import classes from './videoPlayer.module.css';
 
 const format = (seconds) => {
@@ -70,7 +70,7 @@ function VideoPlayer(props) {
   };
 
   const handleSeekChange = (e, newValue) => {
-    console.log({ newValue });
+    //console.log({ newValue });
     setState({ ...state, played: parseFloat(newValue / 100) });
   };
 
@@ -79,9 +79,9 @@ function VideoPlayer(props) {
   };
 
   const handleSeekMouseUp = (e, newValue) => {
-    console.log({ value: e.target });
+    //console.log({ value: e.target });
     setState({ ...state, seeking: false });
-    // console.log(sliderRef.current.value)
+    // //console.log(sliderRef.current.value)
     playerRef.current.seekTo(newValue / 100, 'fraction');
   };
 
@@ -93,7 +93,7 @@ function VideoPlayer(props) {
     setState({ ...state, seeking: false, volume: parseFloat(newValue / 100) });
   };
   const handleVolumeChange = (e, newValue) => {
-    // console.log(newValue);
+    // //console.log(newValue);
     setState({
       ...state,
       volume: parseFloat(newValue / 100),
@@ -148,19 +148,19 @@ function VideoPlayer(props) {
 
   return (
     <>
-      <Container style={{ width: '100%', height: 'auto' }}>
+      <Container style={{ width: '100%' }}>
         <div
           onMouseMove={handleMouseMove}
           onMouseLeave={hanldeMouseLeave}
           onClick={handleClickEvent}
           onDoubleClick={toggleFullScreen}
           ref={playerContainerRef}
-          className={classes.playerWrapper}
+          className="relative w-full lg:h-120 h-52"
         >
           <ReactPlayer
             ref={playerRef}
             width="100%"
-            height="auto"
+            height="100%"
             className={`${classes.video_player}`}
             url={props.playbackUrl}
             pip={pip}

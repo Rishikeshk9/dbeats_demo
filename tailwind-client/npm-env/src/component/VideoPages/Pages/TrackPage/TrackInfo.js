@@ -24,10 +24,10 @@ const TrackInfo = (props) => {
       setUserData(value.data);
       for (let i = 0; i < user.my_playlists.length; i++) {
         let getdata = user.my_playlists[i].playlistdata;
-        // console.log('getdata', getdata);
+        // //console.log('getdata', getdata);
         for (let j = 0; j < getdata.length; j++) {
-          // console.log('usernames', getdata[j].username, '  ', value.data.username);
-          // console.log('index', getdata[j].index, '  ', track_id);
+          // //console.log('usernames', getdata[j].username, '  ', value.data.username);
+          // //console.log('index', getdata[j].index, '  ', track_id);
           if (getdata[j].username === value.data.username && getdata[j].index === track_id) {
             setHidePlaylistButton(true);
             return;
@@ -51,7 +51,7 @@ const TrackInfo = (props) => {
         }
       }
     }
-    console.log('fetch', track_data);
+    //console.log('fetch', track_data);
     if (
       JSON.parse(window.sessionStorage.getItem('Track_Array')) === '' ||
       !JSON.parse(window.sessionStorage.getItem('Track_Array'))
@@ -110,7 +110,7 @@ const TrackInfo = (props) => {
           <div className=" w-full  grid grid-cols-1 grid-flow-row gap-3  ">
             {arrayData.map((value, index) => {
               let trackid = value.tracks.length - 1;
-              console.log(value.username, ' ', value.tracks.length, '=', trackid);
+              //console.log(value.username, ' ', value.tracks.length, '=', trackid);
               return (
                 <div key={index}>
                   <TrackCard

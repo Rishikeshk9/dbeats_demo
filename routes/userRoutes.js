@@ -33,8 +33,6 @@ router.route('/add').post(async (req, res) => {
     confirm_password: confirmPassword,
   };
 
-  //console.log('add data', data);
-
   const newUser = new User({
     username: userName,
     id: userId,
@@ -49,7 +47,6 @@ router.route('/add').post(async (req, res) => {
     .save()
     .then(() => res.json(newUser))
     .catch((err) => {
-      //console.log(err);
       res.status(400).json('Error: ' + err);
     });
 
@@ -71,11 +68,10 @@ router.route('/add').post(async (req, res) => {
     },
   })
     .then(function (response) {
-      //console.log("esponse", response.data);
       res.send('success');
     })
     .catch(function (error) {
-      console.log(error.data);
+      //console.log(error.data);
     });
 });
 
@@ -86,7 +82,7 @@ router.route('/login').post(async (req, res) => {
 
     const user_username = await User.findOne({ username: username });
     const isMatch = bcrypt.compare(password, user_username.password);
-    //console.log(username, ' ', password);
+
     if (isMatch) {
       res.send(user_username);
     } else {
@@ -128,7 +124,6 @@ router.route('/getuser_by_wallet/:walletId').get(async (req, res) => {
     const userData = await User.findOne({ wallet_id: wallet_id });
     res.send(userData);
   } catch (err) {
-    //console.log(err)
     res.send('Try Again');
   }
 });
@@ -160,13 +155,28 @@ router.route('/follow').post(async (req, res) => {
   try {
     const following = req.body.following;
     const follower = req.body.follower;
+
+    //console.log(following);
+    //console.log(follower);
+
     User.findOneAndUpdate(
       { username: following },
       { $push: { follower_count: follower } },
+      function (error, success) {
+        if (error) {
+          console.log(error);
+        }
+      },
     );
+
     User.findOneAndUpdate(
       { username: follower },
       { $push: { followee_count: following } },
+      function (error, success) {
+        if (error) {
+          console.log(error);
+        }
+      },
     );
     res.send('success');
   } catch (err) {
@@ -262,7 +272,6 @@ router.route('/reactions').post(async (req, res) => {
     const videoname = `${videostreamid}/${videoindex}`;
     const user = await User.findOne({ username: videoUsername });
 
-    //console.log(user)
     let count = -1;
     for (let i = 0; i < user.videos.length; i++) {
       if (user.videos[i].link === videolink) {
@@ -270,7 +279,6 @@ router.route('/reactions').post(async (req, res) => {
         break;
       }
     }
-    //console.log(count)
 
     let yourdata = {
       reaction: videoreaction,
@@ -333,7 +341,6 @@ router.route('/getreactions').post(async (req, res) => {
     let count = -1;
     for (let i = 0; i < user.videos.length; i++) {
       if (user.videos[i].link === videolink) {
-        //console.log(user.videos[i].link);
         res.send(user.videos[i]);
         break;
       }
@@ -350,9 +357,6 @@ router.route('/getuserreaction').post(async (req, res) => {
     const videoname = req.body.videoname;
     const videolink = req.body.videolink;
     const user = await User.findOne({ username: videoUsername });
-
-    // console.log(req.body);
-    // console.log(user);
 
     let count = -1;
     for (let i = 0; i < user.videos.length; i++) {
@@ -398,7 +402,6 @@ router.route('/getuserreaction').post(async (req, res) => {
 
 router.route('/removeuserreaction').post(async (req, res) => {
   try {
-    //console.log(req.body);
     const videoUsername = req.body.videousername;
     const reactUsername = req.body.reactusername;
     const oldreaction = req.body.oldreaction;
@@ -410,7 +413,6 @@ router.route('/removeuserreaction').post(async (req, res) => {
     const user = await User.findOne({ username: videoUsername });
     const reactuser = await User.findOne({ username: reactUsername });
 
-    //console.log(user)
     let count = -1;
     for (let i = 0; i < user.videos.length; i++) {
       if (user.videos[i].link === videolink) {
@@ -418,7 +420,6 @@ router.route('/removeuserreaction').post(async (req, res) => {
         break;
       }
     }
-    //console.log(count)
 
     if (count != -1) {
       let data = user.videos;
@@ -450,7 +451,6 @@ router.route('/removeuserreaction').post(async (req, res) => {
         else if (newreaction === 'happy')
           data[count].reaction.happy.push(reactUsername);
       }
-      //console.log(data);
 
       User.findOneAndUpdate(
         { username: videoUsername },
@@ -476,16 +476,12 @@ router.route('/removeuserreaction').post(async (req, res) => {
         break;
       }
     }
-    //console.log(yourcount);
     if (yourcount != -1) {
       let yourdata = reactuser.your_reactions;
-      // console.log('all data', yourdata);
       yourdata.splice(yourcount, 1);
-      // console.log('splice', yourdata);
       if (oldreaction !== newreaction) {
         yourdata.push(yourReactionData);
       }
-      // console.log('push', yourdata);
       User.findOneAndUpdate(
         { username: reactUsername },
         { $set: { your_reactions: yourdata } },
@@ -557,7 +553,6 @@ router.route('/announcement').post(async (req, res) => {
       link: link,
     };
     user.follower_count.forEach(function (id) {
-      //console.log(id);
       User.updateOne(
         { username: id },
         { $push: { notification: announcementData } },
@@ -587,7 +582,6 @@ router.route('/seennotification').post(async (req, res) => {
     for (let i = 0; i < user.notification.length; i++) {
       data.push(user.notification[i]);
     }
-    //console.log(data);
     await User.update({ username: username }, { notification: [] });
     await User.update(
       { username: username },
@@ -604,7 +598,6 @@ router
   .get(async (req, res) => {
     try {
       const username = req.params.username;
-      //console.log(username);
     } catch (err) {
       console.log(err);
     }

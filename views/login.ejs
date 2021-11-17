@@ -149,7 +149,7 @@ function validate() {
   // Check input
   if(re.test(document.getElementById('userName').value)){
     // Style green
-    console.log("GREEN")
+    //console.log("GREEN")
     new Noty({ text: 'NOTY - a dependency-free notification library!',
     animation: {
         open: 'animated bounceInRight', // Animate.css class names
@@ -164,7 +164,7 @@ function validate() {
   }else if(!re.test(document.getElementById('userName').value)) {
    //  document.getElementById('userNameError').style.display = "none";
     // document.getElementById('userNameEmptyError').style.display = "block";
-    console.log("RED")
+    //console.log("RED")
     document.getElementById('userName').style.border ='2px solid  #FF0000';
     document.getElementById('userName').style.color ='#FF0000';
 

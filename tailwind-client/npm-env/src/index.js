@@ -12,33 +12,35 @@ import mojs from '@mojs/core';
 import store from './store';
 import { Provider } from 'react-redux';
 
-store.subscribe(() => console.log(store.getState()));
+store.subscribe(() =>
+  //console.log(store.getState()));
 
-// Add a request interceptor
-axios.interceptors.request.use(
-  function (config) {
-    Noty.closeAll();
-    // Do something before request is sent
-    new Noty({
-      type: 'info',
-      text: 'Please Wait',
-      theme: 'metroui',
-      layout: 'bottomRight',
-    }).show();
-    return config;
-  },
-  function (error) {
-    // Do something with request error
-    Noty.closeAll();
-    new Noty({
-      type: 'error',
-      text: 'Error :' + JSON.stringify(error),
-      theme: 'metroui',
-      layout: 'bottomLeft',
-    }).show();
+  // Add a request interceptor
+  axios.interceptors.request.use(
+    function (config) {
+      Noty.closeAll();
+      // Do something before request is sent
+      new Noty({
+        type: 'info',
+        text: 'Please Wait',
+        theme: 'metroui',
+        layout: 'bottomRight',
+      }).show();
+      return config;
+    },
+    function (error) {
+      // Do something with request error
+      Noty.closeAll();
+      new Noty({
+        type: 'error',
+        text: 'Error :' + JSON.stringify(error),
+        theme: 'metroui',
+        layout: 'bottomLeft',
+      }).show();
 
-    return Promise.reject(error);
-  },
+      return Promise.reject(error);
+    },
+  ),
 );
 
 // For POST requests
@@ -132,8 +134,8 @@ axios.interceptors.response.use(
           },
         },
       }).show();
-      console.log('Posted Successfully');
-      console.log(res);
+      //console.log('Posted Successfully');
+      //console.log(res);
     }
     return res;
   },
@@ -159,6 +161,6 @@ ReactDOM.render(
 );
 
 // If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
+// to log results (for example: reportWebVitals(//console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

@@ -45,11 +45,11 @@ const Form = () => {
     // Prompt user for account connections
     await provider.send('eth_requestAccounts', []);
 
-    console.log('This ran Fetch NFT');
+    //console.log('This ran Fetch NFT');
 
     const signer = provider.getSigner();
     const connectedWallet = await signer.getAddress();
-    console.log('Account:', await signer.getAddress());
+    //console.log('Account:', await signer.getAddress());
     const zora = new Zora(
       signer,
       50,
@@ -57,20 +57,20 @@ const Form = () => {
       '0xE5BFAB544ecA83849c53464F85B7164375Bdaac1', //marketAddress
     );
     let res = await zora.fetchTotalMedia();
-    console.log('Total NFT Items on the BC: ' + res.toNumber());
+    //console.log('Total NFT Items on the BC: ' + res.toNumber());
     //let contentURI = null;
     let nft = [];
     let ownedToken = [];
 
-    console.log('Running Now Search Operation:--');
+    //console.log('Running Now Search Operation:--');
     for (let i = 0; i < res; i++) {
-      console.log('Iterator : ' + i);
+      //console.log('Iterator : ' + i);
       try {
         let data = await zora.fetchMediaOfOwnerByIndex(connectedWallet, i);
-        console.log(data.toNumber());
+        //console.log(data.toNumber());
 
         ownedToken.push(data.toNumber());
-        console.log(ownedToken);
+        //console.log(ownedToken);
       } catch (error) {
         break;
       }
@@ -79,20 +79,20 @@ const Form = () => {
     for (let i = 0; i < ownedToken.length; i++) {
       let contentURI = await zora.fetchContentURI(ownedToken[i]);
 
-      console.log('CONTENTURI', i, ':', contentURI);
+      //console.log('CONTENTURI', i, ':', contentURI);
 
       obj['contentURI'] = contentURI;
 
       try {
         let metadata = await zora.fetchMetadataURI(ownedToken[i]);
         let res = await axios.get(metadata);
-        //console.log("METADATA:", ownedToken[i], ":", metadata);
+        ////console.log("METADATA:", ownedToken[i], ":", metadata);
         obj['title'] = res.data.name;
         obj['description'] = res.data.description;
         obj['mimeType'] = res.data.mimeType;
         obj['owner'] = connectedWallet;
         nft.push(obj);
-        //console.log(obj);
+        ////console.log(obj);
       } catch (error) {
         // obj["title"] = `NFT-${ownedToken[i]}`;
         // obj["description"] = "Description";

@@ -25,7 +25,7 @@ import Webupload from './uploadWeb3.component';
 import { useSelector } from 'react-redux';
 import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
 
-import { NFTStorage, File } from 'nft.storage';
+import { File } from 'nft.storage';
 
 function makeStorageClient() {
   return new Web3Storage({
@@ -119,7 +119,7 @@ const Form = (props) => {
     // show the root cid as soon as it's ready
     if (type === 'Upload Audio') {
       const onRootCidReady = (cid) => {
-        console.log('uploading files with cid:', cid);
+        //console.log('uploading files with cid:', cid);
         track.cid = cid;
       };
 
@@ -144,7 +144,7 @@ const Form = (props) => {
       return client.put(files, { onRootCidReady, onStoredChunk });
     } else if (type === 'Upload Video') {
       const onRootCidReady = (cid) => {
-        console.log('uploading files with cid:', cid);
+        //console.log('uploading files with cid:', cid);
         video.cid = cid;
       };
 
@@ -233,7 +233,7 @@ const Form = (props) => {
         formData.append('videoImage', videoImage, videoImage.name);
         formData.append('videoHash', video.cid);
 
-        console.log(formData.values());
+        //console.log(formData.values());
 
         if (
           video.videoFile.length !== 0 &&
@@ -246,9 +246,7 @@ const Form = (props) => {
                 'content-type': 'multipart/form-data',
               },
             })
-            .then(function (response) {
-              console.log(response.data);
-            })
+            .then()
             .catch((error) => {
               console.log(error);
             });
@@ -274,17 +272,16 @@ const Form = (props) => {
         //   track.trackName,
         //   track.description,
         // );
-        const apiKey =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDhhMzIwRGQxRDBBNTBmMUQyYjNGNmZGZDM0MUI3ODdkNTYzQzBFYjUiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTYzNDQ0ODE3MDg4MCwibmFtZSI6IkRCZWF0cyJ9.wGuicvEMGBKmKxqsiC4YhesIjBF11oP9EZXNYYN6w5k';
-        const client = new NFTStorage({ token: apiKey });
-
-        const metadata = await client.store({
-          name: track.trackName,
-          description: 'Minted at : ' + new Date(),
-          image: track.trackImage,
-          properties: { track: track.trackFile },
-        });
-        console.log(metadata.url);
+        //const apiKey =
+        //  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDhhMzIwRGQxRDBBNTBmMUQyYjNGNmZGZDM0MUI3ODdkNTYzQzBFYjUiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTYzNDQ0ODE3MDg4MCwibmFtZSI6IkRCZWF0cyJ9.wGuicvEMGBKmKxqsiC4YhesIjBF11oP9EZXNYYN6w5k';
+        //const client = new NFTStorage({ token: apiKey });
+        // const metadata = await client.store({
+        //   name: track.trackName,
+        //   description: 'Minted at : ' + new Date(),
+        //   image: track.trackImage,
+        //   properties: { track: track.trackFile },
+        // });
+        //console.log(metadata.url);
       }
       const {
         trackName,
@@ -336,7 +333,7 @@ const Form = (props) => {
                 theme: 'metroui',
                 layout: 'bottomRight',
               }).show();
-              // console.log(response.data);
+              // //console.log(response.data);
             })
             .catch((error) => {
               Noty.closeAll();
@@ -347,7 +344,7 @@ const Form = (props) => {
                 layout: 'bottomRight',
               }).show();
               // console.log(error);
-              // console.log(error.data);
+              // //console.log(error.data);
             });
         } else {
           Noty.closeAll();

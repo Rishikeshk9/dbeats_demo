@@ -8,7 +8,7 @@ import CarouselCard from '../Profile/Cards/CarouselCard';
 const SearchResult = () => {
   const darkMode = useSelector((state) => state.toggleDarkMode);
   const data = JSON.parse(window.sessionStorage.getItem('searchResult'));
-  console.log(data);
+  //console.log(data);
   return (
     <div id="outer-container" className="h-full ">
       <div id="page-wrap" className={`${darkMode && 'dark'}  `}>
@@ -59,7 +59,7 @@ const SearchResult = () => {
                 {data.videoData && data.videoData.length > 0 ? (
                   <div className="px-20 ml-16 py-10 dark:bg-dbeats-dark-alt">
                     {data.videoData.map((value, i) => {
-                      //console.log(playbackUser)
+                      ////console.log(playbackUser)
                       return (
                         <div key={i}>
                           <CarouselCard

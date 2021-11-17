@@ -34,13 +34,11 @@ export const AnnouncementModal = (props) => {
 
   const handleImageChange = (e) => {
     e.preventDefault();
-    console.log('Image', e.target.value);
     setPostImage(e.target.value);
   };
 
   const handleVideoChange = (e) => {
     e.preventDefault();
-    console.log('Video', e.target.value);
     setPostVideo(e.target.value);
   };
 
@@ -50,7 +48,6 @@ export const AnnouncementModal = (props) => {
   };
 
   const handleAnnouncement = () => {
-    console.log('hello');
     const announcementData = {
       username: user.username,
       announcement: announcementText,
@@ -58,18 +55,11 @@ export const AnnouncementModal = (props) => {
       postVideo: postVideo,
       link: linkText,
     };
-    console.log(announcementData);
-    // axios({
-    //   method: 'POST',
-    //   url: `${process.env.REACT_APP_SERVER_URL}/user/announcement`,
-    //   data: announcementData,
-    // })
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+    axios({
+      method: 'POST',
+      url: `${process.env.REACT_APP_SERVER_URL}/user/announcement`,
+      data: announcementData,
+    });
     props.setShowAnnouncement(false);
   };
 
@@ -226,7 +216,7 @@ export const UploadVideo = (props) => {
   async function storeWithProgress() {
     // show the root cid as soon as it's ready
     const onRootCidReady = (cid) => {
-      console.log('uploading files with cid:', cid);
+      //console.log('uploading files with cid:', cid);
       video.cid = cid;
     };
     const blob = new Blob([JSON.stringify(video)], { type: 'application/json' });
@@ -274,7 +264,6 @@ export const UploadVideo = (props) => {
     });
   }, [selectedCategory, selectedCommercialUse, selectedDerivativeWorks, selectedAttribution, tags]);
 
-  console.log(video);
   const PostData = async (e) => {
     e.preventDefault();
     if (e.target.value === 'Upload Video') {
@@ -309,8 +298,6 @@ export const UploadVideo = (props) => {
         formData.append('videoImage', videoImage, videoImage.name);
         formData.append('videoHash', video.cid);
 
-        console.log(formData.values());
-
         if (
           video.videoFile.length !== 0 &&
           video.videoImage.length !== 0 &&
@@ -322,9 +309,7 @@ export const UploadVideo = (props) => {
                 'content-type': 'multipart/form-data',
               },
             })
-            .then(function (response) {
-              console.log(response.data);
-            })
+            .then()
             .catch((error) => {
               console.log(error);
             });
@@ -658,7 +643,7 @@ export const UploadMusic = (props) => {
     const contract_address = process.env.CONTRACT_ADDRESS;
     // show the root cid as soon as it's ready
     const onRootCidReady = async (cid) => {
-      console.log('uploading files with cid:', cid);
+      //console.log('uploading files with cid:', cid);
       track.cid = cid;
 
       const apiKey =
@@ -714,7 +699,7 @@ export const UploadMusic = (props) => {
       });
       // Split ipfs metadata link into two parts
       const ipfsMetadata = metadata.url.split('ipfs://')[1];
-      console.log('WalletId: ', user);
+
       const options = {
         method: 'POST',
         url: 'https://api.nftport.xyz/v0/mints/customizable',
@@ -732,8 +717,8 @@ export const UploadMusic = (props) => {
       axios
         .request(options)
         .then(function (response) {
-          console.log(response.data);
-          console.log(response.status);
+          // //console.log(response.data);
+          // //console.log(response.status);
           track.mintTrxHash = response.data.transaction_hash;
 
           const nftTokenOptions = {
@@ -751,11 +736,11 @@ export const UploadMusic = (props) => {
               .then(function (tokenIdRes) {
                 track.tokenId = tokenIdRes.data.token_id;
 
-                console.log('TOKEN ID DATA: ', tokenIdRes.data);
-                console.log(
-                  'OpenSea Url of nft: ',
-                  `https://opensea.io/assets/matic/0x03160747b94be986261d9340d01128d4d5566383/${tokenIdRes.data.token_id}`,
-                );
+                // //console.log('TOKEN ID DATA: ', tokenIdRes.data);
+                // //console.log(
+                //   'OpenSea Url of nft: ',
+                //   `https://opensea.io/assets/matic/0x03160747b94be986261d9340d01128d4d5566383/${tokenIdRes.data.token_id}`,
+                // );
 
                 document.getElementById('nftAddress').innerHTML = `Check on OpenSea`;
                 document.getElementById(
@@ -778,11 +763,11 @@ export const UploadMusic = (props) => {
       //   "metadata_uri": "https://ipfs.io/ipfs/bafyreidmdlj6xr55taqq6gglmjnjdegqmyn47sqlgqxdxv3ro5vpyyxxti/metadata.json",
       //   "mint_to_address": "0x5d55407a341d96418cEDa98E06C244a502fC9572"
       // });
-      console.log('Metada.json URL', metadata.url);
+      ////console.log('Metada.json URL', metadata.url);
     };
     track.albumArt = track.trackImage.name;
     track.fileName = track.trackFile.name;
-    console.log(track);
+    ////console.log(track);
 
     // const blob = new Blob([JSON.stringify(metadata)], { type: 'application/json' });
 
@@ -804,8 +789,6 @@ export const UploadMusic = (props) => {
 
     return client.put(files, { onRootCidReady, onStoredChunk });
   }
-
-  console.log(track);
 
   const onFileChange = (e) => {
     if (e.target.name === 'trackFile') {
@@ -861,7 +844,7 @@ export const UploadMusic = (props) => {
     //     image: track.trackImage,
     //     properties: { track: track.trackFile },
     //   });
-    //   console.log(metadata.url);
+    //   //console.log(metadata.url);
     // }
     const {
       trackName,
@@ -913,7 +896,7 @@ export const UploadMusic = (props) => {
               theme: 'metroui',
               layout: 'bottomRight',
             }).show();
-            // console.log(response.data);
+            // //console.log(response.data);
           })
           .catch((error) => {
             Noty.closeAll();
@@ -924,7 +907,7 @@ export const UploadMusic = (props) => {
               layout: 'bottomRight',
             }).show();
             // console.log(error);
-            // console.log(error.data);
+            // //console.log(error.data);
           });
       } else {
         Noty.closeAll();

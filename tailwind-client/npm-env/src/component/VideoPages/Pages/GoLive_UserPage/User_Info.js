@@ -29,7 +29,7 @@ const UserInfo = () => {
 
   useEffect(() => {
     if (user.multistream_platform) {
-      //console.log("hello",user.multistream_platform)
+      ////console.log("hello",user.multistream_platform)
       let new_array = [];
       for (let i = 0; i < user.multistream_platform.length; i++) {
         new_array.push(user.multistream_platform[i]);
@@ -43,7 +43,7 @@ const UserInfo = () => {
     //setName(user.livepeer_data.name);
     setUserStreams(user.livepeer_data);
   }, []);
-  //console.log(multiStreamConnected)
+  ////console.log(multiStreamConnected)
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -62,14 +62,13 @@ const UserInfo = () => {
       },
     };
 
-    console.log(postData);
+    //console.log(postData);
 
-    let result = await axios({
+    await axios({
       method: 'post',
       url: `${process.env.REACT_APP_SERVER_URL}/user/add_multistream_platform`,
       data: postData,
     });
-    console.log(result);
 
     setMultiStreamConnected([...multiStreamConnected, postData]);
     setShowStreamModal(false);
@@ -77,7 +76,7 @@ const UserInfo = () => {
   };
 
   const createMultiStream = async () => {
-    //console.log(patchStream);
+    ////console.log(patchStream);
 
     setLoader(false);
 
@@ -103,7 +102,7 @@ const UserInfo = () => {
     //     stream_id: userStreams.id
     // }
 
-    //console.log("patchStream:", multi_data);
+    ////console.log("patchStream:", multi_data);
 
     await axios({
       method: 'POST',
@@ -111,7 +110,7 @@ const UserInfo = () => {
       data: multi_data,
     });
 
-    //console.log(patchingStream);
+    ////console.log(patchingStream);
 
     setLoader(true);
     alert(' Multistream Connection Successfull !!!');
@@ -185,7 +184,7 @@ const UserInfo = () => {
                 <p className="text-center">Currently Connected :</p>
                 <div className="flex flex-wrap justify-center">
                   {multiStreamConnected.map((value, index) => {
-                    //console.log(value);
+                    ////console.log(value);
                     return (
                       <div key={index} className="m-1">
                         <img src={value.platform.logo} alt="logo" className="h-6 lg:h-10 w-auto" />

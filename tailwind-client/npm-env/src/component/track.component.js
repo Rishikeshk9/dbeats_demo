@@ -63,8 +63,7 @@ export default function Track() {
       .get(`${process.env.REACT_APP_SERVER_URL}/user/${user.username}/favorites`)
       .then((value) => {
         setFavorites(value.data.favorite_tracks);
-        console.log(value.data);
-        console.log('Favorites fetched!');
+        //console.log('Favorites fetched!');
       });
   };
 
@@ -75,7 +74,7 @@ export default function Track() {
     let data = await axios
       .get('https://discoveryprovider.audius.co/v1/tracks/trending')
       .then(function (response) {
-        //console.log(response.data.data);
+        ////console.log(response.data.data);
         return response;
       })
       .catch(function (error) {
@@ -88,13 +87,13 @@ export default function Track() {
     let data = await axios
       .get('/dbeats-music')
       .then(function (response) {
-        //console.log(response.data.data);
+        ////console.log(response.data.data);
         return response.data;
       })
       .catch(function (error) {
         console.log(error);
       });
-    console.log(data.data[0].tracks);
+    //console.log(data.data[0].tracks);
     let tracksArray = [];
     tracksArray.push(data.data[0].tracks);
     if (data) setDbeatsTrack({ dbeatsTracks: data.data[0].tracks });
@@ -102,7 +101,7 @@ export default function Track() {
 
   useEffect(() => {
     // Anything in here is fired on component mount.
-    console.log('GrandChild did mount.');
+    //console.log('GrandChild did mount.');
     getTodos();
     getDBeatsTracks();
 
@@ -127,7 +126,7 @@ export default function Track() {
       };
       setDetails(details);
       state.play = false;
-      console.log('SONG PAUSED');
+      //console.log('SONG PAUSED');
     } else {
       //   // audio.play();
       state.play = true;
@@ -142,7 +141,7 @@ export default function Track() {
       setDetails(details);
       setPlayId(songDetails.id);
 
-      console.log('SONG RESUME');
+      //console.log('SONG RESUME');
     }
   };
 
@@ -152,15 +151,15 @@ export default function Track() {
       track_id: props,
     };
 
-    console.log(postData);
+    //console.log(postData);
 
-    let result = await axios({
+    await axios({
       method: 'post',
       url: `${process.env.REACT_APP_SERVER_URL}/user/favorite`,
       data: postData,
     });
     get_favorites();
-    console.log(result);
+    //console.log(result);
   };
 
   const removeFavorite = async (props) => {
@@ -169,15 +168,15 @@ export default function Track() {
       track_id: props,
     };
 
-    console.log(postData);
+    //console.log(postData);
 
-    let result = await axios({
+    await axios({
       method: 'post',
       url: `${process.env.REACT_APP_SERVER_URL}/user/unfavorite`,
       data: postData,
     });
     get_favorites();
-    console.log(result);
+    //console.log(result);
   };
 
   var seconds = 0;
@@ -224,7 +223,7 @@ export default function Track() {
       };
       setDetails(details);
       setPlayId(id);
-      console.log('NEW SONG');
+      //console.log('NEW SONG');
     } else {
       pauseResume();
     }
@@ -300,10 +299,10 @@ export default function Track() {
                     id="audius"
                     defaultChecked={audius}
                     onClick={() => dispatch(toggleAudius())}
-                    className="sr-only "
+                    className="sr-only"
                   ></input>
 
-                  <div className="block bg-transparent dark:bg-gray-800 w-14 h-8 rounded-full  shadow-inner"></div>
+                  <div className="block bg-blue-200 dark:bg-gray-800 w-14 h-8 rounded-full  shadow-inner"></div>
                   <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full  transition shadow"></div>
                 </div>
 

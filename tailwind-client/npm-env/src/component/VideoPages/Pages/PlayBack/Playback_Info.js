@@ -141,7 +141,7 @@ const PlayBackInfo = (props) => {
       })
         .then(function (response) {
           if (response) {
-            //console.log(response);
+            ////console.log(response);
           } else {
             alert('Invalid Login');
           }
@@ -155,6 +155,7 @@ const PlayBackInfo = (props) => {
   const get_User = async () => {
     await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`).then((value) => {
       setUserData(value.data);
+      //console.log('Follow', value);
       convertTimestampToTime(value.data.videos[props.video_id]);
       for (let i = 0; i < value.data.follower_count.length; i++) {
         if (user ? value.data.follower_count[i] === user.username : false) {
@@ -183,7 +184,7 @@ const PlayBackInfo = (props) => {
         data: reactionData,
       })
         .then(function (response) {
-          console.log(response);
+          //console.log(response);
           setLike(response.data.reaction.like.length);
           setDislike(response.data.reaction.dislike.length);
           setAngry(response.data.reaction.angry.length);
@@ -211,7 +212,7 @@ const PlayBackInfo = (props) => {
           data: reactionData,
         })
           .then(function (response) {
-            //console.log(response.data);
+            ////console.log(response.data);
             setUserreact(response.data);
           })
           .catch(function (error) {
@@ -220,7 +221,7 @@ const PlayBackInfo = (props) => {
       }
     });
 
-    //console.log(value.data)
+    ////console.log(value.data)
   };
 
   const fetchData = async () => {
@@ -238,12 +239,12 @@ const PlayBackInfo = (props) => {
         }
       }
     }
-    //console.log(fileRes, "Hi");
+    ////console.log(fileRes, "Hi");
     //await sf.initialize();
   };
 
-  // console.log('userData', userData);
-  // console.log(userData ? userData.videos[props.video_id].link : '');
+  // //console.log('userData', userData);
+  // //console.log(userData ? userData.videos[props.video_id].link : '');
 
   const handlereaction = (videoprops) => {
     if (!user) {
@@ -285,7 +286,7 @@ const PlayBackInfo = (props) => {
       })
         .then(function (response) {
           if (response) {
-            //console.log(response);
+            ////console.log(response);
           } else {
             alert('Invalid Login');
           }
@@ -352,7 +353,7 @@ const PlayBackInfo = (props) => {
       })
         .then(function (response) {
           if (response) {
-            //console.log(response);
+            ////console.log(response);
           } else {
             alert('Invalid Login');
           }
@@ -369,7 +370,7 @@ const PlayBackInfo = (props) => {
     get_User();
     fetchData();
     let value = JSON.parse(window.localStorage.getItem('user'));
-    //console.log(value);
+    ////console.log(value);
 
     if (user ? value.username === props.stream_id : false) {
       setPrivate(true);
@@ -385,7 +386,7 @@ const PlayBackInfo = (props) => {
     return () => clearTimeout(timer);
   }, [buttonText]);
 
-  //console.log(arrayData);
+  ////console.log(arrayData);
 
   const testFlow = async (amount) => {
     const walletAddress = await window.ethereum.request({
@@ -414,18 +415,18 @@ const PlayBackInfo = (props) => {
       flowRate: 385802469135 * amount,
     });
 
-    const details = await carol2.details();
-    console.log(details.cfa.flows.outFlows[0]);
+    //const details = await carol2.details();
+    //console.log(details.cfa.flows.outFlows[0]);
   };
   return (
     <div>
       <div
         className={`${
           darkMode && 'dark'
-        }  grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row pt-3 pb-50 mt-10 lg:ml-12  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary`}
+        }  grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row pt-3 lg:pb-50 mt-10 lg:ml-12  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary`}
       >
-        <div className=" lg:col-span-2 dark:bg-dbeats-dark-alt text-black   dark:text-white">
-          <div className="self-center lg:px-8 w-screen lg:w-full lg:mt-3 mt-0.5">
+        <div className=" lg:col-span-2 dark:bg-dbeats-dark-alt text-black dark:text-white">
+          <div className="self-center lg:px-9 w-screen lg:w-full lg:mt-3 mt-0.5">
             {userData ? (
               <VideoPlayer
                 playbackUrl={playbackUrl}
@@ -456,18 +457,18 @@ const PlayBackInfo = (props) => {
                 {!privateUser ? (
                   <div>
                     {user ? (
-                      <>
+                      <div className="flex ">
                         <button
-                          className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
+                          className="bg-dbeats-light p-1 lg:text-lg text-md rounded-sm px-4 mr-3 font-semibold text-white "
                           onClick={trackFollowers}
                         >
                           <span>{subscribeButtonText}</span>
                         </button>
-                        <button className="bg-dbeats-light    p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white ">
+                        <button className="bg-dbeats-light    p-1 lg:text-lg text-md  rounded-sm px-4 mr-3 font-semibold text-white ">
                           <i className="fas fa-dice-d20  mr-1 cursor-pointer"></i>
                           <span onClick={handleShowSubscriptionModal}>Become a SuperFan</span>
                         </button>
-                      </>
+                      </div>
                     ) : (
                       <button
                         className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
@@ -614,10 +615,10 @@ const PlayBackInfo = (props) => {
             </div>
           </div>
         </div>
-        <div className="  w-full col-span-1 px-5 lg:pt-3 dark:bg-dbeats-dark-alt text-black  dark:text-white">
+        <div className="  w-full pb-32 pt-5 lg:pt-0 col-span-1 px-5 lg:pt-4 dark:bg-dbeats-dark-alt text-black  dark:text-white">
           <div className=" w-full  grid grid-cols-1 grid-flow-row gap-3  ">
             {arrayData.map((value, index) => {
-              return <RecommendedCard key={index} value={value} />;
+              return <RecommendedCard key={index} value={value} darkMode={darkMode} />;
             })}
           </div>
         </div>

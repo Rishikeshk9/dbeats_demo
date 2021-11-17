@@ -32,10 +32,8 @@ app.use(express.static('public'));
 // Database Linking
 app.use(Gun.serve);
 const server = app.listen(port, () => {
-  console.log(`server is listening on Port  ${port}`);
+  //console.log(`server is listening on Port  ${port}`);
 });
-
-
 
 // or as an es module:
 // import { MongoClient } from 'mongodb'
@@ -53,7 +51,7 @@ mongoose.connect(uri, {
 
 const connection = mongoose.connection;
 connection.once('open', () => {
-  console.log('MongoDB database connection established successfully');
+  //console.log('MongoDB database connection established successfully');
 });
 
 const client = new MongoClient(uri);
@@ -165,7 +163,7 @@ app.get('/express_backend', (req, res) => {
 async function connectDB() {
   // Use connect method to connect to the server
   await client.connect();
-  console.log('Connected successfully to server');
+  //console.log('Connected successfully to server');
   const db = client.db(dbName);
 
   const collection = db.collection('data');
@@ -187,7 +185,7 @@ async function connectDB() {
   //const profile2 = dbd.get("");
   //const obj = JSON.parse(profile2);
 
-  //console.log(profile2);
+  ////console.log(profile2);
 
   return 'done.';
 }
@@ -232,8 +230,8 @@ app.post('/signup', (req, res) => {
 });
 
 app.post('/upload-video', (req, res) => {
-  console.log(req.body);
-  console.log(req.files);
+  //console.log(req.body);
+  //console.log(req.files);
   const {
     userName,
     videoName,
@@ -280,7 +278,7 @@ app.post('/upload-video', (req, res) => {
         fileHash +
         '/' +
         req.files.videoFile.name;
-      console.log('video Uploaded Successfully!: ' + fileHash);
+      //console.log('video Uploaded Successfully!: ' + fileHash);
 
       fs.unlink(filePath, (err) => {
         if (err) console.log(err);
@@ -293,24 +291,24 @@ app.post('/upload-video', (req, res) => {
 
           albumhashLink =
             'https://ipfs.io/ipfs/' + fileHash + '/' + imageHash;
-          console.log(
-            'Album Art Uploaded Successfully!: ' + fileHash,
-          );
+          //console.log(
+          //   'Album Art Uploaded Successfully!: ' + fileHash,
+          // );
 
           fs.unlink(videoArtPath, (err) => {
             if (err) console.log(err);
           });
 
           //AlbumArt Uploaded Now Save Both to DB
-          console.log(
-            'video Link : ' +
-              videoHashLink +
-              '\nAlbumArt Link : ' +
-              albumhashLink,
-          );
+          //console.log(
+          //   'video Link : ' +
+          //     videoHashLink +
+          //     '\nAlbumArt Link : ' +
+          //     albumhashLink,
+          // );
 
           if (albumhashLink != null && videoHashLink != null) {
-            console.log('Saving To Database!');
+            //console.log('Saving To Database!');
             saveVideoToDB(
               userId,
               videoName,
@@ -331,15 +329,15 @@ app.post('/upload-video', (req, res) => {
               .status(201)
               .send('Video Uploaded Successfully!');
           } else {
-            console.log('ERRRRRRRRRRRRRRRR');
+            //console.log('ERRRRRRRRRRRRRRRR');
 
             return res.render('upload', { error: 'Error!' });
           }
 
           if (err) {
-            console.log(
-              'Error : failed to Upload the Album Art File',
-            );
+            //console.log(
+            //   'Error : failed to Upload the Album Art File',
+            // );
             return res.status(500).send(err);
           }
         } catch (error) {
@@ -348,7 +346,7 @@ app.post('/upload-video', (req, res) => {
       });
 
       if (err) {
-        console.log('Error : failed to Upload the Video File');
+        //console.log('Error : failed to Upload the Video File');
         return res.status(500).send(err);
       }
     } catch (error) {
@@ -359,8 +357,8 @@ app.post('/upload-video', (req, res) => {
 
 app.post('/upload', (req, res) => {
   var datetime = new Date();
-  console.log(datetime);
-  console.log('-----------REQUEST DATA-----------\n');
+  //console.log(datetime);
+  //console.log('-----------REQUEST DATA-----------\n');
   // const obj = JSON.stringify(req.body)
   // Store JSON data in a JS variable
 
@@ -405,7 +403,7 @@ app.post('/upload', (req, res) => {
         fileHash +
         '/' +
         req.files.trackFile.name;
-      console.log('Track Uploaded Successfully!: ' + fileHash);
+      //console.log('Track Uploaded Successfully!: ' + fileHash);
 
       fs.unlink(filePath, (err) => {
         if (err) console.log(err);
@@ -418,24 +416,24 @@ app.post('/upload', (req, res) => {
 
           albumhashLink =
             'https://ipfs.io/ipfs/' + fileHash + '/' + albumHash;
-          console.log(
-            'Album Art Uploaded Successfully!: ' + albumHash,
-          );
+          //console.log(
+          //   'Album Art Uploaded Successfully!: ' + albumHash,
+          // );
 
           fs.unlink(trackArtPath, (err) => {
             if (err) console.log(err);
           });
 
           //AlbumArt Uploaded Now Save Both to DB
-          console.log(
-            'Track Link : ' +
-              trackHashLink +
-              '\nAlbumArt Link : ' +
-              albumhashLink,
-          );
+          //console.log(
+          //   'Track Link : ' +
+          //     trackHashLink +
+          //     '\nAlbumArt Link : ' +
+          //     albumhashLink,
+          // );
 
           if (albumhashLink != null && trackHashLink != null) {
-            console.log('Saving To Database!');
+            //console.log('Saving To Database!');
             saveTrackToDB(
               userName,
               trackName,
@@ -457,15 +455,15 @@ app.post('/upload', (req, res) => {
               .status(201)
               .send('Track Uploaded Successfully!');
           } else {
-            console.log('ERRRRRRRRRRRRRRRR');
+            //console.log('ERRRRRRRRRRRRRRRR');
 
             return res.render('upload', { error: 'Error!' });
           }
 
           if (err) {
-            console.log(
-              'Error : failed to Upload the Album Art File',
-            );
+            //console.log(
+            //   'Error : failed to Upload the Album Art File',
+            // );
             return res.status(500).send(err);
           }
         } catch (error) {
@@ -474,7 +472,7 @@ app.post('/upload', (req, res) => {
       });
 
       if (err) {
-        console.log('Error : failed to Upload the Track File');
+        //console.log('Error : failed to Upload the Track File');
         return res.status(500).send(err);
       }
     } catch (error) {
@@ -484,16 +482,16 @@ app.post('/upload', (req, res) => {
 });
 
 app.post('/upload-nft', (req, res) => {
-  console.log(req.body);
-  console.log(req.files);
-  console.log(req);
+  //console.log(req.body);
+  //console.log(req.files);
+  //console.log(req);
   const { videoFile } = req.files;
   const { metadata } = req.body;
 
   const file = req.files.videoFile;
   const fileName = videoFile.name + path.extname(videoFile.name); //path.extname(videoFile.name)
   const filePath = fileName;
-  console.log(metadata, JSON.parse(metadata));
+  //console.log(metadata, JSON.parse(metadata));
 
   let videoHashLink = null;
   // fs.writeFile(`${randNum}`, metadata, (err) => {
@@ -501,7 +499,7 @@ app.post('/upload-nft', (req, res) => {
   //   if (err) throw err;
 
   //   // success case, the file was saved
-  //   console.log('Metadata created!');
+  //   //console.log('Metadata created!');
   // });
   // let metadataHash = await addFile(`${randNum}`);
   // fs.unlink(`${randNum}`, (err) => {
@@ -516,13 +514,13 @@ app.post('/upload-nft', (req, res) => {
       const fileHash = await addFile(filePath);
 
       videoHashLink = 'https://ipfs.io/ipfs/' + fileHash;
-      console.log('video Uploaded Successfully!: ' + fileHash);
+      //console.log('video Uploaded Successfully!: ' + fileHash);
       fs.unlink(filePath, (err) => {
         if (err) console.log(err);
       });
 
       if (err) {
-        console.log('Error : failed to Upload the Video File');
+        //console.log('Error : failed to Upload the Video File');
         return res.status(500).send(err);
       }
       return res.status(201).send([videoHashLink, metadataHashLink]);
@@ -551,7 +549,7 @@ const addFile = async (filePath, contentString = false) => {
       ? contentString
       : fs.readFileSync(filePath);
   const fileAdded = await ipfs.add({ path: filePath, content: file });
-  console.log(fileAdded);
+  //console.log(fileAdded);
   //const fileHash = fileAdded[0].hash;
 
   return fileAdded.cid;
@@ -560,7 +558,7 @@ const addFile = async (filePath, contentString = false) => {
 app.post('/count-play', async (req, res) => {
   /*Use This Code Below when want to Increment play count of the track uploaded on DBeats 
   await client.connect();
-  console.log("Connected successfully to server");
+  //console.log("Connected successfully to server");
   const db = client.db(dbName);
   var myquery = { trackId: req.body.trackId };
   var newvalues = {
@@ -577,7 +575,7 @@ app.post('/count-play', async (req, res) => {
   //Below part adds the latest played track to the array of last played 1000 Tracks
 
   last1000Played.push(req.body.trackId);
-  console.log(last1000Played);
+  //console.log(last1000Played);
   res.send('Play Counted :' + req.body.trackId);
 });
 
@@ -588,7 +586,7 @@ app.get('/tracks/trending', (req, res) => {
 app.get('/dbeats-music', async (req, res) => {
   var data = [];
   await client.connect();
-  console.log('Connected successfully to server');
+  //console.log('Connected successfully to server');
   const db = client.db(dbName);
   var myquery = { tracks: { $exists: true } };
 
@@ -613,7 +611,7 @@ app.get('/dbeats-music', async (req, res) => {
 async function saveToDBSignUp(walletID, fullName, userName) {
   // Use connect method to connect to the server
   await client.connect();
-  console.log('Connected successfully to server');
+  //console.log('Connected successfully to server');
   const db = client.db(dbName);
 
   const collection = db.collection('data');
@@ -657,11 +655,11 @@ async function saveTrackToDB(
 ) {
   // Use connect method to connect to the server
   await client.connect();
-  console.log('Connected successfully to server');
+  //console.log('Connected successfully to server');
   const db = client.db(dbName);
-  console.log('Trying to add new Song By :' + userId);
+  //console.log('Trying to add new Song By :' + userId);
 
-  //console.log(makeid(6));
+  ////console.log(makeid(6));
   var trackId = makeid(6);
   var myquery = { username: userId };
   var newvalues = {
@@ -695,7 +693,7 @@ async function saveTrackToDB(
     .log
     //` documents were inserted with the _id: ${result.insertedId}`,
     ();
-  console.log('Track Added! : ' + trackId);
+  //console.log('Track Added! : ' + trackId);
 
   var a = new Date(time * 1000);
   var months = [
@@ -731,7 +729,7 @@ async function saveTrackToDB(
     ':' +
     sec;
 
-  console.log('Log: ' + time);
+  //console.log('Log: ' + time);
 
   return 'done.';
 }
@@ -753,9 +751,9 @@ async function saveVideoToDB(
 ) {
   // Use connect method to connect to the server
   await client.connect();
-  console.log('Connected successfully to server');
+  //console.log('Connected successfully to server');
   const db = client.db(dbName);
-  console.log('Trying to Upload new Video By :' + userId);
+  //console.log('Trying to Upload new Video By :' + userId);
 
   var myquery = { username: userId };
   var newvalues = {
@@ -788,7 +786,7 @@ async function saveVideoToDB(
     .log
     //` documents were inserted with the _id: ${result.insertedId}`,
     ();
-  console.log('Video Added!:');
+  //console.log('Video Added!:');
 
   var a = new Date(time * 1000);
   var months = [
@@ -824,7 +822,7 @@ async function saveVideoToDB(
     ':' +
     sec;
 
-  console.log('Log: ' + time);
+  //console.log('Log: ' + time);
 
   return 'done.';
 }
@@ -837,9 +835,9 @@ async function loadFeed(page, res) {
   try {
     collection.find({}).toArray(function (err, result) {
       if (err) throw err;
-      console.log(result);
+      //console.log(result);
       if (result.length > 0) {
-        console.log(result[0].tracks[0].trackName);
+        //console.log(result[0].tracks[0].trackName);
       }
       res.render(page, { result });
     });
@@ -856,11 +854,11 @@ async function loadArtist(username, res) {
 
   collection.findOne(query).then((result) => {
     if (result) {
-      console.log(result);
+      //console.log(result);
       return result;
     } else {
       var alert = 'No document matches the provided query.';
-      console.log(alert);
+      //console.log(alert);
       return alert;
     }
     return result;
@@ -875,21 +873,21 @@ async function loadTrack(username, track, res) {
 
   collection.findOne(query).then((result) => {
     if (result) {
-      console.log(result.tracks.length);
+      //console.log(result.tracks.length);
       for (var i = 0; i < result.tracks.length; i++) {
-        console.log(i + 'th TRACK -----');
+        //console.log(i + 'th TRACK -----');
         var trckName = result.tracks[i];
         if (trckName.trackName == track) {
-          console.log('Track Found:');
+          //console.log('Track Found:');
           res.render('upload', { trckName });
         }
-        //console.log( result.tracks[i].toArray().find(track));
+        ////console.log( result.tracks[i].toArray().find(track));
       }
 
       return result;
     } else {
       var alert = 'No document matches the provided query.';
-      console.log(alert);
+      //console.log(alert);
       return alert;
     }
     return result;
@@ -920,9 +918,9 @@ async function main() {
     files.push(...pathFiles);
   }
 
-  console.log(`Uploading ${files.length} files`);
+  //console.log(`Uploading ${files.length} files`);
   const cid = await storage.put(files);
-  console.log('Content added with CID:', cid);
+  //console.log('Content added with CID:', cid);
 }
 
 //FOR VIDEO SECTION
@@ -942,7 +940,7 @@ app.use(express.json());
 app.get('/', async (req, res) => {
   var array = [];
   await client.connect();
-  console.log('Connected successfully to server');
+  //console.log('Connected successfully to server');
   const db = client.db(dbName);
   var cursor = db.collection('users').find();
   cursor.forEach(
@@ -971,7 +969,7 @@ app.post('/create_stream', async (req, res) => {
       Authorization: AuthStr,
     },
   });
-  //console.log("Lets do :",value.data);
+  ////console.log("Lets do :",value.data);
   res.json(value.data);
 });
 
@@ -986,7 +984,7 @@ app.get('/get_activeusers', async (req, res) => {
 
 app.post('/patch_multistream', async (req, res) => {
   let patchData = req.body.patchStreamData;
-  console.log(patchData);
+  //console.log(patchData);
   let apiUrl = `https://livepeer.com/api/stream/${req.body.stream_id}`;
 
   const userValue = await axios({
@@ -997,14 +995,14 @@ app.post('/patch_multistream', async (req, res) => {
       Authorization: AuthStr,
     },
   });
-  console.log(userValue);
+  //console.log(userValue);
   let patchStreamData = {
     multistream: {
       targets: patchData,
     },
   };
 
-  console.log(patchStreamData);
+  //console.log(patchStreamData);
 
   const value = await axios({
     method: 'PATCH',
@@ -1016,12 +1014,12 @@ app.post('/patch_multistream', async (req, res) => {
       Authorization: AuthStr,
     },
   });
-  console.log(value.data);
+  //console.log(value.data);
   res.json(value.data);
 });
 
 // app.listen(port, function () {
-//   console.log("Listening on port");
+//   //console.log("Listening on port");
 // });
 
 Gun({ web: server });

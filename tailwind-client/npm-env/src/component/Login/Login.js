@@ -54,7 +54,6 @@ const Login = () => {
   // Create a Stream Profile
   const createStream = async () => {
     setLoader(false);
-    //console.log(form_name," ",form_username," ",form_password)
     let streamData = {
       name: `${form_name}`,
       profiles: [
@@ -88,8 +87,6 @@ const Login = () => {
       data: streamData,
     });
 
-    //console.log(stream);
-
     let walletId = '';
     if (provider) {
       walletId = provider.provider.selectedAddress;
@@ -106,8 +103,6 @@ const Login = () => {
       wallet_id: walletId,
       livepeer_data: stream.data,
     };
-    
-    //console.log(userData);
 
     axios({
       method: 'post',
@@ -115,7 +110,6 @@ const Login = () => {
       data: userData,
     })
       .then(function (response) {
-        //console.log('response', response.data);
         window.localStorage.setItem('user', JSON.stringify(response.data));
         window.location.href = '/';
       })
@@ -124,7 +118,6 @@ const Login = () => {
       });
 
     setLoader(true);
-    
   };
 
   // Metamask Auth
@@ -169,9 +162,6 @@ const Login = () => {
           className="font-bold flex self-center text-center"
           type="button"
           onClick={async () => {
-            Moralis.authenticate().then(function (user) {
-              console.log(user.get('ethAddress'));
-            });
             let variable = await loadWeb3Modal();
             if (provider && variable) {
               await axios

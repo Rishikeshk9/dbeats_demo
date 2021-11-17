@@ -14,8 +14,6 @@ const LiveCard = (props) => {
     setPlaying(false);
   };
 
-  //console.log(props.liveUserData.username);
-
   return (
     <div className="w-full h-auto  ">
       <div className=" cursor-pointer ">

@@ -58,7 +58,7 @@
 //   });
 
 //   const getToken = async () => {
-//     // console.log(provider.getSigner());
+//     // //console.log(provider.getSigner());
 
 //     const provider = await web3Modal.connect();
 //     const web3 = new Web3(provider);
@@ -66,18 +66,18 @@
 
 //     // Subscribe to accounts change
 //     provider.on('accountsChanged', (accounts) => {
-//       console.log(accounts);
+//       //console.log(accounts);
 //       setWalletConnected(accounts[0]);
 //     });
 
 //     // Subscribe to chainId change
 //     provider.on('chainChanged', (chainId) => {
-//       console.log(chainId);
+//       //console.log(chainId);
 //     });
 
 //     // Subscribe to provider connection
 //     provider.on('connect', (info) => {
-//       console.log(info);
+//       //console.log(info);
 //       setWalletConnected(accounts[0]);
 //       setWalletIcon(jdenticon.toSvg(accounts[0], 200));
 //       fs.writeFileSync('./profile-icon.svg', icon);

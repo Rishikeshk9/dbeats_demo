@@ -143,11 +143,11 @@
       // To get all the events
       transak
         .on(transak.ALL_EVENTS, (data) => {
-          console.log(data)
+          //console.log(data)
         });
       // This will trigger when the user marks payment is made.
       transak.on(transak.EVENTS.TRANSAK_ORDER_SUCCESSFUL, (orderData) => {
-        console.log(orderData);
+        //console.log(orderData);
         //transak.close();
       });
     }
@@ -168,7 +168,7 @@
 }
 getDuration("<%= trckName.link %>", function(length) {
   var duration = myTime(Math.floor(length));
-    console.log('I got length ' + duration);
+    //console.log('I got length ' + duration);
     $(".duration").text(duration);
 });
 

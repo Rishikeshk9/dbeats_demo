@@ -34,7 +34,7 @@ const NewPlaylist = (props) => {
       };
     }
 
-    console.log(data);
+    //console.log(data);
     await axios({
       method: 'post',
       url: `${process.env.REACT_APP_SERVER_URL}/user/playlist`,
@@ -108,7 +108,7 @@ export const Playlist = (props) => {
       };
     }
 
-    console.log(data);
+    //console.log(data);
     await axios({
       method: 'post',
       url: `${process.env.REACT_APP_SERVER_URL}/user/playlist`,

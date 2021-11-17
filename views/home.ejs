@@ -215,14 +215,14 @@
       const user = Moralis.User.current();
 
       $(document).ready(function () {
-        console.log("ready!");
+        //console.log("ready!");
         
         if(user==null){
             $("#upload-section").hide();
             $("#connect").show();
         }
         else{
-            console.log("Authenticated User:"+user.get("ethAddress"));
+            //console.log("Authenticated User:"+user.get("ethAddress"));
             $("#userId").val(user.get("ethAddress"));
             $("#connect").hide();
             $("#upload-section").show(100);
@@ -232,7 +232,6 @@
       async function login() {
         try {
           // user = await Moralis.Web3.authenticate();
-          // console.log(user);
           Moralis.Web3.authenticate().then(function (user) {
             alert(user.get("ethAddress"));
             $("#connect").hide();
@@ -255,7 +254,7 @@
 
 
       $("#albumfile").change(function () {
-        console.log("Image Chosed")
+        //console.log("Image Chosed")
         if (this.files && this.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
@@ -267,7 +266,7 @@
 
 
     $("#trackFile").change(function () {
-        console.log("Track Chosed")
+        //console.log("Track Chosed")
         if (this.files && this.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {

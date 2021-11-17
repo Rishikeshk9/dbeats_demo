@@ -44,6 +44,7 @@ module.exports = {
       },
       height: {
         88: '21.8rem',
+        120: '42rem',
       },
       padding: {
         xl: '300px',

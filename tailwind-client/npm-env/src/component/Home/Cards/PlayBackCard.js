@@ -31,12 +31,12 @@ const PlayBackCard = (props) => {
   }, []);
 
   return (
-    <div className="w-full h-auto  ">
-      <div className={`cursor-pointer`}>
-        <a href={`/playback/${props.playbackUserData.username}/0`}>
+    <div className={`${props.darkMode && 'dark'} w-full h-auto`}>
+      <div className={`cursor-pointer w-full lg:h-52 md:h-28 h-44 dark:bg-dbeats-dark-primary`}>
+        <a href={`/playback/${props.playbackUserData.username}/${index}`}>
           <ReactPlayer
             width="100%"
-            height="auto"
+            height="100%"
             playing={playing}
             muted={false}
             volume={0.5}

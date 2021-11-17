@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleDarkMode } from '../src/actions/index';
 import Pinned_Panel from './component/Subscribe_Panel/Pinned_Panel';
 
-import ChatRoom from './component/Profile/ChatRoom/ChatRoom'
+import ChatRoom from './component/Profile/ProfileSections/ChatRoom/ChatRoom';
 
 //import Navbar from "./component/navbar.component";
 //import BottomBar from "./component/bottom-player.component";
@@ -29,19 +29,28 @@ const VideoHome = lazy(() => {
 
 const PublicRoom = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('./component/Room/Info/LivePublicPage/PublicRoomPage')), 1000);
+    setTimeout(
+      () => resolve(import('./component/VideoPages/Pages/LivePublicPage/PublicRoomPage')),
+      1000,
+    );
   });
 });
 
 const Playback = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('./component/Room/Info/PlayBack/PlaybackRoomPage')), 1000);
+    setTimeout(
+      () => resolve(import('./component/VideoPages/Pages/PlayBack/PlaybackRoomPage')),
+      1000,
+    );
   });
 });
 
 const UserRoom = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('./component/Room/Info/GoLive_UserPage/UserRoomPage')), 1000);
+    setTimeout(
+      () => resolve(import('./component/VideoPages/Pages/GoLive_UserPage/UserRoomPage')),
+      1000,
+    );
   });
 });
 
@@ -71,7 +80,7 @@ const SearchPage = lazy(() => {
 
 const TrackPlayback = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('./component/Room/Info/TrackPage/TrackInfo')), 1000);
+    setTimeout(() => resolve(import('./component/VideoPages/Pages/TrackPage/TrackInfo')), 1000);
   });
 });
 
@@ -83,6 +92,7 @@ export default function App() {
 
   useEffect(() => {
     if (user) {
+      //console.log('Hi');
       axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${user.username}`).then((value) => {
         window.localStorage.setItem('user', JSON.stringify(value.data));
       });

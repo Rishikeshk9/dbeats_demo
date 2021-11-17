@@ -30,8 +30,8 @@ const testFlow = async (props) => {
     flowRate: 385802469135 * amount,
   });
 
-  const details = await carol2.details();
-  console.log(details);
+  //const details = await carol2.details();
+  //console.log(details);
 };
 
 testFlow();

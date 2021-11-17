@@ -15,7 +15,7 @@ const ReactionCard = (props) => {
   };
 
   const [show, setShow] = useState(false);
-  console.log(show);
+  //console.log(show);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -48,7 +48,7 @@ const ReactionCard = (props) => {
     return () => clearTimeout(timer);
   }, [buttonText]);
 
-  console.log(show);
+  //console.log(show);
 
   return (
     <div className="w-full  flex lg:flex-row flex-col py-3 px-3 bg-white rounded-xl dark:bg-dbeats-dark-primary dark:text-gray-100 my-2">

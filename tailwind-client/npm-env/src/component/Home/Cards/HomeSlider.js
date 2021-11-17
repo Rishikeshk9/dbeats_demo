@@ -3,7 +3,6 @@ import { StackedCarousel, ResponsiveContainer } from 'react-stacked-center-carou
 import ReactPlayer from 'react-player';
 
 const ResponsiveCarousel = (props) => {
-  //console.log(props.slides);
   const ref = React.useRef(ResponsiveContainer);
   return (
     <div style={{ position: 'relative' }}>

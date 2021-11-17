@@ -22,7 +22,7 @@ const path = require('path');
 var mime = require('mime-types');
 
 async function mintNFT(provider, formData, file, name, description) {
-  console.log('This ran mint');
+  //console.log('This ran mint');
 
   // const signer = provider.getSigner();
   // const zora = new Zora(
@@ -31,7 +31,7 @@ async function mintNFT(provider, formData, file, name, description) {
   //   '0xabEFBc9fD2F806065b4f3C237d4b59D9A97Bcac7', //mediaAddress
   //   '0xE5BFAB544ecA83849c53464F85B7164375Bdaac1', //marketAddress
   // );
-  // console.log(mime.lookup(path.extname(file.name)));
+  // //console.log(mime.lookup(path.extname(file.name)));
   // const metadata = {
   //   version: 'zora-20210101',
   //   name: name,
@@ -47,13 +47,13 @@ async function mintNFT(provider, formData, file, name, description) {
   // var buffer = await blob.arrayBuffer();
   // const contentHash = await sha256FromBuffer(Buffer.from(buffer));
 
-  // console.log(metadataHash, contentHash, 'FILE:', file.length);
+  // //console.log(metadataHash, contentHash, 'FILE:', file.length);
   // let fileRes;
   // if (file.length !== 0) {
   //   formData.append('metadata', minified);
 
   //   fileRes = await axios.post('/upload-nft', formData);
-  //   console.log('fileResponse: ', fileRes);
+  //   //console.log('fileResponse: ', fileRes);
   // }
 
   // const mediaData = constructMediaData(fileRes.data[0], fileRes.data[1], contentHash, metadataHash);
@@ -66,7 +66,7 @@ async function mintNFT(provider, formData, file, name, description) {
 
   // const tx = await zora.mint(mediaData, bidShares);
   // await tx.wait(8); // 8 confirmations to finalize
-  // console.log('done', tx);
+  // //console.log('done', tx);
 
   const fs = require('fs');
   const fetch = require('node-fetch');
@@ -99,7 +99,7 @@ async function mintNFT(provider, formData, file, name, description) {
     })
     .then(function (responseJson) {
       // Handle the response
-      console.log(responseJson);
+      //console.log(responseJson);
     });
 }
 

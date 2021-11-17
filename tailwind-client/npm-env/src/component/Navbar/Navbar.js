@@ -63,7 +63,7 @@ const NavBar = () => {
     window.location.href = `/profile/${user.username}`;
   };
 
-  // console.log(user, "from navbar")
+  // //console.log(user, "from navbar")
 
   const [toggled, setToggled] = useState(JSON.parse(window.localStorage.getItem('darkmode')));
   const handleClick = () => {
@@ -86,9 +86,7 @@ const NavBar = () => {
         url: `${process.env.REACT_APP_SERVER_URL}/user/seennotification`,
         data: data,
       })
-        .then((response) => {
-          console.log(response);
-        })
+        .then()
         .catch(function (error) {
           console.log(error);
         });
@@ -123,7 +121,7 @@ const NavBar = () => {
       }
     });
 
-    console.log('Videofilter', newVideoFilter);
+    //console.log('Videofilter', newVideoFilter);
 
     if (searchWord === '') {
       setFilteredData([]);
@@ -170,7 +168,7 @@ const NavBar = () => {
     }
   }, []);
 
-  console.log(notification);
+  //console.log(notification);
 
   const searchData = {
     usernameData: filteredData,

@@ -10,7 +10,7 @@ import moment from 'moment';
 moment().format();
 
 const CarouselCard = (props) => {
-  console.log(props);
+  //console.log(props);
   const [playing, setPlaying] = useState(false);
 
   const [time, setTime] = useState(null);
@@ -32,7 +32,7 @@ const CarouselCard = (props) => {
     convertTimestampToTime();
   }, []);
 
-  //console.log(props.playbackUserData)
+  ////console.log(props.playbackUserData)
 
   return (
     <div className="w-full  flex lg:flex-row flex-col py-3 px-3 bg-white rounded-xl dark:bg-dbeats-dark-primary dark:text-gray-100 my-2">

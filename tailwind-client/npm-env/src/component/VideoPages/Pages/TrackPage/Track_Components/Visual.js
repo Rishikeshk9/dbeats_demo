@@ -52,7 +52,7 @@ const Waves = ({ src, isPlaying, currentTime, setIsPlaying, setHidden }) => {
 
         let data = JSON.parse(window.sessionStorage.getItem('Track_Array'));
         let index = JSON.parse(window.sessionStorage.getItem('Track_Index'));
-        console.log('finish');
+        //console.log('finish');
         if (JSON.parse(window.sessionStorage.getItem('Track_Index')) > [data.length - 2]) {
           window.sessionStorage.setItem('Track_Index', '0');
         } else {
@@ -69,7 +69,7 @@ const Waves = ({ src, isPlaying, currentTime, setIsPlaying, setHidden }) => {
       wavesurfer.load(src);
       //wavesurfer.zoom(Number(250));
     }
-    console.log(wavesurfer);
+    //console.log(wavesurfer);
   };
 
   return (

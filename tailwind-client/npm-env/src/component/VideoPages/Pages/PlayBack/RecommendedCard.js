@@ -13,17 +13,17 @@ const RecommendedCard = (props) => {
   const hanldeMouseLeave = () => {
     setPlaying(false);
   };
-  //console.log('My : ', props.value);
+  ////console.log('My : ', props.value);
   return (
-    <div className="flex w-full">
-      <div className="cursor-pointer">
+    <div className={`${props.darkMode && 'dark'} flex w-full`}>
+      <div className="cursor-pointer h-28 dark:bg-dbeats-dark-primary">
         <ReactPlayer
           onClick={() => {
             window.location.href = `/playback/${props.value.username}/0`;
           }}
           className="justify-self-center"
           width="12rem"
-          height="auto"
+          height="100%"
           playing={playing}
           volume={0.5}
           url={props.value.videos[0].link}

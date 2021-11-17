@@ -13,7 +13,7 @@ const LiveCard = (props) => {
   const hanldeMouseLeave = () => {
     setPlaying(false);
   };
-  console.log('My : ', props);
+  //console.log('My : ', props);
   return (
     <div className="flex w-full">
       <div className="cursor-pointer">

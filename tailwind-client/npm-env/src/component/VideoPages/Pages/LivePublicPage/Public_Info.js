@@ -61,7 +61,7 @@ const PublicInfo = (props) => {
       })
         .then(function (response) {
           if (response) {
-            //console.log(response);
+            ////console.log(response);
           } else {
             alert('Invalid Login');
           }
@@ -82,7 +82,7 @@ const PublicInfo = (props) => {
       })
         .then(function (response) {
           if (response) {
-            //console.log(response);
+            ////console.log(response);
           } else {
             alert('Invalid Login');
           }
@@ -106,7 +106,7 @@ const PublicInfo = (props) => {
         `https://cdn.livepeer.com/hls/${value.data.livepeer_data.playbackId}/index.m3u8`,
       );
     });
-    //console.log(value.data)
+    ////console.log(value.data)
   };
 
   const fetchData = async () => {
@@ -122,7 +122,7 @@ const PublicInfo = (props) => {
           });
       }
     }
-    //console.log(fileRes, "Hi");
+    ////console.log(fileRes, "Hi");
   };
 
   useEffect(() => {
@@ -196,8 +196,8 @@ const PublicInfo = (props) => {
       flowRate: 385802469135 * amount,
     });
 
-    const details = await carol2.details();
-    console.log(details.cfa.flows.outFlows[0]);
+    //const details = await carol2.details();
+    //console.log(details.cfa.flows.outFlows[0]);
   };
   return (
     <div className="mt-10">

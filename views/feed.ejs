@@ -85,14 +85,14 @@
       const user = Moralis.User.current();
 
       $(document).ready(function () {
-        console.log("ready!");
+        //console.log("ready!");
         
         if(user==null){
             $("#feed-section").hide();
             $("#connect").show();
         }
         else{
-            console.log("Authenticated User:"+user.get("ethAddress"));
+            //console.log("Authenticated User:"+user.get("ethAddress"));
             $("#userId").val(user.get("ethAddress"));
             $("#connect").hide();
             $("#upload-section").show(100);
@@ -102,7 +102,6 @@
       async function login() {
         try {
           // user = await Moralis.Web3.authenticate();
-          // console.log(user);
           Moralis.Web3.authenticate().then(function (user) {
             alert(user.get("ethAddress"));
             $("#connect").hide();

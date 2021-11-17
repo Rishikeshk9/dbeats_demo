@@ -6,7 +6,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const Pinned_Panel = (props) => {
   const darkMode = useSelector((state) => state.toggleDarkMode);
-  //console.log(props);
+  ////console.log(props);
   const [pinnedData, setPinnedData] = useState([]);
 
   useEffect(() => {
@@ -16,22 +16,16 @@ const Pinned_Panel = (props) => {
       }
   }, []);
 
-  //console.log(pinnedData);
+  ////console.log(pinnedData);
   return (
     <div expand="lg" className={` w-max fixed top-0 ${darkMode && 'dark'} z-10`}>
       <div
-        className={`hidden lg:block pr-3 pt-20 bg-white w-22 shadow-sm z-10 h-full fixed left-0 dark:bg-dbeats-dark-primary  dark:text-gray-100   `}
+        className={`hidden lg:block pr-2 pt-16 bg-white w-max shadow-sm z-10 h-full fixed left-1 dark:bg-dbeats-dark-primary  dark:text-gray-100   `}
       >
         {/* Subscribed User Avatar */}
         {pinnedData.map((pinnedUser, i) => {
           return (
-            <div key={i} className="grid grid-flow-row grid-cols-12 cursor-pointer  ">
-              <div className="dark:bg-white bg-blue-100 text-white   h-4 text-4xl rounded-tr-full rounded-br-full my-2 col-span-1 self-center">
-                {' '}
-              </div>
-              <div className="  text-white   h-4 text-4xl rounded-tr-full rounded-br-full my-2 col-span-1 self-center">
-                {' '}
-              </div>
+            <div key={i} className="grid grid-flow-row cursor-pointer mx-auto">
               <OverlayTrigger
                 placement="bottom"
                 overlay={
@@ -43,11 +37,11 @@ const Pinned_Panel = (props) => {
                   </Tooltip>
                 }
               >
-                <div className="w-14 self-center h-14    my-2   col-span-10 relative">
+                <div className="w-14 h-14 my-2 col-span-10 relative">
                   <img
                     src={personImg}
                     alt=""
-                    className="w-14 self-center h-14 rounded-full hover:shadow hover:scale-95 transform transition-all   "
+                    className="w-14 md:w-10 lg:w-14 h-14 md:h-10 lg:h-14 rounded-full hover:shadow hover:scale-95 transform transition-all   "
                     onClick={() => {
                       window.location.href = `/profile/${pinnedUser}/`;
                     }}
@@ -61,15 +55,9 @@ const Pinned_Panel = (props) => {
           );
         })}
 
-        <div className="grid grid-flow-row grid-cols-12 cursor-pointer  ">
-          <div className="dark:bg-white bg-blue-100 text-white   h-4 text-4xl rounded-tr-full rounded-br-full my-2 col-span-1 self-center">
-            {' '}
-          </div>
-          <div className="  text-white   h-4 text-4xl rounded-tr-full rounded-br-full my-2 col-span-1 self-center">
-            {' '}
-          </div>
+        <div className="grid grid-flow-row cursor-pointer  ">
           <div
-            className="w-14 self-center h-14    my-2 rounded-full hover:shadow hover:scale-95 transition-all transform col-span-10 relative bg-blue-100 dark:bg-dbeats-dark-alt justify-self-center "
+            className="w-14 md:w-10 lg:w-14 h-14 md:h-10 lg:h-14  my-2 rounded-full hover:shadow hover:scale-95 transition-all transform col-span-10 relative bg-blue-300 dark:bg-dbeats-dark-alt justify-self-center "
             onClick={() => {
               if (props.userdata) {
                 window.location.href = `/profile/${props.userdata.username}/subscribed_channels`;
@@ -78,8 +66,8 @@ const Pinned_Panel = (props) => {
               }
             }}
           >
-            <div className="self-center  w-max mx-auto my-auto mt-3">
-              <i className="fas fa-plus text-lg text-center m-auto text-white dark:text=blue-200"></i>
+            <div className="w-max mx-auto mt-3.5">
+              <i className="fas fa-plus text-lg text-center text-white dark:text-blue-200"></i>
             </div>
           </div>
         </div>

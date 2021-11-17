@@ -82,7 +82,6 @@ const Dropdown = ({ data, setSelected, getSelected }) => {
   useEffect(() => {
     setSelected(selectedItem);
   }, [selectedItem]);
-  console.log(selectedItem);
 
   return (
     <Listbox value={selectedItem} onChange={setSelectedItem}>

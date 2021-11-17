@@ -4,7 +4,7 @@ import axios from 'axios';
 export default class Example extends React.Component {
   upload(e) {
     e.persist();
-    console.log(e.target.files);
+    //console.log(e.target.files);
 
     const formData = new FormData();
     formData.append('data', e.target.files[0]);
@@ -24,8 +24,11 @@ export default class Example extends React.Component {
 
     xhr.open('POST', 'https://api.estuary.tech/content/add');
     xhr.setRequestHeader('Authorization', 'Bearer EST6d8352d1-5af4-483c-98e0-c92f3456f097ARY');
-    let fileRes = axios.post('https://api.estuary.tech/content/add', formData);
-    console.log('fileResponse: ', fileRes);
+    axios
+      .post('https://api.estuary.tech/content/add', formData)
+      .then()
+      .catch((err) => console.log(err));
+    //console.log('fileResponse: ', fileRes);
 
     xhr.send(formData);
   }

@@ -43,7 +43,6 @@ const Home = () => {
         await axios
           .get(`${process.env.REACT_APP_SERVER_URL}/user/get_user_by_id/${repos.data[i].id}`)
           .then((value) => {
-            //console.log(repos.data[i].id," user :" ,value)
             if (value.data !== '') setActiveStreams((prevState) => [...prevState, value.data]);
 
             if (i < 5) {
@@ -56,8 +55,6 @@ const Home = () => {
     fetchData();
   }, []);
 
-  console.log(slides);
-
   const fetchData = async () => {
     const fileRes = await axios.get(`${process.env.REACT_APP_SERVER_URL}/`);
     for (let i = 0; i < fileRes.data.array.length; i++) {
@@ -66,9 +63,7 @@ const Home = () => {
           setArrayData((prevState) => [...prevState, fileRes.data.array[i]]);
       }
     }
-    //console.log(fileRes, "Hi");
   };
-  //console.log(arrayData, "hello");
 
   return (
     <>
@@ -170,7 +165,7 @@ const Home = () => {
                           {arrayData.map((playbackUser, i) => {
                             return (
                               <Carousel.Item key={i}>
-                                <PlayBackCard playbackUserData={playbackUser} index={0} />
+                                <PlayBackCard darkMode={darkMode} playbackUserData={playbackUser} />
                               </Carousel.Item>
                             );
                           })}
