@@ -51,7 +51,10 @@ const Profile = (props) => {
     //-------------------------------------------------------Fetches all the NFT's of the user on Dbeats-------------------------------------------------------
     await axios({
       method: 'GET',
-      url: 'https://api.nftport.xyz/v0/accounts/0x5d55407a341d96418cEDa98E06C244a502fC9572?chain=polygon&include=metadata',
+      url:
+        'https://api.nftport.xyz/v0/accounts/' +
+        value.wallet_id +
+        '?chain=polygon&include=metadata',
       //url: `https://api.covalenthq.com/v1/137/address/0x5d55407a341d96418cEDa98E06C244a502fC9572/balances_v2/?quote-currency=USD&format=JSON&nft=true&no-nft-fetch=false&key=ckey_b5245f3db18d4a2d999fef65fc0`,
       headers: {
         'Content-Type': 'application/json',

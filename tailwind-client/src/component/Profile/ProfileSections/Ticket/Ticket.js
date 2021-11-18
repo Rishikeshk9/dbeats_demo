@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 
 class Ticket extends React.Component {
   constructor(props) {

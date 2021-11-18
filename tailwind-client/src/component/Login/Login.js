@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
-const Moralis = require('moralis');
 
 import useWeb3Modal from '../../hooks/useWeb3Modal';
 import { useSelector } from 'react-redux';
 import moralisLogo from '../../assets/images/moralis-light.svg';
 import Ticket from '../Profile/ProfileSections/Ticket/Ticket';
+
+const Moralis = require('moralis');
 
 const Login = () => {
   // Web3

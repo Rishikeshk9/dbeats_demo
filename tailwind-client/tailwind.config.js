@@ -49,6 +49,7 @@ module.exports = {
       padding: {
         xl: '300px',
         18: '4.75rem',
+        0.1: '0.1rem',
       },
       margin: {
         13: '3.2rem',
@@ -72,6 +73,11 @@ module.exports = {
       // ...
       display: ['dark'],
       animation: ['hover', 'focus'],
+      backgroundColor: ['dark', 'hover', 'focus'],
+      borderColor: ['dark', 'hover', 'focus'],
+      textColor: ['dark', 'hover', 'focus'],
+      margin: ['dark', 'hover', 'focus'],
+      padding: ['dark', 'hover', 'focus'],
     },
   },
   plugins: [require('@tailwindcss/forms'), require('tailwindcss-filters')],

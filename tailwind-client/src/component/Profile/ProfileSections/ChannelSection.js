@@ -72,13 +72,13 @@ const ChannelSection = (props) => {
                   <Link to={`/profile/${props.user.username}/${channel.type}`}>
                     <div className="font-semibold cursor-pointer text-sm dark:text-gray-200 hover:text-white w-full justify-between self-center hover:bg-dbeats-light dark:hover:bg-dbeats-dark-primary  rounded p-2 relative">
                       {' '}
-                      {channel.type == 'text' ? <i className="fas fa-hashtag mr-2"></i> : ''}
-                      {channel.type == 'voice' ? (
+                      {channel.type === 'text' ? <i className="fas fa-hashtag mr-2"></i> : ''}
+                      {channel.type === 'voice' ? (
                         <i className="fas fa-headphones-alt mr-2"></i>
                       ) : (
                         ''
                       )}
-                      {channel.type == 'store' ? <i className="fas fa-store mr-2 "></i> : ''}
+                      {channel.type === 'store' ? <i className="fas fa-store mr-2 "></i> : ''}
                       {channel.name}
                       <i className="fas fa-user-plus ml-5 absolute right-3 self-center text-center mt-1"></i>
                     </div>

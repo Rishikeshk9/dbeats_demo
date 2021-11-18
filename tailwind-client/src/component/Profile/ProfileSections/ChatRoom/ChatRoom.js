@@ -43,7 +43,7 @@ function ChatRoom(props) {
           message: m.message,
           createdAt: m.createdAt,
         });
-        chatRef.current?.scrollIntoView({ behavior: 'smooth' });
+        //        chatRef.current?.scrollIntoView({ behavior: 'smooth' });
       }, true);
     } else {
       window.location.href = '/';
