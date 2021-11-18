@@ -72,9 +72,9 @@ export const AnnouncementModal = (props) => {
           : 'h-max lg:w-1/2 w-5/6 mx-auto  lg:mt-20 2xl:mt-40 mt-24 bg-gray-50 rounded-xl shadow-2xl'
       }
     >
-      <div className={`${darkMode && 'dark'} lg:p-5 p-3`}>
+      <div className={`${darkMode && 'dark'} 2xl:p-5 lg:p-2 p-3`}>
         <div className="border border-gray-400 rounded-xl  dark:border-black dark:rounded-none">
-          <h2 className="grid grid-cols-5 justify-items-center rounded-t-xl dark:rounded-t-sm lg:text-lg 2xl:text-2xl text-lg py-4 dark:bg-dbeats-dark-alt bg-white dark:text-white">
+          <h2 className="grid grid-cols-5 justify-items-center rounded-t-xl dark:rounded-t-sm font-bold 2xl:text-2xl text-lg py-4 dark:bg-dbeats-dark-alt bg-white dark:text-white">
             <div className="col-span-4 pl-14">Post Details</div>
             <div className="mr-7 flex justify-end w-full" onClick={props.handleCloseAnnouncement}>
               <i className="fas fa-times cursor-pointer"></i>
@@ -82,12 +82,12 @@ export const AnnouncementModal = (props) => {
           </h2>
           <hr className="py-4 dark:bg-dbeats-dark-alt" />
           <div className="h-max w-full flex align-center">
-            <Container className="2xl:px-12 2xl:pb-4 lg:px-8 lb:pb-2 px-4 h-full w-full dark:bg-dbeats-dark-alt lg:max-h-full max-h-96  overflow-y-auto lg:overflow-hidden">
+            <Container className="2xl:px-12 2xl:pb-4 lg:px-7 lg:pb-2 px-4 h-full w-full dark:bg-dbeats-dark-alt lg:max-h-full max-h-96  overflow-y-auto lg:overflow-hidden">
               <Row>
                 <Col className="align-center">
                   <textarea
-                    className="w-full lg:h-40 2xl:h-48 h-52 border border-gray-300 rounded-md"
-                    placeholder=""
+                    className="w-full lg:h-36 2xl:h-48 h-52 border border-gray-300 lg:text-sm 2xl:text-md rounded-md"
+                    placeholder="Enter Announcement Details"
                     onChange={(e) => handleChange(e)}
                   ></textarea>
                 </Col>
@@ -95,7 +95,7 @@ export const AnnouncementModal = (props) => {
               <Row className="flex flex-col lg:w-full w-full justify-center my-2 ">
                 <div className="flex lg:flex-row flex-col w-full justify-between">
                   <Col className="mx-2 mb-2">
-                    <label className="dark:text-white lg:text-md 2xl:text-lg text-md ">
+                    <label className="dark:text-white lg:text-md 2xl:text-lg text-md lg:text-sm ">
                       Add Image
                     </label>
                     <input
@@ -106,11 +106,11 @@ export const AnnouncementModal = (props) => {
                       onClick={(event) => {
                         event.target.value = null;
                       }}
-                      className="my-1  w-full text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 rounded-sm cursor-pointer"
+                      className="my-1  w-full text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 rounded-sm cursor-pointer lg:text-sm 2xl:text-md"
                     />
                   </Col>
                   <Col className="mx-2 mb-2">
-                    <label className="dark:text-white lg:text-md 2xl:text-lg text-md ">
+                    <label className="dark:text-white lg:text-md 2xl:text-lg text-md lg:text-sm">
                       Add Video
                     </label>
                     <input
@@ -121,16 +121,21 @@ export const AnnouncementModal = (props) => {
                       onClick={(event) => {
                         event.target.value = null;
                       }}
-                      className="my-1  w-full text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 rounded-sm cursor-pointer"
+                      className="my-1  w-full text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 rounded-sm cursor-pointer lg:text-sm 2xl:text-md"
                     />
                   </Col>
                 </div>
 
                 <Col className="mx-2 mb-2 flex flex-col">
-                  <label className="dark:text-white lg:text-md 2xl:text-lg text-md ">
+                  <label className="dark:text-white lg:text-md 2xl:text-lg text-md lg:text-sm">
                     Event Link
                   </label>
-                  <input type="text" onChange={handleLinkChange} className=" w-full h-8 my-1 " />
+                  <input
+                    type="text"
+                    placeholder="Enter Link"
+                    onChange={handleLinkChange}
+                    className=" w-full h-8 my-1 lg:text-sm 2xl:text-md"
+                  />
                 </Col>
               </Row>
               <Row className="w-full flex justify-center">
