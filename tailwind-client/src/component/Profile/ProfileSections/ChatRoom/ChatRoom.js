@@ -89,11 +89,11 @@ const user = JSON.parse(window.localStorage.getItem('user'));
             </h3>
             <h2 id="room-name">{props.userp.username}</h2>
           </div> */}
-          <div className="p-3 chat-height overflow-y-scroll	">
+          <div className="p-2 chat-height overflow-y-scroll	">
             {state.messages.map((message) => (
-              <div className="flex items-center	border-b border-gray-800	" key={message.createdAt}>
+              <div className="px-6 p-2 flex items-center	rounded-xl dark: bg-dbeats-dark-secondary	mb-2" key={message.createdAt}>
                 <div className="chat_message_profile"><img height="50px" width="50px" className="rounded-full" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"></img></div>
-              <div className="p-3 mb-5" >
+              <div className="p-1" >
                 <p className={message.username == user.username ? 'text-base font-bold mb-1  text-blue-400':'text-base font-bold mb-1 text-white	'}>
                   {message.username} <span className="text-sm text-gray-300 font-light">{new Date(message.createdAt).toDateString()}</span>
                 </p>
