@@ -254,7 +254,7 @@ const NavBar = () => {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-7 w-7 self-center"
+                className="h-7 w-7 lg:h-5 lg:h-5 2xl:h-7 2xl:w-7 self-center"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -272,8 +272,16 @@ const NavBar = () => {
               className="flex self-center cursor-pointer"
               onClick={() => (window.location.href = '/')}
             >
-              <img src={logo} alt="dbeats_logo" className="h-10 w-max dark:hidden"></img>
-              <img src={logoDark} alt="dbeats_logo" className="h-10 w-max hidden dark:block"></img>
+              <img
+                src={logo}
+                alt="dbeats_logo"
+                className="h-10 lg:h-8 2xl:h-10 w-max dark:hidden"
+              ></img>
+              <img
+                src={logoDark}
+                alt="dbeats_logo"
+                className="h-10 lg:h-8 2xl:h-10 w-max hidden dark:block"
+              ></img>
               <span className="mr-5 text-lg font-bold ml-2"> </span>
             </div>
             <div className="w-1/3 mx-auto  self-center  ">
@@ -281,7 +289,7 @@ const NavBar = () => {
                 <input
                   type="text"
                   placeholder="Search"
-                  className="w-full rounded-full border-0 bg-gray-100 self-center focus:ring-0  px-5 dark:bg-dbeats-dark-secondary"
+                  className="w-full lg:h-8 2xl:h-10 h-10 rounded-full border-0 bg-gray-100 self-center focus:ring-0  px-5 dark:bg-dbeats-dark-secondary"
                   value={wordEntered}
                   onChange={handleFilter}
                 ></input>
@@ -299,7 +307,7 @@ const NavBar = () => {
                   {' '}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 self-center mx-3 "
+                    className="2xl:h-6 2xl:w-6 lg:h-5 lg:w-5 h-6 w-6 self-center mx-3 "
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="#aaa"
@@ -368,13 +376,13 @@ const NavBar = () => {
               </div>
             </div>
             {user ? (
-              <div className="my-auto lg:mr-3">
+              <div className="my-auto 2xl:mr-3 lg:m-1">
                 <Dropdown as="div" className="relative inline-block text-left mr-2 self-center">
                   <div>
                     <Dropdown.Button className="">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="lg:h-7 lg:w-7 w-5 h-5 text-dbeats-light"
+                        className="2xl:h-7 2xl:w-7 w-5 h-5 text-dbeats-light"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                       >
@@ -396,10 +404,10 @@ const NavBar = () => {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Dropdown.Items className="absolute right-0 w-80 mt-2 origin-top-right bg-white dark:bg-dbeats-dark-alt  divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none w-max">
-                      <Dropdown.Item className="w-full text-gray-700 text-left lg:text-lg text-md  flex lg:flex-row flex-col justify-between align-center ring-1 rounded-md ring-white lg:h-24 h-48 w-full">
+                      <Dropdown.Item className="w-full text-gray-700 text-left 2xl:text-lg  text-md lg:text-sm  flex lg:flex-row flex-col justify-between align-center ring-1 rounded-md ring-white 2xl:h-24 lg:h-14 h-48 w-full">
                         <div className="p-10 m-10 dark:border-2 dark:text-white ">
                           <button
-                            className="lg:mx-3 mx-4 rounded hover:bg-dbeats-light lg:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
+                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light 2xl:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
                             onClick={() => {
                               handleShowAnnouncement();
                               handleCloseVideoUpload();
@@ -410,7 +418,7 @@ const NavBar = () => {
                           </button>
 
                           <button
-                            className="lg:mx-3 mx-4 rounded hover:bg-dbeats-light lg:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
+                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light 2xl:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
                             onClick={() => {
                               handleCloseAnnouncement();
                               handleShowVideoUpload();
@@ -420,7 +428,7 @@ const NavBar = () => {
                             Upload Video
                           </button>
                           <button
-                            className="lg:mx-3 mx-4 rounded hover:bg-dbeats-light lg:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
+                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light 2xl:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
                             onClick={() => {
                               handleCloseAnnouncement();
                               handleShowTrackUpload();
@@ -429,7 +437,7 @@ const NavBar = () => {
                           >
                             Upload Track
                           </button>
-                          <button className="lg:mx-3 mx-4 rounded hover:bg-dbeats-light lg:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white">
+                          <button className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light 2xl:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white">
                             Mint NFT
                           </button>
                         </div>
@@ -448,7 +456,7 @@ const NavBar = () => {
                     <Dropdown.Button className="">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="lg:h-7 lg:w-7 w-5 h-5 text-dbeats-light cursor-pointer z-50"
+                        className="2xl:h-7 2xl:w-7 w-5 h-5 text-dbeats-light cursor-pointer z-50"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                         onClick={handleNotification}
@@ -490,26 +498,30 @@ const NavBar = () => {
                   </Transition>
                 </Dropdown>
                 <button
-                  className="lg:px-3 px-1.5 py-1 border-dbeats-light border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mx-2 flex"
+                  className="2xl:px-3 px-1.5  border-dbeats-light 2xl:border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mx-2 "
                   onClick={handleStreamOnClick}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 lg:self-center mt-1 lg:mt-0 md:mr-2"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
-                  </svg>
-                  <span className="self-center md:flex hidden">Go Live</span>
+                  <div className="flex h-3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 lg:self-center mt-1 lg:mt-0 md:mr-2"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
+                    </svg>
+                    <span className="self-center md:flex hidden lg:text-xs 2xl:text-sm">
+                      Go Live
+                    </span>
+                  </div>
                 </button>
                 <button
-                  className="shadow-sm lg:h-10 self-center lg:w-10 h-8 w-8 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded-full font-bold mx-2 flex"
+                  className="shadow-sm 2xl:h-10  self-center 2xl:w-10  h-8 w-8 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded-full font-bold mx-2 flex"
                   onClick={handleProfileOnClick}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="lg:h-7 lg:w-7 h-6 w-6  mx-auto self-center"
+                    className="2xl:h-7 2xl:w-7 h-6 w-6  mx-auto self-center"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >

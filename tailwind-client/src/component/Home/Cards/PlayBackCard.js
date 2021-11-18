@@ -32,7 +32,7 @@ const PlayBackCard = (props) => {
 
   return (
     <div className={`${props.darkMode && 'dark'} w-full h-auto`}>
-      <div className={`cursor-pointer w-full lg:h-52 md:h-28 h-44 dark:bg-dbeats-dark-primary`}>
+      <div className={`cursor-pointer w-full 2xl:h-52 lg:h-32 h-44 dark:bg-dbeats-dark-primary`}>
         <a href={`/playback/${props.playbackUserData.username}/${index}`}>
           <ReactPlayer
             width="100%"
@@ -49,15 +49,21 @@ const PlayBackCard = (props) => {
       </div>
       <div className="col-start-1 row-start-3 pb-2 pt-2">
         <p className="flex   text-black text-sm font-medium">
-          <img src={person} alt="" className="w-10 h-10 rounded-full mr-2 bg-gray-100" />
+          <img
+            src={person}
+            alt=""
+            className="2xl:w-10 2xl:h-10 w-10 h-10 lg:w-7 lg:h-7 rounded-full mr-2 bg-gray-100 self-center"
+          />
           <div className="w-full">
-            <span className="text-sm font-semibold dark:text-gray-200">
+            <span className="2xl:text-sm lg:text-xs text-sm font-semibold dark:text-gray-200">
               {props.playbackUserData.videos[index].videoName.slice(0, 45) + '...'}
             </span>
             <br />
             <div className="flex justify-between w-full">
-              <div className="text-s text-gray-500  ">{props.playbackUserData.name}</div>
-              <div className="text-s text-gray-500 pr-2 ">{time}</div>
+              <div className="2xl:text-sm lg:text-xs text-sm text-gray-500  ">
+                {props.playbackUserData.name}
+              </div>
+              <div className="2xl:text-sm lg:text-xs text-sm text-gray-500 pr-2 ">{time}</div>
             </div>
           </div>
         </p>

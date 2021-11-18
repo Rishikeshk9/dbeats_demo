@@ -74,8 +74,8 @@ const Home = () => {
               id="recommended_channel"
               className="w-full  pt-8 h-full lg:col-span-1 hidden  lg:block sm:hidden mt-4  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary"
             >
-              <div className="px-8 pt-10 ">
-                <h5 className="font-semibold text-base dark:text-gray-200">
+              <div className="2xl:px-8 2xl:pt-10 lg:px-2 lg:pt-6 ">
+                <h5 className="font-semibold 2xl:text-base lg:text-xs dark:text-gray-200">
                   {' '}
                   RECOMMENDED CHANNELS
                 </h5>
@@ -85,15 +85,18 @@ const Home = () => {
                       <img
                         src={personImg}
                         alt=""
-                        className="w-14 h-14 rounded-full mr-2 bg-gray-100"
+                        className="2xl:w-14 2xl:h-14 lg:h-10 lg:w-10 rounded-full mr-2 bg-gray-100 self-center"
                       />
                       <div>
-                        <span className="font-semibold text-sm dark:text-gray-200">
+                        <span className="font-semibold 2xl:text-sm lg:text-xs dark:text-gray-200">
                           {' '}
                           {channel.name}{' '}
                         </span>
                         <br />
-                        <span className="text-gray-400 text-sm"> Counter Strike... </span>
+                        <span className="text-gray-400 2xl:text-sm lg:text-xs">
+                          {' '}
+                          Counter Strike...{' '}
+                        </span>
                       </div>
                     </div>
                   );
@@ -114,8 +117,8 @@ const Home = () => {
                     )}
                   </div>
                 </div>
-                <div className="lg:mt-10 lg:px-4 ">
-                  <div id="display_playback_videos" className="mt-10 lg:px-4 px-1 ">
+                <div className="lg:mt-10 2xl:px-4 ">
+                  <div id="display_playback_videos" className="mt-10 2xl:px-4 px-1 ">
                     <div>
                       <h4 className=" font-bold mt-10 lg:pb-4 ">
                         {activeStreams ? (
