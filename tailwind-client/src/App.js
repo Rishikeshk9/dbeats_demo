@@ -92,7 +92,6 @@ export default function App() {
 
   useEffect(() => {
     if (user) {
-      //console.log('Hi');
       axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${user.username}`).then((value) => {
         window.localStorage.setItem('user', JSON.stringify(value.data));
       });
