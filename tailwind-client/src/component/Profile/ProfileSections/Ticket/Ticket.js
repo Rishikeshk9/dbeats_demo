@@ -48,10 +48,10 @@ class Ticket extends React.Component {
     const { locked } = this.state;
     console.log('locked', locked);
     return (
-      <div className="App">
-        <header className="App-header">
+      <div className="App bg-white w-100 w-max md:w-full">
+        <header className="App-header bg-yellow-100 w-100">
           {locked === 'locked' && (
-            <div onClick={this.checkout} style={{ cursor: 'pointer' }}>
+            <div onClick={this.checkout} className=" bg-blue-100 w-100" style={{ cursor: 'pointer' }}>
               Unlock me!{' '}
               <span aria-label="locked" role="img">
                 🔒
@@ -59,7 +59,7 @@ class Ticket extends React.Component {
             </div>
           )}
           {locked === 'unlocked' && (
-            <div>
+            <div className=" bg-blue-100 w-100 text-red-800">
               Unlocked!{' '}
               <span aria-label="unlocked" role="img">
                 🗝

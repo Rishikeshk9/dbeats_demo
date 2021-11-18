@@ -13,7 +13,7 @@ import Track from './component/track.component';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleDarkMode } from '../src/actions/index';
 import Pinned_Panel from './component/Subscribe_Panel/Pinned_Panel';
-
+import Ticket from './component/Profile/ProfileSections/Ticket/Ticket';
 import ChatRoom from './component/Profile/ProfileSections/ChatRoom/ChatRoom';
 
 //import Navbar from "./component/navbar.component";
@@ -140,6 +140,7 @@ export default function App() {
                 <Route exact path="/search" component={() => <SearchPage />} />
                 <Route exact path="/track/:username/:track_id" component={TrackPlayback} />
                 <Route exact path="/chat/:username" component={ChatRoom} />
+                <Route exact path="/unlock" component={Ticket} />
                 {/* TODO: <Route exact path="*" component={PageNotFound} /> */}
               </div>
             </div>

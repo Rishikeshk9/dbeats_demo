@@ -33,7 +33,7 @@ store.subscribe(() =>
       Noty.closeAll();
       new Noty({
         type: 'error',
-        text: 'Error :' + JSON.stringify(error),
+        text: error.message,
         theme: 'metroui',
         layout: 'bottomLeft',
       }).show();
@@ -143,7 +143,7 @@ axios.interceptors.response.use(
     Noty.closeAll();
     new Noty({
       type: 'error',
-      text: 'Error received : ' + JSON.stringify(err),
+      text: err.message,
       theme: 'metroui',
       layout: 'bottomRight',
     }).show();
