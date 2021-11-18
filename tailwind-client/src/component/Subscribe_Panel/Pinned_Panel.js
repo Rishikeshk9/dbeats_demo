@@ -20,12 +20,12 @@ const Pinned_Panel = (props) => {
   return (
     <div expand="lg" className={` w-max fixed top-0 ${darkMode && 'dark'} z-10`}>
       <div
-        className={`hidden lg:block pr-2 pt-16 bg-white w-max shadow-sm z-10 h-full fixed left-1 dark:bg-dbeats-dark-primary  dark:text-gray-100   `}
+        className={`hidden lg:block pr-2 pt-16 bg-white w-max shadow-sm z-10 h-full fixed left-1 dark:bg-dbeats-dark-primary  dark:text-gray-100  flex flex-col justify-center `}
       >
         {/* Subscribed User Avatar */}
         {pinnedData.map((pinnedUser, i) => {
           return (
-            <div key={i} className="grid grid-flow-row cursor-pointer mx-auto">
+            <div key={i} className="flex justify-center items-center w-full cursor-pointer ">
               <OverlayTrigger
                 placement="bottom"
                 overlay={
@@ -37,11 +37,11 @@ const Pinned_Panel = (props) => {
                   </Tooltip>
                 }
               >
-                <div className="w-14 h-14 my-2 col-span-10 relative">
+                <div className=" my-2 col-span-10 relative">
                   <img
                     src={personImg}
                     alt=""
-                    className="w-14 md:w-10 lg:w-14 h-14 md:h-10 lg:h-14 rounded-full hover:shadow hover:scale-95 transform transition-all   "
+                    className=" 2xl:w-14 2xl:h-14 lg:h-10 lg:w-10 rounded-full hover:shadow hover:scale-95 transform transition-all  justify-self-center "
                     onClick={() => {
                       window.location.href = `/profile/${pinnedUser}/`;
                     }}
@@ -55,9 +55,9 @@ const Pinned_Panel = (props) => {
           );
         })}
 
-        <div className="grid grid-flow-row cursor-pointer  ">
+        <div className="flex cursor-pointer  ">
           <div
-            className="w-14 md:w-10 lg:w-14 h-14 md:h-10 lg:h-14  my-2 rounded-full hover:shadow hover:scale-95 transition-all transform col-span-10 relative bg-blue-300 dark:bg-dbeats-dark-alt justify-self-center "
+            className="2xl:w-14 2xl:h-14 lg:h-10 lg:w-10  my-2 rounded-full hover:shadow hover:scale-95 transition-all transform col-span-10 relative bg-blue-300 dark:bg-dbeats-dark-alt "
             onClick={() => {
               if (props.userdata) {
                 window.location.href = `/profile/${props.userdata.username}/subscribed_channels`;

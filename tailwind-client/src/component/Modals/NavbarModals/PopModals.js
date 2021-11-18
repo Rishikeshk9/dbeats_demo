@@ -68,13 +68,13 @@ export const AnnouncementModal = (props) => {
       isOpen={props.showAnnouncement}
       className={
         darkMode
-          ? 'h-max lg:w-1/2 w-5/6 mx-auto lg:mt-40 mt-24 bg-dbeats-dark-primary rounded-xl'
-          : 'h-max lg:w-1/2 w-5/6 mx-auto lg:mt-40 mt-24 bg-gray-50 rounded-xl shadow-2xl'
+          ? 'h-max lg:w-1/2 w-5/6 mx-auto  lg:mt-20 2xl:mt-40 mt-24 bg-dbeats-dark-primary rounded-xl'
+          : 'h-max lg:w-1/2 w-5/6 mx-auto  lg:mt-20 2xl:mt-40 mt-24 bg-gray-50 rounded-xl shadow-2xl'
       }
     >
       <div className={`${darkMode && 'dark'} lg:p-5 p-3`}>
         <div className="border border-gray-400 rounded-xl  dark:border-black dark:rounded-none">
-          <h2 className="grid grid-cols-5 justify-items-center rounded-t-xl dark:rounded-t-sm lg:text-2xl text-lg py-4 dark:bg-dbeats-dark-alt bg-white dark:text-white">
+          <h2 className="grid grid-cols-5 justify-items-center rounded-t-xl dark:rounded-t-sm lg:text-lg 2xl:text-2xl text-lg py-4 dark:bg-dbeats-dark-alt bg-white dark:text-white">
             <div className="col-span-4 pl-14">Post Details</div>
             <div className="mr-7 flex justify-end w-full" onClick={props.handleCloseAnnouncement}>
               <i className="fas fa-times cursor-pointer"></i>
@@ -82,11 +82,11 @@ export const AnnouncementModal = (props) => {
           </h2>
           <hr className="py-4 dark:bg-dbeats-dark-alt" />
           <div className="h-max w-full flex align-center">
-            <Container className="lg:px-12 lg:pb-4 px-4 h-full w-full dark:bg-dbeats-dark-alt lg:max-h-full max-h-96  overflow-y-auto lg:overflow-hidden">
+            <Container className="2xl:px-12 2xl:pb-4 lg:px-8 lb:pb-2 px-4 h-full w-full dark:bg-dbeats-dark-alt lg:max-h-full max-h-96  overflow-y-auto lg:overflow-hidden">
               <Row>
                 <Col className="align-center">
                   <textarea
-                    className="w-full lg:h-48 h-52 border border-gray-300 rounded-md"
+                    className="w-full lg:h-40 2xl:h-48 h-52 border border-gray-300 rounded-md"
                     placeholder=""
                     onChange={(e) => handleChange(e)}
                   ></textarea>
@@ -95,7 +95,9 @@ export const AnnouncementModal = (props) => {
               <Row className="flex flex-col lg:w-full w-full justify-center my-2 ">
                 <div className="flex lg:flex-row flex-col w-full justify-between">
                   <Col className="mx-2 mb-2">
-                    <label className="dark:text-white lg:text-lg text-md ">Add Image</label>
+                    <label className="dark:text-white lg:text-md 2xl:text-lg text-md ">
+                      Add Image
+                    </label>
                     <input
                       id="upload"
                       type="file"
@@ -108,7 +110,9 @@ export const AnnouncementModal = (props) => {
                     />
                   </Col>
                   <Col className="mx-2 mb-2">
-                    <label className="dark:text-white lg:text-lg text-md ">Add Video</label>
+                    <label className="dark:text-white lg:text-md 2xl:text-lg text-md ">
+                      Add Video
+                    </label>
                     <input
                       id="upload"
                       type="file"
@@ -123,7 +127,9 @@ export const AnnouncementModal = (props) => {
                 </div>
 
                 <Col className="mx-2 mb-2 flex flex-col">
-                  <label className="dark:text-white lg:text-lg text-md ">Event Link</label>
+                  <label className="dark:text-white lg:text-md 2xl:text-lg text-md ">
+                    Event Link
+                  </label>
                   <input type="text" onChange={handleLinkChange} className=" w-full h-8 my-1 " />
                 </Col>
               </Row>
@@ -131,7 +137,7 @@ export const AnnouncementModal = (props) => {
                 <button
                   type="submit"
                   onClick={handleAnnouncement}
-                  className=" lg:my-3  bg-white px-3 lg:py-2 py-1 text-lg lg:text-xl bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 text-white border-0 lg:w-80 w-24 rounded-sm cursor-pointer "
+                  className=" 2xl:my-3 lg:my-2  bg-white px-3 lg:py-2 py-1 2xl:text-lg lg:text-md  bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 text-white border-0 lg:w-56 2xl:w-96 w-24 rounded-sm cursor-pointer "
                 >
                   Post
                 </button>
@@ -331,12 +337,12 @@ export const UploadVideo = (props) => {
       isOpen={props.showVideoUpload}
       className={
         darkMode
-          ? 'h-max lg:w-max w-5/6 mx-auto lg:mt-32 mt-20 bg-dbeats-dark-primary rounded-xl'
-          : 'h-max lg:w-max w-5/6 mx-auto lg:mt-32 mt-20 bg-gray-50 rounded-xl shadow-2xl'
+          ? 'h-max lg:w-max w-5/6 mx-auto 2xl:mt-32 lg:mt-16 mt-20 bg-dbeats-dark-primary rounded-xl'
+          : 'h-max lg:w-max w-5/6 mx-auto 2xl:mt-32 lg:mt-16 mt-20 bg-gray-50 rounded-xl shadow-2xl'
       }
     >
-      <div className={`${darkMode && 'dark'} px-5 py-5 h-max`}>
-        <h2 className="grid grid-cols-5 justify-items-center lg:text-2xl text-lg py-4 dark:bg-dbeats-dark-alt bg-white dark:text-white">
+      <div className={`${darkMode && 'dark'} px-5 py-5 lg:px-3 lg:py-3 2xl:px-5 2xl:py-5 h-max`}>
+        <h2 className="grid grid-cols-5 justify-items-center 2xl:text-2xl text-lg py-4 dark:bg-dbeats-dark-alt bg-white dark:text-white">
           <div className="col-span-4 pl-14 ">Upload Video</div>
           <div className="mr-7 flex justify-end w-full" onClick={props.handleCloseVideoUpload}>
             <i className="fas fa-times cursor-pointer"></i>
@@ -344,7 +350,7 @@ export const UploadVideo = (props) => {
         </h2>
         <hr />
         <form method="POST" encType="multipart/formdata">
-          <div className=" bg-white text-gray-500  dark:bg-dbeats-dark-alt dark:text-gray-100   shadow-sm rounded-lg  lg:px-5 lg:py-5 px-2 py-1 mb-5 lg:max-h-full max-h-96  overflow-y-auto lg:overflow-hidden">
+          <div className=" bg-white text-gray-500  dark:bg-dbeats-dark-alt dark:text-gray-100   shadow-sm rounded-lg  2xl:px-5 2xl:py-5  lg:px-2 lg:py-1 px-2 py-1 mb-5 lg:mb-2 2xl:mb-5 lg:max-h-full max-h-96  overflow-y-auto lg:overflow-hidden">
             <div className="md:grid md:grid-cols-3 md:gap-6  ">
               <div className="md:col-span-1  ">
                 <div className="lg:mt-5 mt-0 md:col-span-2 lg:p-5 p-3 ">
@@ -431,7 +437,7 @@ export const UploadVideo = (props) => {
                 </div>
               </div>
 
-              <div className="lg:mt-5 mt-0 md:col-span-2">
+              <div className="2xl:mt-5 lg:mt-1 mt-0 md:col-span-2">
                 <div className=" sm:rounded-md  ">
                   <div className="px-4 py-5  space-y-6 sm:p-6">
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-1">
@@ -515,7 +521,7 @@ export const UploadVideo = (props) => {
                       </div>
                     </div>
 
-                    <div className="grid grid-col-2 gap-6 lg:pb-20">
+                    <div className="grid grid-col-2 gap-6 2xl:pb-20">
                       <div className="grid lg:grid-cols-3 grid-col-1 gap-6">
                         <div className="col-span-2  sm:col-span-1">
                           <label
@@ -572,12 +578,12 @@ export const UploadVideo = (props) => {
             </div>
           </div>
 
-          <div className="lg:px-4 lg:py-3 lg:text-right text-center sm:px-6">
+          <div className="lg:px-4 2xl:py-3 lg:py-1 lg:text-right text-center sm:px-6">
             <input
               type="submit"
               onClick={PostData}
               value="Upload Video"
-              className="inline-flex justify-center lg:py-2 py-1 lg:px-5 px-3 border border-transparent shadow-sm lg:text-lg text-md font-bold rounded-md text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-0 focus:ring-offset-2 focus:ring-blue-500"
+              className="inline-flex justify-center 2xl:py-2 py-1 lg:px-5 px-3 border border-transparent shadow-sm 2xl:text-lg lg:text-md text-md font-bold rounded-md text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-0 focus:ring-offset-2 focus:ring-blue-500"
             ></input>
           </div>
         </form>
@@ -926,16 +932,16 @@ export const UploadMusic = (props) => {
       isOpen={props.showTrackUpload}
       className={
         darkMode
-          ? 'h-max lg:w-max w-5/6 mt-20 mx-auto lg:mt-24  bg-dbeats-dark-primary rounded-xl '
-          : 'h-max lg:w-max w-5/6 mt-20 mx-auto lg:mt-24  bg-gray-50 rounded-xl shadow-2xl'
+          ? 'h-max lg:w-max w-5/6 mt-20 mx-auto 2xl:mt-24 lg:mt-16 bg-dbeats-dark-primary rounded-xl '
+          : 'h-max lg:w-max w-5/6 mt-20 mx-auto 2xl:mt-24 lg:mt-16 bg-gray-50 rounded-xl shadow-2xl'
       }
     >
       <div
         className={`${
           darkMode && 'dark'
-        } font-proxima-reg z-100  transition duration-1000 ease-in-out mx-auto p-5`}
+        } font-proxima-reg z-100  transition duration-1000 ease-in-out mx-auto p-5 lg:p-2 2xl:p-5`}
       >
-        <h2 className="grid grid-cols-5 justify-items-center lg:text-2xl text-lg py-4 dark:bg-dbeats-dark-alt bg-white dark:text-white">
+        <h2 className="grid grid-cols-5 justify-items-center 2xl:text-2xl text-lg py-4 lg:py-3 2xl:py-4 dark:bg-dbeats-dark-alt bg-white dark:text-white">
           <div className="col-span-4 pl-14">Upload Track</div>
           <div className="mr-7 flex justify-end w-full" onClick={props.handleCloseTrackUpload}>
             <i className="fas fa-times cursor-pointer"></i>
@@ -943,10 +949,10 @@ export const UploadMusic = (props) => {
         </h2>
         <hr />
         <form method="POST" encType="multipart/formdata">
-          <div className=" bg-white text-gray-500  dark:bg-dbeats-dark-alt dark:text-gray-100   shadow-sm rounded-lg  lg:px-5 lg:py-5 px-2 py-1 mb-5 lg:max-h-full max-h-96  overflow-y-auto lg:overflow-hidden">
-            <div className="md:grid md:grid-cols-3 md:gap-6  mt-5  ">
+          <div className=" bg-white text-gray-500  dark:bg-dbeats-dark-alt dark:text-gray-100   shadow-sm rounded-lg  2xl:px-5 2xl:py-5 lg:py-2 lg:px-2 px-2 py-1 mb-5 lg:mb-0 2xl:mb-5 lg:max-h-full  max-h-96  overflow-y-auto overflow-hidden">
+            <div className="md:grid md:grid-cols-3 md:gap-6  mt-5 lg:mt-0 2xl:mt-5 ">
               <div className="md:col-span-1  ">
-                <div className="lg:mt-5 mt-0 md:col-span-2 lg:p-5 p-3  ">
+                <div className="lg:mt-0 2xl:mt-5 mt-0 md:col-span-2 lg:p-5 p-3  ">
                   <label className="block text-sm font-medium text-gray-700"></label>
                   <div className=" mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                     <div className="space-y-1 text-center ">
@@ -988,7 +994,7 @@ export const UploadMusic = (props) => {
                     </div>
                   </div>
                 </div>
-                <div className="lg:mt-5 mt-0 md:col-span-2 lg:p-5 p-3   ">
+                <div className="lg:mt-0 2xl:mt-5 mt-0 md:col-span-2 lg:p-5 p-3   ">
                   <label className="block text-sm font-medium text-gray-700"></label>
                   <div className=" mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                     <div className="space-y-1 text-center ">
@@ -1030,7 +1036,7 @@ export const UploadMusic = (props) => {
                     </div>
                   </div>
                 </div>
-                <div className="lg:mt-5 mt-0 md:col-span-2 lg:p-5 p-3   ">
+                <div className="2xl:mt-5 mt-0 md:col-span-2 lg:p-5 p-3   ">
                   <label className="block text-sm font-medium text-gray-700"></label>
                   <div className=" mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                     <div className="space-y-1 text-center ">
@@ -1050,7 +1056,7 @@ export const UploadMusic = (props) => {
 
               <div className="lg:mt-5 mt-0 md:col-span-2">
                 <div className=" sm:rounded-md  ">
-                  <div className="px-4 py-5  space-y-6 sm:p-6">
+                  <div className="px-4 py-5 lg:px-2 lg:py-0 2xl:px-4 2xl:py-5 space-y-6 sm:p-6">
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-1">
                       <div className="col-span-3 sm:col-span-3">
                         <label
@@ -1249,7 +1255,7 @@ export const UploadMusic = (props) => {
               type="submit"
               onClick={PostData}
               value="Upload Audio"
-              className="cursor-pointer inline-flex self-center justify-center lg:py-2 py-1 lg:px-5 px-3 border border-transparent shadow-sm lg:text-lg text-md  font-bold rounded-md text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-0 focus:ring-offset-2 focus:ring-blue-500"
+              className="cursor-pointer inline-flex self-center justify-center 2xl:py-2 py-1 lg:px-5 px-3 border border-transparent shadow-sm lg:text-lg text-md  font-bold rounded-md text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-0 focus:ring-offset-2 focus:ring-blue-500"
             ></input>
             <br></br>
             <a
