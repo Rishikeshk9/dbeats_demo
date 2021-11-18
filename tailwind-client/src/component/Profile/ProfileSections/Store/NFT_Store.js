@@ -7,7 +7,10 @@ const NFT_Store = ({ NFTData }) => {
       {NFTData ? (
         <>
           {NFTData.map((nft, idx) => {
-            if (nft.metadata) {
+            if (
+              nft.metadata &&
+              nft.contract_address === '0x03160747b94be986261d9340d01128d4d5566383'
+            ) {
               return (
                 <div
                   key={idx}
