@@ -127,7 +127,7 @@ const Profile = (props) => {
                   <NFTStore NFTData={NFTData} />
                 </Route>
 
-                <Route path={`/profile/:username/event`} component={Ticket}></Route>
+                <Route exact path={`/profile/:username/event`}   component={Ticket}></Route>
 
                 <Route path={`${match.path}`}>
                   <ProfileDetails

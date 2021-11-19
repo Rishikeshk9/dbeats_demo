@@ -48,7 +48,7 @@ class Ticket extends React.Component {
     const { locked } = this.state;
     console.log('locked', locked);
     return (
-      <div className="App bg-white w-100 w-max md:w-full">
+      <div className="App bg-white w-100 w-max md:w-full col-span-5">
         <header className="App-header bg-yellow-100 w-100">
           {locked === 'locked' && (
             <div onClick={this.checkout} className=" bg-blue-100 w-100" style={{ cursor: 'pointer' }}>
@@ -60,10 +60,12 @@ class Ticket extends React.Component {
           )}
           {locked === 'unlocked' && (
             <div className=" bg-blue-100 w-100 text-red-800">
+               {console.log('unlocked')} 
               Unlocked!{' '}
               <span aria-label="unlocked" role="img">
                 🗝
               </span>
+              <img src="https://media.tenor.com/images/c11c77813c82e82ce26f760079719185/tenor.gif" className="w-48 h-48"></img>
             </div>
           )}
         </header>
