@@ -17,6 +17,7 @@ const ChannelSection = (props) => {
     { name: 'Voice-Channel', type: 'voice' },
     { name: 'Text-Channel', type: 'text' },
     { name: 'Store', type: 'store' },
+    { name: 'Event', type: 'event' },
   ];
 
   const channels = [
@@ -78,16 +79,19 @@ const ChannelSection = (props) => {
                       ) : (
                         ''
                       )}
+                      {channel.type === 'event' ? <i className="fas fa-ticket-alt mr-2  "></i> : ''}
+
                       {channel.type === 'store' ? <i className="fas fa-store mr-2 "></i> : ''}
+
                       {channel.name}
-                      <i className="fas fa-user-plus ml-5 absolute right-3 self-center text-center mt-1"></i>
+                      {/* <i className="fas fa-user-plus ml-5 absolute right-3 self-center text-center mt-1"></i> */}
                     </div>
                   </Link>
 
-                  <span className="text-gray-400 text-sm cursor-pointer ml-5 dark:hover:text-white hover:text-dbeats-light">
+                  {/* <span className="text-gray-400 text-sm cursor-pointer ml-5 dark:hover:text-white hover:text-dbeats-light">
                     {' '}
                     Counter Strike...{' '}
-                  </span>
+                  </span> */}
                 </div>
               </div>
             );
@@ -193,7 +197,8 @@ const ChannelSection = (props) => {
                     Cancel
                   </button>
 
-                  <button className="block shadow-md text-center col-span-2 px-5 w-full  mx-auto p-2 mt-4 mb-2  text-white font-semibold rounded-lg bg-dbeats-light hover:shadow-none transition-all transform hover:scale-95">
+                  <button 
+                  className="block shadow-md text-center col-span-2 px-5 w-full  mx-auto p-2 mt-4 mb-2  text-white font-semibold rounded-lg bg-dbeats-light hover:shadow-none transition-all transform hover:scale-95">
                     Create Channel
                   </button>
                 </div>
