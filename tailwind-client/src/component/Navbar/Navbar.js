@@ -121,10 +121,10 @@ const NavBar = () => {
             };
             newVideoFilter.push(data);
           }
-          return;
+          return 0;
         });
-        return;
       }
+      return 0;
     });
 
     //console.log('Videofilter', newVideoFilter);
@@ -184,6 +184,7 @@ const NavBar = () => {
         setNotification(data.reverse());
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //console.log(notification);
@@ -356,7 +357,7 @@ const NavBar = () => {
                 className=" bg-white  dark:bg-dbeats-dark-alt dark:text-white self-center absolute lg:w-1/3 w-3/5 h-max max-h-80 overflow-hidden overflow-y-auto"
                 hidden={filterResultDisplay}
               >
-                {filteredVideoData.length != 0 && (
+                {filteredVideoData.length !== 0 && (
                   <>
                     {filteredVideoData.slice(0, 15).map((value, key) => {
                       return (
@@ -383,7 +384,7 @@ const NavBar = () => {
                     })}
                   </>
                 )}
-                {filteredData.length != 0 && (
+                {filteredData.length !== 0 && (
                   <>
                     <hr className=" px-2 dark:bg-white" />
                     {filteredData.slice(0, 15).map((value, key) => {

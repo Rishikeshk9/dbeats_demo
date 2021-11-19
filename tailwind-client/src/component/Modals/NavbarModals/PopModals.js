@@ -273,6 +273,7 @@ export const UploadVideo = (props) => {
       derivativeWorks: selectedDerivativeWorks,
       tags: tags,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory, selectedCommercialUse, selectedDerivativeWorks, selectedAttribution, tags]);
 
   const PostData = async (e) => {
@@ -824,6 +825,7 @@ export const UploadMusic = (props) => {
       commercialUse: selectedCommercialUse,
       derivativeWorks: selectedDerivativeWorks,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     selectedGenre,
     selectedCommercialUse,
@@ -1276,7 +1278,10 @@ export const UploadMusic = (props) => {
               className="text-sm font-medium dark:text-gray-100 text-gray-700 "
               id="nftAddress"
               target="_blank"
-            ></a>
+              href="/"
+            >
+              NFT
+            </a>
           </div>
         </form>
       </div>

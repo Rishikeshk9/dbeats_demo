@@ -12,9 +12,10 @@ import NavBar from '../src/component/Navbar/Navbar';
 import Track from './component/track.component';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleDarkMode } from '../src/actions/index';
-import Pinned_Panel from './component/Subscribe_Panel/Pinned_Panel';
+import PinnedPanel from './component/Subscribe_Panel/Pinned_Panel';
 import Ticket from './component/Profile/ProfileSections/Ticket/Ticket';
 import ChatRoom from './component/Profile/ProfileSections/ChatRoom/ChatRoom';
+import PageNotFound from './component/PageNotFound/PageNotFound';
 
 //import Navbar from "./component/navbar.component";
 //import BottomBar from "./component/bottom-player.component";
@@ -111,39 +112,42 @@ export default function App() {
         document.body.style.backgroundColor = '#fff';
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <Router>
         <Suspense fallback={<Loader />}>
-          <Switch className={`${darkMode && 'dark'}  `}>
+          <div className={`${darkMode && 'dark'}  `}>
             <div className=" h-full  dark:bg-gradient-to-b dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary   ">
               <NavBar />
-              <Pinned_Panel userdata={user} />
+              <PinnedPanel userdata={user} />
               <div className=" ">
-                <Route path="/nft" exact component={() => <NFTFeed />} />
-                <Route path="/" exact component={() => <VideoHome />} />
+                <Switch>
+                  <Route exact path="/nft" component={() => <NFTFeed />} />
+                  <Route exact path="/" component={() => <VideoHome />} />
 
-                <Route path="/upload" exact component={() => <UploadPage />} />
-                <Route path="/music" exact component={() => <Track />} />
+                  <Route exact path="/upload" component={() => <UploadPage />} />
+                  <Route exact path="/music" component={() => <Track />} />
 
-                {/* <Route exact path="/" component={LandingPage} /> */}
-                <Route exact path="/loader" component={Loader} />
-                {/* <Route exact path="/home" component={VideoHome} />  */}
-                <Route exact path="/streamer/:roomID" component={UserRoom} />
-                <Route exact path="/live/:username" component={PublicRoom} />
-                <Route exact path="/playback/:username/:video_id" component={Playback} />
-                <Route exact path="/profile/:username/:tab?" component={Profile} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/search" component={() => <SearchPage />} />
-                <Route exact path="/track/:username/:track_id" component={TrackPlayback} />
-                <Route exact path="/chat/:username" component={ChatRoom} />
-                <Route exact path="/unlock" component={Ticket} />
-                {/* TODO: <Route exact path="*" component={PageNotFound} /> */}
+                  {/* <Route exact path="/" component={LandingPage} /> */}
+                  <Route exact path="/loader" component={Loader} />
+                  {/* <Route exact path="/home" component={VideoHome} />  */}
+                  <Route exact path="/streamer/:roomID" component={UserRoom} />
+                  <Route exact path="/live/:username" component={PublicRoom} />
+                  <Route exact path="/playback/:username/:video_id" component={Playback} />
+                  <Route exact path="/profile/:username/:tab?" component={Profile} />
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/search" component={() => <SearchPage />} />
+                  <Route exact path="/track/:username/:track_id" component={TrackPlayback} />
+                  <Route exact path="/chat/:username" component={ChatRoom} />
+                  <Route exact path="/unlock" component={Ticket} />
+                  <Route component={PageNotFound} />
+                </Switch>
               </div>
             </div>
-          </Switch>
+          </div>
         </Suspense>
       </Router>
     </>

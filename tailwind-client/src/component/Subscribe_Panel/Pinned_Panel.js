@@ -4,7 +4,7 @@ import personImg from '../../assets/images/profile.svg';
 import { useSelector } from 'react-redux';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
-const Pinned_Panel = (props) => {
+const PinnedPanel = (props) => {
   const darkMode = useSelector((state) => state.toggleDarkMode);
   ////console.log(props);
   const [pinnedData, setPinnedData] = useState([]);
@@ -14,13 +14,14 @@ const Pinned_Panel = (props) => {
       if (props.userdata.pinned) {
         setPinnedData(props.userdata.pinned);
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   ////console.log(pinnedData);
   return (
     <div className={` w-full fixed top-0 ${darkMode && 'dark'} z-2 -ml-1`}>
       <div
-        className={`hidden lg:block pt-16 bg-white w-max shadow-sm z-10 h-full fixed left-1 dark:bg-dbeats-dark-primary 2xl:px-3 lg:px-1  dark:text-gray-100  flex flex-col justify-center `}
+        className={`hidden lg:block pt-16 bg-white w-max shadow-sm z-10 h-full fixed dark:bg-dbeats-dark-primary 2xl:px-3 lg:px-2  dark:text-gray-100  flex flex-col justify-center `}
       >
         {/* Subscribed User Avatar */}
         {pinnedData.map((pinnedUser, i) => {
@@ -76,4 +77,4 @@ const Pinned_Panel = (props) => {
   );
 };
 
-export default Pinned_Panel;
+export default PinnedPanel;

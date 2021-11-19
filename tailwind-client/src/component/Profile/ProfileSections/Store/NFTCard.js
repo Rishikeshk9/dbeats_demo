@@ -8,6 +8,7 @@ const NFTCard = ({ nft }) => {
         <div className=" h-full w-full max-h-100 lg:h-56    rounded-md overflow-hidden">
           <img
             src={`https://ipfs.io/ipfs/` + nft.metadata.image.split('ipfs://')[1]}
+            alt="ipfs"
             className="object-cover w-full h-full"
           />
           {nft.image}

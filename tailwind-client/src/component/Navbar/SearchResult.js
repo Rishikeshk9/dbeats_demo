@@ -40,7 +40,7 @@ const SearchResult = () => {
                               <img
                                 className="mx-auto   self-center  cursor-pointer"
                                 src={logo}
-                                alt="Image 1"
+                                alt={`Profile ${i}`}
                               />
                             </a>
                             <p className="dark:text-white">{value.username}</p>

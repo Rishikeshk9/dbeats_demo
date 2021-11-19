@@ -53,6 +53,7 @@ const Home = () => {
       setSlides(slidesValue);
     });
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchData = async () => {
@@ -125,7 +126,7 @@ const Home = () => {
                     <div>
                       <h4 className=" font-bold mt-10 2xl:pb-4 lg:pb-2">
                         {activeStreams ? (
-                          (activeStreams.length <= 2 && activeStreams.length != 0) ||
+                          (activeStreams.length <= 2 && activeStreams.length !== 0) ||
                           activeStreams.length > 5 ? (
                             <>
                               <p className="mb-3 w-max mx-auto   self-center text-center  drop-shadow text-2xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 dark:from-white dark:to-gray-800">
@@ -148,6 +149,7 @@ const Home = () => {
                                         </Carousel.Item>
                                       );
                                     }
+                                    return 0;
                                   })}
                                 </Carousel>
                               </div>{' '}
@@ -182,7 +184,7 @@ const Home = () => {
                 </div>
               </div>
               <div className="bottom-0">
-                <div className="opacity-10 mb-5 mt-10">
+                <div className="LottieButton opacity-10 mb-5 mt-10">
                   <Lottie options={defaultOptions} height={200} width={300} />
                 </div>
                 <h3 className="text-black   capitalize text-center proxima-reg dark:text-white dark:text-opacity-20">

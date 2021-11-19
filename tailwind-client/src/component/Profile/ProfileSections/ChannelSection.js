@@ -44,7 +44,7 @@ const ChannelSection = (props) => {
         className="w-full h-full pt-8 lg:col-span-1 hidden  lg:block sm:hidden mt-4  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary"
       >
         <div className="relative">
-          <img src={background}></img>
+          <img src={background} alt="background"></img>
           {props.privateUser ? (
             <i className="fas fa-edit absolute right-2 bottom-2 text-white p-3 rounded-full hover:bg-dbeats-dark-alt hover:opacity-100 opacity-25 cursor-pointer"></i>
           ) : (
@@ -80,9 +80,7 @@ const ChannelSection = (props) => {
                         ''
                       )}
                       {channel.type === 'event' ? <i className="fas fa-ticket-alt mr-2  "></i> : ''}
-
                       {channel.type === 'store' ? <i className="fas fa-store mr-2 "></i> : ''}
-
                       {channel.name}
                       {/* <i className="fas fa-user-plus ml-5 absolute right-3 self-center text-center mt-1"></i> */}
                     </div>
@@ -197,8 +195,7 @@ const ChannelSection = (props) => {
                     Cancel
                   </button>
 
-                  <button 
-                  className="block shadow-md text-center col-span-2 px-5 w-full  mx-auto p-2 mt-4 mb-2  text-white font-semibold rounded-lg bg-dbeats-light hover:shadow-none transition-all transform hover:scale-95">
+                  <button className="block shadow-md text-center col-span-2 px-5 w-full  mx-auto p-2 mt-4 mb-2  text-white font-semibold rounded-lg bg-dbeats-light hover:shadow-none transition-all transform hover:scale-95">
                     Create Channel
                   </button>
                 </div>

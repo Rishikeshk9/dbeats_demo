@@ -23,10 +23,10 @@ export const ShareModal = ({
         isOpen={show}
         className={`${
           darkMode && 'dark'
-        } h-max lg:w-max w-5/6 bg-white mx-auto lg:mt-60 mt-32 shadow `}
+        } h-max lg:w-max w-5/6 bg-white mx-auto 2xl:mt-60 lg:mt-36 mt-32 shadow `}
       >
         <div className={``}>
-          <h2 className="grid grid-cols-5 justify-items-center text-2xl py-4 dark:bg-dbeats-dark-primary dark:text-white">
+          <h2 className="grid grid-cols-5 justify-items-center 2xl:text-2xl lg:text-lg py-4 2xl:py-4 lg:py-2 dark:bg-dbeats-dark-primary dark:text-white">
             <div className="col-span-4 pl-14">Share link on</div>
             <div
               className="ml-5 cursor-pointer hover:bg-dbeats-dark-alt px-2.5 py-0.5"
@@ -42,27 +42,47 @@ export const ShareModal = ({
                 <Col className="flex lg:justify-around justify-center align-center flex-wrap">
                   <div className="px-1 py-1">
                     <WhatsappShareButton url={sharable_data}>
-                      <WhatsappIcon iconFillColor="white" size={60} round={true} />
+                      <WhatsappIcon
+                        iconFillColor="white"
+                        size={window.innerWidth >= '1536' ? 60 : 50}
+                        round={true}
+                      />
                     </WhatsappShareButton>
                   </div>
                   <div className="px-1 py-1">
                     <FacebookShareButton url={sharable_data}>
-                      <FacebookIcon iconFillColor="white" size={60} round={true} />
+                      <FacebookIcon
+                        iconFillColor="white"
+                        size={window.innerWidth >= '1536' ? 60 : 50}
+                        round={true}
+                      />
                     </FacebookShareButton>
                   </div>
                   <div className="px-1 py-1">
                     <EmailShareButton url={sharable_data}>
-                      <EmailIcon iconFillColor="white" size={60} round={true} />
+                      <EmailIcon
+                        iconFillColor="white"
+                        size={window.innerWidth >= '1536' ? 60 : 50}
+                        round={true}
+                      />
                     </EmailShareButton>
                   </div>
                   <div className="px-1 py-1">
                     <PinterestShareButton url={sharable_data}>
-                      <PinterestIcon iconFillColor="white" size={60} round={true} />
+                      <PinterestIcon
+                        iconFillColor="white"
+                        size={window.innerWidth >= '1536' ? 60 : 50}
+                        round={true}
+                      />
                     </PinterestShareButton>
                   </div>
                   <div className="px-1 py-1">
                     <TelegramShareButton url={sharable_data}>
-                      <TelegramIcon iconFillColor="white" size={60} round={true} />
+                      <TelegramIcon
+                        iconFillColor="white"
+                        size={window.innerWidth >= '1536' ? 60 : 50}
+                        round={true}
+                      />
                     </TelegramShareButton>
                   </div>
                 </Col>
@@ -70,7 +90,7 @@ export const ShareModal = ({
               <Row>
                 <CopyToClipboard
                   text={sharable_data}
-                  className="block mx-auto p-2  my-3 mt-5 lg:w-96 w-full  text-white font-semibold rounded-lg bg-dbeats-light"
+                  className="block mx-auto p-2 2xl:p-2 lg:p-1.5  my-3 mt-5 2xl:w-96 lg:w-80 lg:text-md  w-full  text-white font-semibold rounded-lg bg-dbeats-light"
                 >
                   <button type="submit" onClick={() => setCopyButtonText('Link Copied!')}>
                     {copybuttonText}

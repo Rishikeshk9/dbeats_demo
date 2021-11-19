@@ -81,6 +81,7 @@ const Dropdown = ({ data, setSelected, getSelected }) => {
   const [selectedItem, setSelectedItem] = useState(getSelected);
   useEffect(() => {
     setSelected(selectedItem);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedItem]);
 
   return (

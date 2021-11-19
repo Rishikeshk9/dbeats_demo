@@ -28,6 +28,7 @@ const PlayBackCard = (props) => {
     let videotime = props.playbackUserData.videos[ind].time;
     const timestamp = new Date(videotime * 1000); // This would be the timestamp you want to format
     setTime(moment(timestamp).fromNow());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
