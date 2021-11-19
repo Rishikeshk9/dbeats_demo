@@ -110,6 +110,7 @@ export default function Track() {
       // Anything in here is fired on component unmount.
       audio.removeEventListener('ended', () => setState({ play: false }));
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const pauseResume = async () => {
@@ -254,34 +255,34 @@ export default function Track() {
                 className="w-2/3 mx-auto self-center p-5 m-5  "
               >
                 <SplideSlide className=" px-5">
-                  <img className="mx-auto   self-center  " src={logo} alt="Image 1" />
+                  <img className="mx-auto self-center" src={logo} alt="live 1" />
                 </SplideSlide>
                 <SplideSlide className=" px-5">
-                  <img className="mx-auto   self-center  " src={logo} alt="Image 2" />
+                  <img className="mx-auto self-center" src={logo} alt="live 2" />
                 </SplideSlide>
                 <SplideSlide className=" px-5">
-                  <img className="mx-auto   self-center  " src={logo} alt="Image 1" />
+                  <img className="mx-auto self-center" src={logo} alt="live 3" />
                 </SplideSlide>
                 <SplideSlide className=" px-5">
-                  <img className="mx-auto   self-center  " src={logo} alt="Image 2" />
+                  <img className="mx-auto self-center" src={logo} alt="live 4" />
                 </SplideSlide>
                 <SplideSlide className=" px-5">
-                  <img className="mx-auto   self-center  " src={logo} alt="Image 1" />
+                  <img className="mx-auto self-center" src={logo} alt="live 5" />
                 </SplideSlide>
                 <SplideSlide className=" px-5">
-                  <img className="mx-auto   self-center  " src={logo} alt="Image 2" />
+                  <img className="mx-auto self-center" src={logo} alt="live 6" />
                 </SplideSlide>
                 <SplideSlide className=" px-5">
-                  <img className="mx-auto   self-center  " src={logo} alt="Image 1" />
+                  <img className="mx-auto self-center" src={logo} alt="live 7" />
                 </SplideSlide>
                 <SplideSlide className=" px-5">
-                  <img className="mx-auto   self-center  " src={logo} alt="Image 2" />
+                  <img className="mx-auto self-center" src={logo} alt="live 8" />
                 </SplideSlide>
                 <SplideSlide className=" px-5">
-                  <img className="mx-auto   self-center  " src={logo} alt="Image 1" />
+                  <img className="mx-auto self-center" src={logo} alt="live 9" />
                 </SplideSlide>
                 <SplideSlide className=" px-5">
-                  <img className="mx-auto   self-center  " src={logo} alt="Image 2" />
+                  <img className="mx-auto self-center" src={logo} alt="live 10" />
                 </SplideSlide>
               </Splide>{' '}
             </div>

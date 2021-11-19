@@ -26,7 +26,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow 
 
   const myData = JSON.parse(window.localStorage.getItem('user'));
 
-  useEffect(async () => {
+  useEffect(() => {
     let value = JSON.parse(window.localStorage.getItem('user'));
     let tabno = tabname;
     switch (tabno) {
@@ -69,6 +69,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow 
       get_User();
       setPrivate(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const get_User = async () => {
@@ -168,7 +169,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow 
       .then(() => {
         let value = [];
         for (let i = 0; i < pinnedData.length; i++) {
-          if (pinnedData[i] != pinnedUser) {
+          if (pinnedData[i] !== pinnedUser) {
             value.push(pinnedData[i]);
           }
         }
@@ -208,7 +209,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow 
             false
           )}
           <div className="block">
-            <img src={background} className="lg:h-88 h-56 w-full" />
+            <img src={background} alt="backgroundImg" className="lg:h-88 h-56 w-full" />
           </div>
           <div className="w-full">
             <div className="w-full flex flex-col lg:flex-row lg:-mt-28 -mt-20 lg:ml-5 ml-0">

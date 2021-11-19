@@ -149,6 +149,7 @@ const Login = () => {
           </p>
           <img
             className="w-12 h-12 rounded-full self-center"
+            alt="metamask button"
             src="https://raw.githubusercontent.com/MetaMask/brand-resources/master/SVG/metamask-fox.svg"
           ></img>
         </Button>
@@ -180,6 +181,7 @@ const Login = () => {
           <p className="mt-2">{!provider ? 'Login using ' : `MetaMask Connected (Click Again)`}</p>
           <img
             className="w-12 h-12 rounded-full self-center"
+            alt="metamask login"
             src="https://raw.githubusercontent.com/MetaMask/brand-resources/master/SVG/metamask-fox.svg"
           ></img>
         </Button>
@@ -350,6 +352,7 @@ const Login = () => {
               powered by{' '}
               <img
                 src={moralisLogo}
+                alt="moralisLogo"
                 className="h-10 rounded w-max  self-center mx-auto bg-blue-50 dark:bg-white p-2 dark:bg-opacity-75"
               ></img>
             </div>

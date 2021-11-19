@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import animationData from '../../../../lotties/fans.json';
 import animationDataConfetti from '../../../../lotties/confetti.json';
 import animationDataGiraffee from '../../../../lotties/giraffee.json';
+import animationDataNotFound from '../../../../lotties/error-animation.json';
 import Lottie from 'react-lottie';
 import superfluid from '../../../../assets/images/superfluid-black.svg';
 import { Playlist } from '../../../Modals/PlaylistModals/PlaylistModal';
@@ -66,6 +67,15 @@ const PlayBackInfo = (props) => {
       preserveAspectRatio: 'xMidYMid slice',
     },
   };
+
+  const defaultOptionsForNotFound = {
+    loop: true,
+    autoplay: true,
+    animationData: animationDataNotFound,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
   //const [videoUsername, setVideoUsername] = useState('');
 
   const user = JSON.parse(window.localStorage.getItem('user'));
@@ -73,6 +83,8 @@ const PlayBackInfo = (props) => {
   const [playbackUrl, setPlaybackUrl] = useState('');
 
   const [userData, setUserData] = useState(null);
+  const [videoData, setVideoData] = useState(false);
+  const [notFound, setNotFound] = useState(false);
 
   const [privateUser, setPrivate] = useState(true);
 
@@ -155,7 +167,12 @@ const PlayBackInfo = (props) => {
   const get_User = async () => {
     await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`).then((value) => {
       setUserData(value.data);
-      //console.log('Follow', value);
+      if (value.data.videos.length - 1 < parseInt(props.video_id)) {
+        setNotFound(true);
+        return;
+      } else {
+        setVideoData(true);
+      }
       convertTimestampToTime(value.data.videos[props.video_id]);
       for (let i = 0; i < value.data.follower_count.length; i++) {
         if (user ? value.data.follower_count[i] === user.username : false) {
@@ -251,7 +268,7 @@ const PlayBackInfo = (props) => {
       handleLoginShow();
       return;
     }
-    if (userreact == '') {
+    if (userreact === '') {
       const reactionData = {
         reactusername: `${user.username}`,
         videousername: `${userData.username}`,
@@ -377,6 +394,7 @@ const PlayBackInfo = (props) => {
     } else {
       setPrivate(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -419,246 +437,270 @@ const PlayBackInfo = (props) => {
     //console.log(details.cfa.flows.outFlows[0]);
   };
   return (
-    <div>
-      <div
-        className={`${
-          darkMode && 'dark'
-        }  grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row pt-3 lg:pb-50 mt-10 lg:ml-12  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary`}
-      >
-        <div className=" lg:col-span-2 dark:bg-dbeats-dark-alt text-black dark:text-white">
-          <div className="self-center lg:px-9 w-screen lg:w-full lg:mt-3 mt-0.5">
-            {userData ? (
-              <VideoPlayer
-                playbackUrl={playbackUrl}
-                name={userData.name}
-                username={userData.username}
-              />
-            ) : (
-              <></>
-            )}
-          </div>
-          <div className="lg:mx-7 lg:px-7 px-3 dark:bg-dbeats-dark-alt">
-            <div className="lg:flex flex-row justify-between lg:my-2 my-1  ">
-              <div className="py-4">
-                <div className=" w-full text-left mt-0" style={{ padding: '0px' }}>
-                  {userData ? (
-                    <p className="font-semibold text-xl pb-4">
-                      {userData.videos[props.video_id].videoName}
-                    </p>
-                  ) : (
-                    <></>
-                  )}
-                  {time ? (
-                    <p className="font-semibold text-md text-gray-400 pb-4">{time}</p>
-                  ) : (
-                    <></>
-                  )}
-                </div>
-                {!privateUser ? (
-                  <div>
-                    {user ? (
-                      <div className="flex ">
-                        <button
-                          className="bg-dbeats-light p-1 lg:text-lg text-md rounded-sm px-4 mr-3 font-semibold text-white "
-                          onClick={trackFollowers}
-                        >
-                          <span>{subscribeButtonText}</span>
-                        </button>
-                        <button className="bg-dbeats-light    p-1 lg:text-lg text-md  rounded-sm px-4 mr-3 font-semibold text-white ">
-                          <i className="fas fa-dice-d20  mr-1 cursor-pointer"></i>
-                          <span onClick={handleShowSubscriptionModal}>Become a SuperFan</span>
-                        </button>
-                      </div>
-                    ) : (
-                      <button
-                        className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
-                        onClick={() => {
-                          window.location.href = '/login';
-                        }}
-                      >
-                        <span>Login to Subscribe and Become a SuperFan</span>
-                      </button>
-                    )}
-                  </div>
+    <>
+      {videoData ? (
+        <div>
+          <div
+            className={`${
+              darkMode && 'dark'
+            }  grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row 2xl:pt-3 pt-3 lg:pt-0 lg:pb-50 2xl:mt-10 mt-10 lg:mt-12 lg:ml-11  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary`}
+          >
+            <div className=" lg:col-span-2 dark:bg-dbeats-dark-alt text-black dark:text-white">
+              <div className="self-center 2xl:px-12 lg:px-5 w-screen lg:w-full 2xl:mt-1 lg:mt-2 mt-0.5">
+                {userData ? (
+                  <VideoPlayer
+                    playbackUrl={playbackUrl}
+                    name={userData.name}
+                    username={userData.username}
+                  />
                 ) : (
                   <></>
                 )}
               </div>
-              <div className="text-2xl lg:py-4 py-2 flex justify-around">
-                <div className="  text-center lg:mx-3">
-                  <button className="border-0 bg-transparent" onClick={handleShow}>
-                    <i className="fas fa-share opacity-50 mx-2"></i>
-                  </button>
-                  <br />
-                  <p className="text-base"> SHARE</p>
-                </div>
-
-                <div className="  text-center">
-                  <i
-                    className={
-                      userreact === 'like'
-                        ? 'cursor-pointer fas fa-heart mx-3 text-red-700 animate-pulse'
-                        : 'cursor-pointer fas fa-heart opacity-20 mx-3 hover:text-red-300  hover:opacity-100'
-                    }
-                    onClick={() => handlereaction('like')}
-                  ></i>
-                  <br />
-                  <p className="text-base">{like}</p>
-                </div>
-                <div className="  text-center">
-                  <i
-                    className={
-                      userreact === 'dislike'
-                        ? 'cursor-pointer fas fa-heart-broken mx-3   text-purple-500'
-                        : 'cursor-pointer fas fa-heart-broken opacity-20 mx-3 hover:text-purple-300 hover:opacity-100'
-                    }
-                    onClick={() => handlereaction('dislike')}
-                  ></i>
-                  <br />
-                  <p className="text-base">{dislike}</p>
-                </div>
-                <div className="  text-center">
-                  <i
-                    className={
-                      userreact === 'happy'
-                        ? 'cursor-pointer far fa-laugh-squint mx-3 text-yellow-500 '
-                        : 'cursor-pointer far fa-laugh-squint opacity-20 mx-3 hover:text-yellow-200  hover:opacity-100'
-                    }
-                    onClick={() => handlereaction('happy')}
-                  ></i>{' '}
-                  <br />
-                  <p className="text-base"> {happy}</p>
-                </div>
-                <div className="  text-center">
-                  <i
-                    className={
-                      userreact === 'angry'
-                        ? 'cursor-pointer far fa-angry  mx-3 text-red-800'
-                        : 'cursor-pointer far fa-angry  opacity-20 mx-3 hover:text-red-300 hover:opacity-100'
-                    }
-                    onClick={() => handlereaction('angry')}
-                  ></i>{' '}
-                  <br />
-                  <p className="text-base"> {angry}</p>
-                </div>
-
-                <Menu as="div" className="relative inline-block text-left" style={{ zIndex: 100 }}>
-                  <div style={{ zIndex: 50 }}>
-                    <Menu.Button>
-                      <i className="fas fa-ellipsis-h opacity-50 mx-2"></i>
-                    </Menu.Button>
-                  </div>
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                  >
-                    <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <div className="px-1 py-1 ">
-                        <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
-                          <button>Edit</button>
-                        </Menu.Item>
+              <div className="2xl:mx-7 2xl:px-7 lg:px-2 lg:mx-4 px-3 dark:bg-dbeats-dark-alt">
+                <div className="lg:flex flex-row justify-between lg:my-2 my-1  ">
+                  <div className="2xl:py-4 lg:py-2">
+                    <div className=" w-full text-left mt-0" style={{ padding: '0px' }}>
+                      {userData ? (
+                        <p className="font-semibold 2xl:text-xl lg:text-md pb-4">
+                          {userData.videos[props.video_id].videoName}
+                        </p>
+                      ) : (
+                        <></>
+                      )}
+                      {time ? (
+                        <p className="font-semibold 2xl:text-lg lg:text-xs text-md text-gray-400 pb-4">
+                          {time}
+                        </p>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                    {!privateUser ? (
+                      <div>
                         {user ? (
-                          <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                          <div className="flex ">
                             <button
-                              onClick={() => {
-                                handleShowPlaylist();
-                              }}
+                              className="bg-dbeats-light p-1 2xl:text-lg lg:text-sm text-md rounded-sm 2xl:px-4 px-4 lg:px-2 mr-3 font-semibold text-white "
+                              onClick={trackFollowers}
                             >
-                              Add to Playlist
+                              <span>{subscribeButtonText}</span>
                             </button>
-                          </Menu.Item>
+                            <button className="bg-dbeats-light    p-1 2xl:text-lg lg:text-sm text-md  rounded-sm 2xl:px-4 px-4 lg:px-2 mr-3 font-semibold text-white ">
+                              <i className="fas fa-dice-d20  mr-1 cursor-pointer"></i>
+                              <span onClick={handleShowSubscriptionModal}>Become a SuperFan</span>
+                            </button>
+                          </div>
                         ) : (
-                          <> </>
+                          <button
+                            className="bg-dbeats-light  p-1 2xl:text-lg lg:text-sm text-md  rounded-sm 2xl:px-4 px-4 lg:px-2 mr-3 font-semibold text-white "
+                            onClick={() => {
+                              window.location.href = '/login';
+                            }}
+                          >
+                            <span>Login to Subscribe and Become a SuperFan</span>
+                          </button>
                         )}
                       </div>
-                      <div className="px-1 py-1">
-                        <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
-                          <button>Archive</button>
-                        </Menu.Item>
-                        <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
-                          <button>Move</button>
-                        </Menu.Item>
-                      </div>
-                      <div className="px-1 py-1">
-                        <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
-                          <button>Delete</button>
-                        </Menu.Item>
-                      </div>
-                    </Menu.Items>
-                  </Transition>
-                </Menu>
-              </div>
-            </div>
-            {userData ? (
-              <div className="w-full">
-                <hr />
-                <h4 className="py-2">Description : </h4>
-                <p className="pb-2">{userData.videos[props.video_id].description}</p>
-                <hr />
-              </div>
-            ) : (
-              <></>
-            )}
-            <div className="bg-blue-50">
-              <iframe
-                className="w-full p-0 m-0 h-88 lg:h-88 mb-40"
-                title="comment"
-                src="https://theconvo.space/embed/dt?threadId=KIGZUnR4RzXDFheXoOwo"
-                allowtransparency="true"
-                loading="eager"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="  w-full pb-32 pt-5 lg:pt-0 col-span-1 px-5 lg:pt-4 dark:bg-dbeats-dark-alt text-black  dark:text-white">
-          <div className=" w-full  grid grid-cols-1 grid-flow-row gap-3  ">
-            {arrayData.map((value, index) => {
-              return <RecommendedCard key={index} value={value} darkMode={darkMode} />;
-            })}
-          </div>
-        </div>
-      </div>
-      <ShareModal
-        show={show}
-        handleClose={handleClose}
-        sharable_data={sharable_data}
-        copybuttonText={buttonText}
-        setCopyButtonText={setButtonText}
-      />
-      <Modal
-        isOpen={showSubscriptionModal}
-        className="h-max lg:w-max w-5/6 bg-white mx-auto lg:mt-60 mt-32 shadow "
-      >
-        <div className={`${darkMode && 'dark'} h-max w-max`}>
-          <h2 className="grid grid-cols-5 justify-items-center text-2xl py-4   text-center relative bg-gradient-to-b from-blue-50 via-blue-50 to-blue-50  dark:bg-gradient-to-b dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary">
-            <div className="col-span-5    text-gray-900 dark:text-gray-100 font-bold">SUPERFAN</div>
-            <div
-              className="ml-5 cursor-pointer text-gray-900 dark:text-gray-100 dark:bg-dbeats-dark-primary absolute right-10 top-5"
-              onClick={handleCloseSubscriptionModal}
-            >
-              <i className="fas fa-times"></i>
-            </div>
-          </h2>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  <div className="2xl:text-2xl lg:text-md 2xl:py-4 lg:py-2 py-2 flex justify-around">
+                    <div className="  text-center lg:mx-3">
+                      <button className="border-0 bg-transparent" onClick={handleShow}>
+                        <i className="fas fa-share opacity-50 mx-2"></i>
+                      </button>
+                      <br />
+                      <p className="2xl:text-base  text-base lg:text-sm"> SHARE</p>
+                    </div>
 
-          <div>
-            <Container className="px-4 pb-4 bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary">
-              <div className="relative grid grid-cols-6">
-                <div className="   col-span-2">
-                  <Lottie options={defaultOptions2} height={200} width={500} />
+                    <div className="  text-center">
+                      <i
+                        className={
+                          userreact === 'like'
+                            ? 'cursor-pointer fas fa-heart mx-3 text-red-700 animate-pulse'
+                            : 'cursor-pointer fas fa-heart opacity-20 mx-3 hover:text-red-300  hover:opacity-100'
+                        }
+                        onClick={() => handlereaction('like')}
+                      ></i>
+                      <br />
+                      <p className="text-base">{like}</p>
+                    </div>
+                    <div className="  text-center">
+                      <i
+                        className={
+                          userreact === 'dislike'
+                            ? 'cursor-pointer fas fa-heart-broken mx-3   text-purple-500'
+                            : 'cursor-pointer fas fa-heart-broken opacity-20 mx-3 hover:text-purple-300 hover:opacity-100'
+                        }
+                        onClick={() => handlereaction('dislike')}
+                      ></i>
+                      <br />
+                      <p className="text-base">{dislike}</p>
+                    </div>
+                    <div className="  text-center">
+                      <i
+                        className={
+                          userreact === 'happy'
+                            ? 'cursor-pointer far fa-laugh-squint mx-3 text-yellow-500 '
+                            : 'cursor-pointer far fa-laugh-squint opacity-20 mx-3 hover:text-yellow-200  hover:opacity-100'
+                        }
+                        onClick={() => handlereaction('happy')}
+                      ></i>{' '}
+                      <br />
+                      <p className="text-base"> {happy}</p>
+                    </div>
+                    <div className="  text-center">
+                      <i
+                        className={
+                          userreact === 'angry'
+                            ? 'cursor-pointer far fa-angry  mx-3 text-red-800'
+                            : 'cursor-pointer far fa-angry  opacity-20 mx-3 hover:text-red-300 hover:opacity-100'
+                        }
+                        onClick={() => handlereaction('angry')}
+                      ></i>{' '}
+                      <br />
+                      <p className="text-base"> {angry}</p>
+                    </div>
+
+                    <Menu
+                      as="div"
+                      className="relative inline-block text-left"
+                      style={{ zIndex: 100 }}
+                    >
+                      <div style={{ zIndex: 50 }}>
+                        <Menu.Button>
+                          <i className="fas fa-ellipsis-h opacity-50 mx-2"></i>
+                        </Menu.Button>
+                      </div>
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                      >
+                        <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                          <div className="px-1 py-1 ">
+                            <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                              <button>Edit</button>
+                            </Menu.Item>
+                            {user ? (
+                              <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                                <button
+                                  onClick={() => {
+                                    handleShowPlaylist();
+                                  }}
+                                >
+                                  Add to Playlist
+                                </button>
+                              </Menu.Item>
+                            ) : (
+                              <> </>
+                            )}
+                          </div>
+                          <div className="px-1 py-1">
+                            <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                              <button>Archive</button>
+                            </Menu.Item>
+                            <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                              <button>Move</button>
+                            </Menu.Item>
+                          </div>
+                          <div className="px-1 py-1">
+                            <Menu.Item className="w-full text-gray-700 text-left text-lg pl-2 hover:text-white hover:bg-dbeats-light">
+                              <button>Delete</button>
+                            </Menu.Item>
+                          </div>
+                        </Menu.Items>
+                      </Transition>
+                    </Menu>
+                  </div>
                 </div>
-                <div className="col-span-2 ">
-                  <Lottie options={defaultOptions} height={200} width={300} />
-                </div>
-                <div className="   col-span-2">
-                  <Lottie options={defaultOptions3} height={200} width={500} />
+                {userData ? (
+                  <div className="w-full">
+                    <hr />
+                    <h4 className="py-2 lg:text-sm 2xl:text-lg">Description : </h4>
+                    <p className="pb-2 lg:text-sm 2xl:text-lg">
+                      {userData.videos[props.video_id].description}
+                    </p>
+                    <hr />
+                  </div>
+                ) : (
+                  <></>
+                )}
+                <div className="bg-blue-50">
+                  <iframe
+                    className="w-full p-0 m-0 h-88 2xl:h-88 lg:h-88 mb-40"
+                    title="comment"
+                    src="https://theconvo.space/embed/dt?threadId=KIGZUnR4RzXDFheXoOwo"
+                    allowtransparency="true"
+                    loading="eager"
+                  />
                 </div>
               </div>
-              {/* 
+            </div>
+            <div className="  w-full pb-32 2xl:pt-6 pt-5 col-span-1 px-5 lg:pt-4 dark:bg-dbeats-dark-alt text-black  dark:text-white">
+              <div className=" w-full  grid grid-cols-1 grid-flow-row gap-3  ">
+                {arrayData.map((value, index) => {
+                  return <RecommendedCard key={index} value={value} darkMode={darkMode} />;
+                })}
+              </div>
+            </div>
+          </div>
+          <ShareModal
+            show={show}
+            handleClose={handleClose}
+            sharable_data={sharable_data}
+            copybuttonText={buttonText}
+            setCopyButtonText={setButtonText}
+          />
+          <Modal
+            isOpen={showSubscriptionModal}
+            className="h-max lg:w-max w-5/6 bg-white mx-auto 2xl:mt-60 lg:mt-20 mt-32 shadow "
+          >
+            <div className={`${darkMode && 'dark'} h-max w-max`}>
+              <h2 className="grid grid-cols-5 justify-items-center 2xl:text-2xl lg:text-md py-4 2xl:py-4 lg:py-2   text-center relative bg-gradient-to-b from-blue-50 via-blue-50 to-blue-50  dark:bg-gradient-to-b dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary">
+                <div className="col-span-5    text-gray-900 dark:text-gray-100 font-bold">
+                  SUPERFAN
+                </div>
+                <div
+                  className="ml-5 cursor-pointer text-gray-900 dark:text-gray-100 dark:bg-dbeats-dark-primary absolute right-10 top-5"
+                  onClick={handleCloseSubscriptionModal}
+                >
+                  <i className="fas fa-times"></i>
+                </div>
+              </h2>
+
+              <div>
+                <Container className="px-4 pb-4 bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary">
+                  <div className="relative grid grid-cols-6">
+                    <div className="   col-span-2">
+                      <Lottie
+                        options={defaultOptions2}
+                        height={window.innerWidth >= '1536' ? 200 : 150}
+                        width={window.innerWidth >= '1536' ? 500 : 300}
+                      />
+                    </div>
+                    <div className="col-span-2 ">
+                      <Lottie
+                        options={defaultOptions}
+                        height={window.innerWidth >= '1536' ? 200 : 150}
+                        width={window.innerWidth >= '1536' ? 300 : 200}
+                      />
+                    </div>
+                    <div className="   col-span-2">
+                      <Lottie
+                        options={defaultOptions3}
+                        height={window.innerWidth >= '1536' ? 200 : 150}
+                        width={window.innerWidth >= '1536' ? 500 : 300}
+                      />
+                    </div>
+                  </div>
+                  {/* 
                   <button
                     onClick={handleCloseSubscriptionModal}
                     className=" block text-center col-span-1 px-5 w-full  mx-auto p-2 mt-4 mb-2  text-dbeats-light font-semibold rounded-lg border  border-dbeats-light hover:border-white hover:text-white hover:bg-dbeats-dark-secondary transition-all transform hover:scale-95"
@@ -666,107 +708,131 @@ const PlayBackInfo = (props) => {
                     Cancel
                   </button> */}
 
-              <Row>
-                <div className="grid grid-cols-6 gap-4 w-full   self-center">
+                  <Row>
+                    <div className="grid grid-cols-6 2xl:gap-4 lg:gap-2 w-full   self-center">
+                      <button
+                        onClick={() => testFlow(10)}
+                        className="  h-max shadow text-center col-span-6 lg:col-span-2   2xl:w-full w-full lg:w-60  mx-auto p-2 2xl:p-2 lg:p-1  text-black dark:text-white font-semibold hover:rounded   border dark:bg-dbeats-dark-alt border-dbeats-light hover:shadow-none transition-all transform hover:scale-99 hover:bg-dbeats-light "
+                      >
+                        <span className="font-bold 2xl:text-2xl lg:text-sm">10 DAI</span>
+                        <br></br>
+                        <span className="2xl:text-2xl lg:text-sm">PER MONTH</span>
+                        <br></br>
+                        <p className="2xl:text-sm lg:text-xs font-thin text-gray-800 dark:text-gray-300">
+                          Fans who contribute at this level get my thanks and access to recipes and
+                          flash fiction.{' '}
+                        </p>
+                      </button>
+                      <button
+                        onClick={() => testFlow(30)}
+                        className="  shadow text-center col-span-6 lg:col-span-2   2xl:w-full w-full lg:w-60  mx-auto p-2 2xl:p-2 lg:p-1     text-black dark:text-white font-semibold   border dark:bg-dbeats-dark-alt border-dbeats-light hover:shadow-none transition-all transform hover:scale-99 hover:bg-dbeats-light "
+                      >
+                        <span className="font-bold 2xl:text-2xl lg:text-sm">30 DAI</span>
+                        <br></br>
+                        <span className="2xl:text-2xl lg:text-sm">PER MONTH</span>
+                        <br></br>
+                        <span className="2xl:text-sm lg:text-xs font-thin text-gray-800 dark:text-gray-300">
+                          You get all the goodies, my thanks, written content, and you will see
+                          concept art for my Video Content before it goes public..{' '}
+                        </span>
+                      </button>
+                      <button
+                        onClick={() => testFlow(20)}
+                        className="block shadow text-center col-span-6 lg:col-span-2   2xl:w-full w-full lg:w-60  mx-auto p-2 2xl:p-2 lg:p-1   text-black dark:text-white font-semibold   border dark:bg-dbeats-dark-alt border-dbeats-light hover:shadow-none transition-all transform hover:scale-99 hover:bg-dbeats-light "
+                      >
+                        <span className="font-bold 2xl:text-2xl lg:text-sm">20 DAI</span>
+                        <br></br>
+                        <span className="2xl:text-2xl lg:text-sm">PER MONTH</span>
+                        <br></br>
+                        <span className="2xl:text-sm lg:text-xs font-thin text-gray-800 dark:text-gray-300">
+                          Fans who contribute at this level get my thanks and access to recipes and
+                          flash fiction.{' '}
+                        </span>
+                      </button>
+                    </div>
+                  </Row>
+                  <Row className="self-center text-center mt-5 dark:text-gray-500 font-semibold 2xl:text-lg lg:text-sm">
+                    powered by{' '}
+                    <img
+                      src={superfluid}
+                      alt="superfluid"
+                      className="2xl:h-10 lg:h-8 rounded w-max  self-center mx-auto bg-white p-2 dark:bg-opacity-75"
+                    ></img>
+                  </Row>
+                </Container>
+              </div>
+            </div>
+          </Modal>
+          <Modal
+            isOpen={showLogin}
+            className="h-max lg:w-1/3  w-5/6 bg-white mx-auto lg:mt-60 mt-32 rounded-lg"
+          >
+            <div className={`${darkMode && 'dark'}`}>
+              <Container className="2xl:px-5 px-5 lg:px-1 pb-4 dark:bg-dbeats-dark-primary rounded-lg">
+                <Row>
+                  <h2 className="grid grid-cols-5 justify-around w-full 2xl:text-2xl lg:text-md py-4 2xl:py-4 lg:py-2  pt-7  text-center relative  ">
+                    <div className="col-span-5 text-gray-900 dark:text-gray-100 font-bold">
+                      To react on Video Please Login
+                    </div>
+                    <div
+                      className="ml-5 cursor-pointer text-gray-900 dark:text-gray-100 dark:bg-dbeats-dark-primary absolute right-10 top-4 2xl:top-4 lg:top-2"
+                      onClick={handleLoginClose}
+                    >
+                      <i className="fas fa-times"></i>
+                    </div>
+                  </h2>
+                </Row>
+                <Row>
                   <button
-                    onClick={() => testFlow(10)}
-                    className="  h-max shadow text-center col-span-6 lg:col-span-2   w-full  mx-auto p-2   text-black dark:text-white font-semibold hover:rounded   border dark:bg-dbeats-dark-alt border-dbeats-light hover:shadow-none transition-all transform hover:scale-99 hover:bg-dbeats-light "
+                    className="block mx-auto 2xl:p-2 p-2 lg:p-1 mt-4 mb-2 2xl:w-96 lg:w-72 w-full lg:text-md 2xl:text-lg  text-white font-semibold rounded-lg bg-dbeats-light"
+                    type="submit"
+                    onClick={() => (window.location.href = '/login')}
                   >
-                    <span className="font-bold text-2xl">10 DAI</span>
-                    <br></br>
-                    <span>PER MONTH</span>
-                    <br></br>
-                    <p className="text-sm font-thin text-gray-800 dark:text-gray-300">
-                      Fans who contribute at this level get my thanks and access to recipes and
-                      flash fiction.{' '}
-                    </p>
+                    Login
                   </button>
-                  <button
-                    onClick={() => testFlow(30)}
-                    className="  shadow text-center col-span-6 lg:col-span-2   w-full  mx-auto p-2    text-black dark:text-white font-semibold   border dark:bg-dbeats-dark-alt border-dbeats-light hover:shadow-none transition-all transform hover:scale-99 hover:bg-dbeats-light "
-                  >
-                    <span className="font-bold text-2xl">30 DAI</span>
-                    <br></br>
-                    <span>PER MONTH</span>
-                    <br></br>
-                    <span className="text-sm font-thin text-gray-800 dark:text-gray-300">
-                      You get all the goodies, my thanks, written content, and you will see concept
-                      art for my Video Content before it goes public..{' '}
-                    </span>
-                  </button>
-                  <button
-                    onClick={() => testFlow(20)}
-                    className="block shadow text-center col-span-6 lg:col-span-2   w-full  mx-auto p-2  text-black dark:text-white font-semibold   border dark:bg-dbeats-dark-alt border-dbeats-light hover:shadow-none transition-all transform hover:scale-99 hover:bg-dbeats-light "
-                  >
-                    <span className="font-bold text-2xl">20 DAI</span>
-                    <br></br>
-                    <span>PER MONTH</span>
-                    <br></br>
-                    <span className="text-sm font-thin text-gray-800 dark:text-gray-300">
-                      Fans who contribute at this level get my thanks and access to recipes and
-                      flash fiction.{' '}
-                    </span>
-                  </button>
-                </div>
-              </Row>
-              <Row className="self-center text-center mt-5 dark:text-gray-500 font-semibold">
-                powered by{' '}
-                <img
-                  src={superfluid}
-                  className="h-10 rounded w-max  self-center mx-auto bg-white p-2 dark:bg-opacity-75"
-                ></img>
-              </Row>
-            </Container>
-          </div>
-        </div>
-      </Modal>
-      <Modal
-        isOpen={showLogin}
-        className="h-max lg:w-1/3 w-5/6 bg-white mx-auto lg:mt-60 mt-32 rounded-lg"
-      >
-        <div className={`${darkMode && 'dark'}`}>
-          <Container className="px-5 pb-4 dark:bg-dbeats-dark-primary rounded-lg">
-            <Row>
-              <h2 className="grid grid-cols-5 justify-items-center text-2xl py-4  pt-7  text-center relative  ">
-                <div className="col-span-5 text-gray-900 dark:text-gray-100 font-bold">
-                  To react on Video Please Login
-                </div>
-                <div
-                  className="ml-5 cursor-pointer text-gray-900 dark:text-gray-100 dark:bg-dbeats-dark-primary absolute right-10 top-4"
-                  onClick={handleLoginClose}
-                >
-                  <i className="fas fa-times"></i>
-                </div>
-              </h2>
-            </Row>
-            <Row>
-              <button
-                className="block mx-auto p-2 mt-4 mb-2 lg:w-96 w-full  text-white font-semibold rounded-lg bg-dbeats-light"
-                type="submit"
-                onClick={() => (window.location.href = '/login')}
-              >
-                Login
-              </button>
-            </Row>
-          </Container>
-        </div>
-        <hr className="py-2" />
-      </Modal>
+                </Row>
+              </Container>
+            </div>
+          </Modal>
 
-      {userData && userData.videos ? (
-        <Playlist
-          showPlaylist={showPlaylist}
-          setShowPlaylist={setShowPlaylist}
-          handleClosePlaylist={handleClosePlaylist}
-          handleShowPlaylist={handleShowPlaylist}
-          data={userData}
-          id={props.video_id}
-          datatype="video"
-        />
+          {userData && userData.videos ? (
+            <Playlist
+              showPlaylist={showPlaylist}
+              setShowPlaylist={setShowPlaylist}
+              handleClosePlaylist={handleClosePlaylist}
+              handleShowPlaylist={handleShowPlaylist}
+              data={userData}
+              id={props.video_id}
+              datatype="video"
+            />
+          ) : (
+            <></>
+          )}
+        </div>
       ) : (
         <></>
       )}
-    </div>
+      {notFound ? (
+        <div className={`${darkMode && 'dark'}`}>
+          <div className="py-32 px-20 dark:text-white flex justify-center dark:bg-dbeats-dark-alt h-screen">
+            <div className="flex flex-col items-center">
+              <div className="LottieButton opacity-20 absolute">
+                <Lottie
+                  className="cursor-not-allowed"
+                  options={defaultOptionsForNotFound}
+                  height={500}
+                  width={500}
+                />
+              </div>
+              <div className="text-4xl font-bold mt-6">Video Not found</div>
+              <div className="text-xl font-bold py-2">Please check the Video ID</div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 

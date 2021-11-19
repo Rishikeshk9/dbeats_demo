@@ -64,9 +64,12 @@ const TrackInfo = (props) => {
   useEffect(() => {
     get_User();
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="w-full p-12 dark:text-white">

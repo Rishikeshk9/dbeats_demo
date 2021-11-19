@@ -134,6 +134,7 @@ const PublicInfo = (props) => {
     } else {
       setPrivate(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -432,6 +433,7 @@ const PublicInfo = (props) => {
                 powered by{' '}
                 <img
                   src={superfluid}
+                  alt="superfluid"
                   className="h-10 rounded w-max  self-center mx-auto bg-white p-2 dark:bg-opacity-75"
                 ></img>
               </Row>

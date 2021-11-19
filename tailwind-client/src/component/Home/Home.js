@@ -53,6 +53,7 @@ const Home = () => {
       setSlides(slidesValue);
     });
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchData = async () => {
@@ -69,13 +70,16 @@ const Home = () => {
     <>
       <div className={`${darkMode && 'dark'} `}>
         <div id="outer-container" className="h-full ">
-          <div id="page-wrap" className={`${darkMode && 'dark'} grid lg:pl-16 grid-cols-6`}>
+          <div
+            id="page-wrap"
+            className={`${darkMode && 'dark'} grid 2xl:pl-16 lg:pl-14 grid-cols-6`}
+          >
             <div
               id="recommended_channel"
               className="w-full  pt-8 h-full lg:col-span-1 hidden  lg:block sm:hidden mt-4  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary"
             >
-              <div className="px-8 pt-10 ">
-                <h5 className="font-semibold text-base dark:text-gray-200">
+              <div className="2xl:px-8 2xl:pt-10 lg:px-3 lg:pt-6 ">
+                <h5 className="font-semibold 2xl:text-base lg:text-xs dark:text-gray-200">
                   {' '}
                   RECOMMENDED CHANNELS
                 </h5>
@@ -85,15 +89,18 @@ const Home = () => {
                       <img
                         src={personImg}
                         alt=""
-                        className="w-14 h-14 rounded-full mr-2 bg-gray-100"
+                        className="2xl:w-14 2xl:h-14 lg:h-10 lg:w-10 rounded-full mr-2 bg-gray-100 self-center"
                       />
                       <div>
-                        <span className="font-semibold text-sm dark:text-gray-200">
+                        <span className="font-semibold 2xl:text-sm lg:text-xs dark:text-gray-200">
                           {' '}
                           {channel.name}{' '}
                         </span>
                         <br />
-                        <span className="text-gray-400 text-sm"> Counter Strike... </span>
+                        <span className="text-gray-400 2xl:text-sm lg:text-xs">
+                          {' '}
+                          Counter Strike...{' '}
+                        </span>
                       </div>
                     </div>
                   );
@@ -114,12 +121,12 @@ const Home = () => {
                     )}
                   </div>
                 </div>
-                <div className="lg:mt-10 lg:px-4 ">
-                  <div id="display_playback_videos" className="mt-10 lg:px-4 px-1 ">
+                <div className="lg:mt-10 2xl:px-4 ">
+                  <div id="display_playback_videos" className="mt-10 2xl:px-4 px-1 ">
                     <div>
-                      <h4 className=" font-bold mt-10 lg:pb-4 ">
+                      <h4 className=" font-bold mt-10 2xl:pb-4 lg:pb-2">
                         {activeStreams ? (
-                          (activeStreams.length <= 2 && activeStreams.length != 0) ||
+                          (activeStreams.length <= 2 && activeStreams.length !== 0) ||
                           activeStreams.length > 5 ? (
                             <>
                               <p className="mb-3 w-max mx-auto   self-center text-center  drop-shadow text-2xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 dark:from-white dark:to-gray-800">
@@ -142,6 +149,7 @@ const Home = () => {
                                         </Carousel.Item>
                                       );
                                     }
+                                    return 0;
                                   })}
                                 </Carousel>
                               </div>{' '}
@@ -155,9 +163,9 @@ const Home = () => {
                       </h4>
                     </div>
                   </div>
-                  <div id="display_playback_videos" className="lg:px-4 px-1">
+                  <div id="display_playback_videos" className="2xl:px-4 lg:px-3 px-1">
                     <div className="  ">
-                      <h4 className=" font-bold lg:pl-5 pl-3 pt-3 pb-4 dark:text-gray-200">
+                      <h4 className=" font-bold 2xl:pl-5 pl-3 2xl:pt-3 lg:pt-0 pt-3 pb-4 dark:text-gray-200">
                         Trending
                       </h4>
                       <div className="">
@@ -176,7 +184,7 @@ const Home = () => {
                 </div>
               </div>
               <div className="bottom-0">
-                <div className="opacity-10 mb-5 mt-10">
+                <div className="LottieButton opacity-10 mb-5 mt-10">
                   <Lottie options={defaultOptions} height={200} width={300} />
                 </div>
                 <h3 className="text-black   capitalize text-center proxima-reg dark:text-white dark:text-opacity-20">

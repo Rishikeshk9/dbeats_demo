@@ -155,7 +155,7 @@ function VideoPlayer(props) {
           onClick={handleClickEvent}
           onDoubleClick={toggleFullScreen}
           ref={playerContainerRef}
-          className="relative w-full lg:h-120 h-52"
+          className="relative w-full 2xl:h-120 lg:h-110 h-52"
         >
           <ReactPlayer
             ref={playerRef}

@@ -6,18 +6,22 @@ import { ShareModal } from '../Modals/ShareModal/ShareModal';
 // For Routing
 import { Route, Switch, useRouteMatch } from 'react-router';
 import ChatRoom from './ProfileSections/ChatRoom/ChatRoom';
-import NFT_Store from './ProfileSections/Store/NFT_Store';
+import NFTStore from './ProfileSections/Store/NFT_Store';
 import ProfileDetails from './ProfileSections/ProfileDetails/ProfileDetails';
 import Ticket from './ProfileSections/Ticket/Ticket';
+import Lottie from 'react-lottie';
+import animationData from '../../lotties/error-animation.json';
 
 const Profile = (props) => {
   // For Routing
+
   let match = useRouteMatch();
   const tabname = props.match.params.tab;
   const urlUsername = props.match.params.username;
 
   const [user, setUser] = useState(null);
   const [privateUser, setPrivate] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
   const [NFTData, setNFTData] = useState(null);
 
@@ -32,13 +36,14 @@ const Profile = (props) => {
 
   const darkMode = useSelector((darkmode) => darkmode.toggleDarkMode);
 
-  useEffect(async () => {
+  useEffect(() => {
     let value = JSON.parse(window.localStorage.getItem('user'));
     if (value) {
       if (value.username === props.match.params.username) {
         setUser(value);
         setSharable_data(`https://dbeats.live/profile/${value.username}`);
         setPrivate(true);
+        get_NFT(value);
       } else {
         get_User();
         setPrivate(false);
@@ -48,6 +53,24 @@ const Profile = (props) => {
       setPrivate(false);
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const get_User = async () => {
+    await axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/user/${props.match.params.username}`)
+      .then((value) => {
+        if (value.data === '') {
+          setNotFound(true);
+        } else {
+          setUser(value.data);
+          setSharable_data(`https://dbeats.live/profile/${value.data.username}`);
+          get_NFT(value.data);
+        }
+      });
+  };
+
+  const get_NFT = async (value) => {
     let nftMedata = null;
     //-------------------------------------------------------Fetches all the NFT's of the user on Dbeats-------------------------------------------------------
     await axios({
@@ -71,15 +94,6 @@ const Profile = (props) => {
       });
     //-------------------------------------------------------XXXXXXXXXXXXXXXXXENDXXXXXXXXXXXXXXXXXXXX---------------------------------------------------------
     setNFTData(nftMedata);
-  }, []);
-
-  const get_User = async () => {
-    await axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/user/${props.match.params.username}`)
-      .then((value) => {
-        setUser(value.data);
-        setSharable_data(`https://dbeats.live/profile/${value.data.username}`);
-      });
   };
 
   useEffect(() => {
@@ -88,6 +102,15 @@ const Profile = (props) => {
     }, 2000);
     return () => clearTimeout(timer);
   }, [copybuttonText]);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
 
   return (
     <>
@@ -101,11 +124,10 @@ const Profile = (props) => {
                   <ChatRoom userp={user}></ChatRoom>
                 </Route>
                 <Route path={`/profile/:username/store`}>
-                  <NFT_Store NFTData={NFTData}></NFT_Store>
+                  <NFTStore NFTData={NFTData} />
                 </Route>
 
-                <Route path={`/profile/:username/event`} component={Ticket} >
-                </Route>
+                <Route path={`/profile/:username/event`} component={Ticket}></Route>
 
                 <Route path={`${match.path}`}>
                   <ProfileDetails
@@ -126,6 +148,26 @@ const Profile = (props) => {
               copybuttonText={copybuttonText}
               setCopyButtonText={setCopyButtonText}
             />
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
+      {notFound ? (
+        <div className={`${darkMode && 'dark'}`}>
+          <div className="py-32 px-20 dark:text-white flex justify-center dark:bg-dbeats-dark-alt h-screen">
+            <div className="flex flex-col items-center">
+              <div className="LottieButton opacity-20 absolute">
+                <Lottie
+                  className="cursor-not-allowed"
+                  options={defaultOptions}
+                  height={500}
+                  width={500}
+                />
+              </div>
+              <div className="text-4xl font-bold mt-6">User Not found</div>
+              <div className="text-xl font-bold py-2">Please check username</div>
+            </div>
           </div>
         </div>
       ) : (
