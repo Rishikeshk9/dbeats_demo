@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useReducer, useRef } from 'react';
 import Gun from 'gun';
 import './chatroom.css';
-const gun = Gun({
-  peers: [`${process.env.REACT_APP_SERVER_URL}/gun`],
-});
+
 //console.log('lslsls');
 // create the initial state to hold the messages
 const initialState = {
@@ -17,10 +15,14 @@ function reducer(state, message) {
   };
 }
 
-// to get loggedin user from   localstorage
-const user = JSON.parse(window.localStorage.getItem('user'));
 
 function ChatRoom(props) {
+// to get loggedin user from   localstorage
+const user = JSON.parse(window.localStorage.getItem('user'));
+  const gun = Gun({
+    peers: [`${process.env.REACT_APP_SERVER_URL}/gun`],
+  });
+
   const chatRef = useRef(null);
   // the form state manages the form input for creating a new message
   const [formState, setForm] = useState({
@@ -43,7 +45,7 @@ function ChatRoom(props) {
           message: m.message,
           createdAt: m.createdAt,
         });
-        //        chatRef.current?.scrollIntoView({ behavior: 'smooth' });
+               chatRef.current.scrollIntoView({ behavior: 'smooth' });
       }, true);
     } else {
       window.location.href = '/';
@@ -51,7 +53,8 @@ function ChatRoom(props) {
   }, []);
 
   // set a new message in gun, update the local state to reset the form field
-  function saveMessage() {
+  function saveMessage(e) {
+    e.preventDefault()
     const messages = gun.get('messages').get(props.userp.username);
     messages.set({
       username: user.username,
@@ -69,38 +72,41 @@ function ChatRoom(props) {
   }
 
   return (
-    <div className="voicechannel px-5 h-max lg:col-span-5 col-span-6 w-full mt-16">
-      <div className="chat-container">
-        <header className="chat-header">
+    <div className="text-gray-400	 w-full box-border px-5 h-max lg:col-span-5 col-span-6 w-full mt-16 dark:bg-dbeats-dark-primary">
+      <div className="overflow-hidden">
+        {/* <header className="chat-header">
           <h1>
             <i className="fas fa-smile" /> ChatCord
           </h1>
           <a onClick={() => (window.location.href = '/')} className="btn">
             Leave Room
           </a>
-        </header>
-        <main className="chat-main">
-          <div className="chat-sidebar">
+        </header> */}
+        <main className="chat-container-height">
+          {/* <div className="chat-sidebar">
             <h3>
               <i className="fas fa-comments" /> Room Name:
             </h3>
             <h2 id="room-name">{props.userp.username}</h2>
-          </div>
-          <div className="chat-messages">
+          </div> */}
+          <div className="p-2 chat-height overflow-y-scroll	">
             {state.messages.map((message) => (
-              <div className="message" key={message.createdAt}>
-                <p className="meta">
-                  {message.username} <span>{message.createdAt}</span>
+              <div className="px-6 p-2 flex items-center	rounded-xl dark: bg-dbeats-dark-secondary	mb-2" key={message.createdAt}>
+                <div className="chat_message_profile"><img height="50px" width="50px" className="rounded-full" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"></img></div>
+              <div className="p-1" >
+                <p className={message.username == user.username ? 'text-base font-bold mb-1  text-blue-400':'text-base font-bold mb-1 text-white	'}>
+                  {message.username} <span className="text-sm text-gray-300 font-light">{new Date(message.createdAt).toDateString()}</span>
                 </p>
                 <p className="text">{message.message}</p>
+              </div>
               </div>
             ))}
             <div ref={chatRef} />
           </div>
         </main>
-        <div className="chat-form-container">
-          <form id="chat-form">
-            <input
+        <div className="p-4 rounded-lg dark: bg-dbeats-dark-secondary">
+          <form className="flex" id="chat-form" onSubmit={saveMessage}>
+            <input className="flex-1 dark: bg-dbeats-dark-secondary border-0"
               onChange={onChange}
               name="message"
               value={formState.message}
@@ -110,7 +116,7 @@ function ChatRoom(props) {
               required
               autoComplete={false}
             />
-            <button onClick={saveMessage} className="btn">
+            <button type="submit" className="cursor-pointer px-4 py-2 dark: bg-dbeats-dark-primary">
               <i className="fas fa-paper-plane" /> Send
             </button>
           </form>

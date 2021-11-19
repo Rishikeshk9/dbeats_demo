@@ -10,7 +10,8 @@ import NFT_Store from './ProfileSections/Store/NFT_Store';
 import ProfileDetails from './ProfileSections/ProfileDetails/ProfileDetails';
 
 const Profile = (props) => {
-  // For Routing
+  // For Routing  
+  
   let match = useRouteMatch();
   const tabname = props.match.params.tab;
   const urlUsername = props.match.params.username;
