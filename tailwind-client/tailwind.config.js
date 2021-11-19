@@ -78,7 +78,13 @@ module.exports = {
       textColor: ['dark', 'hover', 'focus'],
       margin: ['dark', 'hover', 'focus'],
       padding: ['dark', 'hover', 'focus'],
+      width: ['important'],
+      height: ['important'],
     },
   },
-  plugins: [require('@tailwindcss/forms'), require('tailwindcss-filters')],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('tailwindcss-filters'),
+    require('tailwindcss-important')(),
+  ],
 };

@@ -69,12 +69,15 @@ const Home = () => {
     <>
       <div className={`${darkMode && 'dark'} `}>
         <div id="outer-container" className="h-full ">
-          <div id="page-wrap" className={`${darkMode && 'dark'} grid lg:pl-16 grid-cols-6`}>
+          <div
+            id="page-wrap"
+            className={`${darkMode && 'dark'} grid 2xl:pl-16 lg:pl-14 grid-cols-6`}
+          >
             <div
               id="recommended_channel"
               className="w-full  pt-8 h-full lg:col-span-1 hidden  lg:block sm:hidden mt-4  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary"
             >
-              <div className="2xl:px-8 2xl:pt-10 lg:px-2 lg:pt-6 ">
+              <div className="2xl:px-8 2xl:pt-10 lg:px-3 lg:pt-6 ">
                 <h5 className="font-semibold 2xl:text-base lg:text-xs dark:text-gray-200">
                   {' '}
                   RECOMMENDED CHANNELS
@@ -120,7 +123,7 @@ const Home = () => {
                 <div className="lg:mt-10 2xl:px-4 ">
                   <div id="display_playback_videos" className="mt-10 2xl:px-4 px-1 ">
                     <div>
-                      <h4 className=" font-bold mt-10 lg:pb-4 ">
+                      <h4 className=" font-bold mt-10 2xl:pb-4 lg:pb-2">
                         {activeStreams ? (
                           (activeStreams.length <= 2 && activeStreams.length != 0) ||
                           activeStreams.length > 5 ? (
@@ -158,9 +161,9 @@ const Home = () => {
                       </h4>
                     </div>
                   </div>
-                  <div id="display_playback_videos" className="lg:px-4 px-1">
+                  <div id="display_playback_videos" className="2xl:px-4 lg:px-3 px-1">
                     <div className="  ">
-                      <h4 className=" font-bold lg:pl-5 pl-3 pt-3 pb-4 dark:text-gray-200">
+                      <h4 className=" font-bold 2xl:pl-5 pl-3 2xl:pt-3 lg:pt-0 pt-3 pb-4 dark:text-gray-200">
                         Trending
                       </h4>
                       <div className="">

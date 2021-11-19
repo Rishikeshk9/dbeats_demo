@@ -11,7 +11,7 @@
 //     <div classNameName="w-full">
 //       <Listbox value={selectedItem} onChange={() => setSelected(selectedItem)}>
 //         <div classNameName="relative mt-1">
-//           <Listbox.Button classNameName="  border-0 py-2 px-3 text-left dark:bg-dbeats-dark-primary ring-dbeats-dark-secondary  ring-0   flex-1 block w-full rounded-md sm:text-sm  ">
+//           <Listbox.Button classNameName="  border-0 py-2 px-3 text-left dark:bg-dbeats-dark-primary ring-dbeats-dark-secondary  ring-0   flex-1 block w-full rounded-md sm:text-sm lg:text-xs 2xl:text-sm  ">
 //             <span classNameName="block truncate">{getSelected}</span>
 //             <span classNameName="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
 //               <SelectorIcon classNameName="w-5 h-5 text-gray-400" aria-hidden="true" />
@@ -26,7 +26,7 @@
 //             leaveFrom="transform opacity-100   translate-y-0"
 //             leaveTo="transform   opacity-0 -translate-y-1/3"
 //           >
-//             <Listbox.Options classNameName="z-50 absolute w-full py-2 mt-1 overflow-auto text-base bg-white dark:bg-dbeats-dark-primary dark:text-gray-100 rounded-md shadow  max-h-60  focus:outline-none sm:text-sm">
+//             <Listbox.Options classNameName="z-50 absolute w-full py-2 mt-1 overflow-auto text-base bg-white dark:bg-dbeats-dark-primary dark:text-gray-100 rounded-md shadow  max-h-60  focus:outline-none sm:text-sm lg:text-xs 2xl:text-sm">
 //               {data.map((person, personIdx) => (
 //                 <Listbox.Option
 //                   key={personIdx}
@@ -88,7 +88,7 @@ const Dropdown = ({ data, setSelected, getSelected }) => {
       {({ open }) => (
         <>
           <div className="mt-1 relative w-full z-50">
-            <Listbox.Button className="relative w-full text-black dark:text-white bg-white dark:bg-dbeats-dark-primary  rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            <Listbox.Button className="relative w-full text-black dark:text-white bg-white dark:bg-dbeats-dark-primary  rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm lg:text-xs 2xl:text-sm">
               <span className="flex items-center">
                 <span className="ml-3 block truncate">{selectedItem}</span>
               </span>
@@ -104,7 +104,7 @@ const Dropdown = ({ data, setSelected, getSelected }) => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute z-10 mt-1 w-full dark:text-white  bg-white dark:bg-dbeats-dark-primary shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+              <Listbox.Options className="absolute z-10 mt-1 w-full dark:text-white  bg-white dark:bg-dbeats-dark-primary shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm lg:text-xs 2xl:text-sm">
                 {data.map((value, id) => (
                   <Listbox.Option
                     key={id}
