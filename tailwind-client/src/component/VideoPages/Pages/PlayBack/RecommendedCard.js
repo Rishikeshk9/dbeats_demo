@@ -16,13 +16,13 @@ const RecommendedCard = (props) => {
   ////console.log('My : ', props.value);
   return (
     <div className={`${props.darkMode && 'dark'} flex w-full`}>
-      <div className="cursor-pointer h-28 dark:bg-dbeats-dark-primary">
+      <div className="cursor-pointer 2xl:h-28 lg:h-20 dark:bg-dbeats-dark-primary">
         <ReactPlayer
           onClick={() => {
             window.location.href = `/playback/${props.value.username}/0`;
           }}
           className="justify-self-center"
-          width="12rem"
+          width={window.innerWidth >= '1536' ? '12rem' : '9rem'}
           height="100%"
           playing={playing}
           volume={0.5}
@@ -33,19 +33,19 @@ const RecommendedCard = (props) => {
           muted={true}
         />
       </div>
-      <div className="pl-3 text-sm w-full">
+      <div className="pl-3 text-sm 2xl:text-sm lg:text-xs w-full">
         {/* <p className="text-2xl font-semibold mb-0">{props.value.videos[0].videoName.slice(0, 30) + " ..."}</p> */}
         <span>{props.value.name}</span>
         <i className="ml-1 fas fa-check-circle"></i>
         <p>
-          <span className="text-sm font-semibold mr-2">55K views</span>
+          <span className="text-sm 2xl:text-sm lg:text-xs font-semibold mr-2">55K views</span>
           <span>1 Month Ago</span>
         </p>
       </div>
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button className="">
-            <i className=" fas fa-ellipsis-v text-gray-600 cursor-pointer block ml-auto mt-2 mr-2 text-lg"></i>
+            <i className=" fas fa-ellipsis-v text-gray-600 cursor-pointer block ml-auto mt-2 mr-2 2xl:text-lg text-lg lg:text-sm"></i>
           </Menu.Button>
         </div>
         <Transition

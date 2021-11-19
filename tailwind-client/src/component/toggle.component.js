@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css';
+import '../SidebarToggle.css';
 
 export default function Toggle({ toggled, onClick }) {
   return (

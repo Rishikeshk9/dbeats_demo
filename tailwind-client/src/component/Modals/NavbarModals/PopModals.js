@@ -273,6 +273,7 @@ export const UploadVideo = (props) => {
       derivativeWorks: selectedDerivativeWorks,
       tags: tags,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory, selectedCommercialUse, selectedDerivativeWorks, selectedAttribution, tags]);
 
   const PostData = async (e) => {
@@ -347,7 +348,7 @@ export const UploadVideo = (props) => {
       }
     >
       <div className={`${darkMode && 'dark'} px-5 py-5 lg:px-3 lg:py-3 2xl:px-5 2xl:py-5 h-max`}>
-        <h2 className="grid grid-cols-5 justify-items-center 2xl:text-2xl text-lg py-4 dark:bg-dbeats-dark-alt bg-white dark:text-white">
+        <h2 className="grid grid-cols-5 justify-items-center 2xl:text-2xl text-lg 2xl:py-4 py-4 lg:py-3 dark:bg-dbeats-dark-alt bg-white dark:text-white">
           <div className="col-span-4 pl-14 ">Upload Video</div>
           <div className="mr-7 flex justify-end w-full" onClick={props.handleCloseVideoUpload}>
             <i className="fas fa-times cursor-pointer"></i>
@@ -355,12 +356,12 @@ export const UploadVideo = (props) => {
         </h2>
         <hr />
         <form method="POST" encType="multipart/formdata">
-          <div className=" bg-white text-gray-500  dark:bg-dbeats-dark-alt dark:text-gray-100   shadow-sm rounded-lg  2xl:px-5 2xl:py-5  lg:px-2 lg:py-1 px-2 py-1 mb-5 lg:mb-2 2xl:mb-5 lg:max-h-full max-h-96  overflow-y-auto lg:overflow-hidden">
+          <div className=" bg-white text-gray-500  dark:bg-dbeats-dark-alt dark:text-gray-100   shadow-sm rounded-lg  2xl:px-5 2xl:py-5  lg:px-2 lg:py-1 px-2 py-1 mb-5 lg:mb-2 2xl:mb-5 lg:max-h-full  max-h-96  overflow-y-auto overflow-hidden">
             <div className="md:grid md:grid-cols-3 md:gap-6  ">
               <div className="md:col-span-1  ">
-                <div className="lg:mt-5 mt-0 md:col-span-2 lg:p-5 p-3 ">
-                  <label className="block text-sm font-medium text-gray-700"></label>
-                  <div className=" mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                <div className="lg:mt-5 mt-0 md:col-span-2 2xl:p-5 lg:p-3 p-2">
+                  <label className="block 2xl:text-sm text-sm lg:text-xs font-medium text-gray-700"></label>
+                  <div className="flex justify-center px-6 2xl:py-6 lg:py-4 py-6 border-2 border-gray-300 border-dashed rounded-md">
                     <div className="space-y-1 text-center ">
                       <svg
                         className="mx-auto h-12 w-12 text-gray-400"
@@ -399,8 +400,8 @@ export const UploadVideo = (props) => {
                     </div>
                   </div>
                 </div>
-                <div className="lg:mt-5 mt-0 md:col-span-2 lg:p-5 p-3 ">
-                  <label className="block text-sm font-medium text-gray-700"></label>
+                <div className="2xl:mt-5 lg:mt-1 mt-0 md:col-span-2 2xl:p-5 lg:p-3 p-2">
+                  <label className="block 2xl:text-sm text-sm lg:text-xs font-medium text-gray-700"></label>
                   <div className=" mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                     <div className="space-y-1 text-center ">
                       <svg
@@ -444,12 +445,12 @@ export const UploadVideo = (props) => {
 
               <div className="2xl:mt-5 lg:mt-1 mt-0 md:col-span-2">
                 <div className=" sm:rounded-md  ">
-                  <div className="px-4 py-5  space-y-6 sm:p-6">
+                  <div className="2xl:p-5 lg:p-3 p-5  space-y-6">
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-1">
                       <div className="col-span-1 sm:col-span-1">
                         <label
                           htmlFor="videoName"
-                          className="block text-sm font-medium dark:text-gray-100 text-gray-700"
+                          className="block 2xl:text-sm text-sm lg:text-xs font-medium dark:text-gray-100 text-gray-700"
                         >
                           Video Title
                         </label>
@@ -472,7 +473,7 @@ export const UploadVideo = (props) => {
                         {' '}
                         <label
                           htmlFor="videoTags"
-                          className="block text-sm font-medium dark:text-gray-100 text-gray-700"
+                          className="block 2xl:text-sm text-sm lg:text-xs font-medium dark:text-gray-100 text-gray-700"
                         >
                           Tags
                         </label>
@@ -492,7 +493,7 @@ export const UploadVideo = (props) => {
                       <div className="lg:col-span-4 col-span-8  sm:col-span-4">
                         <label
                           htmlFor="company-website"
-                          className="block text-sm font-medium dark:text-gray-100 text-gray-700"
+                          className="block 2xl:text-sm text-sm lg:text-xs font-medium dark:text-gray-100 text-gray-700"
                         >
                           Category
                         </label>
@@ -509,7 +510,7 @@ export const UploadVideo = (props) => {
                     <div className="">
                       <label
                         htmlFor="description"
-                        className="block text-sm font-medium dark:text-gray-100 text-gray-700"
+                        className="block 2xl:text-sm text-sm lg:text-xs font-medium dark:text-gray-100 text-gray-700"
                       >
                         Description
                       </label>
@@ -531,7 +532,7 @@ export const UploadVideo = (props) => {
                         <div className="col-span-2  sm:col-span-1">
                           <label
                             htmlFor="company-website"
-                            className="block text-sm font-medium dark:text-gray-100 text-gray-700"
+                            className="block 2xl:text-sm text-sm lg:text-xs font-medium dark:text-gray-100 text-gray-700"
                           >
                             Allow Attribution?
                           </label>
@@ -547,7 +548,7 @@ export const UploadVideo = (props) => {
                         <div className="col-span-2  sm:col-span-1">
                           <label
                             htmlFor="company-website"
-                            className="block text-sm font-medium dark:text-gray-100 text-gray-700"
+                            className="block 2xl:text-sm text-sm lg:text-xs font-medium dark:text-gray-100 text-gray-700"
                           >
                             Commercial Use?
                           </label>
@@ -563,7 +564,7 @@ export const UploadVideo = (props) => {
                         <div className="col-span-2  sm:col-span-1">
                           <label
                             htmlFor="company-website"
-                            className="block text-sm font-medium dark:text-gray-100 text-gray-700"
+                            className="block 2xl:text-sm text-sm lg:text-xs font-medium dark:text-gray-100 text-gray-700"
                           >
                             Derivative Works?
                           </label>
@@ -824,6 +825,7 @@ export const UploadMusic = (props) => {
       commercialUse: selectedCommercialUse,
       derivativeWorks: selectedDerivativeWorks,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     selectedGenre,
     selectedCommercialUse,
@@ -937,8 +939,8 @@ export const UploadMusic = (props) => {
       isOpen={props.showTrackUpload}
       className={
         darkMode
-          ? 'h-max lg:w-max w-5/6 mt-20 mx-auto 2xl:mt-24 lg:mt-16 bg-dbeats-dark-primary rounded-xl '
-          : 'h-max lg:w-max w-5/6 mt-20 mx-auto 2xl:mt-24 lg:mt-16 bg-gray-50 rounded-xl shadow-2xl'
+          ? 'h-max lg:w-max w-5/6 mt-20 mx-auto 2xl:mt-24 lg:mt-14 bg-dbeats-dark-primary rounded-xl '
+          : 'h-max lg:w-max w-5/6 mt-20 mx-auto 2xl:mt-24 lg:mt-14 bg-gray-50 rounded-xl shadow-2xl'
       }
     >
       <div
@@ -946,7 +948,7 @@ export const UploadMusic = (props) => {
           darkMode && 'dark'
         } font-proxima-reg z-100  transition duration-1000 ease-in-out mx-auto p-5 lg:p-2 2xl:p-5`}
       >
-        <h2 className="grid grid-cols-5 justify-items-center 2xl:text-2xl text-lg py-4 lg:py-3 2xl:py-4 dark:bg-dbeats-dark-alt bg-white dark:text-white">
+        <h2 className="grid grid-cols-5 justify-items-center 2xl:text-2xl text-lg 2xl:py-4 py-4 lg:py-2 dark:bg-dbeats-dark-alt bg-white dark:text-white">
           <div className="col-span-4 pl-14">Upload Track</div>
           <div className="mr-7 flex justify-end w-full" onClick={props.handleCloseTrackUpload}>
             <i className="fas fa-times cursor-pointer"></i>
@@ -957,9 +959,9 @@ export const UploadMusic = (props) => {
           <div className=" bg-white text-gray-500  dark:bg-dbeats-dark-alt dark:text-gray-100   shadow-sm rounded-lg  2xl:px-5 2xl:py-5 lg:py-2 lg:px-2 px-2 py-1 mb-5 lg:mb-0 2xl:mb-5 lg:max-h-full  max-h-96  overflow-y-auto overflow-hidden">
             <div className="md:grid md:grid-cols-3 md:gap-6  mt-5 lg:mt-0 2xl:mt-5 ">
               <div className="md:col-span-1  ">
-                <div className="lg:mt-0 2xl:mt-5 mt-0 md:col-span-2 lg:p-5 p-3  ">
-                  <label className="block text-sm font-medium text-gray-700"></label>
-                  <div className=" mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                <div className="lg:mt-0 2xl:mt-5 mt-0 md:col-span-2 2xl:p-5 lg:p-3 p-2  ">
+                  <label className="block 2xl:text-sm text-sm lg:text-xs font-medium text-gray-700"></label>
+                  <div className=" flex justify-center px-6 2xl:py-6 lg:py-4 py-6 border-2 border-gray-300 border-dashed rounded-md">
                     <div className="space-y-1 text-center ">
                       <svg
                         className="mx-auto h-12 w-12 text-gray-400"
@@ -999,8 +1001,8 @@ export const UploadMusic = (props) => {
                     </div>
                   </div>
                 </div>
-                <div className="lg:mt-0 2xl:mt-5 mt-0 md:col-span-2 lg:p-5 p-3   ">
-                  <label className="block text-sm font-medium text-gray-700"></label>
+                <div className="2xl:mt-5 lg:mt-1 mt-0 md:col-span-2 2xl:p-5 lg:p-3 p-2">
+                  <label className="block 2xl:text-sm text-sm lg:text-xs font-medium text-gray-700"></label>
                   <div className=" mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                     <div className="space-y-1 text-center ">
                       <svg
@@ -1041,8 +1043,8 @@ export const UploadMusic = (props) => {
                     </div>
                   </div>
                 </div>
-                <div className="2xl:mt-5 mt-0 md:col-span-2 lg:p-5 p-3   ">
-                  <label className="block text-sm font-medium text-gray-700"></label>
+                <div className="2xl:mt-5 mt-0 md:col-span-2 2xl:p-5 lg:p-3 p-2   ">
+                  <label className="block 2xl:text-sm text-sm lg:text-xs font-medium text-gray-700"></label>
                   <div className=" mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                     <div className="space-y-1 text-center ">
                       <div className="flex text-sm text-gray-600">
@@ -1059,14 +1061,14 @@ export const UploadMusic = (props) => {
                 </div>
               </div>
 
-              <div className="lg:mt-5 mt-0 md:col-span-2">
+              <div className="2xl:mt-5 lg:mt-1 mt-0 md:col-span-2">
                 <div className=" sm:rounded-md  ">
-                  <div className="px-4 py-5 lg:px-2 lg:py-0 2xl:px-4 2xl:py-5 space-y-6 sm:p-6">
+                  <div className="2xl:p-5 lg:p-1.5 p-5  space-y-6">
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-1">
                       <div className="col-span-3 sm:col-span-3">
                         <label
                           htmlFor="trackName"
-                          className="block text-sm font-medium dark:text-gray-100 text-gray-700"
+                          className="block 2xl:text-sm text-sm lg:text-xs font-medium dark:text-gray-100 text-gray-700"
                         >
                           Track Name
                         </label>
@@ -1087,7 +1089,7 @@ export const UploadMusic = (props) => {
                       <div className="col-span-4 sm:col-span-4">
                         <label
                           htmlFor="tags"
-                          className="block text-sm font-medium dark:text-gray-100 text-gray-700"
+                          className="block 2xl:text-sm text-sm lg:text-xs font-medium dark:text-gray-100 text-gray-700"
                         >
                           Tags
                         </label>
@@ -1107,7 +1109,7 @@ export const UploadMusic = (props) => {
                       <div className="lg:col-span-2 col-span-4 sm:col-span-2">
                         <label
                           htmlFor="company-website"
-                          className="block text-sm font-medium dark:text-gray-100 text-gray-700"
+                          className="block 2xl:text-sm text-sm lg:text-xs font-medium dark:text-gray-100 text-gray-700"
                         >
                           Genre
                         </label>
@@ -1123,7 +1125,7 @@ export const UploadMusic = (props) => {
                       <div className="lg:col-span-2 col-span-4 sm:col-span-2">
                         <label
                           htmlFor="company-website"
-                          className="block text-sm font-medium dark:text-gray-100 text-gray-700"
+                          className="block 2xl:text-sm text-sm lg:text-xs font-medium dark:text-gray-100 text-gray-700"
                         >
                           Mood
                         </label>
@@ -1141,7 +1143,7 @@ export const UploadMusic = (props) => {
                       <div className="col-span-4 sm:col-span-4">
                         <label
                           htmlFor="tags"
-                          className="block text-sm font-medium dark:text-gray-100 text-gray-700"
+                          className="block 2xl:text-sm text-sm lg:text-xs font-medium dark:text-gray-100 text-gray-700"
                         >
                           Track ISRC
                         </label>
@@ -1160,7 +1162,7 @@ export const UploadMusic = (props) => {
                       <div className="col-span-4 sm:col-span-4">
                         <label
                           htmlFor="iswc"
-                          className="block text-sm font-medium dark:text-gray-100 text-gray-700"
+                          className="block 2xl:text-sm text-sm lg:text-xs font-medium dark:text-gray-100 text-gray-700"
                         >
                           Track ISWC
                         </label>
@@ -1181,7 +1183,7 @@ export const UploadMusic = (props) => {
                     <div className="">
                       <label
                         htmlFor="description"
-                        className="block text-sm font-medium dark:text-gray-100 text-gray-700"
+                        className="block 2xl:text-sm text-sm lg:text-xs font-medium dark:text-gray-100 text-gray-700"
                       >
                         Description
                       </label>
@@ -1203,7 +1205,7 @@ export const UploadMusic = (props) => {
                         <div className="col-span-2 sm:col-span-1">
                           <label
                             htmlFor="company-website"
-                            className="block text-sm font-medium dark:text-gray-100 text-gray-700"
+                            className="block 2xl:text-sm text-sm lg:text-xs font-medium dark:text-gray-100 text-gray-700"
                           >
                             Allow Attribution?
                           </label>
@@ -1219,7 +1221,7 @@ export const UploadMusic = (props) => {
                         <div className="col-span-2 sm:col-span-1">
                           <label
                             htmlFor="company-website"
-                            className="block text-sm font-medium dark:text-gray-100 text-gray-700"
+                            className="block 2xl:text-sm text-sm lg:text-xs font-medium dark:text-gray-100 text-gray-700"
                           >
                             Commercial Use?
                           </label>
@@ -1235,7 +1237,7 @@ export const UploadMusic = (props) => {
                         <div className="col-span-2 sm:col-span-1">
                           <label
                             htmlFor="company-website"
-                            className="block text-sm font-medium dark:text-gray-100 text-gray-700"
+                            className="block 2xl:text-sm text-sm lg:text-xs font-medium dark:text-gray-100 text-gray-700"
                           >
                             Derivative Works?
                           </label>
@@ -1255,19 +1257,31 @@ export const UploadMusic = (props) => {
             </div>
           </div>
 
-          <div className="lg:px-4 lg:py-3 lg:text-right text-center sm:px-6">
+          <div className="lg:px-4 2xl:py-3 lg:py-2 lg:pt-3 lg:text-right text-center">
             <input
               type="submit"
               onClick={PostData}
               value="Upload Audio"
-              className="cursor-pointer inline-flex self-center justify-center 2xl:py-2 py-1 lg:px-5 px-3 border border-transparent shadow-sm lg:text-lg text-md  font-bold rounded-md text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-0 focus:ring-offset-2 focus:ring-blue-500"
+              className="cursor-pointer inline-flex 
+              self-center justify-center 2xl:py-2 py-1 
+              lg:px-5 px-3 border border-transparent 
+              shadow-sm 2xl:text-lg text-md lg:text-sm 
+              font-bold rounded-md text-white bg-gradient-to-r 
+              from-green-400 to-blue-500 hover:bg-indigo-700 
+              transform transition delay-50 duration-300 
+              ease-in-out hover:scale-105 focus:outline-none 
+              focus:ring-0 focus:ring-offset-2 
+              focus:ring-blue-500"
             ></input>
             <br></br>
             <a
               className="text-sm font-medium dark:text-gray-100 text-gray-700 "
               id="nftAddress"
               target="_blank"
-            ></a>
+              href="/"
+            >
+              NFT
+            </a>
           </div>
         </form>
       </div>

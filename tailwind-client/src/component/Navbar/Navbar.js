@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, Fragment, useRef } from 'react';
 import classes from './Navbar.module.css';
 import { push as Menu } from 'react-burger-menu';
 import logo from '../../assets/images/white-logo.svg';
@@ -20,6 +20,8 @@ const NavBar = () => {
 
   const user = JSON.parse(window.localStorage.getItem('user'));
 
+  const wrapperRef = useRef(null);
+
   //Popup
   const [showAnnouncement, setShowAnnouncement] = useState(false);
   const handleCloseAnnouncement = () => setShowAnnouncement(false);
@@ -37,6 +39,7 @@ const NavBar = () => {
   const darkMode = useSelector((state) => state.toggleDarkMode);
 
   const [alluser, setAllUser] = useState([]);
+  const [filterResultDisplay, setFilterResultDisplay] = useState(true);
 
   //  Modal
   const [showOpen, setOnOpen] = useState(false);
@@ -98,6 +101,7 @@ const NavBar = () => {
   const [wordEntered, setWordEntered] = useState('');
 
   const handleFilter = (event) => {
+    setFilterResultDisplay(false);
     const searchWord = event.target.value;
     setWordEntered(searchWord);
     const newFilter = alluser.filter((value) => {
@@ -117,8 +121,10 @@ const NavBar = () => {
             };
             newVideoFilter.push(data);
           }
+          return 0;
         });
       }
+      return 0;
     });
 
     //console.log('Videofilter', newVideoFilter);
@@ -135,6 +141,18 @@ const NavBar = () => {
   useEffect(() => {
     window.localStorage.setItem('darkmode', darkMode);
   }, [darkMode]);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setFilterResultDisplay(true);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [wrapperRef]);
 
   useEffect(() => {
     axios({
@@ -166,6 +184,7 @@ const NavBar = () => {
         setNotification(data.reverse());
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //console.log(notification);
@@ -184,33 +203,45 @@ const NavBar = () => {
           outerContainerId={'outer-container'}
           isOpen={showOpen}
           onStateChange={isMenuOpen}
-          className={`w-24 lg:w-250 bg-white dark:bg-dbeats-dark-primary text-lg text-bold`}
-          width={'16.5rem'}
+          className={`bg-white dark:bg-dbeats-dark-primary`}
+          width={window.innerWidth >= '1536' ? '16.5rem' : '12rem'}
         >
           <div className="pt-5 bg-transparent hidden w-0"></div>
           <div className={classes.menu_items}>
-            <a className="text-black text-xl text-bold dark:text-white" id="home" href="/">
-              <i id={classes.menu_item} className="fa fa-fw fa-home" style={{ fontSize: '1em' }} />
+            <a
+              className="text-black 2xl:text-xl lg:text-md text-bold dark:text-white"
+              id="home"
+              href="/"
+            >
+              <i id={classes.menu_item} className="fa fa-fw fa-home" />
               <span className={classes.menu_item_name}> Home </span>
             </a>
           </div>
           <div className={classes.menu_items}>
-            <a className="text-black text-xl text-bold dark:text-white" id="about" href="#/about">
-              <i id={classes.menu_item} className="fas fa-compass" style={{ fontSize: '1em' }} />
+            <a
+              className="text-black 2xl:text-xl lg:text-md text-bold dark:text-white"
+              id="about"
+              href="#/about"
+            >
+              <i id={classes.menu_item} className="fas fa-compass" />
               <span className={classes.menu_item_name}> Explorer </span>
             </a>
           </div>
           <div className={classes.menu_items}>
-            <a className="text-black text-xl text-bold dark:text-white" id="contact" href="/music">
-              <i id={classes.menu_item} className="fas fa-cogs" style={{ fontSize: '1em' }} />
+            <a
+              className="text-black 2xl:text-xl lg:text-md text-bold dark:text-white"
+              id="contact"
+              href="/music"
+            >
+              <i id={classes.menu_item} className="fas fa-cogs" />
               <span className={classes.menu_item_name}>Music </span>
             </a>
           </div>
           {/* {user ? (
             <div
-              className={`${classes.menu_item_logout} text-black text-xl text-bold dark:text-white`}
+              className={`${classes.menu_item_logout} text-black 2xl:text-xl lg:text-md text-bold dark:text-white`}
             >
-              <i id={classes.menu_item} style={{ fontSize: '1em' }} className="fas fa-upload"></i>
+              <i id={classes.menu_item}  className="fas fa-upload"></i>
 
               <a href="/upload" className={classes.menu_item_name}>
                 Upload
@@ -221,10 +252,10 @@ const NavBar = () => {
           )} */}
           {user ? (
             <div
-              className={`${classes.menu_item_logout} text-black text-xl text-bold dark:text-white`}
+              className={`${classes.menu_item_logout} text-black 2xl:text-xl lg:text-md text-bold dark:text-white`}
               onClick={handleLogout}
             >
-              <i id={classes.menu_item} className="fas fa-door-open" style={{ fontSize: '1em' }} />
+              <i id={classes.menu_item} className="fas fa-door-open" />
               <span className={classes.menu_item_name}> Logout </span>
             </div>
           ) : (
@@ -244,7 +275,7 @@ const NavBar = () => {
         className={` w-max fixed top-0 ${darkMode && 'dark'} z-50 `}
       >
         <div
-          className={`p-3 bg-white w-screen shadow-sm z-50  absolute dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-90  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md`}
+          className={`2xl:p-3 lg:p-2 p-3 bg-white w-screen shadow-sm z-50  absolute dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-90  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md`}
         >
           <div className="flex w-full self-center">
             <div
@@ -275,16 +306,16 @@ const NavBar = () => {
               <img
                 src={logo}
                 alt="dbeats_logo"
-                className="h-10 lg:h-8 2xl:h-10 w-max dark:hidden"
+                className="h-10 lg:h-7 2xl:h-10 w-max dark:hidden"
               ></img>
               <img
                 src={logoDark}
                 alt="dbeats_logo"
-                className="h-10 lg:h-8 2xl:h-10 w-max hidden dark:block"
+                className="h-10 lg:h-7 2xl:h-10 w-max hidden dark:block"
               ></img>
               <span className="mr-5 text-lg font-bold ml-2"> </span>
             </div>
-            <div className="w-1/3 mx-auto  self-center  ">
+            <div className="w-1/3 mx-auto  self-center ">
               <div className="  self-center rounded-full  flex bg-gray-100 dark:bg-dbeats-dark-primary">
                 <input
                   type="text"
@@ -321,8 +352,12 @@ const NavBar = () => {
                   </svg>
                 </Link>
               </div>
-              <div className=" bg-white  dark:bg-dbeats-dark-secondary dark:text-white self-center absolute lg:w-1/3 w-3/5 h-max max-h-80 overflow-hidden overflow-y-auto text-black">
-                {filteredVideoData.length != 0 && (
+              <div
+                ref={wrapperRef}
+                className=" bg-white  dark:bg-dbeats-dark-alt dark:text-white self-center absolute lg:w-1/3 w-3/5 h-max max-h-80 overflow-hidden overflow-y-auto"
+                hidden={filterResultDisplay}
+              >
+                {filteredVideoData.length !== 0 && (
                   <>
                     {filteredVideoData.slice(0, 15).map((value, key) => {
                       return (
@@ -331,7 +366,7 @@ const NavBar = () => {
                             pathname: '/search',
                           }}
                           key={key}
-                          className="w-full h-10  dark:hover:bg-dbeats-dark-primary hover:bg-gray-200 py-2 px-2 my-1"
+                          className="w-full h-10"
                           onClick={() => {
                             setFilteredData([]);
                             setFilteredVideoData([]);
@@ -341,13 +376,15 @@ const NavBar = () => {
                             );
                           }}
                         >
-                          <div className="ml-3">{value.video.videoName} </div>
+                          <div className="p-2 pl-3 dark:hover:bg-dbeats-dark-primary">
+                            {value.video.videoName}{' '}
+                          </div>
                         </Link>
                       );
                     })}
                   </>
                 )}
-                {filteredData.length != 0 && (
+                {filteredData.length !== 0 && (
                   <>
                     <hr className=" px-2 dark:bg-white" />
                     {filteredData.slice(0, 15).map((value, key) => {
@@ -357,7 +394,7 @@ const NavBar = () => {
                             pathname: '/search',
                           }}
                           key={key}
-                          className="w-full h-10 dark:hover:bg-dbeats-dark-primary hover:bg-gray-200 py-2 px-2 my-1"
+                          className="w-full h-10 "
                           onClick={() => {
                             setFilteredData([]);
                             setFilteredVideoData([]);
@@ -367,7 +404,9 @@ const NavBar = () => {
                             );
                           }}
                         >
-                          <div className="ml-3">{value.username} </div>
+                          <div className="p-2 pl-3 dark:hover:bg-dbeats-dark-primary">
+                            {value.username}{' '}
+                          </div>
                         </Link>
                       );
                     })}
@@ -376,24 +415,22 @@ const NavBar = () => {
               </div>
             </div>
             {user ? (
-              <div className="my-auto 2xl:mr-3 lg:m-1">
+              <div className="flex items-center 2xl:mr-3 lg:mr-2">
                 <Dropdown as="div" className="relative inline-block text-left mr-2 self-center">
-                  <div>
-                    <Dropdown.Button className="">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="2xl:h-7 2xl:w-7 w-5 h-5 text-dbeats-light"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </Dropdown.Button>
-                  </div>
+                  <Dropdown.Button className="flex h-full items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="2xl:h-7 2xl:w-7 w-5 h-5 text-dbeats-light"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </Dropdown.Button>
                   <Transition
                     as={Fragment}
                     enter="transition ease-out duration-100"
@@ -450,31 +487,29 @@ const NavBar = () => {
               <></>
             )}
             {user ? (
-              <div id="login-btn" className="flex">
+              <div id="login-btn" className="flex items-center">
                 <Dropdown as="div" className="relative inline-block text-left lg:mr-2 self-center">
-                  <div>
-                    <Dropdown.Button className="">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="2xl:h-7 2xl:w-7 w-5 h-5 text-dbeats-light cursor-pointer z-50"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
+                  <Dropdown.Button className="flex h-full items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="2xl:h-7 2xl:w-7 w-5 h-5 text-dbeats-light cursor-pointer z-50 self-center"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      onClick={handleNotification}
+                    >
+                      <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+                    </svg>
+                    {user.notification && user.notification.length > 0 ? (
+                      <div
+                        className="bg-red-500 rounded-full shadow  h-6 w-6 text-sm self-center text-center font-semibold  absolute -bottom-1  -right-2 dark:border-dbeats-dark-primary  border-red-300 border-2 text-white  "
                         onClick={handleNotification}
                       >
-                        <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
-                      </svg>
-                      {user.notification && user.notification.length > 0 ? (
-                        <div
-                          className="bg-red-500 rounded-full shadow  h-6 w-6 text-sm self-center text-center font-semibold  absolute -bottom-1  -right-2 dark:border-dbeats-dark-primary  border-red-300 border-2 text-white  "
-                          onClick={handleNotification}
-                        >
-                          {user.notification.length}
-                        </div>
-                      ) : (
-                        <></>
-                      )}
-                    </Dropdown.Button>
-                  </div>
+                        {user.notification.length}
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </Dropdown.Button>
                   <Transition
                     as={Fragment}
                     enter="transition ease-out duration-100"
@@ -498,10 +533,10 @@ const NavBar = () => {
                   </Transition>
                 </Dropdown>
                 <button
-                  className="2xl:px-3 px-1.5  border-dbeats-light 2xl:border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mx-2 "
+                  className="2xl:px-3 px-1.5 h-7 border-dbeats-light 2xl:border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mx-2 "
                   onClick={handleStreamOnClick}
                 >
-                  <div className="flex h-3">
+                  <div className="flex">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-5 w-5 lg:self-center mt-1 lg:mt-0 md:mr-2"
@@ -516,12 +551,12 @@ const NavBar = () => {
                   </div>
                 </button>
                 <button
-                  className="shadow-sm 2xl:h-10  self-center 2xl:w-10  h-8 w-8 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded-full font-bold mx-2 flex"
+                  className="shadow-sm 2xl:h-10  2xl:w-10 self-center  h-7 w-7 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded-full font-bold mx-2 flex"
                   onClick={handleProfileOnClick}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="2xl:h-7 2xl:w-7 h-6 w-6  mx-auto self-center"
+                    className="2xl:h-7 2xl:w-7  h-5 w-5  mx-auto self-center"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >

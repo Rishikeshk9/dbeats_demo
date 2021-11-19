@@ -13,7 +13,6 @@ import store from './store';
 import { Provider } from 'react-redux';
 
 store.subscribe(() =>
-
   // Add a request interceptor
   axios.interceptors.request.use(
     function (config) {
@@ -37,7 +36,7 @@ store.subscribe(() =>
         layout: 'bottomLeft',
       }).show();
 
-      return Promise.reject(error);
+      return Promise.reasyncject(error);
     },
   ),
 );
@@ -73,7 +72,7 @@ axios.interceptors.response.use(
               width: 200,
               height: n.barDom.getBoundingClientRect().height,
               radius: 0,
-              x: { [150]: -150 },
+              x: { 150: -150 },
               duration: 1.2 * 500,
               isShowStart: true,
             });

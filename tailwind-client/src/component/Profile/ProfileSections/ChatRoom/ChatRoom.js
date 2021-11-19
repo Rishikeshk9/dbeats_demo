@@ -15,10 +15,9 @@ function reducer(state, message) {
   };
 }
 
-
 function ChatRoom(props) {
-// to get loggedin user from   localstorage
-const user = JSON.parse(window.localStorage.getItem('user'));
+  // to get loggedin user from   localstorage
+  const user = JSON.parse(window.localStorage.getItem('user'));
   const gun = Gun({
     peers: [`${process.env.REACT_APP_SERVER_URL}/gun`],
   });
@@ -45,16 +44,17 @@ const user = JSON.parse(window.localStorage.getItem('user'));
           message: m.message,
           createdAt: m.createdAt,
         });
-               chatRef.current.scrollIntoView({ behavior: 'smooth' });
+        chatRef.current.scrollIntoView({ behavior: 'smooth' });
       }, true);
     } else {
       window.location.href = '/';
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // set a new message in gun, update the local state to reset the form field
   function saveMessage(e) {
-    e.preventDefault()
+    e.preventDefault();
     const messages = gun.get('messages').get(props.userp.username);
     messages.set({
       username: user.username,
@@ -91,14 +91,34 @@ const user = JSON.parse(window.localStorage.getItem('user'));
           </div> */}
           <div className="p-2 chat-height overflow-y-scroll	">
             {state.messages.map((message) => (
-              <div className="px-6 p-2 flex items-center	rounded-xl dark: bg-dbeats-dark-secondary	mb-2" key={message.createdAt}>
-                <div className="chat_message_profile"><img height="50px" width="50px" className="rounded-full" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"></img></div>
-              <div className="p-1" >
-                <p className={message.username == user.username ? 'text-base font-bold mb-1  text-blue-400':'text-base font-bold mb-1 text-white	'}>
-                  {message.username} <span className="text-sm text-gray-300 font-light">{new Date(message.createdAt).toDateString()}</span>
-                </p>
-                <p className="text">{message.message}</p>
-              </div>
+              <div
+                className="px-6 p-2 flex items-center	rounded-xl dark: bg-dbeats-dark-secondary	mb-2"
+                key={message.createdAt}
+              >
+                <div className="chat_message_profile">
+                  <img
+                    height="50px"
+                    width="50px"
+                    className="rounded-full"
+                    alt="profile"
+                    src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+                  />
+                </div>
+                <div className="p-1">
+                  <p
+                    className={
+                      message.username === user.username
+                        ? 'text-base font-bold mb-1  text-blue-400'
+                        : 'text-base font-bold mb-1 text-white	'
+                    }
+                  >
+                    {message.username}{' '}
+                    <span className="text-sm text-gray-300 font-light">
+                      {new Date(message.createdAt).toDateString()}
+                    </span>
+                  </p>
+                  <p className="text">{message.message}</p>
+                </div>
               </div>
             ))}
             <div ref={chatRef} />
@@ -106,7 +126,8 @@ const user = JSON.parse(window.localStorage.getItem('user'));
         </main>
         <div className="p-4 rounded-lg dark: bg-dbeats-dark-secondary">
           <form className="flex" id="chat-form" onSubmit={saveMessage}>
-            <input className="flex-1 dark: bg-dbeats-dark-secondary border-0"
+            <input
+              className="flex-1 dark: bg-dbeats-dark-secondary border-0"
               onChange={onChange}
               name="message"
               value={formState.message}
