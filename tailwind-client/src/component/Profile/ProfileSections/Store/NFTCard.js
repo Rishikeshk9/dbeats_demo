@@ -7,7 +7,8 @@ const NFTCard = ({ nft }) => {
       <div className="relative mt-2 mx-2">
         <div className=" h-full w-full max-h-100 lg:h-56    rounded-md overflow-hidden">
           <img
-            src={`https://ipfs.io/ipfs/` + nft.metadata.image.split('ipfs://')[1]}
+          // `https://ipfs.io/ipfs/` + nft.metadata.image.split('ipfs://')[1] for nftport
+            src={nft.metadata.image}
             alt="ipfs"
             className="object-cover w-full h-full"
           />
@@ -44,10 +45,12 @@ const NFTCard = ({ nft }) => {
       </div>
       <div className="pt-10 pb-6 w-full px-4">
         <h1 className="font-medium leading-none text-base tracking-wider text-gray-900 dark:text-white">
-          {nft.name}
+        {/* {nft.name} */}
+          {nft.metadata.name}
         </h1>
         <h4 className="  leading-none text-base tracking-wider text-gray-900 dark:text-gray-200 mt-2">
-          {nft.description}
+          {/* {nft.description} */}
+          {nft.metadata.description}
         </h4>
       </div>
     </div>
