@@ -9,6 +9,7 @@ import PlaylistCard from '../../Cards/PlaylistCard';
 import background from '../../../../assets/images/wallpaper.jpg';
 import TrackCard from '../../Cards/TrackCard';
 import { Tab } from '@headlessui/react';
+import ImageUploadModal from '../../../Modals/ImageUploadModal/ImageUploadModal';
 
 const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow }) => {
   const [pinnedData, setPinnedData] = useState([]);
@@ -19,6 +20,10 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow 
   const [privateUser, setPrivate] = useState(true);
 
   const handleShow = () => setShow(true);
+
+  const [showImageUpload, setShowImageUpload] = useState(false);
+  const handleCloseImage = () => setShowImageUpload(false);
+  const [backgroundImg, setBackgroundImg] = useState(null);
 
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -199,12 +204,41 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow 
       });
   };
 
+  const NavTabs = ['POSTS', 'Subscribed Channels', 'VIDEOS', 'TRACKS', 'PLAYLISTS', 'REACTIONS'];
+
+  const NavTabsTitle = ({ text }) => {
+    if (text === 'Subscribed Channels') {
+      if (!privateUser) {
+        return <></>;
+      }
+    }
+    return (
+      <Tab
+        className={({ selected }) =>
+          classNames(
+            'w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ',
+            selected
+              ? 'text-dbeats-light font-bold border-b-2 border-dbeats-light'
+              : 'hover:bg-black/[0.12]  hover:text-gray-100',
+          )
+        }
+      >
+        {text}
+      </Tab>
+    );
+  };
+
   return (
     <div className="px-5 h-max lg:col-span-5 col-span-6 w-full mt-16">
       <div id="display_details" className="  pt-3 h-full">
         <div className="bg-white dark:bg-dbeats-dark-primary pb-3 ">
           {privateUser ? (
-            <i className="fas fa-edit absolute ml-2 mt-2 text-white p-3 rounded-full hover:bg-dbeats-dark-alt hover:opacity-100 opacity-25 z-30 cursor-pointer"></i>
+            <i
+              className="fas fa-edit absolute ml-2 mt-2 text-white p-3 
+            rounded-full hover:bg-dbeats-dark-alt hover:opacity-100 
+            opacity-25 z-30 cursor-pointer"
+              onClick={() => setShowImageUpload(true)}
+            ></i>
           ) : (
             false
           )}
@@ -278,85 +312,9 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow 
         <div className="w-full relative mb-20 ">
           <Tab.Group defaultIndex={tabIndex}>
             <Tab.List className="flex px-1  space-x-1 bg-white lg:flex-nowrap flex-wrap dark:bg-dbeats-dark-primary ">
-              <Tab
-                className={({ selected }) =>
-                  classNames(
-                    'w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ',
-                    selected
-                      ? 'text-dbeats-light font-bold border-b-2 border-dbeats-light'
-                      : 'hover:bg-black/[0.12]  hover:text-gray-100',
-                  )
-                }
-              >
-                POSTS
-              </Tab>
-              {privateUser ? (
-                <Tab
-                  className={({ selected }) =>
-                    classNames(
-                      'w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ',
-                      selected
-                        ? 'text-dbeats-light font-bold border-b-2 border-dbeats-light'
-                        : 'hover:bg-black/[0.12]  hover:text-gray-100',
-                    )
-                  }
-                >
-                  Subscribed Channels
-                </Tab>
-              ) : (
-                <></>
-              )}
-              <Tab
-                className={({ selected }) =>
-                  classNames(
-                    'w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ',
-                    selected
-                      ? 'text-dbeats-light font-bold border-b-2 border-dbeats-light'
-                      : 'hover:bg-black/[0.12]  hover:text-gray-100',
-                  )
-                }
-              >
-                VIDEOS
-              </Tab>
-
-              <Tab
-                className={({ selected }) =>
-                  classNames(
-                    'w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ',
-                    selected
-                      ? 'text-dbeats-light font-bold border-b-2 border-dbeats-light'
-                      : 'hover:bg-black/[0.12]  hover:text-gray-100',
-                  )
-                }
-              >
-                TRACKS
-              </Tab>
-
-              <Tab
-                className={({ selected }) =>
-                  classNames(
-                    'w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ',
-                    selected
-                      ? 'text-dbeats-light font-bold border-b-2 border-dbeats-light'
-                      : 'hover:bg-black/[0.12]  hover:text-gray-100',
-                  )
-                }
-              >
-                PLAYLISTS
-              </Tab>
-
-              <Tab
-                className={({ selected }) =>
-                  classNames(
-                    'w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ',
-                    selected
-                      ? 'text-dbeats-light font-bold border-b-2 border-dbeats-light'
-                      : 'hover:bg-black/[0.12]  hover:text-gray-100',
-                  )
-                }
-              >
-                REACTIONS
-              </Tab>
+              {NavTabs.map((tab, idx) => {
+                return <NavTabsTitle text={tab} key={idx} />;
+              })}
             </Tab.List>
 
             <Tab.Panels className="dark:bg-dbeats-dark-alt w-full h-max pb-10">
@@ -504,6 +462,11 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow 
           </Tab.Group>
         </div>
       </div>
+      <ImageUploadModal
+        show={showImageUpload}
+        handleClose={handleCloseImage}
+        setBackgroundImg={setBackgroundImg}
+      />
     </div>
   );
 };

@@ -28,7 +28,6 @@ const Profile = (props) => {
   const [sharable_data, setSharable_data] = useState('');
 
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
 
   const text = 'Copy To Clipboard';
@@ -141,7 +140,7 @@ const Profile = (props) => {
                   <NFTStore NFTData={NFTData} />
                 </Route>
 
-                <Route exact path={`/profile/:username/event`}   component={Ticket}></Route>
+                <Route exact path={`/profile/:username/event`} component={Ticket}></Route>
 
                 <Route path={`${match.path}`}>
                   <ProfileDetails
