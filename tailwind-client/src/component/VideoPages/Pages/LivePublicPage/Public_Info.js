@@ -225,7 +225,7 @@ const PublicInfo = (props) => {
               <div className="py-4">
                 <div className=" w-full text-left mt-0" style={{ padding: '0px' }}>
                   {userData ? (
-                    <p className="font-semibold text-xl pb-4">{userData.videos[0].videoName}</p>
+                    <p className="font-semibold text-xl pb-4">{}</p>
                   ) : (
                     <></>
                   )}
