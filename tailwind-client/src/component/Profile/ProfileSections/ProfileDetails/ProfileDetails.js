@@ -1,29 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
-import CarouselCard from '../../Cards/CarouselCard';
-import ReactionCard from '../../Cards/ReactionCard';
-import person from '../../../../assets/images/profile.svg';
-import Carousel from 'react-grid-carousel';
-import PlaylistCard from '../../Cards/PlaylistCard';
-import background from '../../../../assets/images/wallpaper.jpg';
-import TrackCard from '../../Cards/TrackCard';
 import { Tab } from '@headlessui/react';
-import ImageUploadModal from '../../../Modals/ImageUploadModal/ImageUploadModal';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import Carousel from 'react-grid-carousel';
+import person from '../../../../assets/images/profile.svg';
+import background from '../../../../assets/images/wallpaper.jpg';
+import {
+  UploadCoverImageModal,
+  UploadProfileImageModal,
+} from '../../../Modals/ImageUploadModal/ImageUploadModal';
+import CarouselCard from '../../Cards/CarouselCard';
+import PlaylistCard from '../../Cards/PlaylistCard';
+import ReactionCard from '../../Cards/ReactionCard';
+import TrackCard from '../../Cards/TrackCard';
 
-const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow }) => {
+const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow, darkMode }) => {
   const [pinnedData, setPinnedData] = useState([]);
 
   const [followers, setFollowers] = useState(0);
   const [following, setFollowing] = useState(0);
 
   const [privateUser, setPrivate] = useState(true);
+  const [loader, setLoader] = useState(true);
 
   const handleShow = () => setShow(true);
 
-  const [showImageUpload, setShowImageUpload] = useState(false);
-  const handleCloseImage = () => setShowImageUpload(false);
-  const [backgroundImg, setBackgroundImg] = useState(null);
+  const [showUploadCoverImage, setShowUploadCoverImage] = useState(false);
+  const [showUploadProfileImage, setShowUploadProfileImage] = useState(false);
+  const handleCloseImage = () => {
+    setShowUploadCoverImage(false);
+    setShowUploadProfileImage(false);
+  };
+
+  const [coverImage, setCoverImage] = useState(null);
+  const [profileImage, setProfileImage] = useState(null);
 
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -65,6 +74,16 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow 
         setFollowing(value.followee_count.length);
         if (value.pinned) {
           setPinnedData(value.pinned);
+        }
+        if (myData.cover_image !== '') {
+          setCoverImage(myData.cover_image);
+        } else {
+          setCoverImage(background);
+        }
+        if (myData.profile_image !== '') {
+          setProfileImage(myData.profile_image);
+        } else {
+          setProfileImage(person);
         }
       } else {
         get_User();
@@ -229,31 +248,51 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow 
   };
 
   return (
-    <div className="px-5 h-max lg:col-span-5 col-span-6 w-full mt-16">
+    <div className={`${darkMode && 'dark'} px-5 h-max lg:col-span-5 col-span-6 w-full mt-16`}>
       <div id="display_details" className="  pt-3 h-full">
         <div className="bg-white dark:bg-dbeats-dark-primary pb-3 ">
           {privateUser ? (
-            <i
-              className="fas fa-edit absolute ml-2 mt-2 text-white p-3 
-            rounded-full hover:bg-dbeats-dark-alt hover:opacity-100 
-            opacity-25 z-30 cursor-pointer"
-              onClick={() => setShowImageUpload(true)}
-            ></i>
+            <div
+              className="ml-2 mt-2 absolute dark:bg-dbeats-dark-alt dark:hover:bg-dbeats-dark dark:text-white
+            rounded-full z-2"
+            >
+              <i
+                className="fas fa-edit p-3 text-white
+                cursor-pointer"
+                onClick={() => setShowUploadCoverImage(true)}
+              ></i>
+            </div>
           ) : (
             false
           )}
           <div className="block">
-            <img src={background} alt="backgroundImg" className="lg:h-88 h-56 w-full" />
+            <img src={coverImage} alt="backgroundImg" className="lg:h-88 h-56 w-full" />
           </div>
           <div className="w-full">
             <div className="w-full flex flex-col lg:flex-row lg:-mt-28 -mt-20 lg:ml-5 ml-0">
               <div className="lg:w-56 w-full flex justify-center ">
-                <div className="px-1 py-1 shadow-sm lg:w-44 lg:h-44 h-28 w-28 bg-white rounded-full   dark:bg-dbeats-dark-primary">
+                <div className="px-1 py-1 shadow-sm 2xl:w-44 2xl:h-44 lg:w-36 lg:h-36 h-28 w-28 bg-white rounded-full   dark:bg-dbeats-dark-primary">
                   <img
-                    src={person}
+                    src={profileImage}
                     alt=""
                     className="relative lg:w-42 lg:h-42  align-middle items-center  rounded-full "
                   />
+                  {privateUser ? (
+                    <div className="flex justify-end ">
+                      <div
+                        className="absolute dark:bg-dbeats-dark-alt dark:hover:bg-dbeats-dark dark:text-white
+                      rounded-full z-2 -mt-8 mr-2"
+                      >
+                        <i
+                          className="fas fa-edit p-2.5 text-white
+                     cursor-pointer"
+                          onClick={() => setShowUploadProfileImage(true)}
+                        ></i>
+                      </div>
+                    </div>
+                  ) : (
+                    false
+                  )}
                 </div>
               </div>
               <div className="w-full flex flex-col ml-3 mr-5 ">
@@ -281,7 +320,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow 
                   </div>
                   <span className="font-semibold">@{user.username}</span>
                 </div>
-                <div className="flex text-gray-400 py-3   lg:pt-12 pt-5 dark:bg-dbeats-dark-primary">
+                <div className="flex text-gray-400 py-3 rounded-xl pt-3.5 dark:bg-dbeats-dark-primary">
                   <div className="lg:grid lg:grid-flow-rows lg:grid-cols-5   lg:gap-4 flex justify-between">
                     <div className="font-bold mx-auto lg:px-4 px-2 flex flex-col lg:flex-row justify-center align-center">
                       <div className="font-bold text-lg text-gray-700 w-full flex justify-center mr-2 ">
@@ -462,10 +501,21 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow 
           </Tab.Group>
         </div>
       </div>
-      <ImageUploadModal
-        show={showImageUpload}
+      <UploadCoverImageModal
+        show={showUploadCoverImage}
         handleClose={handleCloseImage}
-        setBackgroundImg={setBackgroundImg}
+        setCoverImage={setCoverImage}
+        loader={loader}
+        setLoader={setLoader}
+        darkMode={darkMode}
+      />
+      <UploadProfileImageModal
+        show={showUploadProfileImage}
+        handleClose={handleCloseImage}
+        setProfileImage={setProfileImage}
+        loader={loader}
+        setLoader={setLoader}
+        darkMode={darkMode}
       />
     </div>
   );

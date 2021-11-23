@@ -41,6 +41,9 @@ const NavBar = () => {
   const [alluser, setAllUser] = useState([]);
   const [filterResultDisplay, setFilterResultDisplay] = useState(true);
 
+  //Loader
+  const [loader, setLoader] = useState(true);
+
   //  Modal
   const [showOpen, setOnOpen] = useState(false);
 
@@ -589,18 +592,24 @@ const NavBar = () => {
         setShowAnnouncement={setShowAnnouncement}
         handleCloseAnnouncement={handleCloseAnnouncement}
         handleShowAnnouncement={handleShowAnnouncement}
+        loader={loader}
+        setLoader={setLoader}
       />
       <UploadVideo
         showVideoUpload={showVideoUpload}
         setShowVideoUpload={setShowVideoUpload}
         handleCloseVideoUpload={handleCloseVideoUpload}
         handleShowVideoUpload={handleShowVideoUpload}
+        loader={loader}
+        setLoader={setLoader}
       />
       <UploadMusic
         showTrackUpload={showTrackUpload}
         setShowTrackUpload={setShowTrackUpload}
         handleCloseTrackUpload={handleCloseTrackUpload}
         handleShowTrackUpload={handleShowTrackUpload}
+        loader={loader}
+        setLoader={setLoader}
       />
     </>
   );

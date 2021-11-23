@@ -277,6 +277,7 @@ export const UploadVideo = (props) => {
   }, [selectedCategory, selectedCommercialUse, selectedDerivativeWorks, selectedAttribution, tags]);
 
   const PostData = async (e) => {
+    props.setLoader(false);
     e.preventDefault();
     if (e.target.value === 'Upload Video') {
       const {
@@ -321,7 +322,22 @@ export const UploadVideo = (props) => {
                 'content-type': 'multipart/form-data',
               },
             })
-            .then()
+            .then(() => {
+              setVideo({
+                videoName: '',
+                videoImage: '',
+                videoFile: '',
+                category: '',
+                ratings: '',
+                tags: [],
+                description: '',
+                allowAttribution: '',
+                commercialUse: '',
+                derivativeWorks: '',
+              });
+              props.setLoader(true);
+              props.handleCloseVideoUpload();
+            })
             .catch((error) => {
               console.log(error);
             });
@@ -584,13 +600,23 @@ export const UploadVideo = (props) => {
             </div>
           </div>
 
-          <div className="lg:px-4 2xl:py-3 lg:py-1 lg:text-right text-center sm:px-6">
+          <div className="lg:px-4 2xl:py-3 lg:py-1 lg:text-right text-center sm:px-6 flex justify-end items-center">
             <input
               type="submit"
               onClick={PostData}
               value="Upload Video"
-              className="inline-flex justify-center 2xl:py-2 py-1 lg:px-5 px-3 border border-transparent shadow-sm 2xl:text-lg lg:text-md text-md font-bold rounded-md text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-0 focus:ring-offset-2 focus:ring-blue-500"
+              className="inline-flex justify-center 2xl:py-2 py-1 lg:px-5 
+              px-3 border border-transparent shadow-sm 2xl:text-lg 
+              lg:text-md text-md font-bold rounded-md text-white 
+              bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 
+              transform transition delay-50 duration-300 ease-in-out 
+              hover:scale-105 focus:outline-none focus:ring-0 focus:ring-offset-2 
+              focus:ring-blue-500"
             ></input>
+            <div
+              className="animate-spin rounded-full h-7 w-7 ml-3 border-t-2 border-b-2 bg-gradient-to-r from-green-400 to-blue-500 "
+              hidden={props.loader}
+            ></div>
           </div>
         </form>
       </div>
@@ -835,6 +861,7 @@ export const UploadMusic = (props) => {
   ]);
 
   const PostData = async (e) => {
+    props.setLoader(false);
     e.preventDefault();
     let formDatanft = new FormData();
     formDatanft.append('videoFile', track.trackFile);
@@ -902,6 +929,28 @@ export const UploadMusic = (props) => {
             },
           })
           .then(function (response) {
+            setTrack({
+              trackName: '',
+              trackImage: '',
+              trackFile: '',
+              albumArt: '',
+              fileName: '',
+              cid: '',
+              genre: '',
+              mood: '',
+              tags: '',
+              description: '',
+              royalty: 5,
+              isrc: '',
+              iswc: '',
+              allowAttribution: '',
+              commercialUse: '',
+              derivativeWorks: '',
+              tokenId: '',
+              mintTrxHash: '',
+            });
+            props.setLoader(true);
+            props.handleCloseTrackUpload();
             Noty.closeAll();
             new Noty({
               type: 'success',
@@ -1257,7 +1306,15 @@ export const UploadMusic = (props) => {
             </div>
           </div>
 
-          <div className="lg:px-4 2xl:py-3 lg:py-2 lg:pt-3 lg:text-right text-center">
+          <div className="lg:px-4 2xl:py-3 lg:py-2 lg:pt-3 lg:text-right text-center flex justify-end items-center">
+            <a
+              className="text-sm font-medium dark:text-gray-100 text-gray-700 px-2"
+              id="nftAddress"
+              target="_blank"
+              href="/"
+            >
+              NFT
+            </a>
             <input
               type="submit"
               onClick={PostData}
@@ -1273,15 +1330,10 @@ export const UploadMusic = (props) => {
               focus:ring-0 focus:ring-offset-2 
               focus:ring-blue-500"
             ></input>
-            <br></br>
-            <a
-              className="text-sm font-medium dark:text-gray-100 text-gray-700 "
-              id="nftAddress"
-              target="_blank"
-              href="/"
-            >
-              NFT
-            </a>
+            <div
+              className="animate-spin rounded-full h-7 w-7 ml-3 border-t-2 border-b-2 bg-gradient-to-r from-green-400 to-blue-500 "
+              hidden={props.loader}
+            ></div>
           </div>
         </form>
       </div>

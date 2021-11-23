@@ -149,6 +149,7 @@ const Profile = (props) => {
                     urlUsername={urlUsername}
                     user={user}
                     setShow={setShow}
+                    darkMode={darkMode}
                   />
                 </Route>
               </Switch>

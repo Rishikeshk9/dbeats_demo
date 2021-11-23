@@ -34,6 +34,14 @@ const userSchema = new Schema(
       default: false,
       required: true,
     },
+    cover_image: {
+      type: String,
+      default: '',
+    },
+    profile_image: {
+      type: String,
+      default: '',
+    },
     livepeer_data: {
       type: Object,
       required: true,

@@ -224,11 +224,7 @@ const PublicInfo = (props) => {
             <div className="lg:flex flex-row justify-between lg:my-2 my-1  ">
               <div className="py-4">
                 <div className=" w-full text-left mt-0" style={{ padding: '0px' }}>
-                  {userData ? (
-                    <p className="font-semibold text-xl pb-4">{userData.videos[0].videoName}</p>
-                  ) : (
-                    <></>
-                  )}
+                  {userData ? <p className="font-semibold text-xl pb-4">{}</p> : <></>}
                 </div>
                 {!privateUser ? (
                   <div>

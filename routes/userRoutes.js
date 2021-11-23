@@ -2,6 +2,7 @@ const router = require('express').Router();
 const Str = require('@supercharge/strings');
 const bcrypt = require('bcryptjs');
 const axios = require('axios');
+const fs = require('fs');
 
 const livepeerKey = process.env.LIVEPEER_KEY;
 const AuthStr = 'Bearer '.concat(livepeerKey);
@@ -672,6 +673,112 @@ router.route('/playlist').post(async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+router.route('/coverimage').post(async (req, res) => {
+  const userId = req.body.username;
+  const coverImage = req.files.coverImage;
+
+  console.log(req.body);
+  console.log(req.files);
+
+  var currentTimeInSeconds = Math.floor(Date.now() / 1000);
+
+  const time = currentTimeInSeconds;
+
+  const coverImagePath = coverImage.name;
+
+  var coverImageHashLink = null;
+
+  coverImage.mv(coverImagePath, async (err) => {
+    try {
+      const uploadHash = req.body.imageHash;
+
+      const imageHash = req.files.coverImage.name;
+
+      coverImageHashLink =
+        'https://ipfs.io/ipfs/' + uploadHash + '/' + imageHash;
+
+      fs.unlink(coverImagePath, (err) => {
+        if (err) console.log(err);
+      });
+
+      if (coverImageHashLink != null) {
+        User.findOneAndUpdate(
+          { username: userId },
+          { $set: { cover_image: coverImageHashLink } },
+          function (error, success) {
+            if (error) {
+              console.log(error);
+            }
+          },
+        );
+
+        return res.send(coverImageHashLink);
+      } else {
+        return res.render('upload', { error: 'Error!' });
+      }
+
+      if (err) {
+        return res.status(500).send(err);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
+});
+
+router.route('/profileimage').post(async (req, res) => {
+  const userId = req.body.username;
+  const profileImage = req.files.profileImage;
+
+  console.log(req.body);
+  console.log(req.files);
+
+  var currentTimeInSeconds = Math.floor(Date.now() / 1000);
+
+  const time = currentTimeInSeconds;
+
+  const profileImagePath = profileImage.name;
+
+  var profileImageHashLink = null;
+
+  profileImage.mv(profileImagePath, async (err) => {
+    try {
+      const uploadHash = req.body.imageHash;
+
+      const imageHash = req.files.profileImage.name;
+
+      profileImageHashLink =
+        'https://ipfs.io/ipfs/' + uploadHash + '/' + imageHash;
+
+      fs.unlink(profileImagePath, (err) => {
+        if (err) console.log(err);
+      });
+
+      if (profileImageHashLink != null) {
+        User.findOneAndUpdate(
+          { username: userId },
+          { $set: { profile_image: profileImageHashLink } },
+          function (error, success) {
+            if (error) {
+              console.log(error);
+            }
+          },
+        );
+
+        return res.send(profileImageHashLink);
+      } else {
+        return res.render('upload', { error: 'Error!' });
+      }
+
+      if (err) {
+        return res.status(500).send(err);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
 });
 
 /*router.route("/:id").get((req, res) => {
