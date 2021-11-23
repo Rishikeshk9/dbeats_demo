@@ -205,10 +205,10 @@ const PublicInfo = (props) => {
       <div
         className={`${
           darkMode && 'dark'
-        }  grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row pt-3 pb-50 mt-10 lg:ml-12  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary`}
+        }  grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row 2xl:pt-3 pt-3 lg:pt-0 lg:pb-50 2xl:mt-10 mt-10 lg:mt-12 lg:ml-11  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary`}
       >
         <div className=" lg:col-span-2">
-          <div className="self-center lg:px-8 w-screen lg:w-full lg:mt-3 mt-0.5">
+          <div className="self-center 2xl:px-12 lg:px-5 w-screen lg:w-full 2xl:mt-1 lg:mt-2 mt-0.5">
             {userData ? (
               <VideoPlayer
                 playbackUrl={playbackUrl}
@@ -220,12 +220,14 @@ const PublicInfo = (props) => {
             )}
           </div>
 
-          <div className="lg:mx-7 lg:px-7 px-3">
-            <div className="lg:flex flex-row justify-between lg:my-2 my-1  ">
-              <div className="py-4">
+          <div className="2xl:mx-7 2xl:px-7 lg:px-2 lg:mx-4 px-3 dark:bg-dbeats-dark-alt">
+            <div className="lg:flex flex-row justify-between lg:my-2 my-1   ">
+              <div className="2xl:py-4 lg:py-2">
                 <div className=" w-full text-left mt-0" style={{ padding: '0px' }}>
                   {userData ? (
-                    <p className="font-semibold text-xl pb-4">{userData.videos[0].videoName}</p>
+                    <p className="font-semibold 2xl:text-xl lg:text-md pb-4 text-black dark:text-white">
+                      {userData.videos[0].videoName}
+                    </p>
                   ) : (
                     <></>
                   )}
@@ -233,36 +235,40 @@ const PublicInfo = (props) => {
                 {!privateUser ? (
                   <div>
                     {user ? (
-                      <button
-                        className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
-                        onClick={trackFollowers}
-                      >
-                        <span>{subscribeButtonText}</span>
-                      </button>
+                      <div className="flex ">
+                        <button
+                          className="bg-dbeats-light p-1 2xl:text-lg lg:text-sm text-md rounded-sm 2xl:px-4 px-4 lg:px-2 mr-3 font-semibold text-white "
+                          onClick={trackFollowers}
+                        >
+                          <span>{subscribeButtonText}</span>
+                        </button>
+                        <button className="bg-dbeats-light    p-1 2xl:text-lg lg:text-sm text-md  rounded-sm 2xl:px-4 px-4 lg:px-2 mr-3 font-semibold text-white ">
+                          <i className="fas fa-dice-d20  mr-1 cursor-pointer"></i>
+                          <span onClick={handleShowSubscriptionModal}>Become a SuperFan</span>
+                        </button>
+                      </div>
                     ) : (
                       <button
-                        className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
+                        className="bg-dbeats-light  p-1 2xl:text-lg lg:text-sm text-md  rounded-sm 2xl:px-4 px-4 lg:px-2 mr-3 font-semibold text-white "
                         onClick={() => {
                           window.location.href = '/login';
                         }}
                       >
-                        <span>Login</span>
+                        <span>Login to Subscribe and Become a SuperFan</span>
                       </button>
                     )}
-                    <button className="bg-dbeats-light    p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white ">
-                      <i className="fas fa-dice-d20  mr-1 cursor-pointer"></i>
-                      <span onClick={handleShowSubscriptionModal}>Become a SuperFan</span>
-                    </button>
                   </div>
                 ) : (
                   <></>
                 )}
               </div>
-              <div className="text-2xl lg:py-4 py-2 flex justify-around">
+              <div className="2xl:text-2xl lg:text-md 2xl:py-4 lg:py-2 py-2 flex justify-around text-black dark:text-white">
                 <div className="  text-center lg:mx-3">
                   <button className="border-0 bg-transparent" onClick={handleShow}>
                     <i className="fas fa-share opacity-50 mx-2"></i>
                   </button>
+                  <br />
+                  <p className="2xl:text-base  text-base lg:text-sm"> SHARE</p>
                 </div>
                 <i className="fas fa-heart opacity-50 mx-2"></i>
                 <i className="fas fa-heart-broken opacity-50 mx-2"></i>
@@ -313,16 +319,20 @@ const PublicInfo = (props) => {
             {userData ? (
               <div className="w-full">
                 <hr />
-                <h4 className="py-2">Description : </h4>
-                <p className="pb-2">{userData.name}</p>
+                <h4 className="py-2 lg:text-sm 2xl:text-lg text-black dark:text-white">
+                  Description :{' '}
+                </h4>
+                <p className="pb-2  lg:text-sm 2xl:text-lg text-black dark:text-white">
+                  {userData.name}
+                </p>
                 <hr />
               </div>
             ) : (
               <></>
             )}
-            <div className={`${classes.comment_section}`}>
+            <div className="bg-blue-50 ">
               <iframe
-                className="w-full p-0 m-0 h-60 lg:h-88"
+                className="w-full p-0 m-0 h-88 2xl:h-88 lg:h-88 mb-40 "
                 title="comment"
                 src="https://theconvo.space/embed/dt?threadId=KIGZUnR4RzXDFheXoOwo"
                 allowtransparency="true"
@@ -331,7 +341,7 @@ const PublicInfo = (props) => {
             </div>
           </div>
         </div>
-        <div className="  w-full col-span-1 px-5 mt-12">
+        <div className=" w-full pb-32 2xl:pt-6 pt-5 col-span-1 px-5 lg:pt-4 dark:bg-dbeats-dark-alt text-black  dark:text-white">
           <div className=" w-full grid grid-cols-1 grid-flow-row gap-3">
             {arrayData.map((value, index) => {
               return <LiveCard key={index} value={value} />;
