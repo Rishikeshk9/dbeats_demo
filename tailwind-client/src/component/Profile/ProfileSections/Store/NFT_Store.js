@@ -7,6 +7,13 @@ const NFTStore = ({ NFTData }) => {
       {NFTData ? (
         <>
           {NFTData.map((nft, idx) => {
+            // for covalent we have to set the contract address
+            if ('external_data' in nft) {
+              nft.metadata = nft.external_data;
+              nft.contract_address = '0x03160747b94be986261d9340d01128d4d5566383';
+            } else {
+              nft.metadata = nft.metadata;
+            }
             if (
               nft.metadata &&
               nft.contract_address === '0x03160747b94be986261d9340d01128d4d5566383'
@@ -20,7 +27,6 @@ const NFTStore = ({ NFTData }) => {
                 </div>
               );
             }
-            return 0;
           })}
         </>
       ) : (

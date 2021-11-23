@@ -358,8 +358,7 @@ const Login = () => {
             </div>
           </main>
         </div>
-      </div>
-      <Ticket></Ticket>
+      </div> 
     </>
   );
 };

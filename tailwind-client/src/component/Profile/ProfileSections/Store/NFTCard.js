@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const NFTCard = ({ nft }) => {
   //console.log(nft);
+
+  const [seeMore, setSeeMore] = useState(false);
+  const handleSeeMore = () => setSeeMore(!seeMore);
+
   return (
     <div className="dark:bg-gradient-to-b min-h-full  hover:border-gray-500 dark:from-dbeats-dark-secondary dark:to-dbeats-dark-secondary  dark:hover:bg-gradient-to-b  dark:hover:from-green-400 dark:hover:via-dbeats-dark-primary  dark:hover:to-dbeats-dark-primary bg-gradient-to-b from-white to-white dark:hover:bg-opacity-10 hover:bg-opacity-90 hover:bg-gradient-to-b hover:from-white hover:via-blue-50 hover:to-green-50   group  backdrop-blur-2xl  backdrop-filter dark:hover:backdrop-blur-2xl  dark:hover:backdrop-filter   shadow-sm  hover:shadow-md cursor-pointer w-full  rounded-lg flex flex-col items-center justify-center transition-all duration-300 ease-in-out">
       <div className="relative mt-2 mx-2">
         <div className=" h-full w-full max-h-100 lg:h-56    rounded-md overflow-hidden">
           <img
-            src={`https://ipfs.io/ipfs/` + nft.metadata.image.split('ipfs://')[1]}
+            // `https://ipfs.io/ipfs/` + nft.metadata.image.split('ipfs://')[1] for nftport
+            src={nft.metadata.image}
             alt="ipfs"
             className="object-cover w-full h-full"
           />
           {nft.image}
         </div>
+
         <div className="absolute bottom-0 left-0 -mb-4 ml-3 flex flex-row">
           <div className="h-10 w-10 flex items-center justify-center text-xl bg-white dark:bg-dbeats-dark-secondary  bg-opacity-20 dark:bg-opacity-10 dark:hover:bg-opacity-80  dark:backdrop-blur-md  backdrop-filter hover:bg-opacity-25  backdrop-blur-md hover:bg-red-500 text-red-300 hover:text-white rounded-2xl shadow-sm dark:shadow-md  transform-gpu translate-y-0 hover:-translate-y-1 transition-all duration-300 ease-in-out">
             <svg
@@ -42,13 +48,35 @@ const NFTCard = ({ nft }) => {
           </div>
         </div>
       </div>
-      <div className="pt-10 pb-6 w-full px-4">
+      <div className="pt-10 pb-6 w-full px-4" style={{ minHeight: '125px' }}>
         <h1 className="font-medium leading-none text-base tracking-wider text-gray-900 dark:text-white">
-          {nft.name}
+          {/* {nft.name} */}
+          {nft.metadata.name}
         </h1>
-        <h4 className="  leading-none text-base tracking-wider text-gray-900 dark:text-gray-200 mt-2">
-          {nft.description}
-        </h4>
+        <div className=" leading-none text-base tracking-wider text-gray-900 dark:text-gray-200 mt-2">
+          {/* {nft.description} */}
+          {seeMore ? (
+            <>
+              <span>{nft.metadata.description}...</span>
+              <span className="cursor:pointer hover:underline" onClick={handleSeeMore}>
+                see less
+              </span>
+            </>
+          ) : (
+            <>
+              {nft.metadata.description.length > 45 ? (
+                <>
+                  <span>{nft.metadata.description.slice(0, 45) + '...'}</span>
+                  <span className="cursor:pointer hover:underline" onClick={handleSeeMore}>
+                    see more
+                  </span>
+                </>
+              ) : (
+                <span>{nft.metadata.description}</span>
+              )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
