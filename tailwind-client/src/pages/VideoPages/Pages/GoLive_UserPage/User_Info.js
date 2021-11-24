@@ -139,7 +139,11 @@ const UserInfo = () => {
     <Fragment className={`${darkMode && 'dark'}`}>
       <div className="flex flex-col lg:grid lg:grid-cols-3 pb-64 pt-16 bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary">
         <div className=" h-auto w-full lg:w-full lg:col-span-2 self-center ">
-          <VideoPlayer playbackUrl={playbackUrl} className="rounded h-full w-full" />
+          <VideoPlayer
+            playbackUrl={playbackUrl}
+            creatorData={user}
+            className="rounded h-full w-full"
+          />
         </div>
         <div className="text-sm mx-auto ">
           <div className="bg-white w-80  lg:w-full  p-5 rounded text-sm sm:lg:text-xl shadow mt-8  lg:ml-0 ">

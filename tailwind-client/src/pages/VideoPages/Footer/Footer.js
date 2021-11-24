@@ -12,7 +12,7 @@ import FastRewindIcon from '@material-ui/icons/FastRewind';
 import FastForwardIcon from '@material-ui/icons/FastForward';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
-import logoDark from '../../../assets/images/dark-logo.svg';
+import personImg from '../../../assets/images/profile.svg';
 
 const PrettoSlider = withStyles({
   root: {
@@ -56,15 +56,19 @@ const Footer = (props) => {
     <div className="fixed bottom-0 bg-white w-full h-28 mb-0 pb-0  flex flex-col lg:flex-row justify-between lg:-ml-8 align-center z-10 dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-80 dark:bg-opacity-90  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md">
       <div className="w-full self-center hidden lg:block">
         <div className="flex">
-          <img src={logoDark} className="lg:h-20 lg:w-20 h-16 w-16 p-3 my-auto" alt="img"></img>
+          <img
+            src={props.creatorData.profile_image ? props.creatorData.profile_image : personImg}
+            className="lg:h-20 lg:w-20 h-16 w-16 p-3 my-auto rounded-full"
+            alt="img"
+          ></img>
           <div className=" flex lg:block flex-row my-auto lg:pt-3">
             <a
-              href={` /profile/${props.playerUsername}`}
+              href={` /profile/${props.creatorData.username}`}
               className="no-underline cursor-pointer text-black hover:no-underline"
             >
-              <span className="text-2xl font-semibold">{props.playerName}</span>
+              <span className="text-2xl font-semibold">{props.creatorData.name}</span>
             </a>
-            <p className="hidden lg:block">{props.playerUsername}</p>
+            <p className="hidden lg:block">{props.creatorData.username}</p>
           </div>
           <i className="fas fa-info-circle block mt-3 ml-3 text-lg text-dbeats-light"></i>
         </div>

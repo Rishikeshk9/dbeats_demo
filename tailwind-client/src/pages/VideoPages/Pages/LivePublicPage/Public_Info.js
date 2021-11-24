@@ -209,15 +209,7 @@ const PublicInfo = (props) => {
       >
         <div className=" lg:col-span-2">
           <div className="self-center lg:px-8 w-screen lg:w-full lg:mt-3 mt-0.5">
-            {userData ? (
-              <VideoPlayer
-                playbackUrl={playbackUrl}
-                name={userData.name}
-                username={userData.username}
-              />
-            ) : (
-              <></>
-            )}
+            {userData ? <VideoPlayer playbackUrl={playbackUrl} creatorData={userData} /> : <></>}
           </div>
 
           <div className="lg:mx-7 lg:px-7 px-3">
@@ -239,7 +231,7 @@ const PublicInfo = (props) => {
                       <button
                         className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
                         onClick={() => {
-                          window.location.href = '/login';
+                          window.location.href = '/signup';
                         }}
                       >
                         <span>Login</span>

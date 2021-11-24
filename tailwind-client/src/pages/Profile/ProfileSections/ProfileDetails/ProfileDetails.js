@@ -139,7 +139,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
 
   const trackFollowers = () => {
     if (buttonText === 'Login to Subscribe') {
-      window.location.href = '/login';
+      window.location.href = '/signup';
     }
     //console.log(followers);
     const followData = {

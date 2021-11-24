@@ -16,6 +16,8 @@ function makeStorageClient() {
 
 const user = JSON.parse(window.localStorage.getItem('user'));
 
+const re = /(?:\.([^.]+))?$/;
+
 function dataURLtoFile(dataurl, filename) {
   var arr = dataurl.split(','),
     mime = arr[0].match(/:(.*?);/)[1],
@@ -41,6 +43,8 @@ export const UploadCoverImageModal = ({
   const [image, setImage] = useState({ preview: '', raw: '' });
   const wrapperRef = useRef(null);
 
+  const [extension, setExtension] = useState('');
+
   let coverImage_cid = '';
   let coverImage;
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -51,6 +55,8 @@ export const UploadCoverImageModal = ({
   }, []);
 
   const handleChange = (e) => {
+    setExtension(re.exec(e.target.files[0].name)[1]);
+
     if (e.target.files.length) {
       setImage({
         preview: URL.createObjectURL(e.target.files[0]),
@@ -64,8 +70,12 @@ export const UploadCoverImageModal = ({
       coverImage_cid = cid;
     };
 
-    const file = dataURLtoFile(coverImage, image.raw.name);
-    coverImage = file;
+    let file = coverImage;
+
+    if (!(extension === 'webp' || extension === 'gif')) {
+      file = dataURLtoFile(coverImage, image.raw.name);
+      coverImage = file;
+    }
 
     const blob = new Blob([JSON.stringify(file)], { type: 'application/json' });
 
@@ -102,9 +112,14 @@ export const UploadCoverImageModal = ({
     setLoader(false);
     e.preventDefault();
 
-    const croppedImage = await getCroppedImg(image.preview, croppedAreaPixels);
-    setCoverImage(croppedImage);
-    coverImage = croppedImage;
+    if (!(extension === 'webp' || extension === 'gif')) {
+      const croppedImage = await getCroppedImg(image.preview, croppedAreaPixels);
+      setCoverImage(croppedImage);
+      coverImage = croppedImage;
+    } else {
+      setCoverImage(image.preview);
+      coverImage = image.raw;
+    }
 
     storeWithProgress('upload cover image').then(() => {
       const formData = new FormData();
@@ -117,7 +132,7 @@ export const UploadCoverImageModal = ({
       // console.log(image.preview);
       //console.log(coverImage_cid);
 
-      if (croppedImage.length !== 0) {
+      if (coverImage.length !== 0) {
         axios
           .post(`${process.env.REACT_APP_SERVER_URL}/user/coverimage`, formData, {
             headers: {
@@ -158,13 +173,23 @@ export const UploadCoverImageModal = ({
           <div className="p-4 flex justify-center">
             {image.preview ? (
               <div className={classes.crop_container}>
-                <Cropper
-                  image={image.preview}
-                  crop={crop}
-                  aspect={5 / 1}
-                  onCropChange={setCrop}
-                  onCropComplete={onCropComplete}
-                />
+                {extension === 'webp' || extension === 'gif' ? (
+                  <img
+                    src={image.preview}
+                    alt="display"
+                    height="350px"
+                    width="350px"
+                    className="self-center mx-auto"
+                  />
+                ) : (
+                  <Cropper
+                    image={image.preview}
+                    crop={crop}
+                    aspect={5 / 1}
+                    onCropChange={setCrop}
+                    onCropComplete={onCropComplete}
+                  />
+                )}
               </div>
             ) : (
               <></>
@@ -209,6 +234,8 @@ export const UploadProfileImageModal = ({
   const [image, setImage] = useState({ preview: '', raw: '' });
   const wrapperRef = useRef(null);
 
+  const [extension, setExtension] = useState('');
+
   let profileImage_cid = '';
   let profileImage;
 
@@ -220,6 +247,7 @@ export const UploadProfileImageModal = ({
   }, []);
 
   const handleChange = (e) => {
+    setExtension(re.exec(e.target.files[0].name)[1]);
     if (e.target.files.length) {
       setImage({
         preview: URL.createObjectURL(e.target.files[0]),
@@ -233,8 +261,12 @@ export const UploadProfileImageModal = ({
       profileImage_cid = cid;
     };
 
-    const file = dataURLtoFile(profileImage, image.raw.name);
-    profileImage = file;
+    let file = profileImage;
+
+    if (!(extension === 'webp' || extension === 'gif')) {
+      file = dataURLtoFile(profileImage, image.raw.name);
+      profileImage = file;
+    }
 
     const blob = new Blob([JSON.stringify(file)], { type: 'application/json' });
 
@@ -270,11 +302,15 @@ export const UploadProfileImageModal = ({
   const handleUpload = async (e) => {
     setLoader(false);
     e.preventDefault(image.raw);
-    console.log(image.raw);
 
-    const croppedImage = await getCroppedImg(image.preview, croppedAreaPixels);
-    setProfileImage(croppedImage);
-    profileImage = croppedImage;
+    if (!(extension === 'webp' || extension === 'gif')) {
+      const croppedImage = await getCroppedImg(image.preview, croppedAreaPixels);
+      setProfileImage(croppedImage);
+      profileImage = croppedImage;
+    } else {
+      setProfileImage(image.preview);
+      profileImage = image.raw;
+    }
 
     storeWithProgress('upload cover image').then(() => {
       const formData = new FormData();
@@ -328,21 +364,31 @@ export const UploadProfileImageModal = ({
           <div className="p-4 flex justify-center">
             {image.preview ? (
               <div className={classes.crop_container}>
-                <Cropper
-                  image={image.preview}
-                  crop={crop}
-                  aspect={1}
-                  cropShape="round"
-                  onCropChange={setCrop}
-                  onCropComplete={onCropComplete}
-                />
+                {extension === 'webp' || extension === 'gif' ? (
+                  <img
+                    src={image.preview}
+                    alt="display"
+                    height="350px"
+                    width="350px"
+                    className="self-center mx-auto"
+                  />
+                ) : (
+                  <Cropper
+                    image={image.preview}
+                    crop={crop}
+                    aspect={1}
+                    cropShape="round"
+                    onCropChange={setCrop}
+                    onCropComplete={onCropComplete}
+                  />
+                )}
               </div>
             ) : (
               <></>
             )}
           </div>
           <div className="flex justify-evenly">
-            <label class="bg-dbeats-light text-white font-bold px-5 py-2 mt-3 rounded-lg cursor-pointer">
+            <label class="bg-dbeats-light flex items-center text-white font-bold px-5 py-2 rounded-lg cursor-pointer">
               <input type="file" style={{ display: 'none' }} onChange={handleChange} />
               Select Profile Image
             </label>

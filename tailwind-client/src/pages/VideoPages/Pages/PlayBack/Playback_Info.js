@@ -448,11 +448,7 @@ const PlayBackInfo = (props) => {
             <div className=" lg:col-span-2 dark:bg-dbeats-dark-alt text-black dark:text-white">
               <div className="self-center 2xl:px-12 lg:px-5 w-screen lg:w-full 2xl:mt-1 lg:mt-2 mt-0.5">
                 {userData ? (
-                  <VideoPlayer
-                    playbackUrl={playbackUrl}
-                    name={userData.name}
-                    username={userData.username}
-                  />
+                  <VideoPlayer playbackUrl={playbackUrl} creatorData={userData} />
                 ) : (
                   <></>
                 )}
@@ -495,7 +491,7 @@ const PlayBackInfo = (props) => {
                           <button
                             className="bg-dbeats-light  p-1 2xl:text-lg lg:text-sm text-md  rounded-sm 2xl:px-4 px-4 lg:px-2 mr-3 font-semibold text-white "
                             onClick={() => {
-                              window.location.href = '/login';
+                              window.location.href = '/signup';
                             }}
                           >
                             <span>Login to Subscribe and Become a SuperFan</span>
@@ -786,7 +782,7 @@ const PlayBackInfo = (props) => {
                   <button
                     className="block mx-auto 2xl:p-2 p-2 lg:p-1 mt-4 mb-2 2xl:w-96 lg:w-72 w-full lg:text-md 2xl:text-lg  text-white font-semibold rounded-lg bg-dbeats-light"
                     type="submit"
-                    onClick={() => (window.location.href = '/login')}
+                    onClick={() => (window.location.href = '/signup')}
                   >
                     Login
                   </button>

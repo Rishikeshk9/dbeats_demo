@@ -576,11 +576,11 @@ const NavBar = () => {
                 <button
                   className="shadow-sm px-3 py-1 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light dark:bg-gradient-to-r dark:from-dbeats-secondary-light dark:to-dbeats-light text-white rounded font-bold mx-2 flex"
                   onClick={() => {
-                    window.location.href = '/login';
+                    window.location.href = '/signup';
                   }}
                 >
                   <i className="fas fa-sign-in-alt self-center mr-2"></i>
-                  <span className="self-center">Login</span>
+                  <span className="self-center">Sign Up</span>
                 </button>
               </>
             )}

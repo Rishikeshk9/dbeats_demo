@@ -222,7 +222,7 @@ const Login = () => {
             <div
               className={`    bg-white dark:bg-dbeats-dark-alt w-max   mx-auto     self-center py-5`}
             >
-              {!login ? (
+              {login ? (
                 <div className="  w-full transition-all">
                   <div className="flex flex-col justify-center   text-lg px-5">
                     <div className="self-center  text-2xl font-bold text-gray-900 dark:text-white">
@@ -326,12 +326,12 @@ const Login = () => {
               )}
             </div>
             <div className="text-center p-5 text-gray-900 dark:text-white">
-              {!login ? (
+              {login ? (
                 <div>
                   <button
                     className="rounded text-dbeats-light dark:text-gray-100 font-semibold"
                     id="signIn"
-                    onClick={handleSignUp}
+                    onClick={handleSignIn}
                   >
                     Already have an Account?
                   </button>
@@ -341,7 +341,7 @@ const Login = () => {
                   <button
                     className="rounded text-dbeats-light dark:text-gray-100  font-semibold"
                     id="signUp"
-                    onClick={handleSignIn}
+                    onClick={handleSignUp}
                   >
                     Create New Account
                   </button>
@@ -358,7 +358,7 @@ const Login = () => {
             </div>
           </main>
         </div>
-      </div> 
+      </div>
     </>
   );
 };
