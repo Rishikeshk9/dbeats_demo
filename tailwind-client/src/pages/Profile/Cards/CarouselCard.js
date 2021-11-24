@@ -1,9 +1,4 @@
 import React, { useState, useEffect } from 'react';
-//import { makeStyles } from '@material-ui/core/styles';
-//import Card from '@material-ui/core/Card';
-//import CardHeader from '@material-ui/core/CardHeader';
-//import Avatar from '@material-ui/core/Avatar';
-//import { red } from '@material-ui/core/colors';
 import ReactPlayer from 'react-player';
 import classes from '../Profile.module.css';
 import moment from 'moment';

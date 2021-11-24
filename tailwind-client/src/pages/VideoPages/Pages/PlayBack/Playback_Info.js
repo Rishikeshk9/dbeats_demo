@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 //import playimg from "../../../assets/images/telegram.png";
 import axios from 'axios';
-import VideoPlayer from '../../../VideoPlayer/VideoPlayer';
+import VideoPlayer from '../../../../component/VideoPlayer/VideoPlayer';
 import { Menu, Transition } from '@headlessui/react';
 import { Container, Row } from 'react-bootstrap';
 import RecommendedCard from './RecommendedCard';
@@ -15,9 +15,9 @@ import animationDataGiraffee from '../../../../lotties/giraffee.json';
 import animationDataNotFound from '../../../../lotties/error-animation.json';
 import Lottie from 'react-lottie';
 import superfluid from '../../../../assets/images/superfluid-black.svg';
-import { Playlist } from '../../../Modals/PlaylistModals/PlaylistModal';
+import { Playlist } from '../../../../component/Modals/PlaylistModals/PlaylistModal';
 import moment from 'moment';
-import { ShareModal } from '../../../Modals/ShareModal/ShareModal';
+import { ShareModal } from '../../../../component/Modals/ShareModal/ShareModal';
 moment().format();
 
 const PlayBackInfo = (props) => {

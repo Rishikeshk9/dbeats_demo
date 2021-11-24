@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ChannelSection from './ProfileSections/ChannelSection';
 import { useSelector } from 'react-redux';
-import { ShareModal } from '../Modals/ShareModal/ShareModal';
+import { ShareModal } from '../../component/Modals/ShareModal/ShareModal';
 // For Routing
 import { Route, Switch, useRouteMatch } from 'react-router';
 import ChatRoom from './ProfileSections/ChatRoom/ChatRoom';

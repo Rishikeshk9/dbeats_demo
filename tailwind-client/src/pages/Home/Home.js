@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-//import classes from './Home.module.css';
 import axios from 'axios';
 import Carousel from 'react-grid-carousel';
 import personImg from '../../assets/images/profile.svg';
-//import { Avatar } from "@material-ui/core";
 import PlayBackCard from './Cards/PlayBackCard';
 import LiveCard from './Cards/LiveCard';
-// import Skeleton from '@material-ui/lab/Skeleton';
 import ResponsiveCarousel from './Cards/HomeSlider';
 import { useSelector } from 'react-redux';
 import Lottie from 'react-lottie';

@@ -398,7 +398,7 @@ export const UploadVideo = (props) => {
                           htmlFor="file-upload3"
                           className="text-center relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-0 focus-within:ring-offset-2 focus-within:ring-blue-500"
                         >
-                          <span id="video-thumbnail-label" className="text-center">
+                          <span id="video-thumbnail-label truncate w-32" className="text-center">
                             Choose Video Thumbnail
                           </span>
                           <input
@@ -439,7 +439,7 @@ export const UploadVideo = (props) => {
                           htmlFor="file-upload4"
                           className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-0 focus-within:ring-offset-2 focus-within:ring-blue-500"
                         >
-                          <p className=" " id="video-label">
+                          <p className="truncate w-32 " id="video-label">
                             Choose Video file
                           </p>
                           <input
@@ -1026,12 +1026,12 @@ export const UploadMusic = (props) => {
                           strokeLinejoin="round"
                         />
                       </svg>
-                      <div className="flex text-sm text-gray-600 justify-center ">
+                      <div className="flex  text-sm text-gray-600 justify-center ">
                         <label
                           htmlFor="file-upload"
-                          className="text-center relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-0 focus-within:ring-offset-2 focus-within:ring-blue-500"
+                          className="text-center  relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-0 focus-within:ring-offset-2 focus-within:ring-blue-500"
                         >
-                          <p className="text-center px-2" id="audio-thumbnail-label">
+                          <p className="text-center px-2 truncate w-32" id="audio-thumbnail-label">
                             Choose Album Art
                           </p>
                           <input
@@ -1073,7 +1073,7 @@ export const UploadMusic = (props) => {
                           htmlFor="file-upload2"
                           className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-0 focus-within:ring-offset-2 focus-within:ring-blue-500"
                         >
-                          <span className="p-2 " id="audio-label">
+                          <span className="p-2 truncate w-32" id="audio-label">
                             Choose Audio file
                           </span>
                           <input

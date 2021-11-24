@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import TrackCard from './Track_Components/TrackCard';
 import AudioPlayer from './Track_Components/AudioPlayer';
-import { Playlist } from '../../../Modals/PlaylistModals/PlaylistModal';
+import { Playlist } from '../../../../component/Modals/PlaylistModals/PlaylistModal';
 
 const TrackInfo = (props) => {
   const username = props.match.params.username;

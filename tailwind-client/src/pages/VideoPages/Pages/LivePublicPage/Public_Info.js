@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import classes from '../Info.module.css';
 //import playimg from "../../../assets/images/telegram.png";
 import axios from 'axios';
-import VideoPlayer from '../../../VideoPlayer/VideoPlayer';
+import VideoPlayer from '../../../../component/VideoPlayer/VideoPlayer';
 import { Container, Row } from 'react-bootstrap';
 import LiveCard from './LiveCard';
 import Modal from 'react-awesome-modal';
@@ -16,7 +16,7 @@ import animationDataGiraffee from '../../../../lotties/giraffee.json';
 import Lottie from 'react-lottie';
 import SuperfluidSDK from '@superfluid-finance/js-sdk';
 import { Web3Provider } from '@ethersproject/providers';
-import { ShareModal } from '../../../Modals/ShareModal/ShareModal';
+import { ShareModal } from '../../../../component/Modals/ShareModal/ShareModal';
 
 const PublicInfo = (props) => {
   let sharable_data = `https://dbeats-demo.vercel.app /live/${props.stream_id}`;

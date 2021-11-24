@@ -5,6 +5,7 @@ import getCroppedImg from './cropImage';
 import Modal from 'react-modal';
 import Cropper from 'react-easy-crop';
 import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
+import classes from './style.module.css';
 
 function makeStorageClient() {
   return new Web3Storage({
@@ -14,6 +15,19 @@ function makeStorageClient() {
 }
 
 const user = JSON.parse(window.localStorage.getItem('user'));
+
+function dataURLtoFile(dataurl, filename) {
+  var arr = dataurl.split(','),
+    mime = arr[0].match(/:(.*?);/)[1],
+    bstr = atob(arr[1]),
+    n = bstr.length,
+    u8arr = new Uint8Array(n);
+
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], filename, { type: mime });
+}
 
 export const UploadCoverImageModal = ({
   show,
@@ -26,10 +40,10 @@ export const UploadCoverImageModal = ({
   //image Crop
   const [image, setImage] = useState({ preview: '', raw: '' });
   const wrapperRef = useRef(null);
+
   let coverImage_cid = '';
+  let coverImage;
   const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [rotation, setRotation] = useState(0);
-  const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
@@ -49,10 +63,14 @@ export const UploadCoverImageModal = ({
     const onRootCidReady = (cid) => {
       coverImage_cid = cid;
     };
-    const blob = new Blob([JSON.stringify(image)], { type: 'application/json' });
 
-    const files = [image.raw, new File([blob], 'meta.json')];
-    const totalSize = image.raw.size;
+    const file = dataURLtoFile(coverImage, image.raw.name);
+    coverImage = file;
+
+    const blob = new Blob([JSON.stringify(file)], { type: 'application/json' });
+
+    const files = [file, new File([blob], 'meta.json')];
+    const totalSize = file.size;
     let uploaded = 0;
     const onStoredChunk = (size) => {
       uploaded += size;
@@ -84,22 +102,22 @@ export const UploadCoverImageModal = ({
     setLoader(false);
     e.preventDefault();
 
-    // const croppedImage = await getCroppedImg(image.preview, croppedAreaPixels, rotation);
-    // console.log('donee', { croppedImage });
-    // //setCroppedImage(croppedImage);
-    // setCoverImage(croppedImage);
+    const croppedImage = await getCroppedImg(image.preview, croppedAreaPixels);
+    setCoverImage(croppedImage);
+    coverImage = croppedImage;
 
     storeWithProgress('upload cover image').then(() => {
       const formData = new FormData();
       formData.append('username', user.username);
-      formData.append('coverImage', image.raw);
+      formData.append('coverImage', coverImage);
       formData.append('imageHash', coverImage_cid);
 
-      console.log(user.username);
-      console.log(image.raw);
-      console.log(coverImage_cid);
+      // console.log(user.username);
+      // console.log(croppedImage);
+      // console.log(image.preview);
+      //console.log(coverImage_cid);
 
-      if (image.raw.length !== 0) {
+      if (croppedImage.length !== 0) {
         axios
           .post(`${process.env.REACT_APP_SERVER_URL}/user/coverimage`, formData, {
             headers: {
@@ -139,19 +157,15 @@ export const UploadCoverImageModal = ({
         <div ref={wrapperRef} className="p-5 w-full">
           <div className="p-4 flex justify-center">
             {image.preview ? (
-              // <div>
-              //   <Cropper
-              //     image={image.preview}
-              //     crop={crop}
-              //     aspect={4 / 3}
-              //     onCropChange={setCrop}
-              //     onRotationChange={setRotation}
-              //     onCropComplete={onCropComplete}
-              //     onZoomChange={setZoom}
-              //     className="min-h-1/4"
-              //   />
-              // </div>
-              <img src={image.preview} alt="background_img" className="2xl:h-80 lg:h-56 w-auto" />
+              <div className={classes.crop_container}>
+                <Cropper
+                  image={image.preview}
+                  crop={crop}
+                  aspect={5 / 1}
+                  onCropChange={setCrop}
+                  onCropComplete={onCropComplete}
+                />
+              </div>
             ) : (
               <></>
             )}
@@ -194,7 +208,16 @@ export const UploadProfileImageModal = ({
 }) => {
   const [image, setImage] = useState({ preview: '', raw: '' });
   const wrapperRef = useRef(null);
+
   let profileImage_cid = '';
+  let profileImage;
+
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
 
   const handleChange = (e) => {
     if (e.target.files.length) {
@@ -209,10 +232,14 @@ export const UploadProfileImageModal = ({
     const onRootCidReady = (cid) => {
       profileImage_cid = cid;
     };
-    const blob = new Blob([JSON.stringify(image)], { type: 'application/json' });
 
-    const files = [image.raw, new File([blob], 'meta.json')];
-    const totalSize = image.raw.size;
+    const file = dataURLtoFile(profileImage, image.raw.name);
+    profileImage = file;
+
+    const blob = new Blob([JSON.stringify(file)], { type: 'application/json' });
+
+    const files = [file, new File([blob], 'meta.json')];
+    const totalSize = file.size;
     let uploaded = 0;
     const onStoredChunk = (size) => {
       uploaded += size;
@@ -242,12 +269,17 @@ export const UploadProfileImageModal = ({
 
   const handleUpload = async (e) => {
     setLoader(false);
-    e.preventDefault();
+    e.preventDefault(image.raw);
+    console.log(image.raw);
+
+    const croppedImage = await getCroppedImg(image.preview, croppedAreaPixels);
+    setProfileImage(croppedImage);
+    profileImage = croppedImage;
 
     storeWithProgress('upload cover image').then(() => {
       const formData = new FormData();
       formData.append('username', user.username);
-      formData.append('profileImage', image.raw);
+      formData.append('profileImage', profileImage);
       formData.append('imageHash', profileImage_cid);
 
       console.log(user.username);
@@ -295,7 +327,16 @@ export const UploadProfileImageModal = ({
         <div ref={wrapperRef} className="p-5 w-full">
           <div className="p-4 flex justify-center">
             {image.preview ? (
-              <img src={image.preview} alt="background_img" className="2xl:h-80 lg:h-56 w-auto" />
+              <div className={classes.crop_container}>
+                <Cropper
+                  image={image.preview}
+                  crop={crop}
+                  aspect={1}
+                  cropShape="round"
+                  onCropChange={setCrop}
+                  onCropComplete={onCropComplete}
+                />
+              </div>
             ) : (
               <></>
             )}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import classes from '../Profile.module.css';
-import { ShareModal } from '../../Modals/ShareModal/ShareModal';
+import { ShareModal } from '../../../component/Modals/ShareModal/ShareModal';
 
 const ReactionCard = (props) => {
   const [playing, setPlaying] = useState(false);
