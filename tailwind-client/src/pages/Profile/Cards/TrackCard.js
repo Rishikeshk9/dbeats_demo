@@ -64,16 +64,34 @@ const TrackCard = (props) => {
               {props.track.trackName}
             </p>
 
-            <p
-              id="song-author"
-              className="mt-0  mb-1 md:mb-2   text-gray-600 tracking-widest  text-lg flex font-semibold"
-            >
-              {props.username}&nbsp;
-            </p>
+            <div className="flex items-center">
+              <p
+                id="song-author"
+                className="mt-0.5 text-gray-600 tracking-widest  text-lg flex font-semibold"
+              >
+                {props.username}&nbsp;
+              </p>
+              {props.track.tags ? (
+                <>
+                  {props.track.tags.map((tag, idx) => {
+                    return (
+                      <div
+                        key={idx}
+                        className="px-2 bg-blue-50 text-blue-600 font-bold rounded-lg mx-1"
+                      >
+                        <span>{tag}</span>
+                      </div>
+                    );
+                  })}
+                </>
+              ) : (
+                <></>
+              )}
+            </div>
 
             {/* action buttons */}
 
-            <div className=" flex mt-2   ">
+            <div className=" flex mt-4 rounded">
               <div className=" sm:flex ">
                 <button
                   onClick={handlePlay}

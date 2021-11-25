@@ -50,7 +50,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
       case 'videos':
         setTabIndex(1);
         break;
-      case 'albums':
+      case 'tracks':
         setTabIndex(2);
         break;
       case 'playlists':

@@ -109,7 +109,7 @@ const DatabaseJSONStructure = {
       link: '',
       category: '',
       ratings: '',
-      tags: '',
+      tags: [],
       description: '',
       allowAttribution: '',
       commercialUse: '',
@@ -130,7 +130,7 @@ const DatabaseJSONStructure = {
       link: '',
       genre: '',
       mood: '',
-      tags: '',
+      tags: [],
       description: '',
       isrc: '',
       iswc: '',
@@ -433,7 +433,6 @@ app.post('/upload', (req, res) => {
           // );
 
           if (albumhashLink != null && trackHashLink != null) {
-            //console.log('Saving To Database!');
             saveTrackToDB(
               userName,
               trackName,

@@ -269,7 +269,7 @@ export const UploadVideo = (props) => {
       document.getElementById('video-label').textContent = trckName;
     } else if (e.target.name === 'videoImage') {
       video.videoImage = e.target.files[0];
-
+      console.log(e.target.files[0]);
       var videoImage = e.target.files[0].name.replace(/\.[^/.]+$/, '');
       document.getElementById('video-thumbnail-label').textContent = videoImage;
     }
@@ -309,7 +309,8 @@ export const UploadVideo = (props) => {
 
         formData.append('videoName', videoName);
 
-        formData.append('tags', tags);
+        tags.forEach((tag) => formData.append('tags', tag));
+
         formData.append('description', description);
 
         formData.append('category', category);
@@ -404,12 +405,12 @@ export const UploadVideo = (props) => {
                           strokeLinejoin="round"
                         />
                       </svg>
-                      <div className="flex text-sm text-gray-600 ">
+                      <div className="flex justify-center text-sm text-gray-600 ">
                         <label
                           htmlFor="file-upload3"
                           className="text-center relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-0 focus-within:ring-offset-2 focus-within:ring-blue-500"
                         >
-                          <span id="video-thumbnail-label truncate w-32" className="text-center">
+                          <span id="video-thumbnail-label" className="truncate w-32">
                             Choose Video Thumbnail
                           </span>
                           <input
@@ -965,7 +966,9 @@ export const UploadMusic = (props) => {
       formData.append('trackName', trackName);
       formData.append('genre', genre);
       formData.append('mood', mood);
-      formData.append('tags', tags);
+
+      tags.forEach((tag) => formData.append('tags', tag));
+
       formData.append('description', description);
       formData.append('isrc', isrc);
       formData.append('iswc', iswc);

@@ -53,7 +53,28 @@ const CarouselCard = (props) => {
         <p className="text-black text-sm font-medium dark:text-gray-100">
           <div className="px-2">
             <p className="text-2xl font-semibold">{props.playbackUserData.videoName}</p>
-            <p className="text-lg text-gray-500">{props.playbackUserData.description}</p>
+            <div className="flex">
+              <p className="text-lg text-gray-500 mr-2 mt-1">
+                {props.playbackUserData.description}
+              </p>
+
+              {props.playbackUserData.tags ? (
+                <>
+                  {props.playbackUserData.tags.map((tag, idx) => {
+                    return (
+                      <div
+                        key={idx}
+                        className="self-center px-2 py-0.5 bg-blue-50 text-blue-600 font-bold rounded-lg mx-1"
+                      >
+                        <span>{tag}</span>
+                      </div>
+                    );
+                  })}
+                </>
+              ) : (
+                <></>
+              )}
+            </div>
             <p className="text-sm text-gray-500">{time}</p>
           </div>
           <hr className="my-3" />
