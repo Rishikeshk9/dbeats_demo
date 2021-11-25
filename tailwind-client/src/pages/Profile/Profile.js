@@ -9,8 +9,8 @@ import ChatRoom from './ProfileSections/ChatRoom/ChatRoom';
 import NFTStore from './ProfileSections/Store/NFT_Store';
 import ProfileDetails from './ProfileSections/ProfileDetails/ProfileDetails';
 import Ticket from './ProfileSections/Ticket/Ticket';
-import Lottie from 'react-lottie';
 import animationData from '../../lotties/error-animation.json';
+import PageNotFound from '../../component/PageNotFound/PageNotFound';
 
 const Profile = (props) => {
   // For Routing
@@ -116,15 +116,6 @@ const Profile = (props) => {
     return () => clearTimeout(timer);
   }, [copybuttonText]);
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
-  };
-
   return (
     <>
       {user ? (
@@ -168,22 +159,11 @@ const Profile = (props) => {
         <></>
       )}
       {notFound ? (
-        <div className={`${darkMode && 'dark'}`}>
-          <div className="py-32 px-20 dark:text-white flex justify-center dark:bg-dbeats-dark-alt h-screen">
-            <div className="flex flex-col items-center">
-              <div className="LottieButton opacity-20 absolute">
-                <Lottie
-                  className="cursor-not-allowed"
-                  options={defaultOptions}
-                  height={500}
-                  width={500}
-                />
-              </div>
-              <div className="text-4xl font-bold mt-6">User Not found</div>
-              <div className="text-xl font-bold py-2">Please check username</div>
-            </div>
-          </div>
-        </div>
+        <PageNotFound
+          headtext="User Not found"
+          text="Please check the Username"
+          animation={animationData}
+        />
       ) : (
         <></>
       )}

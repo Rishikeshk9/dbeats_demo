@@ -5,12 +5,12 @@ import './PageNotFound.css';
 
 import animationData from '../../lotties/error-animation.json';
 
-const PageNotFound = () => {
+const PageNotFound = ({ headtext = '404', text = 'Page Not Found', animation = animationData }) => {
   const darkMode = useSelector((darkmode) => darkmode.toggleDarkMode);
   const defaultOptions = {
     loop: true,
     autoplay: true,
-    animationData: animationData,
+    animationData: animation,
     rendererSettings: {
       preserveAspectRatio: 'xMidYMid slice',
     },
@@ -28,8 +28,8 @@ const PageNotFound = () => {
               width={500}
             />
           </div>
-          <div className="text-8xl font-bold mt-6">404</div>
-          <div className="text-2xl font-bold py-2">Page Not Found</div>
+          <div className="text-6xl font-bold mt-6">{headtext}</div>
+          <div className="text-2xl font-bold py-4">{text}</div>
         </div>
       </div>
     </div>

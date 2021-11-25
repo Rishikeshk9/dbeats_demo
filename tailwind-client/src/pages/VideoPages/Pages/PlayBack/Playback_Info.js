@@ -18,6 +18,7 @@ import superfluid from '../../../../assets/images/superfluid-black.svg';
 import { Playlist } from '../../../../component/Modals/PlaylistModals/PlaylistModal';
 import moment from 'moment';
 import { ShareModal } from '../../../../component/Modals/ShareModal/ShareModal';
+import PageNotFound from '../../../../component/PageNotFound/PageNotFound';
 moment().format();
 
 const PlayBackInfo = (props) => {
@@ -68,14 +69,6 @@ const PlayBackInfo = (props) => {
     },
   };
 
-  const defaultOptionsForNotFound = {
-    loop: true,
-    autoplay: true,
-    animationData: animationDataNotFound,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
-  };
   //const [videoUsername, setVideoUsername] = useState('');
 
   const user = JSON.parse(window.localStorage.getItem('user'));
@@ -85,6 +78,7 @@ const PlayBackInfo = (props) => {
   const [userData, setUserData] = useState(null);
   const [videoData, setVideoData] = useState(false);
   const [notFound, setNotFound] = useState(false);
+  const [userNotFound, setUserNotFound] = useState(false);
 
   const [privateUser, setPrivate] = useState(true);
 
@@ -166,6 +160,11 @@ const PlayBackInfo = (props) => {
 
   const get_User = async () => {
     await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${props.stream_id}`).then((value) => {
+      console.log(value);
+      if (value.data === '') {
+        setUserNotFound(true);
+        return;
+      }
       setUserData(value.data);
       if (value.data.videos.length - 1 < parseInt(props.video_id)) {
         setNotFound(true);
@@ -809,22 +808,20 @@ const PlayBackInfo = (props) => {
         <></>
       )}
       {notFound ? (
-        <div className={`${darkMode && 'dark'}`}>
-          <div className="py-32 px-20 dark:text-white flex justify-center dark:bg-dbeats-dark-alt h-screen">
-            <div className="flex flex-col items-center">
-              <div className="LottieButton opacity-20 absolute">
-                <Lottie
-                  className="cursor-not-allowed"
-                  options={defaultOptionsForNotFound}
-                  height={500}
-                  width={500}
-                />
-              </div>
-              <div className="text-4xl font-bold mt-6">Video Not found</div>
-              <div className="text-xl font-bold py-2">Please check the Video ID</div>
-            </div>
-          </div>
-        </div>
+        <PageNotFound
+          headtext="Video Not found"
+          text="Please check the Video ID"
+          animation={animationDataNotFound}
+        />
+      ) : (
+        <></>
+      )}
+      {userNotFound ? (
+        <PageNotFound
+          headtext="Video Not found"
+          text="Please check the Username "
+          animation={animationDataNotFound}
+        />
       ) : (
         <></>
       )}

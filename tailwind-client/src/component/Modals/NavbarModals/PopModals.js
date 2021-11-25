@@ -157,24 +157,35 @@ export const AnnouncementModal = (props) => {
 
 export const UploadVideo = (props) => {
   const darkMode = useSelector((darkmode) => darkmode.toggleDarkMode);
-  const attribution = [{ name: 'No Attribution' }, { name: 'Allow Attribution' }];
+  const attribution = ['No Attribution', 'Allow Attribution'];
 
-  const commercialUse = [{ name: 'Non Commercial' }, { name: 'Commercial Use' }];
+  const commercialUse = ['Non Commercial', 'Commercial Use'];
 
-  const derivativeWorks = [
-    { name: 'No-Selection' },
-    { name: 'No Derivative Works' },
-    { name: 'Share-Alike' },
+  const derivativeWorks = ['No-Selection', 'No Derivative Works', 'Share-Alike'];
+
+  const category = [
+    'Autos & Vehicles',
+    ' Music',
+    'Pets & Animals',
+    'Sports',
+    'Travel & Events',
+    'Gaming',
+    'People & Blogs',
+    'Comedy',
+    'Entertainment',
+    'News & Politics',
+    ' Howto & Style',
+    'Education',
+    'Science & Technology',
+    'Nonprofits & Activism',
   ];
-
-  const category = [{ name: 'Automobiles' }, { name: 'Astronomy' }, { name: 'Sci-Fi' }];
 
   const suggestions = ['Games', 'Edu', 'Sci-Fi', 'Counter-Strike'];
 
-  const [selectedAttribution, setSelectedAttribution] = useState(attribution[0].name);
-  const [selectedCommercialUse, setSelectedCommercialUse] = useState(commercialUse[0].name);
-  const [selectedDerivativeWorks, setSelectedDerivativeWorks] = useState(derivativeWorks[0].name);
-  const [selectedCategory, setSelectedCategory] = useState(category[0].name);
+  const [selectedAttribution, setSelectedAttribution] = useState(attribution[0]);
+  const [selectedCommercialUse, setSelectedCommercialUse] = useState(commercialUse[0]);
+  const [selectedDerivativeWorks, setSelectedDerivativeWorks] = useState(derivativeWorks[0]);
+  const [selectedCategory, setSelectedCategory] = useState(category[0]);
   const [tags, setTags] = useState([]);
 
   const [video, setVideo] = useState({
@@ -627,25 +638,44 @@ export const UploadVideo = (props) => {
 export const UploadMusic = (props) => {
   const darkMode = useSelector((state) => state.toggleDarkMode);
 
-  const genre = [{ name: 'Rock' }, { name: 'Jazz' }];
-
-  const mood = [{ name: 'Happy' }, { name: 'Soulful' }];
-
-  const attribution = [{ name: 'No Attribution' }, { name: 'Allow Attribution' }];
-
-  const commercialUse = [{ name: 'Non Commercial' }, { name: 'Commercial Use' }];
-
-  const derivativeWorks = [
-    { name: 'No-Selection' },
-    { name: 'No Derivative Works' },
-    { name: 'Share-Alike' },
+  const genre = [
+    'EDM',
+    'Rock',
+    'Jazz',
+    'Dubsteps',
+    'Rhythm & Blues',
+    'Techno',
+    'Country Music',
+    'Electro',
+    'Indies Rock',
+    'Pop',
   ];
 
-  const [selectedGenre, setSelectedGenre] = useState(genre[0].name);
-  const [selectedMood, setSelectedMood] = useState(mood[0].name);
-  const [selectedAttribution, setSelectedAttribution] = useState(attribution[0].name);
-  const [selectedCommercialUse, setSelectedCommercialUse] = useState(commercialUse[0].name);
-  const [selectedDerivativeWorks, setSelectedDerivativeWorks] = useState(derivativeWorks[0].name);
+  const mood = [
+    'Happy',
+    'Exuberant',
+    'Energetic',
+    'Frantic',
+    'Anxious/Sad',
+    'Depression',
+    'Calm',
+    'Contentment',
+  ];
+
+  const attribution = ['No Attribution', 'Allow Attribution'];
+
+  const commercialUse = ['Non Commercial', 'Commercial Use'];
+
+  const derivativeWorks = ['No-Selection', 'No Derivative Works', 'Share-Alike'];
+
+  const suggestions = ['Games', 'Edu', 'Sci-Fi', 'Counter-Strike'];
+
+  const [selectedGenre, setSelectedGenre] = useState(genre[0]);
+  const [selectedMood, setSelectedMood] = useState(mood[0]);
+  const [selectedAttribution, setSelectedAttribution] = useState(attribution[0]);
+  const [selectedCommercialUse, setSelectedCommercialUse] = useState(commercialUse[0]);
+  const [selectedDerivativeWorks, setSelectedDerivativeWorks] = useState(derivativeWorks[0]);
+  const [tags, setTags] = useState([]);
 
   const [track, setTrack] = useState({
     trackName: '',
@@ -656,7 +686,7 @@ export const UploadMusic = (props) => {
     cid: '',
     genre: '',
     mood: '',
-    tags: '',
+    tags: [],
     description: '',
     royalty: 5,
     isrc: '',
@@ -668,6 +698,10 @@ export const UploadMusic = (props) => {
     mintTrxHash: '',
   });
 
+  const handleVideoTags = (e) => {
+    setTags(e);
+  };
+
   let name, value;
 
   const handleInputs = (e) => {
@@ -675,6 +709,28 @@ export const UploadMusic = (props) => {
     value = e.target.value;
 
     setTrack({ ...track, [name]: value });
+  };
+
+  const fetchSuggestions = (value) => {
+    return new Promise((resolve) => {
+      if (value.length >= 1) {
+        setTimeout(() => {
+          let filtered = suggestions.filter(
+            (opt) => opt.toLowerCase().indexOf(value.toLowerCase()) !== -1,
+          );
+          if (filtered.length === 0) {
+            if (filtered[0] !== value) {
+              let data = [value];
+              resolve(data);
+            }
+          } else {
+            resolve(filtered);
+          }
+        }, 1000);
+      } else {
+        resolve([]);
+      }
+    });
   };
 
   async function storeWithProgress() {
@@ -850,6 +906,7 @@ export const UploadMusic = (props) => {
       allowAttribution: selectedAttribution,
       commercialUse: selectedCommercialUse,
       derivativeWorks: selectedDerivativeWorks,
+      tags: tags,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -858,6 +915,7 @@ export const UploadMusic = (props) => {
     selectedDerivativeWorks,
     selectedAttribution,
     selectedMood,
+    tags,
   ]);
 
   const PostData = async (e) => {
@@ -900,6 +958,7 @@ export const UploadMusic = (props) => {
       commercialUse,
       derivativeWorks,
     } = track;
+
     storeWithProgress(e.target.value).then(() => {
       let formData = new FormData(); // Currently empty
       formData.append('userName', user.username);
@@ -938,7 +997,7 @@ export const UploadMusic = (props) => {
               cid: '',
               genre: '',
               mood: '',
-              tags: '',
+              tags: [],
               description: '',
               royalty: 5,
               isrc: '',
@@ -1143,14 +1202,14 @@ export const UploadMusic = (props) => {
                           Tags
                         </label>
                         <div className="mt-1 flex rounded-md shadow-sm">
-                          <input
-                            type="text"
-                            name="tags"
-                            id="tags"
-                            value={track.tags}
-                            onChange={handleInputs}
-                            className="focus:ring-dbeats-dark-primary border-0 dark:bg-dbeats-dark-primary ring-dbeats-dark-secondary  ring-0   flex-1 block w-full rounded-md sm:text-sm  "
-                            placeholder=" "
+                          <Chips
+                            theme={theme(darkMode)[0]}
+                            chipTheme={chipTheme(darkMode)[0]}
+                            value={tags}
+                            onChange={handleVideoTags}
+                            suggestions={suggestions}
+                            fromSuggestionsOnly={false}
+                            fetchSuggestions={fetchSuggestions}
                           />
                         </div>
                       </div>

@@ -82,8 +82,10 @@ router.route('/login').post(async (req, res) => {
     const password = req.body.password;
 
     const user_username = await User.findOne({ username: username });
-    const isMatch = bcrypt.compare(password, user_username.password);
-
+    const isMatch = await bcrypt.compare(
+      password,
+      user_username.password,
+    );
     if (isMatch) {
       res.send(user_username);
     } else {
