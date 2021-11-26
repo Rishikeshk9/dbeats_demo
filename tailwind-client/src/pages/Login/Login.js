@@ -26,6 +26,11 @@ const Login = () => {
   const [login, setLogin] = useState(true);
   const [loader, setLoader] = useState(true);
 
+  //checks
+  const [invalidUsername, setInvalidUsername] = useState(false);
+  const [invalidPassword, setInvalidPassword] = useState(false);
+  const [confirmPasswordCheck, setconfirmPasswordCheck] = useState(false);
+
   const handleLogin = () => {
     setLoader(false);
     const userData = {
@@ -44,11 +49,11 @@ const Login = () => {
           //window.location.reload();
           window.location.href = '/';
         } else {
-          alert('Invalid Login');
+          setInvalidPassword(true);
         }
       })
       .catch(function (error) {
-        console.log(error);
+        setInvalidUsername(true);
       });
     setLoader(true);
   };
@@ -194,14 +199,21 @@ const Login = () => {
   };
 
   const handleUsernameChange = (e) => {
+    setInvalidUsername(false);
     setUsername(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
+    setInvalidPassword(false);
     setPassword(e.target.value);
   };
 
   const handleConfirmPasswordChange = (e) => {
+    if (form_password !== e.target.value) {
+      setconfirmPasswordCheck(true);
+    } else {
+      setconfirmPasswordCheck(false);
+    }
     setConfirmPassword(e.target.value);
   };
 
@@ -218,9 +230,9 @@ const Login = () => {
     <>
       <div className={`${darkMode && 'dark'} `}>
         <div className="bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary pt-18">
-          <main className={`    w-max self-center mx-auto mt-24 `}>
+          <main className={` w-1/2 self-center mx-auto mt-24 `}>
             <div
-              className={`    bg-white dark:bg-dbeats-dark-alt w-max   mx-auto     self-center py-5`}
+              className={`py-10 px-8 bg-white dark:bg-dbeats-dark-alt w-1/2   mx-auto     self-center py-5`}
             >
               {login ? (
                 <div className="  w-full transition-all">
@@ -247,14 +259,35 @@ const Login = () => {
                       placeholder="Password"
                       onChange={(e) => handlePasswordChange(e)}
                     />
-                    <input
-                      className="self-center my-2 rounded w-full mx-5    border-0   dark:bg-dbeats-dark-primary bg-gray-100 text-gray-900 dark:text-white focus:ring-dbeats-light"
-                      type="password"
-                      placeholder="Confirm Password"
-                      onChange={(e) => handleConfirmPasswordChange(e)}
-                    />
-                    <div className="self-center my-2 mx-3 px-8  cursor-pointer text-yellow-600 border border-yellow-600 bg-white dark:bg-dbeats-dark-secondary   rounded hover:bg-yellow-600 dark:hover:bg-yellow-600 dark:hover:bg-opacity-5 hover:bg-opacity-5 transform transition-all hover:scale-99">
-                      <div className="self-center  ">
+                    <>
+                      <input
+                        className={`self-center mt-2 mb-1 rounded w-full mx-5 
+                        border-0  dark:bg-dbeats-dark-primary focus:outline-none
+                        ${confirmPasswordCheck ? 'focus:ring-red-800' : 'focus:ring-dbeats-light'} 
+                        bg-gray-100 text-gray-900 
+                        dark:text-white 
+                        
+                        `}
+                        type="password"
+                        placeholder="Confirm Password"
+                        onChange={(e) => handleConfirmPasswordChange(e)}
+                      />
+                      <p
+                        className={`${
+                          confirmPasswordCheck ? 'text-sm text-red-500 mb-1' : 'hidden'
+                        }`}
+                      >
+                        Confirm Password doesn't match Password
+                      </p>
+                    </>
+                    <div
+                      className="flex justify-center mt-6 mb-2 cursor-pointer text-yellow-600 
+                    border border-yellow-600 bg-white dark:bg-dbeats-dark-secondary   
+                    rounded hover:bg-yellow-600 dark:hover:bg-yellow-600 
+                    dark:hover:bg-opacity-5 hover:bg-opacity-5 transform transition-all 
+                    hover:scale-99  mx-3 py-1"
+                    >
+                      <div className=" ">
                         <WalletButton
                           provider={provider}
                           loadWeb3Modal={loadWeb3Modal}
@@ -264,7 +297,7 @@ const Login = () => {
                     </div>
                     <div className="flex justify-center">
                       <button
-                        className="self-center w-full  mx-3   flex my-3 py-2 px-24  text-center text-dbeats-light dark:text-white font-bold bg-dbeats-light bg-opacity-5 hover:text-white hover:bg-dbeats-light border  transition-all border-dbeats-light hover:scale-99 transform rounded relative"
+                        className="flex justify-center  w-full  mx-3   flex my-3 py-2 px-24  text-center text-dbeats-light dark:text-white font-bold bg-dbeats-light bg-opacity-5 hover:text-white hover:bg-dbeats-light border  transition-all border-dbeats-light hover:scale-99 transform rounded relative"
                         onClick={createStream}
                       >
                         SIGN UP
@@ -282,23 +315,47 @@ const Login = () => {
                     <h1 className="self-center  text-2xl font-bold text-gray-900 dark:text-white">
                       SIGN IN
                     </h1>
-                    <input
-                      className="self-center my-2 rounded w-full mx-5    border-0   dark:bg-dbeats-dark-primary bg-gray-100 text-gray-900 dark:text-white focus:ring-dbeats-light"
-                      type="text"
-                      placeholder="Username"
-                      onChange={(e) => handleUsernameChange(e)}
-                    />
-                    <input
-                      className="self-center my-2 rounded w-full mx-5   border-0   dark:bg-dbeats-dark-primary  bg-gray-100 text-gray-900 dark:text-white focus:ring-dbeats-light"
-                      type="password"
-                      placeholder="Password"
-                      onChange={(e) => handlePasswordChange(e)}
-                    />
+                    <>
+                      <input
+                        className={`self-center mt-2 mb-1 rounded w-full mx-5 
+                        border-0  dark:bg-dbeats-dark-primary
+                        ${invalidUsername ? 'border-2 border-red-500 focus:ring-red-800' : ''} 
+                        bg-gray-100 text-gray-900 
+                        dark:text-white 
+                        focus:ring-dbeats-light
+                        `}
+                        type="text"
+                        placeholder="Username"
+                        onChange={(e) => handleUsernameChange(e)}
+                      />
+                      <p className={`${invalidUsername ? 'text-sm text-red-500 mb-1' : 'hidden'}`}>
+                        Please Enter Valid Username
+                      </p>
+                    </>
+                    <>
+                      <input
+                        className={`self-center mt-2 mb-1 rounded w-full mx-5 
+                      border-0 dark:bg-dbeats-dark-primary 
+                      ${invalidPassword ? 'border-2 border-red-500 focus:ring-red-800' : ''} 
+                      bg-gray-100 text-gray-900 
+                      dark:text-white 
+                      focus:ring-dbeats-light`}
+                        type="password"
+                        placeholder="Password"
+                        onChange={(e) => handlePasswordChange(e)}
+                      />
+                      <p className={`${invalidPassword ? 'text-sm text-red-500 mb-1' : 'hidden'}`}>
+                        Please Enter Valid Password
+                      </p>
+                    </>
 
-                    <div className="flex justify-center text-center">
+                    <div className="flex justify-center ">
                       <button
                         onClick={handleLogin}
-                        className="self-center w-full  mx-3   flex my-3 py-2 px-24  text-center text-dbeats-light dark:text-white font-bold bg-dbeats-light bg-opacity-5 hover:text-white hover:bg-dbeats-light border  transition-all border-dbeats-light hover:scale-99 transform rounded relative"
+                        className="flex justify-center w-full  mx-3   flex my-3 py-2 px-24  text-dbeats-light 
+                        dark:text-white font-bold bg-dbeats-light bg-opacity-5 
+                        hover:text-white hover:bg-dbeats-light border  
+                        transition-all border-dbeats-light hover:scale-99 transform rounded relative"
                       >
                         SIGN IN
                         <div
@@ -312,8 +369,13 @@ const Login = () => {
                     </a>
                     <hr className="my-3 w-2/3 self-center" />
 
-                    <div className="self-center my-3 mx-5 cursor-pointer text-yellow-600 border border-yellow-600 bg-white dark:bg-dbeats-dark-secondary px-10 py-1 rounded hover:bg-yellow-600 dark:hover:bg-yellow-600 dark:hover:bg-opacity-5 hover:bg-opacity-5 transform transition-all hover:scale-99">
-                      <div className="self-center ">
+                    <div
+                      className="flex justify-center mt-6 py-2 cursor-pointer text-yellow-600 border border-yellow-600 
+                    bg-white dark:bg-dbeats-dark-secondary 
+                    rounded hover:bg-yellow-600 dark:hover:bg-yellow-600 dark:hover:bg-opacity-5 
+                    hover:bg-opacity-5 transform transition-all hover:scale-99"
+                    >
+                      <div className="">
                         <LoginWalletButton
                           provider={provider}
                           loadWeb3Modal={loadWeb3Modal}

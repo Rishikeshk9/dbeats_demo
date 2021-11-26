@@ -286,11 +286,15 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
           <div className="w-full ">
             <div className="w-full flex flex-col lg:flex-row lg:-mt-28 -mt-20 lg:ml-5 ml-0">
               <div className="lg:w-56 w-full flex justify-center z-1">
-                <div className="px-1 py-1 shadow-sm 2xl:w-44 2xl:h-44 lg:w-36 lg:h-36 h-28 w-28 bg-white rounded-full dark:bg-dbeats-dark-primary">
+                <div
+                  className="px-1 py-1 shadow-sm 2xl:w-44 2xl:h-44 lg:w-36 
+                lg:h-36 h-28 w-28 bg-white rounded-full 
+                dark:bg-dbeats-dark-primary overflow-hidden"
+                >
                   <img
                     src={profileImage}
                     alt=""
-                    className="relative lg:w-42 lg:h-42  align-middle items-center  rounded-full "
+                    className="relative h-full w-full  align-middle items-center  rounded-full "
                   />
                   {privateUser ? (
                     <div className="flex justify-end ">
@@ -378,11 +382,13 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
 
             <Tab.Panels className="dark:bg-dbeats-dark-alt w-full h-max pb-10">
               <Tab.Panel className="">
-                <div className="px-5 pt-10 dark:bg-dbeats-dark-alt"></div>
+                <div className="px-5 pt-10">
+                  <p className="text-lg dark:text-white">No Posts till now</p>
+                </div>
               </Tab.Panel>
               <Tab.Panel className="">
-                <div className="px-5 pt-10 dark:bg-dbeats-dark-alt">
-                  {user.videos ? (
+                <div className="px-5 pt-10">
+                  {user.videos && user.videos.length > 0 ? (
                     <div>
                       {user.videos.map((playbackUser, i) => {
                         ////console.log(playbackUser)
@@ -399,14 +405,14 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                       })}
                     </div>
                   ) : (
-                    <p>No Videos till now</p>
+                    <p className="text-lg dark:text-white">No Videos till now</p>
                   )}
                 </div>
               </Tab.Panel>
 
               <Tab.Panel className="">
                 <div className="px-5 pt-10">
-                  {user.tracks ? (
+                  {user.tracks && user.tracks.length > 0 ? (
                     <div className="w-full">
                       {user.tracks.map((track, i) => {
                         ////console.log(playbackUser)
@@ -418,14 +424,14 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                       })}
                     </div>
                   ) : (
-                    <p>No Tracks till now</p>
+                    <p className="text-lg dark:text-white">No Tracks till now</p>
                   )}
                 </div>
               </Tab.Panel>
 
               <Tab.Panel className="">
                 <div className="px-5 pt-10">
-                  {user.my_playlists ? (
+                  {user.my_playlists && user.my_playlists.length > 0 ? (
                     <div>
                       {user.my_playlists.map((playlist, i) => {
                         ////console.log(playbackUser)
@@ -453,13 +459,13 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                       })}
                     </div>
                   ) : (
-                    <p>No Existing PlayLists</p>
+                    <p className="text-lg dark:text-white">No Existing PlayLists</p>
                   )}
                 </div>
               </Tab.Panel>
 
               <Tab.Panel>
-                <div className="px-5 pt-5">
+                <div className="px-5 pt-10">
                   {user.your_reactions.length > 0 ? (
                     <div>
                       {user.your_reactions.map((playbackUser, i) => {
@@ -477,7 +483,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                       })}
                     </div>
                   ) : (
-                    <p>No Reactions till now</p>
+                    <p className="text-lg dark:text-white">No Reactions till now</p>
                   )}
                 </div>
               </Tab.Panel>
