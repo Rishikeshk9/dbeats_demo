@@ -52,11 +52,14 @@ module.exports = {
       width: {
         250: '250px',
         180: '180px',
+        200: '200px',
       },
       height: {
         88: '21.8rem',
         110: '28rem',
         120: '42rem',
+        200: '200px',
+        180: '180px',
       },
       padding: {
         xl: '300px',

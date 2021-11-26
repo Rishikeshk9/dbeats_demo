@@ -124,7 +124,10 @@ const AudioPlayer = ({ userData }) => {
               type="range"
               defaultValue="0"
               onChange={changeRange}
-              className="appearance-none rounded-full h-5 w-full bg-gradient-to-r from-green-400 to-blue-500 font-white overflow-hidden cursor-pointer"
+              className="appearance-none 
+              rounded-full h-5 w-full bg-gradient-to-r 
+              from-green-400 to-blue-500 
+              font-white overflow-hidden cursor-pointer"
             />
           </div>
           <div className="px-2 text-lg font-bold">

@@ -27,6 +27,7 @@ const NFTStore = ({ NFTData }) => {
                 </div>
               );
             }
+            return 0;
           })}
         </>
       ) : (

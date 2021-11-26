@@ -246,18 +246,21 @@ const Login = () => {
                       type="text"
                       placeholder="Name"
                       onChange={(e) => handleNameChange(e)}
+                      required
                     />
                     <input
                       className="self-center my-2 rounded w-full mx-5    border-0   dark:bg-dbeats-dark-primary bg-gray-100 text-gray-900 dark:text-white focus:ring-dbeats-light"
                       type="text"
                       placeholder="Username"
                       onChange={(e) => handleUsernameChange(e)}
+                      required
                     />
                     <input
                       className="self-center my-2 rounded w-full mx-5    border-0   dark:bg-dbeats-dark-primary bg-gray-100 text-gray-900 dark:text-white focus:ring-dbeats-light"
                       type="password"
                       placeholder="Password"
                       onChange={(e) => handlePasswordChange(e)}
+                      required
                     />
                     <>
                       <input
@@ -271,6 +274,7 @@ const Login = () => {
                         type="password"
                         placeholder="Confirm Password"
                         onChange={(e) => handleConfirmPasswordChange(e)}
+                        required
                       />
                       <p
                         className={`${
@@ -297,8 +301,23 @@ const Login = () => {
                     </div>
                     <div className="flex justify-center">
                       <button
-                        className="flex justify-center  w-full  mx-3   flex my-3 py-2 px-24  text-center text-dbeats-light dark:text-white font-bold bg-dbeats-light bg-opacity-5 hover:text-white hover:bg-dbeats-light border  transition-all border-dbeats-light hover:scale-99 transform rounded relative"
+                        className={`${
+                          !(provider && provider.provider.selectedAddress) ||
+                          form_name === '' ||
+                          form_username === '' ||
+                          form_password === '' ||
+                          form_confirmPassword === ''
+                            ? 'flex justify-center  w-full  mx-3   flex my-3 py-2 px-24  text-center text-dbeats-light dark:text-white font-bold bg-dbeats-light bg-opacity-5 rounded relative cursor-default'
+                            : 'flex justify-center  w-full  mx-3   flex my-3 py-2 px-24  text-center text-dbeats-light dark:text-white font-bold bg-dbeats-light bg-opacity-5 hover:text-white hover:bg-dbeats-light border transition-all border-dbeats-light hover:scale-99 transform rounded relative'
+                        }`}
                         onClick={createStream}
+                        disabled={
+                          !(provider && provider.provider.selectedAddress) ||
+                          form_name === '' ||
+                          form_username === '' ||
+                          form_password === '' ||
+                          form_confirmPassword === ''
+                        }
                       >
                         SIGN UP
                         <div

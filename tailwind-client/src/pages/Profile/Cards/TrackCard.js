@@ -28,7 +28,7 @@ const TrackCard = (props) => {
       {/* header */}
       <div className=" group ">
         <div className="bg-white  group dark:bg-dbeats-dark-primary dark:text-blue-300 shadow-md  flex p-2  mx-auto  rounded-lg  w-full hover:scale-101 transform transition-all">
-          <div className="items-center h-26 w-30 md:h-48 md:w-52 flex   cursor-pointer mr-4">
+          <div className="items-center h-26 w-30 lg:h-180 lg:w-200 dark:bg-dbeats-dark-alt flex   cursor-pointer mr-4">
             <div
               onClick={() => {
                 window.sessionStorage.setItem('Track_Array', JSON.stringify(''));
@@ -39,7 +39,7 @@ const TrackCard = (props) => {
               <img
                 id="album-artwork"
                 src={props.track.trackImage}
-                className="px-2 w-full h-full 2 rounded "
+                className="w-full h-full 2 rounded "
                 alt=""
               ></img>
             </div>
@@ -48,18 +48,14 @@ const TrackCard = (props) => {
           <div className="flex flex-col justify-center m-0 p-0  w-full  truncate  ">
             {/* content */}
             <div className="flex justify-between w-full ">
-              <h4 className="playlist  mt-0  uppercase text-gray-500 tracking-widest text-sm">
+              <h4 className="playlist  mt-0 pb-2.5 uppercase text-gray-500 tracking-widest text-sm">
                 {props.track.genre}
               </h4>
-              <p className="font-semibold text-gray-500">
-                {/* {Math.floor(todo.duration / 60)}:
-                {todo.duration - Math.floor(todo.duration / 60) * 60} */}
-              </p>
             </div>
 
             <p
               id="song-title"
-              className=" overflow-ellipsis  w-full max-w-full mt-0 mb-1 md:mb-2 drop-shadow xl:text-3xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500"
+              className=" overflow-ellipsis  w-full max-w-full mt-0 mb-1 drop-shadow xl:text-3xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500"
             >
               {props.track.trackName}
             </p>
@@ -71,22 +67,6 @@ const TrackCard = (props) => {
               >
                 {props.username}&nbsp;
               </p>
-              {props.track.tags ? (
-                <>
-                  {props.track.tags.map((tag, idx) => {
-                    return (
-                      <div
-                        key={idx}
-                        className="px-2 bg-blue-50 text-blue-600 font-bold rounded-lg mx-1"
-                      >
-                        <span>{tag}</span>
-                      </div>
-                    );
-                  })}
-                </>
-              ) : (
-                <></>
-              )}
             </div>
 
             {/* action buttons */}

@@ -56,7 +56,7 @@ const Home = () => {
   const fetchData = async () => {
     const fileRes = await axios.get(`${process.env.REACT_APP_SERVER_URL}/`);
     for (let i = 0; i < fileRes.data.array.length; i++) {
-      if (fileRes.data.array[i].videos) {
+      if (fileRes.data.array[i].videos && fileRes.data.array[i].videos.length > 0) {
         if (user ? fileRes.data.array[i].username !== user.username : true)
           setArrayData((prevState) => [...prevState, fileRes.data.array[i]]);
       }

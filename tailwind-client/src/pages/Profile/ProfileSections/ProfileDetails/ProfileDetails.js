@@ -269,10 +269,10 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
           {privateUser ? (
             <div
               className="ml-2 mt-2 absolute dark:bg-dbeats-dark-alt dark:hover:bg-dbeats-dark hover:bg-white
-              hover:text-dbeats-light dark:hover:text-white rounded-full z-2 text-white "
+              hover:text-dbeats-light dark:hover:text-white rounded-full z-2 text-white dark:text-gray-400"
             >
               <i
-                className="fas fa-edit p-3
+                className="fas fa-pen p-3
                 cursor-pointer"
                 onClick={() => setShowUploadCoverImage(true)}
               ></i>
@@ -299,11 +299,11 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                   {privateUser ? (
                     <div className="flex justify-end ">
                       <div
-                        className="absolute dark:bg-dbeats-dark-alt dark:hover:bg-dbeats-dark dark:text-white hover:bg-gray-200
-                        hover:text-dbeats-light text-dbeats-light bg-white  rounded-full z-2 -mt-8 mr-2"
+                        className="absolute dark:bg-dbeats-dark-alt dark:hover:bg-dbeats-dark dark:text-gray-400 hover:bg-gray-200
+                        hover:text-dbeats-light dark:hover:text-white text-dbeats-light bg-white  rounded-full z-2 -mt-8 mr-2"
                       >
                         <i
-                          className="fas fa-edit p-2.5 
+                          className="fas fa-pen p-2.5 
                      cursor-pointer"
                           onClick={() => setShowUploadProfileImage(true)}
                         ></i>
