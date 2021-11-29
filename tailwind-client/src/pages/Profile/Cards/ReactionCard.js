@@ -54,21 +54,20 @@ const ReactionCard = (props) => {
   return (
     <div className="w-full  flex lg:flex-row flex-col py-3 px-3 bg-white rounded-xl dark:bg-dbeats-dark-primary dark:text-gray-100 my-2">
       <div className={`cursor-pointer lg:w-1/3 w-full  my-auto `}>
-        <ReactPlayer
-          onClick={() => {
-            window.location.href = `/playback/${props.playbackUserData.link}`;
-          }}
-          width="100%"
-          height="auto"
-          playing={playing}
-          muted={false}
-          volume={0.5}
-          url={props.playbackUserData.video.link}
-          controls={false}
-          className={classes.cards_videos}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={hanldeMouseLeave}
-        />
+        <a href={`/playback/${props.playbackUserData.link}`}>
+          <ReactPlayer
+            width="100%"
+            height="auto"
+            playing={playing}
+            muted={false}
+            volume={0.5}
+            url={props.playbackUserData.video.link}
+            controls={false}
+            className={classes.cards_videos}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={hanldeMouseLeave}
+          />
+        </a>
       </div>
       <div className="col-start-1 row-start-3 py-2 px-5 w-full">
         <p className="text-black text-sm font-medium dark:text-gray-100">
@@ -82,10 +81,10 @@ const ReactionCard = (props) => {
               <button className="px-1" onClick={handleShow}>
                 <i className="fas fa-share"></i>
               </button>
-              {like ? <i className="fas fa-heart text-red-700 animate-pulse ml-1"></i> : <></>}
-              {dislike ? <i className="fas fa-heart-broken text-purple-500 ml-1"></i> : <></>}
-              {happy ? <i className="fas fa-laugh-squint text-yellow-500 ml-1"></i> : <></>}
-              {angry ? <i className="fas fa-angry text-red-800 ml-1"></i> : <></>}
+              {like ? <i className="fas fa-heart text-red-700 animate-pulse ml-1"></i> : null}
+              {dislike ? <i className="fas fa-heart-broken text-purple-500 ml-1"></i> : null}
+              {happy ? <i className="fas fa-laugh-squint text-yellow-500 ml-1"></i> : null}
+              {angry ? <i className="fas fa-angry text-red-800 ml-1"></i> : null}
             </div>
           </div>
         </p>

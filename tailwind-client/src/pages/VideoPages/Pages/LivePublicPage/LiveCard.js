@@ -17,21 +17,20 @@ const LiveCard = (props) => {
   return (
     <div className="flex w-full">
       <div className="cursor-pointer">
-        <ReactPlayer
-          onClick={() => {
-            window.location.href = `/live/${props.value.username}/`;
-          }}
-          className="justify-self-center"
-          width="12rem"
-          height="auto"
-          playing={playing}
-          volume={0.5}
-          url={`https://cdn.livepeer.com/hls/${props.value.livepeer_data.playbackId}/index.m3u8`}
-          controls={false}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={hanldeMouseLeave}
-          muted={true}
-        />
+        <a href={`/live/${props.value.username}/`}>
+          <ReactPlayer
+            className="justify-self-center"
+            width="12rem"
+            height="auto"
+            playing={playing}
+            volume={0.5}
+            url={`https://cdn.livepeer.com/hls/${props.value.livepeer_data.playbackId}/index.m3u8`}
+            controls={false}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={hanldeMouseLeave}
+            muted={true}
+          />
+        </a>
       </div>
       <div className="pl-3 text-sm w-full">
         {/* <p className="text-2xl font-semibold mb-0">{props.value.videos[0].videoName.slice(0, 30) + " ..."}</p> */}

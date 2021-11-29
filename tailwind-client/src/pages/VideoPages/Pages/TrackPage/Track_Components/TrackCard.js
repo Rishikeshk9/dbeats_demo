@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const TrackCard = (props) => {
   //console.log(props);
@@ -12,12 +13,14 @@ const TrackCard = (props) => {
         w-full hover:scale-101 transform transition-all"
       >
         <div className=" flex items-center h-32 w-44 cursor-pointer bg-gray-300">
-          <div
+          <Link
+            to={{
+              pathname: `/track/${props.username}/${props.index}`,
+            }}
             onClick={() => {
               window.sessionStorage.setItem('Track_Array', JSON.stringify(''));
               window.sessionStorage.setItem('Track_Array_Size', 0);
               window.sessionStorage.setItem('Track_Index', 0);
-              window.location.href = `/track/${props.username}/${props.index}`;
             }}
           >
             <img
@@ -26,7 +29,7 @@ const TrackCard = (props) => {
               className="mx-auto w-full h-full rounded"
               alt=""
             ></img>
-          </div>
+          </Link>
         </div>
 
         <div className="flex flex-col justify-center ml-6 w-full">

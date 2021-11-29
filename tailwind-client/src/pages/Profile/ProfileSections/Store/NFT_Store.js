@@ -30,9 +30,7 @@ const NFTStore = ({ NFTData }) => {
             return 0;
           })}
         </>
-      ) : (
-        <></>
-      )}
+      ) : null}
     </div>
   );
 };

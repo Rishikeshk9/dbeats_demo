@@ -151,9 +151,7 @@ export const Playlist = (props) => {
                     );
                   })}
                 </>
-              ) : (
-                <></>
-              )}
+              ) : null}
             </div>
           </div>
           <hr className="my-2 " />

@@ -100,12 +100,10 @@ const TrackInfo = (props) => {
                   {userData.username}
                 </p>
               </>
-            ) : (
-              <></>
-            )}
+            ) : null}
           </div>
           <div className="self-center lg:pr-4 lg:w-full lg:mt-3 mt-0.5">
-            {userData ? <AudioPlayer userData={userData.tracks[track_id]} /> : <></>}
+            {userData ? <AudioPlayer userData={userData.tracks[track_id]} /> : null}
           </div>
         </div>
 
@@ -137,9 +135,7 @@ const TrackInfo = (props) => {
           id={track_id}
           datatype="track"
         />
-      ) : (
-        <></>
-      )}
+      ) : null}
     </div>
   );
 };

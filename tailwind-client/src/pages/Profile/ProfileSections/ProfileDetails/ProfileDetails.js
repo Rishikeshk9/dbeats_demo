@@ -21,6 +21,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
 
   const [privateUser, setPrivate] = useState(true);
   const [loader, setLoader] = useState(true);
+  const [subscribeLoader, setSubscribeLoader] = useState(true);
 
   const handleShow = () => setShow(true);
 
@@ -138,6 +139,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
   }
 
   const trackFollowers = () => {
+    setSubscribeLoader(false);
     if (buttonText === 'Login to Subscribe') {
       window.location.href = '/signup';
     }
@@ -148,8 +150,6 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
     };
 
     if (buttonText === 'Subscribe') {
-      setButtonText('Unsubscribe');
-      setFollowers(followers + 1);
       axios({
         method: 'POST',
         url: `${process.env.REACT_APP_SERVER_URL}/user/follow`,
@@ -161,7 +161,9 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
       })
         .then(function (response) {
           if (response) {
-            //console.log(response);
+            setButtonText('Unsubscribe');
+            setFollowers(followers + 1);
+            setSubscribeLoader(true);
           } else {
             alert('Invalid Login');
           }
@@ -170,8 +172,6 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
           console.log(error);
         });
     } else {
-      setButtonText('Subscribe');
-      setFollowers(followers - 1);
       axios({
         method: 'POST',
         url: `${process.env.REACT_APP_SERVER_URL}/user/unfollow`,
@@ -183,7 +183,9 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
       })
         .then(function (response) {
           if (response) {
-            //console.log(response);
+            setButtonText('Subscribe');
+            setFollowers(followers - 1);
+            setSubscribeLoader(true);
           } else {
             alert('Invalid Login');
           }
@@ -243,7 +245,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
   const NavTabsTitle = ({ text }) => {
     if (text === 'Subscribed Channels') {
       if (!privateUser) {
-        return <></>;
+        return null;
       }
     }
     return (
@@ -322,15 +324,21 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                       {!privateUser ? (
                         <button
                           href="#"
-                          className="no-underline cursor-pointer border-dbeats-light border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mr-1 flex self-center   py-1 px-3"
+                          className="flex items-center no-underline cursor-pointer border-dbeats-light border-1  
+                          text-dbeats-light hover:bg-dbeats-light 
+                          hover:text-white rounded font-bold mr-1 flex self-center py-1 px-3"
                           onClick={trackFollowers}
                         >
-                          <i className="fas fa-plus self-center"></i>
-                          &nbsp;{buttonText}
+                          <span>
+                            {buttonText === 'Subscribe' ? <i className="fas fa-plus"></i> : null}
+                            &nbsp;{buttonText}
+                          </span>
+                          <div
+                            hidden={loader}
+                            className="w-3 h-3 ml-2 border-t-4 border-b-4 border-white rounded-full animate-spin"
+                          ></div>
                         </button>
-                      ) : (
-                        <></>
-                      )}
+                      ) : null}
                       <button
                         onClick={handleShow}
                         className="no-underline border text-dbeats-dark-alt 
@@ -521,9 +529,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                     )}
                   </div>
                 </Tab.Panel>
-              ) : (
-                <></>
-              )}
+              ) : null}
             </Tab.Panels>
           </Tab.Group>
         </div>

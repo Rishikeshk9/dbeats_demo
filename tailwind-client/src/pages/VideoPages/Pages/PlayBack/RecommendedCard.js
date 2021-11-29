@@ -14,24 +14,25 @@ const RecommendedCard = (props) => {
     setPlaying(false);
   };
   ////console.log('My : ', props.value);
+
+  //TODO : remove link to 0
   return (
     <div className={`${props.darkMode && 'dark'} flex w-full`}>
       <div className="cursor-pointer 2xl:h-28 lg:h-20 dark:bg-dbeats-dark-primary">
-        <ReactPlayer
-          onClick={() => {
-            window.location.href = `/playback/${props.value.username}/0`;
-          }}
-          className="justify-self-center"
-          width={window.innerWidth >= '1536' ? '12rem' : '9rem'}
-          height="100%"
-          playing={playing}
-          volume={0.5}
-          url={props.value.videos[0].link}
-          controls={false}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={hanldeMouseLeave}
-          muted={true}
-        />
+        <a href={`/playback/${props.value.username}/0`}>
+          <ReactPlayer
+            className="justify-self-center"
+            width={window.innerWidth >= '1536' ? '12rem' : '9rem'}
+            height="100%"
+            playing={playing}
+            volume={0.5}
+            url={props.value.videos[0].link}
+            controls={false}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={hanldeMouseLeave}
+            muted={true}
+          />
+        </a>
       </div>
       <div className="pl-3 text-sm 2xl:text-sm lg:text-xs w-full">
         {/* <p className="text-2xl font-semibold mb-0">{props.value.videos[0].videoName.slice(0, 30) + " ..."}</p> */}

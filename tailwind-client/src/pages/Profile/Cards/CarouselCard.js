@@ -33,21 +33,20 @@ const CarouselCard = (props) => {
   return (
     <div className="w-full  flex lg:flex-row flex-col py-3 px-3 bg-white rounded-xl dark:bg-dbeats-dark-primary dark:text-gray-100 my-2">
       <div className={`cursor-pointer lg:w-1/3 w-full  my-auto`}>
-        <ReactPlayer
-          onClick={() => {
-            window.location.href = `/playback/${props.username}/${props.index}`;
-          }}
-          width="100%"
-          height="auto"
-          playing={playing}
-          muted={false}
-          volume={0.5}
-          url={props.playbackUserData.link}
-          controls={false}
-          className={classes.cards_videos}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={hanldeMouseLeave}
-        />
+        <a href={`/playback/${props.username}/${props.index}`}>
+          <ReactPlayer
+            width="100%"
+            height="auto"
+            playing={playing}
+            muted={false}
+            volume={0.5}
+            url={props.playbackUserData.link}
+            controls={false}
+            className={classes.cards_videos}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={hanldeMouseLeave}
+          />
+        </a>
       </div>
       <div className="col-start-1 row-start-3 py-2 px-5 w-full">
         <p className="text-black text-sm font-medium dark:text-gray-100">

@@ -11,16 +11,16 @@ const BottomBar = ({ songDetails, playing, firstPlayed, setState }) => {
   const audioPlayer = useRef();
   const volumeRef = useRef();
   const animationRef = useRef();
+  const lableRef = useRef();
+
   const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+
   const [mute, setMute] = useState(false);
 
   useEffect(() => {
-    if (audioPlayer.current && progressRef.current && volumeRef.current) {
-      const seconds = Math.floor(audioPlayer.current.duration);
-      setDuration(seconds);
-      progressRef.current.max = seconds;
-    }
-
+    const seconds = Math.floor(audioPlayer.current.duration);
+    setDuration(seconds);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [audioPlayer?.current?.loadedmetadata, audioPlayer?.current?.readyState]);
 
@@ -35,22 +35,41 @@ const BottomBar = ({ songDetails, playing, firstPlayed, setState }) => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playing]);
+  }, [playing, setState]);
+
+  useEffect(() => {
+    if (progressRef.current) {
+      const newValue = Number(
+        ((progressRef.current.value - progressRef.current.min) * 100) /
+          (progressRef.current.max - progressRef.current.min),
+      );
+      //const newPosition = 10 - newValue * 0.2;
+      lableRef.current.innerHTML = `${calculateTime(progressRef.current.value)}`;
+    }
+  }, [currentTime]);
 
   const changeRange = () => {
     audioPlayer.current.currentTime = progressRef.current.value;
     changePlayerCurrentTime();
   };
 
+  const calculateTime = (sec) => {
+    const minutes = Math.floor(sec / 60);
+    const returnedMin = minutes < 10 ? `0${minutes}` : `${minutes}`;
+    const seconds = Math.floor(sec % 60);
+    const returnedSec = seconds < 10 ? `0${seconds}` : `${seconds}`;
+
+    return `${returnedMin}:${returnedSec}`;
+  };
+
   const changeVolumeRange = () => {
-    console.log(volumeRef.current.max);
-    console.log(volumeRef.current.value);
     audioPlayer.current.volume = volumeRef.current.value / 100;
   };
 
   const whilePlaying = () => {
-    if (audioPlayer.current) {
+    if (audioPlayer.current && progressRef.current) {
       progressRef.current.value = audioPlayer.current.currentTime;
+      changePlayerCurrentTime();
       animationRef.current = requestAnimationFrame(whilePlaying);
     }
   };
@@ -61,6 +80,7 @@ const BottomBar = ({ songDetails, playing, firstPlayed, setState }) => {
         '--seek-before-width',
         `${(progressRef.current.value / duration) * 100}%`,
       );
+      setCurrentTime(progressRef.current.value);
     }
   };
 
@@ -92,6 +112,7 @@ const BottomBar = ({ songDetails, playing, firstPlayed, setState }) => {
                 ref={progressRef}
                 type="range"
                 defaultValue="0"
+                max={duration}
                 onChange={changeRange}
                 className="appearance-none cursor-pointer w-full h-1.5 bg-gradient-to-r from-green-400 to-blue-500  
                 font-white rounded outline-none slider-thumb backdrop-filter  backdrop-blur-md"
@@ -121,6 +142,10 @@ const BottomBar = ({ songDetails, playing, firstPlayed, setState }) => {
               </audio> */}
 
                   <div className="flex items-center self-center justify-center w-full  ">
+                    <div className="text-white text-lg pr-3">
+                      <span className="range-value text-white" ref={lableRef}></span>
+                      <span> / {duration && !isNaN(duration) && calculateTime(duration)}</span>
+                    </div>
                     <div
                       onClick={setState}
                       className="cursor-pointer dark:hover:bg-dbeats-dark-secondary p-1 rounded"

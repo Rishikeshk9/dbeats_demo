@@ -155,18 +155,14 @@ const Profile = (props) => {
             />
           </div>
         </div>
-      ) : (
-        <></>
-      )}
+      ) : null}
       {notFound ? (
         <PageNotFound
           headtext="User Not found"
           text="Please check the Username"
           animation={animationData}
         />
-      ) : (
-        <></>
-      )}
+      ) : null}
     </>
   );
 };

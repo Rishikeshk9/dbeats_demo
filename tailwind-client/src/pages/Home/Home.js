@@ -113,9 +113,7 @@ const Home = () => {
                       <div className="pt-4">
                         <ResponsiveCarousel slides={slides} autoplay={false} />
                       </div>
-                    ) : (
-                      <></>
-                    )}
+                    ) : null}
                   </div>
                 </div>
                 <div className="lg:mt-10 2xl:px-4 ">
@@ -151,9 +149,7 @@ const Home = () => {
                                 </Carousel>
                               </div>{' '}
                             </>
-                          ) : (
-                            <></>
-                          )
+                          ) : null
                         ) : (
                           false
                         )}

@@ -1,3 +1,4 @@
+import React from 'react';
 import TrackCard from '../../Cards/TrackCard';
 import CarouselCard from '../../Cards/CarouselCard';
 import ReactionCard from '../../Cards/ReactionCard';

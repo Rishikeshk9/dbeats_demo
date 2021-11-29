@@ -79,9 +79,7 @@ const SearchResult = () => {
                 )}
               </div>
             </>
-          ) : (
-            <></>
-          )}
+          ) : null}
         </div>
       </div>
     </div>

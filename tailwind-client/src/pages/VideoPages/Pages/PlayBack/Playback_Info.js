@@ -1,24 +1,24 @@
-import React, { useEffect, useState, Fragment } from 'react';
-//import playimg from "../../../assets/images/telegram.png";
-import axios from 'axios';
-import VideoPlayer from '../../../../component/VideoPlayer/VideoPlayer';
-import { Menu, Transition } from '@headlessui/react';
-import { Container, Row } from 'react-bootstrap';
-import RecommendedCard from './RecommendedCard';
-import Modal from 'react-modal';
-import SuperfluidSDK from '@superfluid-finance/js-sdk';
 import { Web3Provider } from '@ethersproject/providers';
-import { useSelector } from 'react-redux';
-import animationData from '../../../../lotties/fans.json';
-import animationDataConfetti from '../../../../lotties/confetti.json';
-import animationDataGiraffee from '../../../../lotties/giraffee.json';
-import animationDataNotFound from '../../../../lotties/error-animation.json';
+import { Menu, Transition } from '@headlessui/react';
+import SuperfluidSDK from '@superfluid-finance/js-sdk';
+import axios from 'axios';
+import moment from 'moment';
+import React, { Fragment, useEffect, useState } from 'react';
+import { Container, Row } from 'react-bootstrap';
 import Lottie from 'react-lottie';
+import Modal from 'react-modal';
+import { useSelector } from 'react-redux';
 import superfluid from '../../../../assets/images/superfluid-black.svg';
 import { Playlist } from '../../../../component/Modals/PlaylistModals/PlaylistModal';
-import moment from 'moment';
 import { ShareModal } from '../../../../component/Modals/ShareModal/ShareModal';
 import PageNotFound from '../../../../component/PageNotFound/PageNotFound';
+import VideoPlayer from '../../../../component/VideoPlayer/VideoPlayer';
+import animationDataConfetti from '../../../../lotties/confetti.json';
+import animationDataNotFound from '../../../../lotties/error-animation.json';
+import animationData from '../../../../lotties/fans.json';
+import animationDataGiraffee from '../../../../lotties/giraffee.json';
+import RecommendedCard from './RecommendedCard';
+
 moment().format();
 
 const PlayBackInfo = (props) => {
@@ -75,6 +75,7 @@ const PlayBackInfo = (props) => {
 
   const [playbackUrl, setPlaybackUrl] = useState('');
 
+  const [loader, setLoader] = useState(true);
   const [userData, setUserData] = useState(null);
   const [videoData, setVideoData] = useState(false);
   const [notFound, setNotFound] = useState(false);
@@ -109,12 +110,12 @@ const PlayBackInfo = (props) => {
   // });
 
   const trackFollowers = () => {
+    setLoader(false);
     const followData = {
       following: `${userData.username}`,
       follower: `${user.username}`,
     };
     if (subscribeButtonText === 'Subscribe') {
-      setSubscribeButtonText('Unsubscribe');
       axios({
         method: 'POST',
         url: `${process.env.REACT_APP_SERVER_URL}/user/follow`,
@@ -126,7 +127,8 @@ const PlayBackInfo = (props) => {
       })
         .then(function (response) {
           if (response) {
-            //console.log(response);
+            setSubscribeButtonText('Unsubscribe');
+            setLoader(true);
           } else {
             alert('Invalid Login');
           }
@@ -135,7 +137,6 @@ const PlayBackInfo = (props) => {
           console.log(error);
         });
     } else {
-      setSubscribeButtonText('Subscribe');
       axios({
         method: 'POST',
         url: `${process.env.REACT_APP_SERVER_URL}/user/unfollow`,
@@ -147,7 +148,9 @@ const PlayBackInfo = (props) => {
       })
         .then(function (response) {
           if (response) {
-            ////console.log(response);
+            console.log(response);
+            setSubscribeButtonText('Subscribe');
+            setLoader(true);
           } else {
             alert('Invalid Login');
           }
@@ -446,11 +449,7 @@ const PlayBackInfo = (props) => {
           >
             <div className=" lg:col-span-2 dark:bg-dbeats-dark-alt text-black dark:text-white">
               <div className="self-center 2xl:px-12 lg:px-5 w-screen lg:w-full 2xl:mt-1 lg:mt-2 mt-0.5">
-                {userData ? (
-                  <VideoPlayer playbackUrl={playbackUrl} creatorData={userData} />
-                ) : (
-                  <></>
-                )}
+                {userData ? <VideoPlayer playbackUrl={playbackUrl} creatorData={userData} /> : null}
               </div>
               <div className="2xl:mx-7 2xl:px-7 lg:px-2 lg:mx-4 px-3 dark:bg-dbeats-dark-alt">
                 <div className="lg:flex flex-row justify-between lg:my-2 my-1  ">
@@ -460,46 +459,43 @@ const PlayBackInfo = (props) => {
                         <p className="font-semibold 2xl:text-xl lg:text-md pb-4">
                           {userData.videos[props.video_id].videoName}
                         </p>
-                      ) : (
-                        <></>
-                      )}
+                      ) : null}
                       {time ? (
                         <p className="font-semibold 2xl:text-lg lg:text-xs text-md text-gray-400 pb-4">
                           {time}
                         </p>
-                      ) : (
-                        <></>
-                      )}
+                      ) : null}
                     </div>
                     {!privateUser ? (
                       <div>
                         {user ? (
-                          <div className="flex ">
+                          <div className="flex items-center ">
                             <button
-                              className="bg-dbeats-light p-1 2xl:text-lg lg:text-sm text-md rounded-sm 2xl:px-4 px-4 lg:px-2 mr-3 font-semibold text-white "
+                              className="flex items-center bg-dbeats-light p-1 2xl:text-lg lg:text-sm text-md rounded-sm 2xl:px-4 px-4 lg:px-2 mr-3 font-semibold text-white "
                               onClick={trackFollowers}
                             >
                               <span>{subscribeButtonText}</span>
+                              <div
+                                hidden={loader}
+                                className="w-4 h-4 ml-2 border-t-4 border-b-4 border-white rounded-full animate-spin"
+                              ></div>
                             </button>
+
                             <button className="bg-dbeats-light    p-1 2xl:text-lg lg:text-sm text-md  rounded-sm 2xl:px-4 px-4 lg:px-2 mr-3 font-semibold text-white ">
                               <i className="fas fa-dice-d20  mr-1 cursor-pointer"></i>
                               <span onClick={handleShowSubscriptionModal}>Become a SuperFan</span>
                             </button>
                           </div>
                         ) : (
-                          <button
+                          <a
+                            href="/signup"
                             className="bg-dbeats-light  p-1 2xl:text-lg lg:text-sm text-md  rounded-sm 2xl:px-4 px-4 lg:px-2 mr-3 font-semibold text-white "
-                            onClick={() => {
-                              window.location.href = '/signup';
-                            }}
                           >
                             <span>Login to Subscribe and Become a SuperFan</span>
-                          </button>
+                          </a>
                         )}
                       </div>
-                    ) : (
-                      <></>
-                    )}
+                    ) : null}
                   </div>
                   <div className="2xl:text-2xl lg:text-md 2xl:py-4 lg:py-2 py-2 flex justify-around">
                     <div className="  text-center lg:mx-3">
@@ -624,9 +620,7 @@ const PlayBackInfo = (props) => {
                     </p>
                     <hr />
                   </div>
-                ) : (
-                  <></>
-                )}
+                ) : null}
                 <div className="bg-blue-50">
                   <iframe
                     className="w-full p-0 m-0 h-88 2xl:h-88 lg:h-88 mb-40"
@@ -778,13 +772,12 @@ const PlayBackInfo = (props) => {
                   </h2>
                 </Row>
                 <Row>
-                  <button
+                  <a
+                    href="/signup"
                     className="block mx-auto 2xl:p-2 p-2 lg:p-1 mt-4 mb-2 2xl:w-96 lg:w-72 w-full lg:text-md 2xl:text-lg  text-white font-semibold rounded-lg bg-dbeats-light"
-                    type="submit"
-                    onClick={() => (window.location.href = '/signup')}
                   >
                     Login
-                  </button>
+                  </a>
                 </Row>
               </Container>
             </div>
@@ -800,31 +793,23 @@ const PlayBackInfo = (props) => {
               id={props.video_id}
               datatype="video"
             />
-          ) : (
-            <></>
-          )}
+          ) : null}
         </div>
-      ) : (
-        <></>
-      )}
+      ) : null}
       {notFound ? (
         <PageNotFound
           headtext="Video Not found"
           text="Please check the Video ID"
           animation={animationDataNotFound}
         />
-      ) : (
-        <></>
-      )}
+      ) : null}
       {userNotFound ? (
         <PageNotFound
           headtext="Video Not found"
           text="Please check the Username "
           animation={animationDataNotFound}
         />
-      ) : (
-        <></>
-      )}
+      ) : null}
     </>
   );
 };

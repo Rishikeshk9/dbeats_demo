@@ -193,12 +193,10 @@ export const UploadCoverImageModal = ({
                   />
                 )}
               </div>
-            ) : (
-              <></>
-            )}
+            ) : null}
           </div>
           <div className="flex justify-evenly mt-3">
-            <label class="bg-dbeats-light text-white font-bold px-5 py-2 rounded-lg cursor-pointer">
+            <label className="bg-dbeats-light text-white font-bold px-5 py-2 rounded-lg cursor-pointer">
               <input type="file" style={{ display: 'none' }} onChange={handleChange} />
               Select Cover Image
             </label>
@@ -215,9 +213,7 @@ export const UploadCoverImageModal = ({
                   hidden={loader}
                 ></div>
               </div>
-            ) : (
-              <></>
-            )}
+            ) : null}
           </div>
         </div>
       </Modal>
@@ -387,12 +383,10 @@ export const UploadProfileImageModal = ({
                   />
                 )}
               </div>
-            ) : (
-              <></>
-            )}
+            ) : null}
           </div>
           <div className="flex justify-evenly">
-            <label class="bg-dbeats-light flex items-center text-white font-bold px-5 py-2 rounded-lg cursor-pointer">
+            <label className="bg-dbeats-light flex items-center text-white font-bold px-5 py-2 rounded-lg cursor-pointer">
               <input type="file" style={{ display: 'none' }} onChange={handleChange} />
               Select Profile Image
             </label>
@@ -409,9 +403,7 @@ export const UploadProfileImageModal = ({
                   hidden={loader}
                 ></div>
               </div>
-            ) : (
-              <></>
-            )}
+            ) : null}
           </div>
         </div>
       </Modal>

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const TrackCard = (props) => {
   //console.log(props);
@@ -29,11 +30,13 @@ const TrackCard = (props) => {
       <div className=" group ">
         <div className="bg-white  group dark:bg-dbeats-dark-primary dark:text-blue-300 shadow-md  flex p-2  mx-auto  rounded-lg  w-full hover:scale-101 transform transition-all">
           <div className="items-center h-26 w-30 lg:h-180 lg:w-200 dark:bg-dbeats-dark-alt flex   cursor-pointer mr-4">
-            <div
+            <Link
+              to={{
+                pathname: `/track/${props.username}/${props.index}`,
+              }}
               onClick={() => {
                 window.sessionStorage.setItem('Track_Array', JSON.stringify(''));
                 window.sessionStorage.setItem('Track_Array_Size', 0);
-                window.location.href = `/track/${props.username}/${props.index}`;
               }}
             >
               <img
@@ -42,7 +45,7 @@ const TrackCard = (props) => {
                 className="w-full h-full 2 rounded "
                 alt=""
               ></img>
-            </div>
+            </Link>
           </div>
 
           <div className="flex flex-col justify-center m-0 p-0  w-full  truncate  ">

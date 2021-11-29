@@ -62,7 +62,7 @@ const Waves = ({ src, isPlaying, currentTime, setIsPlaying, setHidden }) => {
           let value = JSON.parse(window.sessionStorage.getItem('Track_Index'));
           window.sessionStorage.setItem('Track_Index', value + 1);
         }
-        window.location.href = `/track/${data[index].username}/0`;
+        window.history.replaceState({}, 'track', `/track/${data[index].username}/0`);
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -209,14 +209,14 @@ const PublicInfo = (props) => {
       >
         <div className=" lg:col-span-2">
           <div className="self-center lg:px-8 w-screen lg:w-full lg:mt-3 mt-0.5">
-            {userData ? <VideoPlayer playbackUrl={playbackUrl} creatorData={userData} /> : <></>}
+            {userData ? <VideoPlayer playbackUrl={playbackUrl} creatorData={userData} /> : null}
           </div>
 
           <div className="lg:mx-7 lg:px-7 px-3">
             <div className="lg:flex flex-row justify-between lg:my-2 my-1  ">
               <div className="py-4">
                 <div className=" w-full text-left mt-0" style={{ padding: '0px' }}>
-                  {userData ? <p className="font-semibold text-xl pb-4">{}</p> : <></>}
+                  {userData ? <p className="font-semibold text-xl pb-4">{}</p> : null}
                 </div>
                 {!privateUser ? (
                   <div>
@@ -228,23 +228,19 @@ const PublicInfo = (props) => {
                         <span>{subscribeButtonText}</span>
                       </button>
                     ) : (
-                      <button
+                      <a
+                        href="/signup"
                         className="bg-dbeats-light p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white "
-                        onClick={() => {
-                          window.location.href = '/signup';
-                        }}
                       >
                         <span>Login</span>
-                      </button>
+                      </a>
                     )}
                     <button className="bg-dbeats-light    p-1 text-lg rounded-sm px-4 mr-3 font-semibold text-white ">
                       <i className="fas fa-dice-d20  mr-1 cursor-pointer"></i>
                       <span onClick={handleShowSubscriptionModal}>Become a SuperFan</span>
                     </button>
                   </div>
-                ) : (
-                  <></>
-                )}
+                ) : null}
               </div>
               <div className="text-2xl lg:py-4 py-2 flex justify-around">
                 <div className="  text-center lg:mx-3">
@@ -305,9 +301,7 @@ const PublicInfo = (props) => {
                 <p className="pb-2">{userData.name}</p>
                 <hr />
               </div>
-            ) : (
-              <></>
-            )}
+            ) : null}
             <div className={`${classes.comment_section}`}>
               <iframe
                 className="w-full p-0 m-0 h-60 lg:h-88"

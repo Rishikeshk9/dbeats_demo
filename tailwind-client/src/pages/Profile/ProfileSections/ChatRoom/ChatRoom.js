@@ -47,7 +47,7 @@ function ChatRoom(props) {
         chatRef.current.scrollIntoView({ behavior: 'smooth' });
       }, true);
     } else {
-      window.location.href = '/';
+      window.history.replaceState({}, 'Home', '/');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

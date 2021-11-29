@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
-//import { useHistory } from "react-router-dom";
 import person from '../../../assets/images/profile.svg';
 import moment from 'moment';
 moment().format();
@@ -76,9 +75,7 @@ const PlayBackCard = (props) => {
             </p>
           </div>
         </div>
-      ) : (
-        <></>
-      )}
+      ) : null}
     </>
   );
 };

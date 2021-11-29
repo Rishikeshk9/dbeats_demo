@@ -4,9 +4,6 @@ const bcrypt = require('bcryptjs');
 const axios = require('axios');
 const fs = require('fs');
 
-const livepeerKey = process.env.LIVEPEER_KEY;
-const AuthStr = 'Bearer '.concat(livepeerKey);
-
 let User = require('../models/user.model');
 
 router.route('/').get((req, res) => {
@@ -191,18 +188,36 @@ router.route('/unfollow').post(async (req, res) => {
   try {
     const following = req.body.following;
     const follower = req.body.follower;
+
+    console.log(following, follower);
     User.findOneAndUpdate(
       { username: following },
       { $pull: { follower_count: follower } },
+      function (error, success) {
+        if (error) {
+          res.send(error);
+        }
+      },
     );
     User.findOneAndUpdate(
       { username: follower },
       { $pull: { followee_count: following } },
+      function (error, success) {
+        if (error) {
+          res.send(error);
+        }
+      },
     );
     User.findOneAndUpdate(
       { username: follower },
       { $pull: { pinned: following } },
+      function (error, success) {
+        if (error) {
+          res.send(error);
+        }
+      },
     );
+
     res.send('success');
   } catch (err) {
     console.log(err);
@@ -235,7 +250,7 @@ router.route('/favorite').post(async (req, res) => {
         if (error) {
           res.send(error);
         } else {
-          res.send(success);
+          res.send('success');
         }
       },
     );
@@ -255,7 +270,7 @@ router.route('/unfavorite').post(async (req, res) => {
         if (error) {
           res.send(error);
         } else {
-          res.send(success);
+          res.send('success');
         }
       },
     );
@@ -315,7 +330,7 @@ router.route('/reactions').post(async (req, res) => {
         { upsert: true },
         function (error, success) {
           if (error) {
-          } else {
+            res.send(error);
           }
         },
       );
@@ -324,7 +339,7 @@ router.route('/reactions').post(async (req, res) => {
         { $push: { your_reactions: yourdata } },
         function (error, success) {
           if (error) {
-          } else {
+            res.send(error);
           }
         },
       );
@@ -345,7 +360,6 @@ router.route('/getreactions').post(async (req, res) => {
     for (let i = 0; i < user.videos.length; i++) {
       if (user.videos[i].link === videolink) {
         res.send(user.videos[i]);
-        break;
       }
     }
   } catch (err) {
@@ -460,7 +474,7 @@ router.route('/removeuserreaction').post(async (req, res) => {
         { $set: { videos: data } },
         function (error, success) {
           if (error) {
-          } else {
+            res.send(error);
           }
         },
       );
@@ -490,7 +504,7 @@ router.route('/removeuserreaction').post(async (req, res) => {
         { $set: { your_reactions: yourdata } },
         function (error, success) {
           if (error) {
-          } else {
+            res.send(error);
           }
         },
       );
@@ -512,7 +526,7 @@ router.route('/pinned').post(async (req, res) => {
         if (error) {
           res.send(error);
         } else {
-          res.send(success);
+          res.send('success');
         }
       },
     );
@@ -532,7 +546,7 @@ router.route('/unpin').post(async (req, res) => {
         if (error) {
           res.send(error);
         } else {
-          res.send(success);
+          res.send('success');
         }
       },
     );
@@ -596,16 +610,6 @@ router.route('/seennotification').post(async (req, res) => {
   }
 });
 
-router
-  .route('/triggernotification/:username')
-  .get(async (req, res) => {
-    try {
-      const username = req.params.username;
-    } catch (err) {
-      console.log(err);
-    }
-  });
-
 router.route('/playlist').post(async (req, res) => {
   try {
     const playlistname = req.body.playlistname;
@@ -646,7 +650,7 @@ router.route('/playlist').post(async (req, res) => {
         { $push: { my_playlists: playlistData } },
         function (error, success) {
           if (error) {
-          } else {
+            res.send(error);
           }
         },
       );
@@ -666,7 +670,7 @@ router.route('/playlist').post(async (req, res) => {
         { $set: { my_playlists: playlistdata } },
         function (error, success) {
           if (error) {
-          } else {
+            res.send(error);
           }
         },
       );
@@ -711,7 +715,7 @@ router.route('/coverimage').post(async (req, res) => {
           { $set: { cover_image: coverImageHashLink } },
           function (error, success) {
             if (error) {
-              console.log(error);
+              res.send(error);
             }
           },
         );
@@ -764,7 +768,7 @@ router.route('/profileimage').post(async (req, res) => {
           { $set: { profile_image: profileImageHashLink } },
           function (error, success) {
             if (error) {
-              console.log(error);
+              res.send(error);
             }
           },
         );

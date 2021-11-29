@@ -17,26 +17,26 @@ const LiveCard = (props) => {
   return (
     <div className="w-full h-auto  ">
       <div className=" cursor-pointer ">
-        <span className="fixed bg-red-600 text-white px-1 mx-1 my-1 rounded-sm font-semibold">
-          {' '}
-          Live{' '}
-        </span>
-        <ReactPlayer
-          onClick={() => {
-            window.location.href = `/live/${props.username}/`;
-          }}
-          playing={playing}
-          autoplay={true}
-          width="100%"
-          height="auto"
-          muted={false}
-          volume={0.5}
-          url={`https://cdn.livepeer.com/hls/${props.liveUserData.livepeer_data.playbackId}/index.m3u8`}
-          controls={false}
-          className={`${classes.cards_videos} `}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={hanldeMouseLeave}
-        />
+        <a href={`/live/${props.username}/`}>
+          <span className="fixed bg-red-600 text-white px-1 mx-1 my-1 rounded-sm font-semibold">
+            {' '}
+            Live{' '}
+          </span>
+
+          <ReactPlayer
+            playing={playing}
+            autoplay={true}
+            width="100%"
+            height="auto"
+            muted={false}
+            volume={0.5}
+            url={`https://cdn.livepeer.com/hls/${props.liveUserData.livepeer_data.playbackId}/index.m3u8`}
+            controls={false}
+            className={`${classes.cards_videos} `}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={hanldeMouseLeave}
+          />
+        </a>
       </div>
       <div className="col-start-1 row-start-3 pb-2 pt-2  ">
         <p className="flex items-center text-black text-sm font-medium  ">
