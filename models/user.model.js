@@ -58,6 +58,10 @@ const userSchema = new Schema(
       type: Array,
       default: [],
     },
+    posts: {
+      type: Array,
+      default: [],
+    },
     notification: {
       type: Array,
       default: [],

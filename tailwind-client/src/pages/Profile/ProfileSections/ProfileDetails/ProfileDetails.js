@@ -8,6 +8,7 @@ import {
   UploadCoverImageModal,
   UploadProfileImageModal,
 } from '../../../../component/Modals/ImageUploadModal/ImageUploadModal';
+import AnnouncementCard from '../../Cards/AnnouncementCard';
 import CarouselCard from '../../Cards/CarouselCard';
 import PlaylistCard from '../../Cards/PlaylistCard';
 import ReactionCard from '../../Cards/ReactionCard';
@@ -255,7 +256,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
             'w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ',
             selected
               ? 'text-dbeats-light font-bold border-b-2 border-dbeats-light'
-              : 'hover:bg-black/[0.12]  hover:text-gray-100',
+              : 'hover:bg-black/[0.12]  dark:hover:text-gray-100 hover:text-gray-700',
           )
         }
       >
@@ -265,7 +266,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
   };
 
   return (
-    <div className={`${darkMode && 'dark'} px-5 h-max lg:col-span-5 col-span-6 w-full mt-16`}>
+    <div className={`${darkMode && 'dark'} px-5 h-max lg:col-span-5 col-span-6 w-full mt-16 `}>
       <div id="display_details" className="  pt-3 h-full">
         <div className="bg-white dark:bg-dbeats-dark-primary pb-3 ">
           {privateUser ? (
@@ -388,14 +389,27 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
               })}
             </Tab.List>
 
-            <Tab.Panels className="dark:bg-dbeats-dark-alt w-full h-max pb-10">
+            <Tab.Panels className="dark:bg-dbeats-dark-alt w-full h-96  overflow-auto ">
               <Tab.Panel className="">
-                <div className="px-5 pt-10">
-                  <p className="text-lg dark:text-white">No Posts till now</p>
+                <div className="px-5 pt-10 pb-5">
+                  {user.posts && user.posts.length > 0 ? (
+                    <div>
+                      {user.posts.map((post, i) => {
+                        ////console.log(playbackUser)
+                        return (
+                          <div key={i}>
+                            <AnnouncementCard post={post} index={i} username={user.username} />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <p className="text-lg dark:text-white">No Posts till now</p>
+                  )}
                 </div>
               </Tab.Panel>
               <Tab.Panel className="">
-                <div className="px-5 pt-10">
+                <div className="px-5 pt-10 pb-5">
                   {user.videos && user.videos.length > 0 ? (
                     <div>
                       {user.videos.map((playbackUser, i) => {
@@ -419,7 +433,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
               </Tab.Panel>
 
               <Tab.Panel className="">
-                <div className="px-5 pt-10">
+                <div className="px-5 pt-10 pb-5">
                   {user.tracks && user.tracks.length > 0 ? (
                     <div className="w-full">
                       {user.tracks.map((track, i) => {
@@ -438,7 +452,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
               </Tab.Panel>
 
               <Tab.Panel className="">
-                <div className="px-5 pt-10">
+                <div className="px-5 pt-10 pb-5">
                   {user.my_playlists && user.my_playlists.length > 0 ? (
                     <div>
                       {user.my_playlists.map((playlist, i) => {
@@ -473,7 +487,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
               </Tab.Panel>
 
               <Tab.Panel>
-                <div className="px-5 pt-10">
+                <div className="px-5 pt-10 pb-5">
                   {user.your_reactions.length > 0 ? (
                     <div>
                       {user.your_reactions.map((playbackUser, i) => {
@@ -498,7 +512,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
 
               {privateUser ? (
                 <Tab.Panel className="">
-                  <div className="px-5 pt-10 grid grid-cols-4 grid-flow-row ">
+                  <div className="px-5 pt-10 pb-5 grid grid-cols-4 grid-flow-row ">
                     {user.followee_count ? (
                       <div>
                         {user.followee_count.map((following, i) => {
@@ -506,7 +520,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                           return (
                             <div
                               key={i}
-                              className="flex lg:text-lg text-md shadow px-10 w-max lg:w-full  my-5 py-2 dark:bg-dbeats-dark-primary dark:text-gray-100"
+                              className="flex lg:text-lg text-md shadow px-10 w-max lg:w-full  mt-5 py-2 dark:bg-dbeats-dark-primary dark:text-gray-100"
                             >
                               {pinnedData.indexOf(following) > -1 ? (
                                 <i

@@ -140,7 +140,7 @@ router.route('/add_multistream_platform').post(async (req, res) => {
       { $push: { multistream_platform: data } },
       function (error, success) {
         if (error) {
-        } else {
+          res.send(error);
         }
       },
     );
@@ -164,7 +164,7 @@ router.route('/follow').post(async (req, res) => {
       { $push: { follower_count: follower } },
       function (error, success) {
         if (error) {
-          console.log(error);
+          res.send(error);
         }
       },
     );
@@ -174,7 +174,7 @@ router.route('/follow').post(async (req, res) => {
       { $push: { followee_count: following } },
       function (error, success) {
         if (error) {
-          console.log(error);
+          res.send(error);
         }
       },
     );
@@ -559,29 +559,61 @@ router.route('/announcement').post(async (req, res) => {
   try {
     const username = req.body.username;
     const announcement = req.body.announcement;
-    const post_image = req.body.postImage;
-    const post_video = req.body.postVideo;
-    const link = req.body.link;
+
+    let post_image = null;
+    let post_video = null;
+
+    if (req.files) {
+      post_image = req.files.postImage;
+      post_video = req.files.postVideo;
+    }
+
+    const link = req.body.eventlink;
+    const uploadHash = req.body.announcementHash
+      ? req.body.announcementHash
+      : null;
+
     const user = await User.findOne({ username: username });
+
+    let postImg, postVid;
+
+    if (post_video) {
+      postVid =
+        'https://ipfs.io/ipfs/' + uploadHash + '/' + post_video.name;
+    }
+    if (post_image) {
+      postImg =
+        'https://ipfs.io/ipfs/' + uploadHash + '/' + post_image.name;
+    }
+
     const announcementData = {
       announcement: announcement,
-      post_image: post_image,
-      post_video: post_video,
+      post_image: postImg,
+      post_video: postVid,
       link: link,
     };
-    user.follower_count.forEach(function (id) {
-      User.updateOne(
-        { username: id },
-        { $push: { notification: announcementData } },
-        function (error, success) {
-          if (error) {
-            res.send(error);
-          } else {
-            res.send(success.notification);
-          }
-        },
-      );
-    });
+
+    // user.follower_count.forEach(function (id) {
+    //   User.updateOne(
+    //     { username: id },
+    //     { $push: { notification: announcementData } },
+    //     function (error, success) {
+    //       if (error) {
+    //         res.send(error);
+    //       }
+    //     },
+    //   );
+    // });
+
+    User.updateOne(
+      { username: username },
+      { $push: { posts: announcementData } },
+      function (error, success) {
+        if (error) {
+          res.send(error);
+        }
+      },
+    );
     res.send('Hello');
   } catch (err) {
     console.log(err);
@@ -599,10 +631,23 @@ router.route('/seennotification').post(async (req, res) => {
     for (let i = 0; i < user.notification.length; i++) {
       data.push(user.notification[i]);
     }
-    await User.update({ username: username }, { notification: [] });
-    await User.update(
+    await User.updateOne(
+      { username: username },
+      { notification: [] },
+      function (error, success) {
+        if (error) {
+          res.send(error);
+        }
+      },
+    );
+    await User.updateOne(
       { username: username },
       { oldnotification: data },
+      function (error, success) {
+        if (error) {
+          res.send(error);
+        }
+      },
     );
     res.send('Hello');
   } catch (err) {
@@ -723,10 +768,6 @@ router.route('/coverimage').post(async (req, res) => {
         return res.send(coverImageHashLink);
       } else {
         return res.render('upload', { error: 'Error!' });
-      }
-
-      if (err) {
-        return res.status(500).send(err);
       }
     } catch (error) {
       console.log(error);

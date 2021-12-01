@@ -10,6 +10,7 @@ import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
 import Chips from 'react-chips';
 import { theme, chipTheme } from './Theme';
 import { NFTStorage } from 'nft.storage';
+import classes from './PopModals.module.css';
 
 const user = JSON.parse(window.localStorage.getItem('user'));
 
@@ -22,45 +23,142 @@ function makeStorageClient() {
 
 export const AnnouncementModal = (props) => {
   const darkMode = useSelector((darkmode) => darkmode.toggleDarkMode);
-  const [announcementText, setAnnouncementText] = useState('');
-  const [postImage, setPostImage] = useState(null);
-  const [postVideo, setPostVideo] = useState(null);
-  const [linkText, setLinkText] = useState('');
 
-  const handleChange = (e) => {
+  //const [postImage, setPostImage] = useState(null);
+  const [postImage, setPostImage] = useState(null);
+
+  const [announcement, setAnnouncement] = useState({
+    announcementText: '',
+    postImage: null,
+    postVideo: null,
+    event_link: '',
+  });
+
+  const handleInputChange = (e) => {
     e.preventDefault();
-    setAnnouncementText(e.target.value);
+    let value = e.target.value;
+    setAnnouncement({ ...announcement, announcementText: value });
   };
 
   const handleImageChange = (e) => {
     e.preventDefault();
-    setPostImage(e.target.value);
+    if (e.target.files.length) {
+      setPostImage(URL.createObjectURL(e.target.files[0]));
+
+      setAnnouncement({ ...announcement, postImage: e.target.files[0] });
+    }
   };
 
   const handleVideoChange = (e) => {
     e.preventDefault();
-    setPostVideo(e.target.value);
+    setAnnouncement({ ...announcement, postVideo: e.target.files[0] });
   };
 
   const handleLinkChange = (e) => {
     e.preventDefault();
-    setLinkText(e.target.value);
+    let value = e.target.value;
+    setAnnouncement({ ...announcement, event_link: value });
   };
 
-  const handleAnnouncement = () => {
-    const announcementData = {
-      username: user.username,
-      announcement: announcementText,
-      postImage: postImage,
-      postVideo: postVideo,
-      link: linkText,
+  async function storeWithProgress() {
+    const onRootCidReady = (cid) => {
+      announcement.cid = cid;
     };
-    axios({
-      method: 'POST',
-      url: `${process.env.REACT_APP_SERVER_URL}/user/announcement`,
-      data: announcementData,
-    });
-    props.setShowAnnouncement(false);
+
+    const blob = new Blob([JSON.stringify(announcement)], { type: 'application/json' });
+
+    let files;
+    if (announcement.postVideo !== null && announcement.postImage !== null) {
+      files = [announcement.postVideo, announcement.postImage, new File([blob], 'meta.json')];
+    } else if (announcement.postImage !== null) {
+      files = [announcement.postImage, new File([blob], 'meta.json')];
+    } else {
+      files = [announcement.postVideo, new File([blob], 'meta.json')];
+    }
+    const totalSize = announcement.postVideo
+      ? announcement.postVideo.size
+      : announcement.postImage.size;
+
+    let uploaded = 0;
+    const onStoredChunk = (size) => {
+      uploaded += size;
+      const pct = totalSize / uploaded;
+      console.log(`Uploading... ${pct.toFixed(2)}% complete`);
+    };
+
+    // makeStorageClient returns an authorized Web3.Storage client instance
+    const client = makeStorageClient();
+
+    // client.put will invoke our callbacks during the upload
+    // and return the root cid when the upload completes
+    return client.put(files, { onRootCidReady, onStoredChunk });
+  }
+
+  const handleAnnouncement = () => {
+    if (announcement.postImage !== null || announcement.postVideo !== null) {
+      storeWithProgress('upload announcement image').then(() => {
+        const formData = new FormData();
+        formData.append('username', user.username);
+        formData.append('announcement', announcement.announcementText);
+        formData.append('postImage', announcement.postImage);
+        formData.append('postVideo', announcement.postVideo);
+        formData.append('eventlink', announcement.event_link);
+        formData.append('announcementHash', announcement.cid);
+
+        console.log('anu', announcement);
+
+        if (announcement.postImage?.length !== 0 || announcement.postVideo?.length !== 0) {
+          axios
+            .post(`${process.env.REACT_APP_SERVER_URL}/user/announcement`, formData, {
+              headers: {
+                'content-type': 'multipart/form-data',
+              },
+            })
+            .then(() => {
+              setAnnouncement({
+                announcementText: '',
+                postImage: null,
+                postVideo: null,
+                event_link: '',
+              });
+              setPostImage(null);
+              props.setShowAnnouncement(false);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      });
+    } else {
+      const formData = new FormData();
+      formData.append('username', user.username);
+      formData.append('announcement', announcement.announcementText);
+      formData.append('postImage', announcement.postImage);
+      formData.append('postVideo', announcement.postVideo);
+      formData.append('eventlink', announcement.event_link);
+
+      console.log(formData);
+
+      axios
+        .post(`${process.env.REACT_APP_SERVER_URL}/user/announcement`, formData, {
+          headers: {
+            'content-type': 'multipart/form-data',
+          },
+        })
+        .then(() => {
+          setAnnouncement({
+            announcementText: '',
+            postImage: null,
+            postVideo: null,
+            event_link: '',
+          });
+          setPostImage(null);
+          props.setShowAnnouncement(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   return (
@@ -83,61 +181,79 @@ export const AnnouncementModal = (props) => {
           <hr className="py-4 dark:bg-dbeats-dark-alt" />
           <div className="h-max w-full flex align-center">
             <Container className="2xl:px-12 2xl:pb-4 lg:px-7 lg:pb-2 px-4 h-full w-full dark:bg-dbeats-dark-alt lg:max-h-full max-h-96  overflow-y-auto lg:overflow-hidden">
-              <Row>
-                <Col className="align-center">
+              <div className="align-center bg-white h-full">
+                <div className={`${classes.view_container} lg:h-44 2xl:h-72 h-48 overflow-y-auto`}>
                   <textarea
-                    className="w-full lg:h-36 2xl:h-48 h-52 border border-gray-300 lg:text-sm 2xl:text-md rounded-md"
+                    className={`${classes.textarea_container} h-5/6 w-full 
+                     lg:text-sm 2xl:text-lg border-b border-gray-300`}
                     placeholder="Enter Announcement Details"
-                    onChange={(e) => handleChange(e)}
+                    onChange={(e) => handleInputChange(e)}
                   ></textarea>
-                </Col>
-              </Row>
-              <Row className="flex flex-col lg:w-full w-full justify-center my-2 ">
-                <div className="flex lg:flex-row flex-col w-full justify-between">
-                  <Col className="mx-2 mb-2">
-                    <label className="dark:text-white lg:text-md 2xl:text-lg text-md lg:text-sm ">
-                      Add Image
-                    </label>
+                  {postImage ? (
+                    <div className="">
+                      <img
+                        src={postImage}
+                        alt="display"
+                        height="150px"
+                        width="100%"
+                        className="p-4"
+                      />
+                    </div>
+                  ) : (
+                    <span className="text-gray-400 text-md ml-4">Image Preview</span>
+                  )}
+                </div>
+
+                <div className="mx-2 mb-4 flex  items-center">
+                  <div className="mx-2">
                     <input
-                      id="upload"
+                      type="text"
+                      placeholder="Enter Event Link(Optional)"
+                      onChange={handleLinkChange}
+                      className=" w-64 h-8 my-1 rounded-md lg:text-sm 2xl:text-md border border-gray-200"
+                    />
+                  </div>
+                  <div className="mx-2">
+                    <i
+                      className="far fa-images text-xl cursor-pointer opacity-40 hover:opacity-100"
+                      onClick={() => {
+                        document.getElementById('post_announcement_image').click();
+                      }}
+                    ></i>
+                    <input
+                      id="post_announcement_image"
                       type="file"
                       accept="image/*"
                       onChange={handleImageChange}
                       onClick={(event) => {
                         event.target.value = null;
                       }}
-                      className="my-1  w-full text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 rounded-sm cursor-pointer lg:text-sm 2xl:text-md"
+                      style={{ display: 'none' }}
                     />
-                  </Col>
-                  <Col className="mx-2 mb-2">
-                    <label className="dark:text-white lg:text-md 2xl:text-lg text-md lg:text-sm">
-                      Add Video
-                    </label>
+                  </div>
+                  <div className="mx-2 flex items-center">
+                    <i
+                      class="fas fa-video text-xl cursor-pointer opacity-40 hover:opacity-100"
+                      onClick={() => {
+                        document.getElementById('post_announcement_video').click();
+                      }}
+                    ></i>
+                    <div className="mx-2 mb-1">
+                      {announcement.postVideo ? announcement.postVideo.name : null}
+                    </div>
                     <input
-                      id="upload"
+                      id="post_announcement_video"
                       type="file"
                       accept="video/*"
                       onChange={handleVideoChange}
                       onClick={(event) => {
                         event.target.value = null;
                       }}
-                      className="my-1  w-full text-white bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 rounded-sm cursor-pointer lg:text-sm 2xl:text-md"
+                      style={{ display: 'none' }}
                     />
-                  </Col>
+                  </div>
                 </div>
-
-                <Col className="mx-2 mb-2 flex flex-col">
-                  <label className="dark:text-white lg:text-md 2xl:text-lg text-md lg:text-sm">
-                    Event Link
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Enter Link"
-                    onChange={handleLinkChange}
-                    className=" w-full h-8 my-1 lg:text-sm 2xl:text-md"
-                  />
-                </Col>
-              </Row>
+              </div>
               <Row className="w-full flex justify-center">
                 <button
                   type="submit"
