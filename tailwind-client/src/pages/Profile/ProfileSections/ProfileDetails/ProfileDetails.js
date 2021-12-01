@@ -389,7 +389,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
               })}
             </Tab.List>
 
-            <Tab.Panels className="dark:bg-dbeats-dark-alt w-full h-96  overflow-auto ">
+            <Tab.Panels className="dark:bg-dbeats-dark-alt w-full h-full  overflow-auto ">
               <Tab.Panel className="">
                 <div className="px-5 pt-10 pb-5">
                   {user.posts && user.posts.length > 0 ? (

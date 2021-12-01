@@ -137,8 +137,6 @@ export const AnnouncementModal = (props) => {
       formData.append('postVideo', announcement.postVideo);
       formData.append('eventlink', announcement.event_link);
 
-      console.log(formData);
-
       axios
         .post(`${process.env.REACT_APP_SERVER_URL}/user/announcement`, formData, {
           headers: {
@@ -159,6 +157,7 @@ export const AnnouncementModal = (props) => {
           console.log(error);
         });
     }
+    console.log(announcement);
   };
 
   return (

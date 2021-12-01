@@ -593,17 +593,17 @@ router.route('/announcement').post(async (req, res) => {
       link: link,
     };
 
-    // user.follower_count.forEach(function (id) {
-    //   User.updateOne(
-    //     { username: id },
-    //     { $push: { notification: announcementData } },
-    //     function (error, success) {
-    //       if (error) {
-    //         res.send(error);
-    //       }
-    //     },
-    //   );
-    // });
+    user.follower_count.forEach(function (id) {
+      User.updateOne(
+        { username: id },
+        { $push: { notification: announcementData } },
+        function (error, success) {
+          if (error) {
+            res.send(error);
+          }
+        },
+      );
+    });
 
     User.updateOne(
       { username: username },

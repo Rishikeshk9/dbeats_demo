@@ -31,6 +31,7 @@ module.exports = {
       full: '100%',
     },
     zIndex: {
+      '-1': '-1',
       0: 0,
       1: 1,
       2: 2,
@@ -100,6 +101,7 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms'),
+    require('@tailwindcss/line-clamp'),
     require('tailwindcss-filters'),
     require('tailwindcss-important')(),
   ],

@@ -163,16 +163,16 @@ const NavBar = () => {
       if (user.notification.length > 0) {
         let data = [];
         for (let i = 0; i < user.oldnotification.length; i++) {
-          data.push(<p className="pl-2 py-1">{user.oldnotification[i]}</p>);
+          data.push(user.oldnotification[i]);
         }
         for (let i = 0; i < user.notification.length; i++) {
-          data.push(<p className="bg-red-300 pl-2 py-1">{user.notification[i]}</p>);
+          data.push(user.notification[i]);
         }
         setNotification(data.reverse());
       } else {
         let data = [];
         for (let i = 0; i < user.oldnotification.length; i++) {
-          data.push(<p className="pl-2 py-1">{user.oldnotification[i]}</p>);
+          data.push(user.oldnotification[i]);
         }
         setNotification(data.reverse());
       }
@@ -185,6 +185,26 @@ const NavBar = () => {
   const searchData = {
     usernameData: filteredData,
     videoData: filteredVideoData,
+  };
+
+  const NotificationContent = ({ data }) => {
+    console.log(data);
+    return (
+      <div className="h-full my-1">
+        <a
+          href={data.link}
+          target="_blank"
+          className="flex w-full justify-center p-2 dark:bg-dbeats-dark-alt dark:hover:bg-dbeats-dark-secondary dark:text-white text-gray-500"
+        >
+          <div className="h-20 w-56 rounded-sm">
+            <img src={data.post_image} className="h-full w-full rounded-sm" />
+          </div>
+          <div className="w-96 rounded-sm">
+            <p className="pl-2 line-clamp-3 text-sm font-semibold">{data.announcement}</p>
+          </div>
+        </a>
+      </div>
+    );
   };
 
   return (
@@ -475,7 +495,7 @@ const NavBar = () => {
                   <Dropdown.Button className="flex h-full items-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="2xl:h-7 2xl:w-7 w-5 h-5 text-dbeats-light cursor-pointer z-50 self-center"
+                      className="2xl:h-7 2xl:w-7 w-5 h-5 text-dbeats-light cursor-pointer z-50 self-center -z-1"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                       onClick={handleNotification}
@@ -484,7 +504,10 @@ const NavBar = () => {
                     </svg>
                     {user.notification && user.notification.length > 0 ? (
                       <div
-                        className="bg-red-500 rounded-full shadow  h-6 w-6 text-sm self-center text-center font-semibold  absolute -bottom-1  -right-2 dark:border-dbeats-dark-primary  border-red-300 border-2 text-white  "
+                        className="bg-red-500 rounded-full shadow  
+                        h-6 w-6 text-sm self-center text-center font-semibold  
+                        absolute -bottom-2  -right-2 dark:border-dbeats-dark-primary  
+                        border-red-300 border-2 text-white"
                         onClick={handleNotification}
                       >
                         {user.notification.length}
@@ -500,12 +523,16 @@ const NavBar = () => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Dropdown.Items className="absolute right-0 w-80 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Dropdown.Items
+                      className="absolute right-0 w-96 mt-2 origin-top-right 
+                    dark:bg-dbeats-dark-primary bg-white divide-y divide-gray-100 rounded-md shadow-lg 
+                    ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    >
                       {notification.map((value, i) => {
                         return (
                           <div className="px-1 py-1 " key={i}>
-                            <Dropdown.Item className="w-full text-gray-700 text-left text-lg hover:text-white hover:bg-dbeats-light">
-                              <button>{value}</button>
+                            <Dropdown.Item className="w-full h-full self-center dark:bg-dbeats-dark-primary">
+                              <NotificationContent data={value} />
                             </Dropdown.Item>
                           </div>
                         );

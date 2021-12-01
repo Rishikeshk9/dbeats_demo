@@ -6,6 +6,7 @@ const AnnouncementCard = (props) => {
   //console.log(props);
   const [playing, setPlaying] = useState(false);
   const [showImage, setShowImage] = useState(true);
+  const [seeMore, setSeeMore] = useState(false);
 
   //const [time, setTime] = useState(null);
 
@@ -33,10 +34,12 @@ const AnnouncementCard = (props) => {
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
 
-  ////console.log(props.playbackUserData)
+  console.log(props.post.post_image);
 
   return (
-    <div className="w-full h-auto  flex lg:flex-row flex-col py-3 px-3 bg-white rounded-xl dark:bg-dbeats-dark-primary dark:text-gray-100 my-2">
+    <div
+      className={`w-full  grid grid-cols-4  lg:flex-row py-3 px-3 bg-white rounded-xl dark:bg-dbeats-dark-primary dark:text-gray-100 my-2`}
+    >
       {props.post.post_video || props.post.post_image ? (
         <div
           className={`cursor-pointer w-80 2xl:h-52 lg:h-32 h-44 dark:bg-dbeats-dark-alt bg-gray-100`}
@@ -44,11 +47,13 @@ const AnnouncementCard = (props) => {
           onMouseLeave={hanldeMouseLeave}
         >
           {showImage && props.post.post_image ? (
-            <img
-              src={props.post.post_image}
-              alt="Post Image"
-              className="mx-auto my-auto h-full w-auto"
-            />
+            <>
+              <img
+                src={props.post.post_image}
+                alt="Post Image"
+                className="mx-auto my-auto h-full w-auto"
+              />
+            </>
           ) : props.post.post_video ? (
             <ReactPlayer
               width="100%"
@@ -63,11 +68,33 @@ const AnnouncementCard = (props) => {
           ) : null}
         </div>
       ) : null}
-      <div className="col-start-1 row-start-3 py-2 px-5 w-full">
-        <p className="flex justify-between text-black text-sm font-medium dark:text-gray-100">
-          <div>
-            <div className="flex">
-              <p className="text-lg text-gray-500 mr-2 mt-1">{props.post.announcement}</p>
+      <div className="col-span-3 px-5 w-full">
+        <p className="flex w-full justify-between text-black text-sm font-medium dark:text-gray-100">
+          <div className="w-full">
+            <div className="flex flex-col text-lg text-gray-500 w-full">
+              <p
+                className={`${!seeMore ? 'line-clamp-6' : ''} mr-2 mt-1 `}
+                style={{ wordBreak: 'break-words' }}
+              >
+                {props.post.announcement.split('\n').map(function (item) {
+                  return (
+                    <>
+                      {item}
+                      <br />
+                    </>
+                  );
+                })}
+                {}
+              </p>
+
+              {props.post.announcement.split(/\r\n|\r|\n/).length > 6 ? (
+                <span
+                  className="cursor-pointer text-md hover:underline text-gray-600"
+                  onClick={() => setSeeMore(!seeMore)}
+                >
+                  {seeMore ? 'see less' : 'see more'}
+                </span>
+              ) : null}
             </div>
           </div>
           <div>
