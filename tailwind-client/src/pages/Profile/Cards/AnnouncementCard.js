@@ -34,8 +34,6 @@ const AnnouncementCard = (props) => {
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, []);
 
-  console.log(props.post.post_image);
-
   return (
     <div
       className={`w-full  grid grid-cols-4  lg:flex-row py-3 px-3 bg-white rounded-xl dark:bg-dbeats-dark-primary dark:text-gray-100 my-2`}
@@ -46,26 +44,28 @@ const AnnouncementCard = (props) => {
           onMouseMove={handleMouseMove}
           onMouseLeave={hanldeMouseLeave}
         >
-          {showImage && props.post.post_image ? (
-            <>
-              <img
-                src={props.post.post_image}
-                alt="Post Image"
-                className="mx-auto my-auto h-full w-auto"
+          <a href={props.post.link} target="_blank">
+            {showImage && props.post.post_image ? (
+              <>
+                <img
+                  src={props.post.post_image}
+                  alt="Post Image"
+                  className="mx-auto my-auto h-full w-auto"
+                />
+              </>
+            ) : props.post.post_video ? (
+              <ReactPlayer
+                width="100%"
+                height="100%"
+                playing={playing}
+                muted={false}
+                volume={0.5}
+                url={props.post.post_video}
+                controls={false}
+                className={classes.cards_videos}
               />
-            </>
-          ) : props.post.post_video ? (
-            <ReactPlayer
-              width="100%"
-              height="100%"
-              playing={playing}
-              muted={false}
-              volume={0.5}
-              url={props.post.post_video}
-              controls={false}
-              className={classes.cards_videos}
-            />
-          ) : null}
+            ) : null}
+          </a>
         </div>
       ) : null}
       <div className="col-span-3 px-5 w-full">

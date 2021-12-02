@@ -40,6 +40,7 @@ const NavBar = () => {
 
   const [alluser, setAllUser] = useState([]);
   const [filterResultDisplay, setFilterResultDisplay] = useState(true);
+  const [newNotification, setNewNotification] = useState(0);
 
   //Loader
   const [loader, setLoader] = useState(true);
@@ -73,7 +74,8 @@ const NavBar = () => {
   };
 
   const handleNotification = () => {
-    if (user && user.notification.length > 0) {
+    if (user && newNotification > 0) {
+      setNewNotification(0);
       const data = {
         username: user.username,
       };
@@ -161,6 +163,7 @@ const NavBar = () => {
 
     if (user && user.notification) {
       if (user.notification.length > 0) {
+        setNewNotification(user.notification.length);
         let data = [];
         for (let i = 0; i < user.oldnotification.length; i++) {
           data.push(user.oldnotification[i]);
@@ -192,15 +195,19 @@ const NavBar = () => {
     return (
       <div className="h-full my-1">
         <a
-          href={data.link}
+          href={`http://localhost:3000/profile/${data.username}/posts`}
           target="_blank"
-          className="flex w-full justify-center p-2 dark:bg-dbeats-dark-alt dark:hover:bg-dbeats-dark-secondary dark:text-white text-gray-500"
+          className="grid grid-cols-4 justify-center p-2 dark:bg-dbeats-dark-alt dark:hover:bg-dbeats-dark-secondary dark:text-white text-gray-500"
         >
-          <div className="h-20 w-56 rounded-sm">
-            <img src={data.post_image} className="h-full w-full rounded-sm" />
-          </div>
-          <div className="w-96 rounded-sm">
-            <p className="pl-2 line-clamp-3 text-sm font-semibold">{data.announcement}</p>
+          {data.post_image ? (
+            <div className="h-20 col-span-1 rounded-sm bg-gray-700 flex justify-center">
+              <img src={data.post_image} className="h-full w-auto rounded-sm" />
+            </div>
+          ) : null}
+          <div className="col-span-3 rounded-sm ">
+            <p className="pl-2 line-clamp-3 text-sm font-semibold break-words">
+              {data.announcement}
+            </p>
           </div>
         </a>
       </div>
@@ -493,26 +500,26 @@ const NavBar = () => {
               <div id="login-btn" className="flex items-center">
                 <Dropdown as="div" className="relative inline-block text-left lg:mr-2 self-center">
                   <Dropdown.Button className="flex h-full items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="2xl:h-7 2xl:w-7 w-5 h-5 text-dbeats-light cursor-pointer z-50 self-center -z-1"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      onClick={handleNotification}
-                    >
-                      <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
-                    </svg>
-                    {user.notification && user.notification.length > 0 ? (
-                      <div
-                        className="bg-red-500 rounded-full shadow  
+                    <div onClick={handleNotification}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="2xl:h-7 2xl:w-7 w-5 h-5 text-dbeats-light cursor-pointer z-50 self-center -z-1"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+                      </svg>
+                      {newNotification > 0 ? (
+                        <div
+                          className="bg-red-500 rounded-full shadow  
                         h-6 w-6 text-sm self-center text-center font-semibold  
                         absolute -bottom-2  -right-2 dark:border-dbeats-dark-primary  
                         border-red-300 border-2 text-white"
-                        onClick={handleNotification}
-                      >
-                        {user.notification.length}
-                      </div>
-                    ) : null}
+                        >
+                          {newNotification}
+                        </div>
+                      ) : null}
+                    </div>
                   </Dropdown.Button>
                   <Transition
                     as={Fragment}

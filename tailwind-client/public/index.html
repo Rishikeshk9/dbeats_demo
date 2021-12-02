@@ -2,19 +2,25 @@
 <html lang="en-US">
   <head>
     <!-- For Smart Link  -->
- 
-
-
 
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <meta name="theme-color" content="#000000" />
     <meta
-      name="description"
-      content="Live Streaming Videos, Music & NFTs Platform on the Blockchain"
+      property="og:title"
+      content="<div style='display:flex;align-items:center'>
+        <img src='https://beta.dbeats.live/favicon.ico' style='border-radius:10px' height='25px' width='25px'></img>
+        <span style='padding-left:4px'>DBeats</span>
+    </div>"
     />
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+    <meta
+      property="og:description"
+      content="<div style='font-size:16px; font-weight:400;'>Live Streaming Videos 🎥, Music &#127926; & NFTs Platform on the Blockchain 🚀</div>"
+    />
+    <meta
+      property="og:image"
+      content="https://user-images.githubusercontent.com/61380295/144381168-6cc06e33-bd03-403b-aa6e-06402297f3b6.png"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -22,12 +28,13 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <script> (function (d, s) {
+    <script>
+      (function (d, s) {
         var js = d.createElement(s),
           sc = d.getElementsByTagName(s)[0];
-        js.src = "https://paywall.unlock-protocol.com/static/unlock.latest.min.js";
+        js.src = 'https://paywall.unlock-protocol.com/static/unlock.latest.min.js';
         sc.parentNode.insertBefore(js, sc);
-      }(document, "script"));
+      })(document, 'script');
     </script>
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.ico" />
     <!--
@@ -50,19 +57,18 @@
   <body className="font-proxima-reg  ">
     <script>
       var unlockProtocolConfig = {
-          network: 4,
-          locks: {
-            '0x74Bb04781E361d554A31d57503f36810C95D067F': {
-              network: 4,
-              name: 'Dbeats-Event',
-            },
+        network: 4,
+        locks: {
+          '0x74Bb04781E361d554A31d57503f36810C95D067F': {
+            network: 4,
+            name: 'Dbeats-Event',
           },
-          icon: 'https://unlock-protocol.com/static/images/svg/unlock-word-mark.svg',
-          callToAction: {
-            default:
-            'Purchase tickets before you can join the event!',
         },
-      }
+        icon: 'https://unlock-protocol.com/static/images/svg/unlock-word-mark.svg',
+        callToAction: {
+          default: 'Purchase tickets before you can join the event!',
+        },
+      };
     </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
 
@@ -77,7 +83,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-      
   </body>
   <script
     src="https://cdn.jsdelivr.net/npm/jdenticon@3.1.1/dist/jdenticon.min.js"

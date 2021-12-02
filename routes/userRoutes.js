@@ -591,6 +591,7 @@ router.route('/announcement').post(async (req, res) => {
       post_image: postImg,
       post_video: postVid,
       link: link,
+      username: username,
     };
 
     user.follower_count.forEach(function (id) {
