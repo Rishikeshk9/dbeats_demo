@@ -591,6 +591,7 @@ router.route('/announcement').post(async (req, res) => {
       post_image: postImg,
       post_video: postVid,
       link: link,
+      timestamp: req.body.timestamp,
       username: username,
     };
 

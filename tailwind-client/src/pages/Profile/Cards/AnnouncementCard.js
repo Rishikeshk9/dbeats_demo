@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import classes from '../Profile.module.css';
+import moment from 'moment';
+moment().format();
 
 const AnnouncementCard = (props) => {
   //console.log(props);
@@ -8,7 +10,7 @@ const AnnouncementCard = (props) => {
   const [showImage, setShowImage] = useState(true);
   const [seeMore, setSeeMore] = useState(false);
 
-  //const [time, setTime] = useState(null);
+  const [time, setTime] = useState(null);
 
   const handleMouseMove = () => {
     setPlaying(true);
@@ -23,6 +25,12 @@ const AnnouncementCard = (props) => {
       setShowImage(true);
     }
   };
+
+  useEffect(() => {
+    if (props.post.timestamp) {
+      setTime(moment(Math.floor(props.post.timestamp)).fromNow());
+    }
+  }, []);
 
   // const convertTimestampToTime = () => {
   //   const timestamp = new Date(props.playbackUserData.time * 1000); // This would be the timestamp you want to format
@@ -68,9 +76,14 @@ const AnnouncementCard = (props) => {
           </a>
         </div>
       ) : null}
-      <div className="col-span-3 px-5 w-full">
+      <div
+        className={`${
+          props.post.post_video || props.post.post_image ? 'col-span-3' : 'col-span-4'
+        } px-5 w-full`}
+      >
         <p className="flex w-full justify-between text-black text-sm font-medium dark:text-gray-100">
           <div className="w-full">
+            <div className="text-gray-500 text-xs">{time}</div>
             <div className="flex flex-col text-lg text-gray-500 w-full">
               <p
                 className={`${!seeMore ? 'line-clamp-6' : ''} mr-2 mt-1 `}

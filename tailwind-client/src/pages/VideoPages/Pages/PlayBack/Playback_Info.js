@@ -18,7 +18,7 @@ import animationDataNotFound from '../../../../lotties/error-animation.json';
 import animationData from '../../../../lotties/fans.json';
 import animationDataGiraffee from '../../../../lotties/giraffee.json';
 import RecommendedCard from './RecommendedCard';
-import {Helmet} from "react-helmet";
+// import {Helmet} from "react-helmet";
 
 moment().format();
 
@@ -389,7 +389,6 @@ const PlayBackInfo = (props) => {
   useEffect(() => {
     get_User();
 
-
     fetchData();
     let value = JSON.parse(window.localStorage.getItem('user'));
     ////console.log(value);
@@ -441,20 +440,20 @@ const PlayBackInfo = (props) => {
     //const details = await carol2.details();
     //console.log(details.cfa.flows.outFlows[0]);
   };
-  if(userData){
-    console.log(userData.videos[props.video_id])
-  console.log(playbackUrl)
-    }
+  if (userData) {
+    console.log(userData.videos[props.video_id]);
+    console.log(playbackUrl);
+  }
   return (
     <>
       {videoData ? (
         <div>
-            <Helmet>
+          {/* <Helmet>
               <meta property="og:title"              content={userData.videos[props.video_id].videoName} />
               <meta property="og:description"        content={`<div style='font-size:20px; font-weight:500;color:green;'>${userData.videos[props.video_id].description}</div>`} />
               <meta property="og:image"              content={`${userData.videos[props.video_id].videoImage}`} />
-              {/* <meta property="og:video" content={playbackUrl} /> */}
-            </Helmet>
+              
+            </Helmet> */}
           <div
             className={`${
               darkMode && 'dark'

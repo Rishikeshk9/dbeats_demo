@@ -11,6 +11,8 @@ import Chips from 'react-chips';
 import { theme, chipTheme } from './Theme';
 import { NFTStorage } from 'nft.storage';
 import classes from './PopModals.module.css';
+import moment from 'moment';
+moment().format();
 
 const user = JSON.parse(window.localStorage.getItem('user'));
 
@@ -102,6 +104,8 @@ export const AnnouncementModal = (props) => {
         formData.append('announcement', announcement.announcementText);
         formData.append('postImage', announcement.postImage);
         formData.append('postVideo', announcement.postVideo);
+        formData.append('timestamp', moment().toDate().getTime());
+
         formData.append('eventlink', announcement.event_link);
         formData.append('announcementHash', announcement.cid);
 
@@ -135,6 +139,7 @@ export const AnnouncementModal = (props) => {
       formData.append('announcement', announcement.announcementText);
       formData.append('postImage', announcement.postImage);
       formData.append('postVideo', announcement.postVideo);
+      formData.append('timestamp', moment().toDate().getTime());
       formData.append('eventlink', announcement.event_link);
 
       axios

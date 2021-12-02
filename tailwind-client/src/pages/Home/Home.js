@@ -8,7 +8,7 @@ import ResponsiveCarousel from './Cards/HomeSlider';
 import { useSelector } from 'react-redux';
 import Lottie from 'react-lottie';
 import animationData from '../../lotties/gamers.json';
-import {Helmet} from "react-helmet";
+// import {Helmet} from "react-helmet";
 
 const Home = () => {
   const [activeStreams, setActiveStreams] = useState([]);
@@ -66,11 +66,11 @@ const Home = () => {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <meta property="og:title"              content="DBeats" />
         <meta property="og:description"        content="<div style='font-size:20px; font-weight:500;color:green;'>Live Streaming Videos 🎥, Music &#127926; & NFTs Platform on the Blockchain 🚀</div>" />
         <meta property="og:image"              content="https://beta.dbeats.live/favicon.ico" />
-      </Helmet>
+      </Helmet> */}
       <div className={`${darkMode && 'dark'} `}>
         <div id="outer-container" className="h-full ">
           <div

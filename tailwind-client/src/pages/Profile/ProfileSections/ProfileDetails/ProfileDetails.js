@@ -37,6 +37,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
   const [profileImage, setProfileImage] = useState(null);
 
   const [tabIndex, setTabIndex] = useState(0);
+  const [postsData, setPostsData] = useState(null);
 
   const [buttonText, setButtonText] = useState('Subscribe');
 
@@ -90,6 +91,11 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
           console.log('person', person);
           setProfileImage(person);
         }
+
+        if (value.posts) {
+          let data = value.posts;
+          setPostsData(data.reverse());
+        }
       } else {
         get_User();
         setPrivate(false);
@@ -103,9 +109,6 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
 
   const get_User = async () => {
     await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${urlUsername}`).then((value) => {
-      if (value.pinned) {
-        setPinnedData(value.pinned);
-      }
       for (let i = 0; i < value.data.follower_count.length; i++) {
         if (myData) {
           if (value.data.follower_count[i] === myData.username) {
@@ -124,6 +127,11 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
         setCoverImage(value.data.cover_image);
       } else {
         setCoverImage(background);
+      }
+
+      if (value.data.posts) {
+        let data = value.data.posts;
+        setPostsData(data.reverse());
       }
 
       if (value.data.profile_image && value.data.profile_image !== '') {
@@ -392,9 +400,9 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
             <Tab.Panels className="dark:bg-dbeats-dark-alt w-full h-full  overflow-auto ">
               <Tab.Panel className="">
                 <div className="px-5 pt-10 pb-5">
-                  {user.posts && user.posts.length > 0 ? (
+                  {postsData && postsData.length > 0 ? (
                     <div>
-                      {user.posts.map((post, i) => {
+                      {postsData.map((post, i) => {
                         ////console.log(playbackUser)
                         return (
                           <div key={i}>
