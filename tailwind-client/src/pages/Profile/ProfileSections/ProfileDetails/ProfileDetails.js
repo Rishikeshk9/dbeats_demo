@@ -70,7 +70,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
     // //console.log(value);
     if (value) {
       if (value.username === urlUsername) {
-        setSharable_data(`https://dbeats.live/profile/${value.username}`);
+        setSharable_data(`${process.env.REACT_APP_CLIENT_URL}/profile/${value.username}`);
         setPrivate(true);
         setFollowers(value.follower_count.length);
         setFollowing(value.followee_count.length);
@@ -117,7 +117,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
           break;
         }
       }
-      setSharable_data(`https://dbeats.live/profile/${value.data.username}`);
+      setSharable_data(`${process.env.REACT_APP_CLIENT_URL}/profile/${value.data.username}`);
       setFollowers(value.data.follower_count.length);
       setFollowing(value.data.followee_count.length);
       if (value.data.cover_image && value.data.cover_image !== '') {
