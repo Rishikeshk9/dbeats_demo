@@ -37,7 +37,7 @@ const PlaylistCard = (props) => {
     <div className="w-full">
       {/* <a href={`/playback/${props.videoData.username}/0`}> */}
       {props.playlistData.data.trackId ? (
-        <div className={`cursor-pointer`}>
+        <div className={`cursor-pointer h-32`}>
           <a href={`/track/${props.playlistData.username}/${props.playlistData.index}`}>
             <img
               src={props.playlistData.data.trackImage}
@@ -49,11 +49,11 @@ const PlaylistCard = (props) => {
           </a>
         </div>
       ) : (
-        <div className={`cursor-pointer`}>
+        <div className={`cursor-pointer 2xl:h-32 lg:h-24`}>
           <a href={`/playback/${props.playlistData.username}/${props.playlistData.index}`}>
             <ReactPlayer
               width="100%"
-              height="auto"
+              height="100%"
               playing={playing}
               muted={false}
               volume={0.5}
@@ -69,15 +69,21 @@ const PlaylistCard = (props) => {
       {/* </a> */}
       <div className="col-start-1 row-start-3 pb-2 pt-2">
         <p className="flex   text-black text-sm font-medium">
-          <img src={person} alt="" className="w-10 h-10 rounded-full mr-2 bg-gray-100" />
+          <img
+            src={person}
+            alt=""
+            className="2xl:w-10 2xl:h-10 lg:h-7 lg:w-7 rounded-full mr-2 bg-gray-100"
+          />
           <div>
-            <span className="text-sm font-semibold dark:text-gray-200">
+            <span className="2xl:text-lg lg:text-xs font-semibold dark:text-gray-200">
               {props.playlistData.data.trackId
                 ? props.playlistData.data.trackName.slice(0, 45) + '...'
                 : props.playlistData.data.videoName.slice(0, 45) + '...'}
             </span>
             <br />
-            <span className="text-s text-gray-500  ">{props.playlistData.username}</span>
+            <span className="lg:text-xs 2xl:text-sm text-gray-500  ">
+              {props.playlistData.username}
+            </span>
           </div>
         </p>
       </div>

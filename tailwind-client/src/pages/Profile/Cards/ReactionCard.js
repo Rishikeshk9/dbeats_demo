@@ -52,12 +52,12 @@ const ReactionCard = (props) => {
   //console.log(show);
 
   return (
-    <div className="w-full  flex lg:flex-row flex-col py-3 px-3 bg-white rounded-xl dark:bg-dbeats-dark-primary dark:text-gray-100 my-2">
-      <div className={`cursor-pointer lg:w-1/3 w-full  my-auto `}>
+    <div className="w-full flex lg:flex-row flex-col 2xl:py-3 2xl:px-3 lg:p-1.5 bg-white rounded-xl dark:bg-dbeats-dark-primary dark:text-gray-100 my-2">
+      <div className={`cursor-pointer lg:h-28 2xl:h-48 lg:w-1/3 w-full  my-auto `}>
         <a href={`/playback/${props.playbackUserData.link}`}>
           <ReactPlayer
             width="100%"
-            height="auto"
+            height="100%"
             playing={playing}
             muted={false}
             volume={0.5}
@@ -72,12 +72,14 @@ const ReactionCard = (props) => {
       <div className="col-start-1 row-start-3 py-2 px-5 w-full">
         <p className="text-black text-sm font-medium dark:text-gray-100">
           <div className="px-2">
-            <p className="text-2xl font-semibold">{props.playbackUserData.video.videoName}</p>
+            <p className="2xl:text-2xl lg:text-lg font-semibold">
+              {props.playbackUserData.video.videoName}
+            </p>
             <p className="text-xs text-gray-500">{props.playbackUserData.video.description}</p>
           </div>
           <hr className="my-3" />
           <div>
-            <div className="text-2xl text-gray-500 px-2">
+            <div className="2xl:text-2xl lg:text-lg text-gray-500 px-2">
               <button className="px-1" onClick={handleShow}>
                 <i className="fas fa-share"></i>
               </button>

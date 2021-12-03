@@ -10,7 +10,7 @@ export const panelData = [
     <div className="px-5 pt-10 dark:bg-dbeats-dark-alt"></div>
   </Tab.Panel>,
   <Tab.Panel className="">
-    <div className="px-5 pt-10 grid grid-cols-4 grid-flow-row ">
+    <div className="px-5 2xl:pt-10 lg:pt-5 grid grid-cols-4 grid-flow-row ">
       {user.followee_count ? (
         <div>
           {user.followee_count.map((following, i) => {
@@ -18,11 +18,11 @@ export const panelData = [
             return (
               <div
                 key={i}
-                className="flex lg:text-lg text-md shadow px-10 w-max lg:w-full  my-5 py-2 dark:bg-dbeats-dark-primary dark:text-gray-100"
+                className="flex 2xl:text-lg lg:text-sm text-md shadow px-10 w-max lg:w-full  my-5 py-2 dark:bg-dbeats-dark-primary dark:text-gray-100"
               >
                 {pinnedData.indexOf(following) > -1 ? (
                   <i
-                    className="fas fa-thumbtack mx-3 my-auto text-xl cursor-pointer "
+                    className="fas fa-thumbtack mx-3 my-auto 2xl:text-xl lg:text-xs cursor-pointer "
                     onClick={() => UnPinningUser(following)}
                   ></i>
                 ) : (
@@ -37,7 +37,7 @@ export const panelData = [
           })}
         </div>
       ) : (
-        <p>0 Subscribed</p>
+        <p className="">0 Subscribed</p>
       )}
     </div>
   </Tab.Panel>,
@@ -60,7 +60,7 @@ export const panelData = [
           })}
         </div>
       ) : (
-        <p>No Videos till now</p>
+        <p className="2xl:text-lg lg:text-sm">No Videos till now</p>
       )}
     </div>
   </Tab.Panel>,
@@ -78,7 +78,7 @@ export const panelData = [
           })}
         </div>
       ) : (
-        <p>No Tracks till now</p>
+        <p className="2xl:text-lg lg:text-sm">No Tracks till now</p>
       )}
     </div>
   </Tab.Panel>,
@@ -91,7 +91,9 @@ export const panelData = [
             return (
               <>
                 <div key={i} className="">
-                  <h2 className="dark:text-white text-2xl ml-5 mb-3">{playlist.playlistname}</h2>
+                  <h2 className="dark:text-white 2xl:text-2xl lg:text-lg ml-5 mb-3">
+                    {playlist.playlistname}
+                  </h2>
                   <div>
                     <Carousel cols={4}>
                       {playlist.playlistdata.map((data, i) => {
@@ -110,12 +112,12 @@ export const panelData = [
           })}
         </div>
       ) : (
-        <p>No Existing PlayLists</p>
+        <p className="2xl:text-lg lg:text-sm">No Existing PlayLists</p>
       )}
     </div>
   </Tab.Panel>,
   <Tab.Panel>
-    <div className="px-5 pt-5">
+    <div className="2xl:px-5 2xl:pt-5 lg:px-3 lg:pt-2.5">
       {user.your_reactions.length > 0 ? (
         <div>
           {user.your_reactions.map((playbackUser, i) => {
@@ -133,7 +135,7 @@ export const panelData = [
           })}
         </div>
       ) : (
-        <p>No Reactions till now</p>
+        <p className="2xl:text-lg lg:text-sm">No Reactions till now</p>
       )}
     </div>
   </Tab.Panel>,

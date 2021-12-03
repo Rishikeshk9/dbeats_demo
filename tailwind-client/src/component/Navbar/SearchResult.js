@@ -18,7 +18,7 @@ const SearchResult = () => {
               <div className="w-full pt-16 justify-center text-center mx-auto">
                 <p
                   id="song-title"
-                  className="mb-3 w-max mx-auto   self-center text-center  drop-shadow text-2xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 dark:from-white dark:to-gray-800"
+                  className="mb-3 w-max mx-auto   self-center text-center  drop-shadow 2xl:text-2xl lg:text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 dark:from-white dark:to-gray-800"
                 >
                   Search Results
                 </p>
@@ -43,7 +43,9 @@ const SearchResult = () => {
                                 alt={`Profile ${i}`}
                               />
                             </a>
-                            <p className="dark:text-white">{value.username}</p>
+                            <p className="dark:text-white lg:text-xs 2xl:text-lg">
+                              {value.username}
+                            </p>
                           </SplideSlide>
                         );
                       })}

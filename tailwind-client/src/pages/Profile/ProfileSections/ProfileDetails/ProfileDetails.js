@@ -261,7 +261,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
       <Tab
         className={({ selected }) =>
           classNames(
-            'w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 text-md ',
+            'w-full py-2.5 text-sm leading-5 font-semibold text-gray-400 2xl:text-lg lg:text-xs ',
             selected
               ? 'text-dbeats-light font-bold border-b-2 border-dbeats-light'
               : 'hover:bg-black/[0.12]  dark:hover:text-gray-100 hover:text-gray-700',
@@ -274,16 +274,20 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
   };
 
   return (
-    <div className={`${darkMode && 'dark'} px-5 h-max lg:col-span-5 col-span-6 w-full mt-16 `}>
-      <div id="display_details" className="  pt-3 h-full">
-        <div className="bg-white dark:bg-dbeats-dark-primary pb-3 ">
+    <div
+      className={`${
+        darkMode && 'dark'
+      } 2xl:px-5 lg:px-2 h-max lg:col-span-5 col-span-6 w-full mt-16 `}
+    >
+      <div id="display_details" className="   h-full">
+        <div className="bg-white dark:bg-dbeats-dark-primary 2xl:pb-3 lg:pb-2">
           {privateUser ? (
             <div
               className="ml-2 mt-2 absolute dark:bg-dbeats-dark-alt dark:hover:bg-dbeats-dark hover:bg-white
               hover:text-dbeats-light dark:hover:text-white rounded-full z-2 text-white dark:text-gray-400"
             >
               <i
-                className="fas fa-pen p-3
+                className="fas fa-pen 2xl:p-3 lg:p-1.5 
                 cursor-pointer"
                 onClick={() => setShowUploadCoverImage(true)}
               ></i>
@@ -292,14 +296,14 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
             false
           )}
           <div className="block ">
-            <img src={coverImage} alt="backgroundImg" className="lg:h-88 h-56 w-full " />
+            <img src={coverImage} alt="backgroundImg" className="2xl:h-88 lg:h-56 h-56 w-full " />
           </div>
           <div className="w-full ">
-            <div className="w-full flex flex-col lg:flex-row lg:-mt-28 -mt-20 lg:ml-5 ml-0">
-              <div className="lg:w-56 w-full flex justify-center z-1">
+            <div className="w-full flex flex-col lg:flex-row 2xl:-mt-28 lg:-mt-20 -mt-20 lg:ml-5 ml-0">
+              <div className="2xl::w-56 lg:w-44 w-full flex justify-center z-1">
                 <div
-                  className="px-1 py-1 shadow-sm 2xl:w-44 2xl:h-44 lg:w-36 
-                lg:h-36 h-28 w-28 bg-white rounded-full 
+                  className="2xl:px-1 2xl:py-1 shadow-sm 2xl:w-44 2xl:h-44 lg:w-32 
+                lg:h-32 h-28 w-28 bg-white rounded-full 
                 dark:bg-dbeats-dark-primary overflow-hidden"
                 >
                   <img
@@ -314,7 +318,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                         hover:text-dbeats-light dark:hover:text-white text-dbeats-light bg-white  rounded-full z-2 -mt-8 mr-2"
                       >
                         <i
-                          className="fas fa-pen p-2.5 
+                          className="fas fa-pen  2xl:p-2.5 lg:p-1.5 
                      cursor-pointer"
                           onClick={() => setShowUploadProfileImage(true)}
                         ></i>
@@ -325,17 +329,17 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                   )}
                 </div>
               </div>
-              <div className="w-full flex flex-col ml-3 mr-5 z-1 ">
-                <div className="flex flex-col lg:flex-row justify-between  mt-14 text-gray-400 lg:px-10 px-2 rounded-tl-lg  dark:bg-dbeats-dark-primary bg-white">
-                  <div className="dark:text-white  text-dbeats-dark-alt py-4">
+              <div className="w-full flex flex-col ml-3 2xl:mr-5 z-1 ">
+                <div className="flex flex-col lg:flex-row justify-between  mt-14 text-gray-400 2xl:px-10 lg:px-5 px-2 rounded-tl-lg  dark:bg-dbeats-dark-primary bg-white">
+                  <div className="dark:text-white  text-dbeats-dark-alt 2xl:py-4 lg:py-2.5">
                     <div className="flex w-max lg:pt-0 items-center ">
-                      <span className="font-bold text-3xl mr-3">{user.name}</span>
+                      <span className="font-bold 2xl:text-3xl lg:text-xl mr-3 ">{user.name}</span>
                       {!privateUser ? (
                         <button
                           href="#"
                           className="flex items-center no-underline cursor-pointer border-dbeats-light border-1  
                           text-dbeats-light hover:bg-dbeats-light 
-                          hover:text-white rounded font-bold mr-1 flex self-center py-1 px-3"
+                          hover:text-white rounded font-bold mr-1 flex self-center py-1 2xl:px-3 lg:px-1.5 lg:text-sm 2xl:text-lg"
                           onClick={trackFollowers}
                         >
                           <span>
@@ -354,34 +358,34 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                         cursor-pointer dark:border-white border-1  dark:text-blue-50 
                         hover:bg-dbeats-light hover:text-white 
                         dark:hover:text-white rounded font-bold mr-1 
-                        flex self-center   py-1 px-3"
+                        flex self-center   py-1 2xl:px-3 lg:px-1.5 lg:text-xs 2xl:text-lg"
                       >
                         <i className="fas fa-share-alt self-center mr-2 "></i> SHARE
                       </button>
                     </div>
-                    <span className="font-semibold">@{user.username}</span>
+                    <span className="font-semibold 2xl:text-lg lg:text-sm">@{user.username}</span>
                   </div>
 
-                  <div className="lg:grid lg:grid-flow-rows lg:grid-cols-3  font-bold text-xl text-gray-20 lg:gap-4 flex justify-between items-center">
-                    <div className="mx-auto lg:px-4 px-2 flex flex-col lg:flex-row justify-center items-center">
+                  <div className="lg:grid lg:grid-flow-rows lg:grid-cols-3  font-bold 2xl:text-xl lg:text-sm text-gray-20 lg:gap-4 flex justify-between items-center">
+                    <div className="mx-auto 2xl:px-4 px-2 flex flex-col lg:flex-row justify-center items-center">
                       <div className=" w-full mr-2 flex justify-center">
                         {user.videos ? user.videos.length : 0}{' '}
                       </div>
-                      <div className="text-sm">VIDEOS</div>
+                      <div className="2xl:text-sm lg:text-xs">VIDEOS</div>
                     </div>
                     <div className="mx-auto lg:px-4 px-2 flex flex-col lg:flex-row justify-center items-center">
                       <div className=" w-full mr-2 flex justify-center ">
                         {/*{user.subscribers ? <>{user.subscribers.length}</> : 0}{" "}*/}
                         {followers}{' '}
                       </div>
-                      <div className="text-sm">FOLLOWERS</div>
+                      <div className="2xl:text-sm lg:text-xs">FOLLOWERS</div>
                     </div>
                     <div className="mx-auto lg:px-4 px-2 flex flex-col lg:flex-row justify-center items-center">
                       <div className=" w-full mr-2 flex justify-center ">
                         {/*{user.subscribed ? <>{user.subscribed.length}</> : 0}{" "}*/}
                         {following}{' '}
                       </div>
-                      <div className="text-sm">FOLLOWING</div>
+                      <div className="2xl:text-sm lg:text-xs">FOLLOWING</div>
                     </div>
                   </div>
                 </div>
