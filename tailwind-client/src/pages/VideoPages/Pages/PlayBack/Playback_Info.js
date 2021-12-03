@@ -23,7 +23,7 @@ import RecommendedCard from './RecommendedCard';
 moment().format();
 
 const PlayBackInfo = (props) => {
-  let sharable_data = `https://dbeats.live/playback/${props.stream_id}/${props.video_id}`;
+  let sharable_data = `${process.env.REACT_APP_CLIENT_URL}/playback/${props.stream_id}/${props.video_id}`;
   const darkMode = useSelector((darkmode) => darkmode.toggleDarkMode);
 
   const [showSubscriptionModal, setshowSubscriptionModal] = useState(false);

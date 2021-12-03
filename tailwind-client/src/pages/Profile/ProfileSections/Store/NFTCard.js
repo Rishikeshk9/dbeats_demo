@@ -4,7 +4,9 @@ const NFTCard = ({ nft }) => {
   //console.log(nft);
 
   const [seeMore, setSeeMore] = useState(false);
+  const [nameSeeMore, setNameSeeMore] = useState(false);
   const handleSeeMore = () => setSeeMore(!seeMore);
+  const handleNameSeeMore = () => setNameSeeMore(!seeMore);
 
   return (
     <div className="dark:bg-gradient-to-b min-h-full  hover:border-gray-500 dark:from-dbeats-dark-secondary dark:to-dbeats-dark-secondary  dark:hover:bg-gradient-to-b  dark:hover:from-green-400 dark:hover:via-dbeats-dark-primary  dark:hover:to-dbeats-dark-primary bg-gradient-to-b from-white to-white dark:hover:bg-opacity-10 hover:bg-opacity-90 hover:bg-gradient-to-b hover:from-white hover:via-blue-50 hover:to-green-50   group  backdrop-blur-2xl  backdrop-filter dark:hover:backdrop-blur-2xl  dark:hover:backdrop-filter   shadow-sm  hover:shadow-md cursor-pointer w-full  rounded-lg flex flex-col items-center justify-center transition-all duration-300 ease-in-out">
@@ -48,35 +50,59 @@ const NFTCard = ({ nft }) => {
           </div>
         </div>
       </div>
-      <div className="pt-10 pb-6 w-full px-4" style={{ minHeight: '125px' }}>
+
+      {/* {nft.name} */}
+      <div className="pt-10 pb-6 w-full px-4" style={{ minHeight: '145px' }}>
         <h1 className="font-medium leading-none text-base tracking-wider text-gray-900 dark:text-white">
-          {/* {nft.name} */}
-          {nft.metadata.name}
-        </h1>
-        <div className=" leading-none text-base tracking-wider text-gray-900 dark:text-gray-200 mt-2">
-          {/* {nft.description} */}
-          {seeMore ? (
-            <>
-              <span>{nft.metadata.description}...</span>
-              <span className="cursor:pointer hover:underline" onClick={handleSeeMore}>
-                see less
-              </span>
-            </>
-          ) : (
-            <>
-              {nft.metadata.description.length > 45 ? (
+          <p
+            className={`${!nameSeeMore ? 'line-clamp-2' : ''} mr-2 mt-1 `}
+            style={{ wordBreak: 'break-words' }}
+          >
+            {nft.metadata.name.split('\n').map(function (item) {
+              return (
                 <>
-                  <span>{nft.metadata.description.slice(0, 45) + '...'}</span>
-                  <span className="cursor:pointer hover:underline" onClick={handleSeeMore}>
-                    see more
-                  </span>
+                  {item}
+                  <br />
                 </>
-              ) : (
-                <span>{nft.metadata.description}</span>
-              )}
-            </>
-          )}
-        </div>
+              );
+            })}
+          </p>
+          {nft.metadata.name.split(/\r\n|\r|\n/).length > 2 ? (
+            <p
+              className="cursor-pointer text-md hover:underline text-gray-600 pt-2"
+              onClick={() => setNameSeeMore(!nameSeeMore)}
+            >
+              {nameSeeMore ? '...see less' : '...see more'}
+            </p>
+          ) : null}
+        </h1>
+
+        {/* {nft.description} */}
+        {nft.metadata.description ? (
+          <div className=" leading-none text-base tracking-wider text-gray-900 dark:text-gray-200 mt-2">
+            <p
+              className={`${!seeMore ? 'line-clamp-1' : ''} mr-2`}
+              style={{ wordBreak: 'break-words' }}
+            >
+              {nft.metadata.description.split('\n').map(function (item) {
+                return (
+                  <>
+                    {item}
+                    <br />
+                  </>
+                );
+              })}
+            </p>
+            {nft.metadata.description.split(/\r\n|\r|\n/).length > 2 ? (
+              <p
+                className="cursor-pointer text-md hover:underline text-gray-600 mt-2"
+                onClick={() => setSeeMore(!seeMore)}
+              >
+                {seeMore ? '...see less' : '...see more'}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
       </div>
     </div>
   );
