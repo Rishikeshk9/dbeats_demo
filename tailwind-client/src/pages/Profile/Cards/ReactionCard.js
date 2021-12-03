@@ -22,7 +22,7 @@ const ReactionCard = (props) => {
   const text = 'Copy Link To Clipboard';
   const [buttonText, setButtonText] = useState(text);
 
-  let sharable_data = `https://dbeats.live/playback/${props.playbackUserData.link}`;
+  let sharable_data = `${process.env.REACT_APP_CLIENT_URL}/playback/${props.playbackUserData.link}`;
 
   const [like, setLike] = useState(0);
   const [dislike, setDislike] = useState(0);

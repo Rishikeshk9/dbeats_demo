@@ -40,7 +40,7 @@ const Profile = (props) => {
     if (value) {
       if (value.username === props.match.params.username) {
         setUser(value);
-        setSharable_data(`https://dbeats.live/profile/${value.username}`);
+        setSharable_data(`${process.env.REACT_APP_CLIENT_URL}/profile/${value.username}`);
         setPrivate(true);
         get_NFT(value);
       } else {
@@ -63,7 +63,7 @@ const Profile = (props) => {
           setNotFound(true);
         } else {
           setUser(value.data);
-          setSharable_data(`https://dbeats.live/profile/${value.data.username}`);
+          setSharable_data(`${process.env.REACT_APP_CLIENT_URL}/profile/${value.data.username}`);
           get_NFT(value.data);
         }
       });
