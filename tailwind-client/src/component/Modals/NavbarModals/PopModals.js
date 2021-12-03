@@ -34,6 +34,10 @@ export const AnnouncementModal = (props) => {
     postImage: null,
     postVideo: null,
     event_link: '',
+    cid: '',
+    royalty: 5,
+    tokenId: '',
+    mintTrxHash: '',
   });
 
   const handleInputChange = (e) => {
@@ -63,8 +67,90 @@ export const AnnouncementModal = (props) => {
   };
 
   async function storeWithProgress() {
-    const onRootCidReady = (cid) => {
+    const contract_address = process.env.CONTRACT_ADDRESS;
+
+    const onRootCidReady = async (cid) => {
       announcement.cid = cid;
+
+      const apiKey =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDhhMzIwRGQxRDBBNTBmMUQyYjNGNmZGZDM0MUI3ODdkNTYzQzBFYjUiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTYzNDQ0ODE3MDg4MCwibmFtZSI6IkRCZWF0cyJ9.wGuicvEMGBKmKxqsiC4YhesIjBF11oP9EZXNYYN6w5k';
+      const client = new NFTStorage({ token: apiKey });
+
+      const metadata = await client.store({
+        name: announcement.announcementText,
+        description: '',
+        image: announcement.postImage ? announcement.postImage : null,
+        animation_url: announcement.postVideo
+          ? 'https://ipfs.io/ipfs/' + cid + '/' + announcement.postVideo.name
+          : null,
+        event_link: announcement.event_link ? announcement.event_link : null,
+        attributes: [
+          {
+            trait_type: 'Event Link',
+            value: announcement.event_link ? announcement.event_link : null,
+          },
+        ],
+      });
+
+      // Split ipfs metadata link into two parts
+      const ipfsMetadata = metadata.url.split('ipfs://')[1];
+      const options = {
+        method: 'POST',
+        url: 'https://api.nftport.xyz/v0/mints/customizable',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'ad092d8e-feb0-4430-92f7-1fa501b83bec',
+        },
+        data: {
+          chain: 'polygon',
+          contract_address: contract_address || '0x03160747B94BE986261D9340D01128d4d5566383',
+          metadata_uri: `https://ipfs.io/ipfs/${ipfsMetadata}`,
+          mint_to_address: user.wallet_id,
+        },
+      };
+
+      axios
+        .request(options)
+        .then(function (response) {
+          // //console.log(response.data);
+          // //console.log(response.status);
+          announcement.mintTrxHash = response.data.transaction_hash;
+
+          const nftTokenOptions = {
+            method: 'GET',
+            url: `https://api.nftport.xyz/v0/mints/${response.data.transaction_hash}?chain=polygon`,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'ad092d8e-feb0-4430-92f7-1fa501b83bec',
+            },
+          };
+          document.getElementById('nftAddress').innerHTML = `Sailing Data from OpenSea...`;
+          setTimeout(() => {
+            axios
+              .request(nftTokenOptions)
+              .then(function (tokenIdRes) {
+                announcement.tokenId = tokenIdRes.data.token_id;
+
+                // //console.log('TOKEN ID DATA: ', tokenIdRes.data);
+                // //console.log(
+                //   'OpenSea Url of nft: ',
+                //   `https://opensea.io/assets/matic/0x03160747b94be986261d9340d01128d4d5566383/${tokenIdRes.data.token_id}`,
+                // );
+
+                document.getElementById('nftAddress').innerHTML = `Check on OpenSea`;
+                document.getElementById(
+                  'nftAddress',
+                ).href = `https://opensea.io/assets/matic/0x03160747b94be986261d9340d01128d4d5566383/${tokenIdRes.data.token_id}`;
+              })
+              .catch(function (e) {
+                console.error(e);
+              });
+          }, 10000);
+        })
+
+        .catch(function (error) {
+          console.error(error);
+        });
     };
 
     const blob = new Blob([JSON.stringify(announcement)], { type: 'application/json' });
@@ -97,6 +183,7 @@ export const AnnouncementModal = (props) => {
   }
 
   const handleAnnouncement = () => {
+    props.setLoader(false);
     if (announcement.postImage !== null || announcement.postVideo !== null) {
       storeWithProgress('upload announcement image').then(() => {
         const formData = new FormData();
@@ -127,6 +214,7 @@ export const AnnouncementModal = (props) => {
               });
               setPostImage(null);
               props.setShowAnnouncement(false);
+              props.setLoader(true);
             })
             .catch((error) => {
               console.log(error);
@@ -157,6 +245,7 @@ export const AnnouncementModal = (props) => {
           });
           setPostImage(null);
           props.setShowAnnouncement(false);
+          props.setLoader(true);
         })
         .catch((error) => {
           console.log(error);
@@ -258,7 +347,7 @@ export const AnnouncementModal = (props) => {
                   </div>
                 </div>
               </div>
-              <Row className="w-full flex justify-center">
+              <Row className="w-full flex justify-center items-center">
                 <button
                   type="submit"
                   onClick={handleAnnouncement}
@@ -266,6 +355,10 @@ export const AnnouncementModal = (props) => {
                 >
                   Post
                 </button>
+                <div
+                  className="animate-spin rounded-full h-7 w-7 ml-3 border-t-2 border-b-2 bg-gradient-to-r from-green-400 to-blue-500 "
+                  hidden={props.loader}
+                ></div>
               </Row>
             </Container>
           </div>

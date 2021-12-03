@@ -79,7 +79,7 @@ const Profile = (props) => {
       //   'https://api.nftport.xyz/v0/accounts/' +
       //   value.wallet_id +
       //   '?chain=polygon&include=metadata',
-      url: `https://api.covalenthq.com/v1/137/address/0x5d55407a341d96418ceda98e06c244a502fc9572/balances_v2/?quote-currency=USD&format=JSON&nft=true&no-nft-fetch=false&key=ckey_b5245f3db18d4a2d999fef65fc0`,
+      url: `https://api.covalenthq.com/v1/137/address/${value.wallet_id}/balances_v2/?quote-currency=USD&format=JSON&nft=true&no-nft-fetch=false&key=ckey_b5245f3db18d4a2d999fef65fc0`,
       headers: {
         'Content-Type': 'application/json',
         // Authorization: 'ad092d8e-feb0-4430-92f7-1fa501b83bec',
