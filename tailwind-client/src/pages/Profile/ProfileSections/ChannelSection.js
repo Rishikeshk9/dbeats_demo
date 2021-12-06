@@ -103,7 +103,7 @@ const ChannelSection = (props) => {
         centered
       >
         <div className={`${darkMode && 'dark'} h-max w-max`}>
-          <h2 className="grid grid-cols-5 justify-items-center text-2xl py-4  dark:bg-dbeats-dark-alt">
+          <h2 className="grid grid-cols-5 justify-items-center 2xl:text-2xl lg:text-lg 2xl:py-4 lg:py-2  dark:bg-dbeats-dark-alt">
             <div className="col-span-4 pl-14  text-gray-900 dark:text-gray-100">
               Create New Channel
             </div>
@@ -116,7 +116,7 @@ const ChannelSection = (props) => {
           </h2>
 
           <div>
-            <Container className="px-12 pb-4 text-gray-900 dark:text-gray-100 dark:bg-dbeats-dark-alt">
+            <Container className="2xl:px-12 lg:px-6 2xl:pb-4 lg:pb-2  text-gray-900 dark:text-gray-100 dark:bg-dbeats-dark-alt">
               <Row>
                 <Col className="flex justify-around align-center">
                   <RadioGroup value={selected} onChange={setSelected}>
@@ -137,7 +137,7 @@ const ChannelSection = (props) => {
                       ? 'bg-sky-900 bg-opacity-75 text-gray-900 dark:text-gray-100  '
                       : ' text-gray-900 dark:text-gray-100   '
                   }
-                    relative rounded-lg shadow-md px-5 py-4 cursor-pointer flex focus:outline-none`
+                    relative rounded-lg shadow-md 2xl:px-5 2xl:py-4 lg:px-2.5 lg:py-2 cursor-pointer flex focus:outline-none`
                           }
                         >
                           {({ checked }) => (
