@@ -29,10 +29,13 @@ const userSchema = new Schema(
       default: false,
       required: true,
     },
-    confirm_password: {
+    cover_image: {
       type: String,
-      default: false,
-      required: true,
+      default: '',
+    },
+    profile_image: {
+      type: String,
+      default: '',
     },
     livepeer_data: {
       type: Object,
@@ -55,6 +58,10 @@ const userSchema = new Schema(
       type: Array,
       default: [],
     },
+    posts: {
+      type: Array,
+      default: [],
+    },
     notification: {
       type: Array,
       default: [],
@@ -73,18 +80,12 @@ const userSchema = new Schema(
     },
     album_count: { type: Number, default: 0 },
     bio: { type: String, default: '', trim: true },
-    cover_photo: { type: String, trim: true },
     followee_count: { type: Array, default: [] },
     follower_count: { type: Array, default: [] },
     favorite_tracks: { type: Array, default: [] },
     is_verified: { type: Boolean, default: false },
     location: { type: String, trim: true, default: null },
     playlist_count: { type: Number, default: 0 },
-    profile_picture: {
-      type: String,
-      trim: true,
-      minlength: 3,
-    },
     repost_count: { type: Number, default: 0 },
     track_count: { type: Number, default: 0 },
   },
@@ -92,15 +93,6 @@ const userSchema = new Schema(
     timestamps: true,
   },
 );
-
-// userSchema.pre("save", async function (next) {
-//   if (this.isModified("password")) {
-//     this.password = await bcrypt.hash(this.password, 10);
-//     this.confirm_password = await bcrypt.hash(this.confirm_password, 10);
-//   }
-
-//   next();
-// });
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;

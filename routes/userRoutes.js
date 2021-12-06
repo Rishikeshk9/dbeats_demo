@@ -2,9 +2,7 @@ const router = require('express').Router();
 const Str = require('@supercharge/strings');
 const bcrypt = require('bcryptjs');
 const axios = require('axios');
-
-const livepeerKey = process.env.LIVEPEER_KEY;
-const AuthStr = 'Bearer '.concat(livepeerKey);
+const fs = require('fs');
 
 let User = require('../models/user.model');
 
@@ -81,8 +79,10 @@ router.route('/login').post(async (req, res) => {
     const password = req.body.password;
 
     const user_username = await User.findOne({ username: username });
-    const isMatch = bcrypt.compare(password, user_username.password);
-
+    const isMatch = await bcrypt.compare(
+      password,
+      user_username.password,
+    );
     if (isMatch) {
       res.send(user_username);
     } else {
@@ -140,7 +140,7 @@ router.route('/add_multistream_platform').post(async (req, res) => {
       { $push: { multistream_platform: data } },
       function (error, success) {
         if (error) {
-        } else {
+          res.send(error);
         }
       },
     );
@@ -164,7 +164,7 @@ router.route('/follow').post(async (req, res) => {
       { $push: { follower_count: follower } },
       function (error, success) {
         if (error) {
-          console.log(error);
+          res.send(error);
         }
       },
     );
@@ -174,7 +174,7 @@ router.route('/follow').post(async (req, res) => {
       { $push: { followee_count: following } },
       function (error, success) {
         if (error) {
-          console.log(error);
+          res.send(error);
         }
       },
     );
@@ -188,18 +188,36 @@ router.route('/unfollow').post(async (req, res) => {
   try {
     const following = req.body.following;
     const follower = req.body.follower;
+
+    console.log(following, follower);
     User.findOneAndUpdate(
       { username: following },
       { $pull: { follower_count: follower } },
+      function (error, success) {
+        if (error) {
+          res.send(error);
+        }
+      },
     );
     User.findOneAndUpdate(
       { username: follower },
       { $pull: { followee_count: following } },
+      function (error, success) {
+        if (error) {
+          res.send(error);
+        }
+      },
     );
     User.findOneAndUpdate(
       { username: follower },
       { $pull: { pinned: following } },
+      function (error, success) {
+        if (error) {
+          res.send(error);
+        }
+      },
     );
+
     res.send('success');
   } catch (err) {
     console.log(err);
@@ -232,7 +250,7 @@ router.route('/favorite').post(async (req, res) => {
         if (error) {
           res.send(error);
         } else {
-          res.send(success);
+          res.send('success');
         }
       },
     );
@@ -252,7 +270,7 @@ router.route('/unfavorite').post(async (req, res) => {
         if (error) {
           res.send(error);
         } else {
-          res.send(success);
+          res.send('success');
         }
       },
     );
@@ -312,7 +330,7 @@ router.route('/reactions').post(async (req, res) => {
         { upsert: true },
         function (error, success) {
           if (error) {
-          } else {
+            res.send(error);
           }
         },
       );
@@ -321,7 +339,7 @@ router.route('/reactions').post(async (req, res) => {
         { $push: { your_reactions: yourdata } },
         function (error, success) {
           if (error) {
-          } else {
+            res.send(error);
           }
         },
       );
@@ -342,7 +360,6 @@ router.route('/getreactions').post(async (req, res) => {
     for (let i = 0; i < user.videos.length; i++) {
       if (user.videos[i].link === videolink) {
         res.send(user.videos[i]);
-        break;
       }
     }
   } catch (err) {
@@ -457,7 +474,7 @@ router.route('/removeuserreaction').post(async (req, res) => {
         { $set: { videos: data } },
         function (error, success) {
           if (error) {
-          } else {
+            res.send(error);
           }
         },
       );
@@ -487,7 +504,7 @@ router.route('/removeuserreaction').post(async (req, res) => {
         { $set: { your_reactions: yourdata } },
         function (error, success) {
           if (error) {
-          } else {
+            res.send(error);
           }
         },
       );
@@ -509,7 +526,7 @@ router.route('/pinned').post(async (req, res) => {
         if (error) {
           res.send(error);
         } else {
-          res.send(success);
+          res.send('success');
         }
       },
     );
@@ -529,7 +546,7 @@ router.route('/unpin').post(async (req, res) => {
         if (error) {
           res.send(error);
         } else {
-          res.send(success);
+          res.send('success');
         }
       },
     );
@@ -542,16 +559,42 @@ router.route('/announcement').post(async (req, res) => {
   try {
     const username = req.body.username;
     const announcement = req.body.announcement;
-    const post_image = req.body.postImage;
-    const post_video = req.body.postVideo;
-    const link = req.body.link;
+
+    let post_image = null;
+    let post_video = null;
+
+    if (req.files) {
+      post_image = req.files.postImage;
+      post_video = req.files.postVideo;
+    }
+
+    const link = req.body.eventlink;
+    const uploadHash = req.body.announcementHash
+      ? req.body.announcementHash
+      : null;
+
     const user = await User.findOne({ username: username });
+
+    let postImg, postVid;
+
+    if (post_video) {
+      postVid =
+        'https://ipfs.io/ipfs/' + uploadHash + '/' + post_video.name;
+    }
+    if (post_image) {
+      postImg =
+        'https://ipfs.io/ipfs/' + uploadHash + '/' + post_image.name;
+    }
+
     const announcementData = {
       announcement: announcement,
-      post_image: post_image,
-      post_video: post_video,
+      post_image: postImg,
+      post_video: postVid,
       link: link,
+      timestamp: req.body.timestamp,
+      username: username,
     };
+
     user.follower_count.forEach(function (id) {
       User.updateOne(
         { username: id },
@@ -559,12 +602,20 @@ router.route('/announcement').post(async (req, res) => {
         function (error, success) {
           if (error) {
             res.send(error);
-          } else {
-            res.send(success.notification);
           }
         },
       );
     });
+
+    User.updateOne(
+      { username: username },
+      { $push: { posts: announcementData } },
+      function (error, success) {
+        if (error) {
+          res.send(error);
+        }
+      },
+    );
     res.send('Hello');
   } catch (err) {
     console.log(err);
@@ -582,26 +633,29 @@ router.route('/seennotification').post(async (req, res) => {
     for (let i = 0; i < user.notification.length; i++) {
       data.push(user.notification[i]);
     }
-    await User.update({ username: username }, { notification: [] });
-    await User.update(
+    await User.updateOne(
+      { username: username },
+      { notification: [] },
+      function (error, success) {
+        if (error) {
+          res.send(error);
+        }
+      },
+    );
+    await User.updateOne(
       { username: username },
       { oldnotification: data },
+      function (error, success) {
+        if (error) {
+          res.send(error);
+        }
+      },
     );
     res.send('Hello');
   } catch (err) {
     console.log(err);
   }
 });
-
-router
-  .route('/triggernotification/:username')
-  .get(async (req, res) => {
-    try {
-      const username = req.params.username;
-    } catch (err) {
-      console.log(err);
-    }
-  });
 
 router.route('/playlist').post(async (req, res) => {
   try {
@@ -643,7 +697,7 @@ router.route('/playlist').post(async (req, res) => {
         { $push: { my_playlists: playlistData } },
         function (error, success) {
           if (error) {
-          } else {
+            res.send(error);
           }
         },
       );
@@ -663,7 +717,7 @@ router.route('/playlist').post(async (req, res) => {
         { $set: { my_playlists: playlistdata } },
         function (error, success) {
           if (error) {
-          } else {
+            res.send(error);
           }
         },
       );
@@ -672,6 +726,108 @@ router.route('/playlist').post(async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+router.route('/coverimage').post(async (req, res) => {
+  const userId = req.body.username;
+  const coverImage = req.files.coverImage;
+
+  console.log(req.body);
+  console.log(req.files);
+
+  var currentTimeInSeconds = Math.floor(Date.now() / 1000);
+
+  const time = currentTimeInSeconds;
+
+  const coverImagePath = coverImage.name;
+
+  var coverImageHashLink = null;
+
+  coverImage.mv(coverImagePath, async (err) => {
+    try {
+      const uploadHash = req.body.imageHash;
+
+      const imageHash = req.files.coverImage.name;
+
+      coverImageHashLink =
+        'https://ipfs.io/ipfs/' + uploadHash + '/' + imageHash;
+
+      fs.unlink(coverImagePath, (err) => {
+        if (err) console.log(err);
+      });
+
+      if (coverImageHashLink != null) {
+        User.findOneAndUpdate(
+          { username: userId },
+          { $set: { cover_image: coverImageHashLink } },
+          function (error, success) {
+            if (error) {
+              res.send(error);
+            }
+          },
+        );
+
+        return res.send(coverImageHashLink);
+      } else {
+        return res.render('upload', { error: 'Error!' });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
+});
+
+router.route('/profileimage').post(async (req, res) => {
+  const userId = req.body.username;
+  const profileImage = req.files.profileImage;
+
+  console.log(req.body);
+  console.log(req.files);
+
+  var currentTimeInSeconds = Math.floor(Date.now() / 1000);
+
+  const time = currentTimeInSeconds;
+
+  const profileImagePath = profileImage.name;
+
+  var profileImageHashLink = null;
+
+  profileImage.mv(profileImagePath, async (err) => {
+    try {
+      const uploadHash = req.body.imageHash;
+
+      const imageHash = req.files.profileImage.name;
+
+      profileImageHashLink =
+        'https://ipfs.io/ipfs/' + uploadHash + '/' + imageHash;
+
+      fs.unlink(profileImagePath, (err) => {
+        if (err) console.log(err);
+      });
+
+      if (profileImageHashLink != null) {
+        User.findOneAndUpdate(
+          { username: userId },
+          { $set: { profile_image: profileImageHashLink } },
+          function (error, success) {
+            if (error) {
+              res.send(error);
+            }
+          },
+        );
+
+        return res.send(profileImageHashLink);
+      } else {
+        return res.render('upload', { error: 'Error!' });
+      }
+
+      if (err) {
+        return res.status(500).send(err);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
 });
 
 /*router.route("/:id").get((req, res) => {

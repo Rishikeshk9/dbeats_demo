@@ -115,7 +115,7 @@ const Dropdown = ({ data, setSelected, getSelected }) => {
                         'cursor-default select-none relative py-2 pl-3 pr-9',
                       )
                     }
-                    value={value.name}
+                    value={value}
                   >
                     {({ selected, active }) => (
                       <>
@@ -126,7 +126,7 @@ const Dropdown = ({ data, setSelected, getSelected }) => {
                               'ml-3 block truncate',
                             )}
                           >
-                            {value.name}
+                            {value}
                           </span>
                         </div>
 

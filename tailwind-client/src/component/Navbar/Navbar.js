@@ -1,16 +1,16 @@
-import React, { useState, useEffect, Fragment, useRef } from 'react';
-import classes from './Navbar.module.css';
-import { push as Menu } from 'react-burger-menu';
-import logo from '../../assets/images/white-logo.svg';
-import logoDark from '../../assets/images/dark-logo.svg';
 import { Menu as Dropdown, Transition } from '@headlessui/react';
 import axios from 'axios';
-import useWeb3Modal from '../../hooks/useWeb3Modal';
-import { useSelector, useDispatch } from 'react-redux';
-import { toggleDarkMode } from '../../actions/index';
-import Toggle from '../toggle.component';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
+import { push as Menu } from 'react-burger-menu';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { AnnouncementModal, UploadMusic, UploadVideo } from '../Modals/NavbarModals/PopModals';
+import { toggleDarkMode } from '../../actions/index';
+import logoDark from '../../assets/images/dark-logo.svg';
+import logo from '../../assets/images/white-logo.svg';
+import useWeb3Modal from '../../hooks/useWeb3Modal';
+import { AnnouncementModal, UploadVideoModal, UploadTrackModal } from '../Modals/NavbarModals';
+import Toggle from '../toggle.component';
+import classes from './Navbar.module.css';
 
 const NavBar = () => {
   // eslint-disable-next-line no-unused-vars
@@ -40,6 +40,10 @@ const NavBar = () => {
 
   const [alluser, setAllUser] = useState([]);
   const [filterResultDisplay, setFilterResultDisplay] = useState(true);
+  const [newNotification, setNewNotification] = useState(0);
+
+  //Loader
+  const [loader, setLoader] = useState(true);
 
   //  Modal
   const [showOpen, setOnOpen] = useState(false);
@@ -58,16 +62,6 @@ const NavBar = () => {
     return () => clearTimeout(timer);
   };
 
-  const handleStreamOnClick = () => {
-    window.location.href = `/streamer/${user.username}`;
-  };
-
-  const handleProfileOnClick = () => {
-    window.location.href = `/profile/${user.username}`;
-  };
-
-  // //console.log(user, "from navbar")
-
   const [toggled, setToggled] = useState(JSON.parse(window.localStorage.getItem('darkmode')));
   const handleClick = () => {
     setToggled((s) => !s);
@@ -80,7 +74,8 @@ const NavBar = () => {
   };
 
   const handleNotification = () => {
-    if (user && user.notification.length > 0) {
+    if (user && newNotification > 0) {
+      setNewNotification(0);
       const data = {
         username: user.username,
       };
@@ -168,18 +163,19 @@ const NavBar = () => {
 
     if (user && user.notification) {
       if (user.notification.length > 0) {
+        setNewNotification(user.notification.length);
         let data = [];
         for (let i = 0; i < user.oldnotification.length; i++) {
-          data.push(<p className="pl-2 py-1">{user.oldnotification[i]}</p>);
+          data.push(user.oldnotification[i]);
         }
         for (let i = 0; i < user.notification.length; i++) {
-          data.push(<p className="bg-red-300 pl-2 py-1">{user.notification[i]}</p>);
+          data.push(user.notification[i]);
         }
         setNotification(data.reverse());
       } else {
         let data = [];
         for (let i = 0; i < user.oldnotification.length; i++) {
-          data.push(<p className="pl-2 py-1">{user.oldnotification[i]}</p>);
+          data.push(user.oldnotification[i]);
         }
         setNotification(data.reverse());
       }
@@ -192,6 +188,35 @@ const NavBar = () => {
   const searchData = {
     usernameData: filteredData,
     videoData: filteredVideoData,
+  };
+
+  const NotificationContent = ({ data }) => {
+    console.log(data);
+    return (
+      <div className="h-full my-1">
+        <a
+          href={`http://localhost:3000/profile/${data.username}/posts`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="grid grid-cols-4 justify-center p-2 dark:bg-dbeats-dark-alt dark:hover:bg-dbeats-dark-secondary dark:text-white text-gray-500"
+        >
+          {data.post_image ? (
+            <div className="h-20 col-span-1 rounded-sm bg-gray-700 flex justify-center">
+              <img
+                src={data.post_image}
+                alt="announcement_info"
+                className="h-full w-auto rounded-sm"
+              />
+            </div>
+          ) : null}
+          <div className="col-span-3 rounded-sm ">
+            <p className="pl-2 line-clamp-3 text-sm font-semibold break-words">
+              {data.announcement}
+            </p>
+          </div>
+        </a>
+      </div>
+    );
   };
 
   return (
@@ -298,11 +323,7 @@ const NavBar = () => {
                 />
               </svg>
             </div>
-            <div
-              id="logo"
-              className="flex self-center cursor-pointer"
-              onClick={() => (window.location.href = '/')}
-            >
+            <a href="/" className="flex self-center cursor-pointer">
               <img
                 src={logo}
                 alt="dbeats_logo"
@@ -314,7 +335,7 @@ const NavBar = () => {
                 className="h-10 lg:h-7 2xl:h-10 w-max hidden dark:block"
               ></img>
               <span className="mr-5 text-lg font-bold ml-2"> </span>
-            </div>
+            </a>
             <div className="w-1/3 mx-auto  self-center ">
               <div className="  self-center rounded-full  flex bg-gray-100 dark:bg-dbeats-dark-primary">
                 <input
@@ -361,10 +382,8 @@ const NavBar = () => {
                   <>
                     {filteredVideoData.slice(0, 15).map((value, key) => {
                       return (
-                        <Link
-                          to={{
-                            pathname: '/search',
-                          }}
+                        <a
+                          href="/search"
                           key={key}
                           className="w-full h-10"
                           onClick={() => {
@@ -379,7 +398,7 @@ const NavBar = () => {
                           <div className="p-2 pl-3 dark:hover:bg-dbeats-dark-primary">
                             {value.video.videoName}{' '}
                           </div>
-                        </Link>
+                        </a>
                       );
                     })}
                   </>
@@ -389,10 +408,8 @@ const NavBar = () => {
                     <hr className=" px-2 dark:bg-white" />
                     {filteredData.slice(0, 15).map((value, key) => {
                       return (
-                        <Link
-                          to={{
-                            pathname: '/search',
-                          }}
+                        <a
+                          href="/search"
                           key={key}
                           className="w-full h-10 "
                           onClick={() => {
@@ -407,7 +424,7 @@ const NavBar = () => {
                           <div className="p-2 pl-3 dark:hover:bg-dbeats-dark-primary">
                             {value.username}{' '}
                           </div>
-                        </Link>
+                        </a>
                       );
                     })}
                   </>
@@ -483,32 +500,31 @@ const NavBar = () => {
                   </Transition>
                 </Dropdown>
               </div>
-            ) : (
-              <></>
-            )}
+            ) : null}
             {user ? (
               <div id="login-btn" className="flex items-center">
                 <Dropdown as="div" className="relative inline-block text-left lg:mr-2 self-center">
                   <Dropdown.Button className="flex h-full items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="2xl:h-7 2xl:w-7 w-5 h-5 text-dbeats-light cursor-pointer z-50 self-center"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      onClick={handleNotification}
-                    >
-                      <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
-                    </svg>
-                    {user.notification && user.notification.length > 0 ? (
-                      <div
-                        className="bg-red-500 rounded-full shadow  h-6 w-6 text-sm self-center text-center font-semibold  absolute -bottom-1  -right-2 dark:border-dbeats-dark-primary  border-red-300 border-2 text-white  "
-                        onClick={handleNotification}
+                    <div onClick={handleNotification}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="2xl:h-7 2xl:w-7 w-5 h-5 text-dbeats-light cursor-pointer z-50 self-center -z-1"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
                       >
-                        {user.notification.length}
-                      </div>
-                    ) : (
-                      <></>
-                    )}
+                        <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+                      </svg>
+                      {newNotification > 0 ? (
+                        <div
+                          className="bg-red-500 rounded-full shadow  
+                        h-6 w-6 text-sm self-center text-center font-semibold  
+                        absolute -bottom-2  -right-2 dark:border-dbeats-dark-primary  
+                        border-red-300 border-2 text-white"
+                        >
+                          {newNotification}
+                        </div>
+                      ) : null}
+                    </div>
                   </Dropdown.Button>
                   <Transition
                     as={Fragment}
@@ -519,12 +535,16 @@ const NavBar = () => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Dropdown.Items className="absolute right-0 w-80 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Dropdown.Items
+                      className="absolute right-0 w-96 mt-2 origin-top-right 
+                    dark:bg-dbeats-dark-primary bg-white divide-y divide-gray-100 rounded-md shadow-lg 
+                    ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    >
                       {notification.map((value, i) => {
                         return (
                           <div className="px-1 py-1 " key={i}>
-                            <Dropdown.Item className="w-full text-gray-700 text-left text-lg hover:text-white hover:bg-dbeats-light">
-                              <button>{value}</button>
+                            <Dropdown.Item className="w-full h-full self-center dark:bg-dbeats-dark-primary">
+                              <NotificationContent data={value} />
                             </Dropdown.Item>
                           </div>
                         );
@@ -532,11 +552,11 @@ const NavBar = () => {
                     </Dropdown.Items>
                   </Transition>
                 </Dropdown>
-                <button
-                  className="2xl:px-3 px-1.5 h-7 border-dbeats-light 2xl:border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mx-2 "
-                  onClick={handleStreamOnClick}
+                <a
+                  href={`/streamer/${user.username}`}
+                  className="border-dbeats-light 2xl:border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mx-2 "
                 >
-                  <div className="flex">
+                  <div className="flex lg:py-1 2xl:py-2.5 py-1.5 2xl:px-3 lg:px-2 px-1.5">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-5 w-5 lg:self-center mt-1 lg:mt-0 md:mr-2"
@@ -545,14 +565,14 @@ const NavBar = () => {
                     >
                       <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
                     </svg>
-                    <span className="self-center md:flex hidden lg:text-xs 2xl:text-sm">
+                    <span className="self-center md:flex hidden lg:text-xs 2xl:text-lg ">
                       Go Live
                     </span>
                   </div>
-                </button>
-                <button
+                </a>
+                <a
+                  href={`/profile/${user.username}`}
                   className="shadow-sm 2xl:h-10  2xl:w-10 self-center  h-7 w-7 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light text-white rounded-full font-bold mx-2 flex"
-                  onClick={handleProfileOnClick}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -566,20 +586,16 @@ const NavBar = () => {
                       clipRule="evenodd"
                     />
                   </svg>
-                </button>
+                </a>
               </div>
             ) : (
-              <>
-                <button
-                  className="shadow-sm px-3 py-1 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light dark:bg-gradient-to-r dark:from-dbeats-secondary-light dark:to-dbeats-light text-white rounded font-bold mx-2 flex"
-                  onClick={() => {
-                    window.location.href = '/login';
-                  }}
-                >
-                  <i className="fas fa-sign-in-alt self-center mr-2"></i>
-                  <span className="self-center">Login</span>
-                </button>
-              </>
+              <a
+                href="/signup"
+                className="shadow-sm 2xl:px-3 lg:px-1.5 2xl:py-1 lg:py-0.5 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light dark:bg-gradient-to-r dark:from-dbeats-secondary-light dark:to-dbeats-light text-white rounded font-bold mx-2 flex"
+              >
+                <i className="fas fa-sign-in-alt lg:text-sm 2xl:text-lg self-center mr-2"></i>
+                <span className="self-center lg:text-xs 2xl:text-lg">Sign Up</span>
+              </a>
             )}
           </div>
         </div>
@@ -589,18 +605,24 @@ const NavBar = () => {
         setShowAnnouncement={setShowAnnouncement}
         handleCloseAnnouncement={handleCloseAnnouncement}
         handleShowAnnouncement={handleShowAnnouncement}
+        loader={loader}
+        setLoader={setLoader}
       />
-      <UploadVideo
+      <UploadVideoModal
         showVideoUpload={showVideoUpload}
         setShowVideoUpload={setShowVideoUpload}
         handleCloseVideoUpload={handleCloseVideoUpload}
         handleShowVideoUpload={handleShowVideoUpload}
+        loader={loader}
+        setLoader={setLoader}
       />
-      <UploadMusic
+      <UploadTrackModal
         showTrackUpload={showTrackUpload}
         setShowTrackUpload={setShowTrackUpload}
         handleCloseTrackUpload={handleCloseTrackUpload}
         handleShowTrackUpload={handleShowTrackUpload}
+        loader={loader}
+        setLoader={setLoader}
       />
     </>
   );

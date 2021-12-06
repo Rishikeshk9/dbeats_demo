@@ -13,8 +13,8 @@ import Track from './component/track.component';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleDarkMode } from '../src/actions/index';
 import PinnedPanel from './component/Subscribe_Panel/Pinned_Panel';
-import Ticket from './component/Profile/ProfileSections/Ticket/Ticket';
-import ChatRoom from './component/Profile/ProfileSections/ChatRoom/ChatRoom';
+import Ticket from './pages/Profile/ProfileSections/Ticket/Ticket';
+import ChatRoom from './pages/Profile/ProfileSections/ChatRoom/ChatRoom';
 import PageNotFound from './component/PageNotFound/PageNotFound';
 
 //import Navbar from "./component/navbar.component";
@@ -24,14 +24,14 @@ import NFTFeed from './component/nft.component';
 
 const VideoHome = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('./component/Home/Home')), 1000);
+    setTimeout(() => resolve(import('./pages/Home/Home')), 1000);
   });
 });
 
 const PublicRoom = lazy(() => {
   return new Promise((resolve) => {
     setTimeout(
-      () => resolve(import('./component/VideoPages/Pages/LivePublicPage/PublicRoomPage')),
+      () => resolve(import('./pages/VideoPages/Pages/LivePublicPage/PublicRoomPage')),
       1000,
     );
   });
@@ -39,17 +39,14 @@ const PublicRoom = lazy(() => {
 
 const Playback = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(
-      () => resolve(import('./component/VideoPages/Pages/PlayBack/PlaybackRoomPage')),
-      1000,
-    );
+    setTimeout(() => resolve(import('./pages/VideoPages/Pages/PlayBack/PlaybackRoomPage')), 1000);
   });
 });
 
 const UserRoom = lazy(() => {
   return new Promise((resolve) => {
     setTimeout(
-      () => resolve(import('./component/VideoPages/Pages/GoLive_UserPage/UserRoomPage')),
+      () => resolve(import('./pages/VideoPages/Pages/GoLive_UserPage/UserRoomPage')),
       1000,
     );
   });
@@ -57,13 +54,13 @@ const UserRoom = lazy(() => {
 
 const Profile = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('./component/Profile/Profile')), 1000);
+    setTimeout(() => resolve(import('./pages/Profile/Profile')), 1000);
   });
 });
 
 const Login = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('./component/Login/Login')), 1000);
+    setTimeout(() => resolve(import('./pages/Login/Login')), 1000);
   });
 });
 
@@ -81,7 +78,7 @@ const SearchPage = lazy(() => {
 
 const TrackPlayback = lazy(() => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(import('./component/VideoPages/Pages/TrackPage/TrackInfo')), 1000);
+    setTimeout(() => resolve(import('./pages/VideoPages/Pages/TrackPage/TrackInfo')), 1000);
   });
 });
 
@@ -138,7 +135,7 @@ export default function App() {
                   <Route exact path="/live/:username" component={PublicRoom} />
                   <Route exact path="/playback/:username/:video_id" component={Playback} />
                   <Route exact path="/profile/:username/:tab?" component={Profile} />
-                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/signup" component={Login} />
                   <Route exact path="/search" component={() => <SearchPage />} />
                   <Route exact path="/track/:username/:track_id" component={TrackPlayback} />
                   <Route exact path="/chat/:username" component={ChatRoom} />

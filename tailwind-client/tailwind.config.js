@@ -22,8 +22,21 @@ module.exports = {
       150: '1.5',
       200: '2',
     },
+    minHeight: {
+      0: '0',
+      100: '100px',
+      '1/4': '25%',
+      '1/2': '50%',
+      '3/4': '75%',
+      full: '100%',
+    },
     zIndex: {
+      '-1': '-1',
       0: 0,
+      1: 1,
+      2: 2,
+      3: 3,
+      5: 5,
       10: 10,
       20: 20,
       30: 30,
@@ -41,11 +54,17 @@ module.exports = {
       width: {
         250: '250px',
         180: '180px',
+        130: '130px',
+        200: '200px',
       },
       height: {
         88: '21.8rem',
+        90: '90px',
         110: '28rem',
         120: '42rem',
+        150: '150px',
+        200: '200px',
+        180: '180px',
       },
       padding: {
         xl: '300px',
@@ -85,6 +104,7 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms'),
+    require('@tailwindcss/line-clamp'),
     require('tailwindcss-filters'),
     require('tailwindcss-important')(),
   ],

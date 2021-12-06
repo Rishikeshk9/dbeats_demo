@@ -3,7 +3,7 @@ const express = require('express');
 const Parse = require('parse/node');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
-var fs = require('fs');
+const fs = require('fs');
 const { create, globSource } = require('ipfs-http-client');
 const ipfs = create('http://139.59.75.20:5001');
 const app = express();
@@ -109,7 +109,7 @@ const DatabaseJSONStructure = {
       link: '',
       category: '',
       ratings: '',
-      tags: '',
+      tags: [],
       description: '',
       allowAttribution: '',
       commercialUse: '',
@@ -130,7 +130,7 @@ const DatabaseJSONStructure = {
       link: '',
       genre: '',
       mood: '',
-      tags: '',
+      tags: [],
       description: '',
       isrc: '',
       iswc: '',
@@ -433,7 +433,6 @@ app.post('/upload', (req, res) => {
           // );
 
           if (albumhashLink != null && trackHashLink != null) {
-            //console.log('Saving To Database!');
             saveTrackToDB(
               userName,
               trackName,

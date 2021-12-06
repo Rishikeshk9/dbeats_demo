@@ -6,7 +6,7 @@ import ReactPlayer from 'react-player';
 import screenful from 'screenfull';
 import FullControls from './FullControls';
 import PlayControls from './PlayControls';
-import Footer from '../VideoPages/Footer/Footer';
+import Footer from '../../pages/VideoPages/Footer/Footer';
 import classes from './videoPlayer.module.css';
 
 const format = (seconds) => {
@@ -228,8 +228,7 @@ function VideoPlayer(props) {
         onPlaybackRateChange={handlePlaybackRate}
         onToggleFullScreen={toggleFullScreen}
         volume={volume}
-        playerUsername={props.username}
-        playerName={props.name}
+        creatorData={props.creatorData}
         className="lg:-ml-12 "
       />
     </>
