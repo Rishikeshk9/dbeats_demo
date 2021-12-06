@@ -39,11 +39,6 @@ const BottomBar = ({ songDetails, playing, firstPlayed, setState }) => {
 
   useEffect(() => {
     if (progressRef.current) {
-      const newValue = Number(
-        ((progressRef.current.value - progressRef.current.min) * 100) /
-          (progressRef.current.max - progressRef.current.min),
-      );
-      //const newPosition = 10 - newValue * 0.2;
       lableRef.current.innerHTML = `${calculateTime(progressRef.current.value)}`;
     }
   }, [currentTime]);

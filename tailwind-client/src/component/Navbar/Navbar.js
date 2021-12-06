@@ -8,7 +8,7 @@ import { toggleDarkMode } from '../../actions/index';
 import logoDark from '../../assets/images/dark-logo.svg';
 import logo from '../../assets/images/white-logo.svg';
 import useWeb3Modal from '../../hooks/useWeb3Modal';
-import { AnnouncementModal, UploadMusic, UploadVideo } from '../Modals/NavbarModals/PopModals';
+import { AnnouncementModal, UploadVideoModal, UploadTrackModal } from '../Modals/NavbarModals';
 import Toggle from '../toggle.component';
 import classes from './Navbar.module.css';
 
@@ -197,11 +197,16 @@ const NavBar = () => {
         <a
           href={`http://localhost:3000/profile/${data.username}/posts`}
           target="_blank"
+          rel="noopener noreferrer"
           className="grid grid-cols-4 justify-center p-2 dark:bg-dbeats-dark-alt dark:hover:bg-dbeats-dark-secondary dark:text-white text-gray-500"
         >
           {data.post_image ? (
             <div className="h-20 col-span-1 rounded-sm bg-gray-700 flex justify-center">
-              <img src={data.post_image} className="h-full w-auto rounded-sm" />
+              <img
+                src={data.post_image}
+                alt="announcement_info"
+                className="h-full w-auto rounded-sm"
+              />
             </div>
           ) : null}
           <div className="col-span-3 rounded-sm ">
@@ -603,7 +608,7 @@ const NavBar = () => {
         loader={loader}
         setLoader={setLoader}
       />
-      <UploadVideo
+      <UploadVideoModal
         showVideoUpload={showVideoUpload}
         setShowVideoUpload={setShowVideoUpload}
         handleCloseVideoUpload={handleCloseVideoUpload}
@@ -611,7 +616,7 @@ const NavBar = () => {
         loader={loader}
         setLoader={setLoader}
       />
-      <UploadMusic
+      <UploadTrackModal
         showTrackUpload={showTrackUpload}
         setShowTrackUpload={setShowTrackUpload}
         handleCloseTrackUpload={handleCloseTrackUpload}

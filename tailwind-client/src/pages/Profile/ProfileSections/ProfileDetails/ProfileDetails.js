@@ -347,7 +347,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                             &nbsp;{buttonText}
                           </span>
                           <div
-                            hidden={loader}
+                            hidden={subscribeLoader}
                             className="w-3 h-3 ml-2 border-t-4 border-b-4 border-white rounded-full animate-spin"
                           ></div>
                         </button>

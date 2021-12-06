@@ -5,8 +5,6 @@ const NFTCard = ({ nft }) => {
 
   const [seeMore, setSeeMore] = useState(false);
   const [nameSeeMore, setNameSeeMore] = useState(false);
-  const handleSeeMore = () => setSeeMore(!seeMore);
-  const handleNameSeeMore = () => setNameSeeMore(!seeMore);
 
   return (
     <div className="dark:bg-gradient-to-b min-h-full  hover:border-gray-500 dark:from-dbeats-dark-secondary dark:to-dbeats-dark-secondary  dark:hover:bg-gradient-to-b  dark:hover:from-green-400 dark:hover:via-dbeats-dark-primary  dark:hover:to-dbeats-dark-primary bg-gradient-to-b from-white to-white dark:hover:bg-opacity-10 hover:bg-opacity-90 hover:bg-gradient-to-b hover:from-white hover:via-blue-50 hover:to-green-50   group  backdrop-blur-2xl  backdrop-filter dark:hover:backdrop-blur-2xl  dark:hover:backdrop-filter   shadow-sm  hover:shadow-md cursor-pointer w-full  rounded-lg flex flex-col items-center justify-center transition-all duration-300 ease-in-out">

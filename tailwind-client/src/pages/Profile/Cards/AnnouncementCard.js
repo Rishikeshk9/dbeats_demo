@@ -30,6 +30,7 @@ const AnnouncementCard = (props) => {
     if (props.post.timestamp) {
       setTime(moment(Math.floor(props.post.timestamp)).fromNow());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // const convertTimestampToTime = () => {
@@ -52,12 +53,12 @@ const AnnouncementCard = (props) => {
           onMouseMove={handleMouseMove}
           onMouseLeave={hanldeMouseLeave}
         >
-          <a href={props.post.link} target="_blank">
+          <a href={props.post.link} target="_blank" rel="noopener noreferrer">
             {showImage && props.post.post_image ? (
               <>
                 <img
                   src={props.post.post_image}
-                  alt="Post Image"
+                  alt="announcement_info"
                   className="mx-auto my-auto h-full w-auto"
                 />
               </>

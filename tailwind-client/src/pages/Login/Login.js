@@ -5,7 +5,7 @@ import axios from 'axios';
 import useWeb3Modal from '../../hooks/useWeb3Modal';
 import { useSelector } from 'react-redux';
 import moralisLogo from '../../assets/images/moralis-light.svg';
-import Ticket from '../Profile/ProfileSections/Ticket/Ticket';
+//import Ticket from '../Profile/ProfileSections/Ticket/Ticket';
 
 const Moralis = require('moralis');
 

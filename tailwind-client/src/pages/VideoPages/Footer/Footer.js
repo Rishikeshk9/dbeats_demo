@@ -3,11 +3,6 @@ import classes from './Footer.module.css';
 import { withStyles } from '@material-ui/core/styles';
 import { Slider, Tooltip, IconButton } from '@material-ui/core';
 
-import VolumeUp from '@material-ui/icons/VolumeUp';
-import VolumeDown from '@material-ui/icons/VolumeDown';
-import VolumeMute from '@material-ui/icons/VolumeOff';
-import FullScreen from '@material-ui/icons/Fullscreen';
-
 import FastRewindIcon from '@material-ui/icons/FastRewind';
 import FastForwardIcon from '@material-ui/icons/FastForward';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
