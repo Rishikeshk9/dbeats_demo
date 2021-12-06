@@ -31,7 +31,7 @@ const CarouselCard = (props) => {
   ////console.log(props.playbackUserData)
 
   return (
-    <div className="w-full h-auto  flex items-center lg:flex-row flex-col 2xl:py-3 2xl:px-3 lg:py-1.5 lg:px-2 bg-white 2xl:rounded-xl lg:rounded-md dark:bg-dbeats-dark-primary dark:text-gray-100 my-2 ">
+    <div className="w-full h-auto  flex items-center lg:flex-row flex-col 2xl:py-3 2xl:px-3 lg:py-1.5 lg:px-0 bg-white 2xl:rounded-xl lg:rounded-md dark:bg-dbeats-dark-primary dark:text-gray-100 my-2 ">
       <div
         className={`cursor-pointer w-80 2xl:h-48 lg:h-28 h-44 dark:bg-dbeats-dark-primary  bg-gray-100`}
       >

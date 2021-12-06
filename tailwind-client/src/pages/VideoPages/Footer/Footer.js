@@ -149,7 +149,7 @@ const Footer = (props) => {
               {props.muted ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 lg:h-5 lg:w-5 2xl:h-10 2xl:w-10"
+                  className="h-6 w-6 lg:h-5 lg:w-5 2xl:h-6 2xl:w-6"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -162,7 +162,7 @@ const Footer = (props) => {
               ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 lg:h-5 lg:w-5 2xl:h-10 2xl:w-10"
+                  className="h-6 w-6 lg:h-5 lg:w-5 2xl:h-9 2xl:w-9"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >

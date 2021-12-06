@@ -29,7 +29,7 @@ const TrackCard = (props) => {
       {/* header */}
       <div className=" group ">
         <div className="bg-white  group dark:bg-dbeats-dark-primary dark:text-blue-300 shadow-md  flex p-2  mx-auto  rounded-lg  w-full hover:scale-101 transform transition-all">
-          <div className="items-center h-26 w-30 lg:h-180 lg:w-200 dark:bg-dbeats-dark-alt flex   cursor-pointer mr-4">
+          <div className="items-center h-26 w-30 2xl:h-180 2xl:w-200 lg:h-90 my-auto lg:w-130 dark:bg-dbeats-dark-alt flex   cursor-pointer mr-4">
             <Link
               to={{
                 pathname: `/track/${props.username}/${props.index}`,
@@ -51,14 +51,14 @@ const TrackCard = (props) => {
           <div className="flex flex-col justify-center m-0 p-0  w-full  truncate  ">
             {/* content */}
             <div className="flex justify-between w-full ">
-              <h4 className="playlist  mt-0 pb-2.5 uppercase text-gray-500 tracking-widest text-sm">
+              <h4 className="playlist  mt-0 2xl:pb-2.5 lg:pb-0.5 uppercase text-gray-500 tracking-widest 2xl:text-sm lg:text-xs">
                 {props.track.genre}
               </h4>
             </div>
 
             <p
               id="song-title"
-              className=" overflow-ellipsis  w-full max-w-full mt-0 mb-1 drop-shadow xl:text-3xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500"
+              className=" overflow-ellipsis  w-full max-w-full mt-0 2xl:mb-1 lg:mg-0 drop-shadow 2xl:text-3xl lg:text-lg  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500"
             >
               {props.track.trackName}
             </p>
@@ -66,7 +66,7 @@ const TrackCard = (props) => {
             <div className="flex items-center">
               <p
                 id="song-author"
-                className="mt-0.5 text-gray-600 tracking-widest  text-lg flex font-semibold"
+                className="mt-0.5 text-gray-600 tracking-widest  2xl:text-lg lg:text-sm flex font-semibold"
               >
                 {props.username}&nbsp;
               </p>
@@ -74,13 +74,13 @@ const TrackCard = (props) => {
 
             {/* action buttons */}
 
-            <div className=" flex mt-4 rounded">
-              <div className=" sm:flex ">
+            <div className=" flex 2xl:mt-4 lg:mt-2 rounded">
+              <div className=" sm:flex 2xl:text-lg lg:text-md ">
                 <button
                   onClick={handlePlay}
-                  className="  cursor-pointer mr-2 uppercase font-bold  bg-gradient-to-r from-green-400 to-blue-500   text-white block py-2 px-10   hover:scale-95 transform transition-all"
+                  className=" cursor-pointer mr-2 uppercase font-bold  bg-gradient-to-r from-green-400 to-blue-500   text-white block 2xl:py-2 2xl:px-10 lg:px-7 lg:py-1   hover:scale-95 transform transition-all"
                 >
-                  {`${play ? 'Pause' : 'Play'}`}
+                  <p className=" 2xl:text-lg lg:text-sm ">{`${play ? 'Pause' : 'Play'}`}</p>
                 </button>
               </div>
             </div>

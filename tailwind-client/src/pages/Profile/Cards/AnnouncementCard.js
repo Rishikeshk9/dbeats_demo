@@ -48,7 +48,7 @@ const AnnouncementCard = (props) => {
     >
       {props.post.post_video || props.post.post_image ? (
         <div
-          className={`cursor-pointer w-80 2xl:h-52 lg:h-32 h-44 dark:bg-dbeats-dark-alt bg-gray-100`}
+          className={`cursor-pointer 2xl:w-80 2xl:h-52 lg:h-36 lg:w-52 h-44 w-80 dark:bg-dbeats-dark-primary bg-gray-100`}
           onMouseMove={handleMouseMove}
           onMouseLeave={hanldeMouseLeave}
         >
@@ -83,8 +83,8 @@ const AnnouncementCard = (props) => {
       >
         <p className="flex w-full justify-between text-black text-sm font-medium dark:text-gray-100">
           <div className="w-full">
-            <div className="text-gray-500 text-xs">{time}</div>
-            <div className="flex flex-col text-lg text-gray-500 w-full">
+            <div className="text-gray-500 2xl:text-lg lg:text-xs">{time}</div>
+            <div className="flex flex-col 2xl:text-xl lg:text-md text-gray-500 w-full">
               <p
                 className={`${!seeMore ? 'line-clamp-6' : ''} mr-2 mt-1 `}
                 style={{ wordBreak: 'break-words' }}
@@ -111,7 +111,7 @@ const AnnouncementCard = (props) => {
             </div>
           </div>
           <div>
-            <div className="text-2xl text-gray-500 ">
+            <div className="2xl:text-2xl lg:text-lg text-gray-500 ">
               <button className="px-1">
                 <i className="fas fa-share"></i>
               </button>

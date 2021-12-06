@@ -403,7 +403,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
 
             <Tab.Panels className="dark:bg-dbeats-dark-alt w-full h-full  overflow-auto ">
               <Tab.Panel className="">
-                <div className="px-5 pt-10 pb-5">
+                <div className="px-5 2xl:pt-10 lg:pt-5 pb-5">
                   {postsData && postsData.length > 0 ? (
                     <div>
                       {postsData.map((post, i) => {
@@ -416,12 +416,12 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                       })}
                     </div>
                   ) : (
-                    <p className="text-lg dark:text-white">No Posts till now</p>
+                    <p className="2xl:text-lg lg:text-sm dark:text-white">No Posts till now</p>
                   )}
                 </div>
               </Tab.Panel>
               <Tab.Panel className="">
-                <div className="px-5 pt-10 pb-5">
+                <div className="px-5 2xl:pt-10 lg:pt-5 pb-5">
                   {user.videos && user.videos.length > 0 ? (
                     <div>
                       {user.videos.map((playbackUser, i) => {
@@ -439,13 +439,13 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                       })}
                     </div>
                   ) : (
-                    <p className="text-lg dark:text-white">No Videos till now</p>
+                    <p className="2xl:text-lg lg:text-sm dark:text-white">No Videos till now</p>
                   )}
                 </div>
               </Tab.Panel>
 
               <Tab.Panel className="">
-                <div className="px-5 pt-10 pb-5">
+                <div className="px-5 2xl:pt-10 lg:pt-5 pb-5">
                   {user.tracks && user.tracks.length > 0 ? (
                     <div className="w-full">
                       {user.tracks.map((track, i) => {
@@ -458,13 +458,13 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                       })}
                     </div>
                   ) : (
-                    <p className="text-lg dark:text-white">No Tracks till now</p>
+                    <p className="2xl:text-lg lg:text-sm dark:text-white">No Tracks till now</p>
                   )}
                 </div>
               </Tab.Panel>
 
               <Tab.Panel className="">
-                <div className="px-5 pt-10 pb-5">
+                <div className="px-5 2xl:pt-10 pb-5  lg:pt-5 ">
                   {user.my_playlists && user.my_playlists.length > 0 ? (
                     <div>
                       {user.my_playlists.map((playlist, i) => {
@@ -472,7 +472,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                         return (
                           <>
                             <div key={i} className="">
-                              <h2 className="dark:text-white text-2xl ml-5 mb-3">
+                              <h2 className="dark:text-white 2xl:text-2xl lg:text-lg ml-5 mb-3">
                                 {playlist.playlistname}
                               </h2>
                               <div>
@@ -487,19 +487,19 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                                 </Carousel>
                               </div>
                             </div>
-                            <hr className="my-7" />
+                            <hr className="2xl:my-7 lg:my-3" />
                           </>
                         );
                       })}
                     </div>
                   ) : (
-                    <p className="text-lg dark:text-white">No Existing PlayLists</p>
+                    <p className="2xl:text-lg lg:text-sm dark:text-white">No Existing PlayLists</p>
                   )}
                 </div>
               </Tab.Panel>
 
               <Tab.Panel>
-                <div className="px-5 pt-10 pb-5">
+                <div className="px-5 2xl:pt-10 lg:pt-5 pb-5">
                   {user.your_reactions.length > 0 ? (
                     <div>
                       {user.your_reactions.map((playbackUser, i) => {
@@ -517,14 +517,14 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                       })}
                     </div>
                   ) : (
-                    <p className="text-lg dark:text-white">No Reactions till now</p>
+                    <p className="2xl:text-lg lg:text-sm dark:text-white">No Reactions till now</p>
                   )}
                 </div>
               </Tab.Panel>
 
               {privateUser ? (
                 <Tab.Panel className="">
-                  <div className="px-5 pt-10 pb-5 grid grid-cols-4 grid-flow-row ">
+                  <div className="px-5 2xl:pt-10 lg:pt-5 pb-5 grid grid-cols-4 grid-flow-row ">
                     {user.followee_count ? (
                       <div>
                         {user.followee_count.map((following, i) => {
@@ -532,16 +532,16 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                           return (
                             <div
                               key={i}
-                              className="flex lg:text-lg text-md shadow px-10 w-max lg:w-full  mt-5 py-2 dark:bg-dbeats-dark-primary dark:text-gray-100"
+                              className="flex 2xl:text-lg lg:text-sm text-md shadow px-10 w-max lg:w-full  2xl:my-5 lg:my-2.5 py-2 dark:bg-dbeats-dark-primary dark:text-gray-100"
                             >
                               {pinnedData.indexOf(following) > -1 ? (
                                 <i
-                                  className="fas fa-thumbtack mx-3 my-auto text-xl cursor-pointer "
+                                  className="fas fa-thumbtack mx-3 my-auto 2xl:text-xl lg:text-md cursor-pointer "
                                   onClick={() => UnPinningUser(following)}
                                 ></i>
                               ) : (
                                 <i
-                                  className="fas fa-thumbtack mx-3 my-auto text-xl opacity-20 hover:opacity-100 cursor-pointer -rotate-45 transform"
+                                  className="fas fa-thumbtack mx-3 my-auto 2xl:text-xl lg:text-md  opacity-20 hover:opacity-100 cursor-pointer -rotate-45 transform"
                                   onClick={() => PinningUser(following)}
                                 ></i>
                               )}
@@ -551,7 +551,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                         })}
                       </div>
                     ) : (
-                      <p>0 Subscribed</p>
+                      <p className="2xl:text-lg lg:text-sm dark:text-white">0 Subscribed</p>
                     )}
                   </div>
                 </Tab.Panel>
