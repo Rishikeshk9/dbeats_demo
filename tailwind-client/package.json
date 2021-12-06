@@ -31,7 +31,6 @@
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
-    "grabity": "^1.0.5",
     "gun": "^0.2020.1235",
     "jdenticon": "^3.1.1",
     "link-preview-js": "^2.1.8",

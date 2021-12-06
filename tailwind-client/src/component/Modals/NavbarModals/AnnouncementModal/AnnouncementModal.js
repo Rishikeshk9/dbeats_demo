@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
-import { ReactTinyLink } from 'react-tiny-link';
 import classes from './LinkPreview.module.css';
 import { detectURLs, makeStorageClient } from '../uploadHelperFunction';
 import LinkPreview from './LinkPreview';
