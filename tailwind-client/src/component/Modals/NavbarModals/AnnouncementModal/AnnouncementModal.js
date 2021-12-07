@@ -18,6 +18,7 @@ const AnnouncementModal = (props) => {
 
   //const [postImage, setPostImage] = useState(null);
   const [postImage, setPostImage] = useState(null);
+  const [showLinkPreview, setShowLinkPreview] = useState(false);
 
   const [announcement, setAnnouncement] = useState({
     announcementText: '',
@@ -40,8 +41,9 @@ const AnnouncementModal = (props) => {
     //getLinkPreview(url[url.length - 1]).then((data) => setLinkPreviewData(data));
     if (url && url.length > 0) {
       setLinkPreviewData(url[url.length - 1]);
+      setShowLinkPreview(true);
     } else {
-      setLinkPreviewData(null);
+      setShowLinkPreview(false);
     }
   };
 
@@ -280,9 +282,12 @@ const AnnouncementModal = (props) => {
                     placeholder="Enter Announcement Details"
                     onChange={(e) => handleInputChange(e)}
                   ></textarea>
-                  {linkPreviewData ? (
+                  {showLinkPreview ? (
                     <>
-                      <LinkPreview linkurl={linkPreviewData} />
+                      <LinkPreview
+                        linkurl={linkPreviewData}
+                        setShowLinkPreview={setShowLinkPreview}
+                      />
                     </>
                   ) : (
                     <>
