@@ -260,25 +260,26 @@ const AnnouncementModal = (props) => {
       isOpen={props.showAnnouncement}
       className={
         darkMode
-          ? 'h-max lg:w-1/2 w-5/6 mx-auto  lg:mt-20 2xl:mt-40 mt-24 bg-dbeats-dark-primary rounded-xl'
-          : 'h-max lg:w-1/2 w-5/6 mx-auto  lg:mt-20 2xl:mt-40 mt-24 bg-gray-50 rounded-xl shadow-2xl'
+          ? 'h-max lg:w-1/2 w-5/6 mx-auto  lg:mt-20 2xl:mt-40 mt-24   rounded-xl z-500'
+          : 'h-max lg:w-1/2 w-5/6 mx-auto  lg:mt-20 2xl:mt-40 mt-24 bg-gray-50 rounded-xl shadow-2xl bg-white  dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-90  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md '
       }
     >
-      <div className={`${darkMode && 'dark'} p-1`}>
-        <div className="border border-gray-400 rounded-xl  dark:border-black dark:rounded-none">
-          <h2 className="grid grid-cols-5 justify-items-center rounded-t-xl dark:rounded-t-sm font-bold 2xl:text-2xl text-lg py-3 dark:bg-dbeats-dark-alt bg-white dark:text-white">
-            <div className="col-span-4 pl-14">Post Details</div>
-            <div className="mr-7 flex justify-end w-full" onClick={props.handleCloseAnnouncement}>
-              <i className="fas fa-times cursor-pointer"></i>
-            </div>
+      <div className={`${darkMode && 'dark'} `}>
+        <div className=" rounded-xl dark:rounded-none  ">
+          <h2 className=" justify-items-center rounded-t-xl dark:rounded-t-sm font-bold 2xl:text-2xl text-lg py-3 dark:bg-dbeats-dark-alt bg-white dark:text-white   dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-90  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md ">
+            <div className=" text-center font-bold">Post Details</div>
+            <i
+              className="fas fa-times cursor-pointer absolute -mt-6 ml-auto  right-0 mr-6"
+              onClick={props.handleCloseAnnouncement}
+            ></i>
           </h2>
           <div className="h-full w-full flex align-center ">
-            <Container className="2xl:px-12 2xl:pb-4 rounded-b-xl dark:rounded-b-sm  lg:px-7 lg:pb-2 h-full px-4 w-full dark:bg-dbeats-dark-alt overflow-y-auto lg:overflow-hidden">
+            <Container className="2xl:px-12 2xl:pb-4 rounded-b-xl dark:rounded-b-sm  lg:px-7 lg:pb-2 h-full px-4 w-full dark:bg-dbeats-dark-alt overflow-y-auto lg:overflow-hidden bg-white  dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-90  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md ">
               <div className="align-center bg-white h-full">
                 <div className={`${classes.view_container} lg:h-44 2xl:h-80 h-48 overflow-y-auto`}>
                   <textarea
                     className={`${classes.textarea_container} h-5/6 w-full 
-                       lg:text-sm 2xl:text-lg border-b border-gray-300`}
+                       lg:text-sm 2xl:text-lg border-b border-gray-300 dark:bg-dbeats-dark-secondary`}
                     placeholder="Enter Announcement Details"
                     onChange={(e) => handleInputChange(e)}
                   ></textarea>
