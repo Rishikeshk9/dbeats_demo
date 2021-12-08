@@ -2,10 +2,6 @@ module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
-    backdropFilter: {
-      none: 'none',
-      blur: 'blur(20px)',
-    },
     scale: {
       0: '0',
       25: '.25',
@@ -50,6 +46,10 @@ module.exports = {
       auto: 'auto',
     },
     extend: {
+      backdropBlur: {
+        lg: '20px',
+      },
+
       grayscale: { 50: '50%', 75: '75%' },
       width: {
         250: '250px',
@@ -93,6 +93,7 @@ module.exports = {
       // ...
       display: ['dark'],
       animation: ['hover', 'focus'],
+      backdropBlur: ['hover', 'focus'],
       backgroundColor: ['dark', 'hover', 'focus'],
       borderColor: ['dark', 'hover', 'focus'],
       textColor: ['dark', 'hover', 'focus'],

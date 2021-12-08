@@ -45,11 +45,11 @@ const AnnouncementCard = (props) => {
 
   return (
     <div
-      className={`w-full  grid grid-cols-4  lg:flex-row py-3 px-3 bg-white rounded-xl dark:bg-dbeats-dark-primary dark:text-gray-100 my-2`}
+      className={`w-full  grid grid-cols-4  lg:flex-row py-3 px-3 bg-blue-50 shadow  rounded  dark:bg-dbeats-dark-secondary my-2 dark:text-gray-100 `}
     >
       {props.post.post_video || props.post.post_image ? (
         <div
-          className={`cursor-pointer 2xl:w-80 2xl:h-52 lg:h-36 lg:w-52 h-44 w-80 dark:bg-dbeats-dark-primary bg-gray-100`}
+          className={`cursor-pointer 2xl:w-80 2xl:h-52 lg:h-36 lg:w-52 h-44 w-80 dark:bg-dbeats-dark-primary  bg-gray-100`}
           onMouseMove={handleMouseMove}
           onMouseLeave={hanldeMouseLeave}
         >
@@ -84,10 +84,10 @@ const AnnouncementCard = (props) => {
       >
         <p className="flex w-full justify-between text-black text-sm font-medium dark:text-gray-100">
           <div className="w-full">
-            <div className="text-gray-500 2xl:text-lg lg:text-xs">{time}</div>
-            <div className="flex flex-col 2xl:text-xl lg:text-md text-gray-500 w-full">
+            <div className="text-gray-500  ">{time}</div>
+            <div className="flex flex-col 2xl:text-xl lg:text-md text-black text-sm font-medium dark:text-gray-100 w-full">
               <p
-                className={`${!seeMore ? 'line-clamp-6' : ''} mr-2 mt-1 `}
+                className={`${!seeMore ? 'line-clamp-6' : ''} mr-2  `}
                 style={{ wordBreak: 'break-words' }}
               >
                 {props.post.announcement.split('\n').map(function (item) {

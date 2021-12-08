@@ -52,7 +52,7 @@ const ReactionCard = (props) => {
   //console.log(show);
 
   return (
-    <div className="w-full flex lg:flex-row flex-col 2xl:py-3 2xl:px-3 lg:p-1.5 bg-white rounded-xl dark:bg-dbeats-dark-primary dark:text-gray-100 my-2">
+    <div className="w-full flex lg:flex-row flex-col 2xl:py-3 2xl:px-2 lg:p-1.5 bg-blue-50 shadow  rounded dark:bg-dbeats-dark-secondary dark:text-gray-100 my-2">
       <div className={`cursor-pointer lg:h-28 2xl:h-48 lg:w-1/3 w-full  my-auto `}>
         <a href={`/playback/${props.playbackUserData.link}`}>
           <ReactPlayer
@@ -73,16 +73,18 @@ const ReactionCard = (props) => {
         <p className="text-black text-sm font-medium dark:text-gray-100">
           <div className="px-2">
             <p className="2xl:text-2xl lg:text-lg font-semibold">
-              {props.playbackUserData.video.videoName}
-            </p>
-            <p className="text-xs text-gray-500">{props.playbackUserData.video.description}</p>
-          </div>
-          <hr className="my-3" />
-          <div>
-            <div className="2xl:text-2xl lg:text-lg text-gray-500 px-2">
+              {props.playbackUserData.video.videoName} &nbsp;
               <button className="px-1" onClick={handleShow}>
-                <i className="fas fa-share"></i>
+                <i className="fas fa-share-alt text-gray-500 hover:text-dbeats-light"></i>
               </button>
+            </p>
+
+            <p className="text-xs text-gray-400 mt-1">{props.playbackUserData.video.description}</p>
+          </div>
+          <hr className="my-3 opacity-20" />
+          <div>
+            <div className="2xl:text-xl lg:text-lg text-gray-500 px-1">
+              reacted &nbsp;
               {like ? <i className="fas fa-heart text-red-700 animate-pulse ml-1"></i> : null}
               {dislike ? <i className="fas fa-heart-broken text-purple-500 ml-1"></i> : null}
               {happy ? <i className="fas fa-laugh-squint text-yellow-500 ml-1"></i> : null}

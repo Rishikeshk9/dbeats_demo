@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { toggleDarkMode } from '../../actions/index';
 import logoDark from '../../assets/images/dark-logo.svg';
 import logo from '../../assets/images/white-logo.svg';
+import CircleLogo from '../../assets/images/dbeats-logo.png';
+
 import useWeb3Modal from '../../hooks/useWeb3Modal';
 import { AnnouncementModal, UploadVideoModal, UploadTrackModal } from '../Modals/NavbarModals';
 import Toggle from '../toggle.component';
@@ -300,7 +302,7 @@ const NavBar = () => {
         className={` w-max fixed top-0 ${darkMode && 'dark'} z-50 `}
       >
         <div
-          className={`2xl:p-3 lg:p-2 p-3 bg-white w-screen shadow-sm z-50  absolute dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-90  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md`}
+          className={`2xl:p-3 lg:p-2 p-3 w-screen shadow-sm z-50  absolute bg-white dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-90  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md`}
         >
           <div className="flex w-full self-center">
             <div
@@ -310,7 +312,7 @@ const NavBar = () => {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-7 w-7 lg:h-5 lg:h-5 2xl:h-7 2xl:w-7 self-center"
+                className="h-7 w-7 lg:h-5  2xl:h-7 2xl:w-7 self-center"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -323,7 +325,7 @@ const NavBar = () => {
                 />
               </svg>
             </div>
-            <a href="/" className="flex self-center cursor-pointer">
+            <a href="/" className="  self-center cursor-pointer sm:flex hidden">
               <img
                 src={logo}
                 alt="dbeats_logo"
@@ -336,7 +338,20 @@ const NavBar = () => {
               ></img>
               <span className="mr-5 text-lg font-bold ml-2"> </span>
             </a>
-            <div className="w-1/3 mx-auto  self-center ">
+            <a href="/" className="flex self-center cursor-pointer sm:hidden ">
+              <img
+                src={CircleLogo}
+                alt="dbeats_logo"
+                className="h-10 lg:h-7 2xl:h-10 w-max dark:hidden"
+              ></img>
+              <img
+                src={CircleLogo}
+                alt="dbeats_logo"
+                className="h-10 lg:h-7 2xl:h-10 w-max hidden dark:block"
+              ></img>
+              <span className="mr-5 text-lg font-bold ml-2"> </span>
+            </a>
+            <div className="w-2/3 sm:w-1/3 mx-auto  self-center ">
               <div className="  self-center rounded-full  flex bg-gray-100 dark:bg-dbeats-dark-primary">
                 <input
                   type="text"
@@ -457,11 +472,11 @@ const NavBar = () => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Dropdown.Items className="absolute right-0 w-80 lg:mt-6 2xl:mt-8 origin-top-right bg-white dark:bg-dbeats-dark-primary  divide-y divide-gray-100 rounded-md shadow-lg  focus:outline-none w-max">
-                      <Dropdown.Item className="w-full text-gray-700 text-left 2xl:text-lg text-md lg:text-xs  flex lg:flex-row flex-col justify-between align-center  rounded-md   2xl:px-3 2xl:py-4 lg:px-2 lg:py-3 py-2 px-3 w-full">
+                    <Dropdown.Items className="absolute right-0   lg:mt-6 2xl:mt-8 origin-top-right  divide-y divide-gray-100 rounded-md shadow-lg  focus:outline-none w-max  ">
+                      <Dropdown.Item className="w-full text-gray-700 text-left 2xl:text-lg text-md lg:text-xs  flex lg:flex-row flex-col justify-between align-center  rounded-md   2xl:px-3 2xl:py-4 lg:px-2 lg:py-3 py-2 px-3  bg-white dark:bg-dbeats-dark-primary">
                         <div className=" m-10  dark:text-white ">
                           <button
-                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light  bg-dbeats-dark-alt 2xl:h-10 h-8 my-auto cursor-pointer px-3  hover:text-white dark:text-white"
+                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light border-dbeats-light border  dark:bg-dbeats-dark-alt 2xl:h-10 h-8 my-auto cursor-pointer px-3  hover:text-white dark:text-white dark:hover:bg-dbeats-light"
                             onClick={() => {
                               handleShowAnnouncement();
                               handleCloseVideoUpload();
@@ -472,7 +487,7 @@ const NavBar = () => {
                           </button>
 
                           <button
-                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light  bg-dbeats-dark-alt 2xl:h-10 h-8 my-auto cursor-pointer px-3  hover:text-white dark:text-white"
+                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light border-dbeats-light border  dark:bg-dbeats-dark-alt 2xl:h-10 h-8 my-auto cursor-pointer px-3  hover:text-white dark:text-white dark:hover:bg-dbeats-light"
                             onClick={() => {
                               handleCloseAnnouncement();
                               handleShowVideoUpload();
@@ -482,7 +497,7 @@ const NavBar = () => {
                             Upload Video
                           </button>
                           <button
-                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light  bg-dbeats-dark-alt 2xl:h-10 h-8 my-auto cursor-pointer px-3  hover:text-white dark:text-white"
+                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light border-dbeats-light border  dark:bg-dbeats-dark-alt 2xl:h-10 h-8 my-auto cursor-pointer px-3  hover:text-white dark:text-white dark:hover:bg-dbeats-light"
                             onClick={() => {
                               handleCloseAnnouncement();
                               handleShowTrackUpload();
@@ -491,7 +506,7 @@ const NavBar = () => {
                           >
                             Upload Track
                           </button>
-                          <button className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light  bg-dbeats-dark-alt 2xl:h-10 h-8 my-auto cursor-pointer px-3  hover:text-white dark:text-white">
+                          <button className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light border-dbeats-light border  dark:bg-dbeats-dark-alt 2xl:h-10 h-8 my-auto cursor-pointer px-3  hover:text-white dark:text-white dark:hover:bg-dbeats-light">
                             Mint NFT
                           </button>
                         </div>
@@ -503,12 +518,12 @@ const NavBar = () => {
             ) : null}
             {user ? (
               <div id="login-btn" className="flex items-center">
-                <Dropdown as="div" className="relative inline-block text-left lg:mr-2 self-center">
+                <Dropdown as="div" className="relative inline-block text-left  self-center">
                   <Dropdown.Button className="flex h-full items-center">
                     <div onClick={handleNotification}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="2xl:h-7 2xl:w-7 w-5 h-5 text-dbeats-light cursor-pointer z-50 self-center -z-1"
+                        className="2xl:h-7 2xl:w-7 w-5 h-5 text-dbeats-light cursor-pointer z-50 self-center  "
                         viewBox="0 0 20 20"
                         fill="currentColor"
                       >
@@ -556,7 +571,7 @@ const NavBar = () => {
                   href={`/streamer/${user.username}`}
                   className="border-dbeats-light 2xl:border-1 invisible lg:visible text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mx-2 "
                 >
-                  <div className="flex lg:py-1 2xl:py-2.5 py-1.5 2xl:px-3 lg:px-2 px-1.5">
+                  <div className="flex lg:py-1 2xl:py-2.5 py-1.5 2xl:px-3 lg:px-2 px-1.5 hidden">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-5 w-5 lg:self-center mt-1 lg:mt-0 md:mr-2"
@@ -565,9 +580,7 @@ const NavBar = () => {
                     >
                       <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
                     </svg>
-                    <span className="self-center md:flex hidden lg:text-xs 2xl:text-lg ">
-                      Go Live
-                    </span>
+                    <span className="self-center md:flex   lg:text-xs 2xl:text-lg ">Go Live</span>
                   </div>
                 </a>
                 <a

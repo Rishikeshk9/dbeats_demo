@@ -67,7 +67,7 @@ const Footer = (props) => {
             </a>
             <p className="hidden lg:block lg:text-sm 2xl:text-lg">{props.creatorData.username}</p>
           </div>
-          <i className="fas fa-info-circle block mt-3 2xl:mt-5 lg:mt-4 ml-3 2xl:text-lg lg:text-md text-dbeats-light"></i>
+          <i className="fas fa-info-circle block mt-3 2xl:mt-5 lg:mt-4 ml-3 2xl:text-lg lg:text-md text-dbeats-light hidden"></i>
         </div>
       </div>
       <div className="w-full " align="center">
