@@ -84,7 +84,12 @@ router.route('/login').post(async (req, res) => {
       user_username.password,
     );
     if (isMatch) {
-      res.send(user_username);
+      const token = await user_username.generateAuthToken();
+      let loginData = {
+        username: user_username,
+        jwtToken: token,
+      };
+      res.send(loginData);
     } else {
       res.send(false);
     }

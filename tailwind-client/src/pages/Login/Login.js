@@ -6,6 +6,7 @@ import useWeb3Modal from '../../hooks/useWeb3Modal';
 import { useSelector } from 'react-redux';
 import moralisLogo from '../../assets/images/moralis-light.svg';
 //import Ticket from '../Profile/ProfileSections/Ticket/Ticket';
+import Cookies from 'js-cookie';
 
 const Moralis = require('moralis');
 
@@ -45,7 +46,9 @@ const Login = () => {
     })
       .then((response) => {
         if (response.data) {
-          window.localStorage.setItem('user', JSON.stringify(response.data));
+          console.log(response.data);
+          Cookies.set('jwtToken', response.data.jwtToken, { expires: 7 });
+          window.localStorage.setItem('user', JSON.stringify(response.data.username));
           //window.location.reload();
           window.location.href = '/';
         } else {
