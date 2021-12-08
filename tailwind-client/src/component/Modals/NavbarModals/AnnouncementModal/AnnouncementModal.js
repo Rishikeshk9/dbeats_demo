@@ -275,8 +275,8 @@ const AnnouncementModal = (props) => {
           </h2>
           <div className="h-full w-full flex align-center ">
             <Container className="2xl:px-12 2xl:pb-4 rounded-b-xl dark:rounded-b-sm  lg:px-7 lg:pb-2 h-full px-4 w-full dark:bg-dbeats-dark-alt overflow-y-auto lg:overflow-hidden bg-white  dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-90  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md ">
-              <div className="align-center bg-white h-full">
-                <div className={`${classes.view_container} lg:h-44 2xl:h-80 h-48 overflow-y-auto`}>
+              <div className="align-center bg-gray-100 h-full dark:bg-dbeats-dark-alt">
+                <div className={`${classes.view_container} lg:h-72 2xl:h-96 h-48 overflow-y-auto`}>
                   <textarea
                     className={`${classes.textarea_container} h-5/6 w-full 
                      lg:text-sm 2xl:text-lg border-b border-gray-300 dark:bg-dbeats-dark-secondary`}
@@ -303,75 +303,90 @@ const AnnouncementModal = (props) => {
                           />
                         </div>
                       ) : (
-                        <span className="text-gray-400 text-md ml-4">Image Preview</span>
+                        <span className="text-gray-400 text-md ml-4 ">Image Preview</span>
                       )}
                     </>
                   )}
                 </div>
 
-                <div className="mx-2 mb-4 flex  items-center">
-                  <div className="mx-2">
-                    <input
-                      type="text"
-                      placeholder="Enter Event Link(Optional)"
-                      onChange={handleLinkChange}
-                      className=" w-64 h-8 my-1 rounded-md lg:text-sm 2xl:text-md border border-gray-200"
-                    />
-                  </div>
-                  <div className="mx-2">
-                    <i
-                      className="far fa-images text-xl cursor-pointer opacity-40 hover:opacity-100"
-                      onClick={() => {
-                        document.getElementById('post_announcement_image').click();
-                      }}
-                    ></i>
-                    <input
-                      id="post_announcement_image"
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageChange}
-                      onClick={(event) => {
-                        event.target.value = null;
-                      }}
-                      style={{ display: 'none' }}
-                    />
-                  </div>
-                  <div className="mx-2 flex items-center">
-                    <i
-                      className="fas fa-video text-xl cursor-pointer opacity-40 hover:opacity-100"
-                      onClick={() => {
-                        document.getElementById('post_announcement_video').click();
-                      }}
-                    ></i>
-                    <div className="mx-2 mb-1">
-                      {announcement.postVideo ? announcement.postVideo.name : null}
+                <div className="mx-2  flex  items-center w-full justify-between">
+                  <div className="flex items-center">
+                    <div className="mx-2">
+                      <input
+                        type="text"
+                        placeholder="Enter Event Link(Optional)"
+                        onChange={handleLinkChange}
+                        className=" w-64 h-8 my-1 rounded-sm lg:text-sm 2xl:text-md border border-gray-200"
+                      />
                     </div>
-                    <input
-                      id="post_announcement_video"
-                      type="file"
-                      accept="video/*"
-                      onChange={handleVideoChange}
-                      onClick={(event) => {
-                        event.target.value = null;
-                      }}
-                      style={{ display: 'none' }}
-                    />
+                    <div className="mx-2">
+                      <i
+                        className="far fa-images text-xl cursor-pointer opacity-40 hover:opacity-100"
+                        onClick={() => {
+                          document.getElementById('post_announcement_image').click();
+                        }}
+                      ></i>
+                      <input
+                        id="post_announcement_image"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        onClick={(event) => {
+                          event.target.value = null;
+                        }}
+                        style={{ display: 'none' }}
+                      />
+                    </div>
+                    <div className="mx-2 flex items-center">
+                      <i
+                        className="fas fa-video text-xl cursor-pointer opacity-40 hover:opacity-100"
+                        onClick={() => {
+                          document.getElementById('post_announcement_video').click();
+                        }}
+                      ></i>
+                      <div className="mx-2 mb-1">
+                        {announcement.postVideo ? announcement.postVideo.name : null}
+                      </div>
+                      <input
+                        id="post_announcement_video"
+                        type="file"
+                        accept="video/*"
+                        onChange={handleVideoChange}
+                        onClick={(event) => {
+                          event.target.value = null;
+                        }}
+                        style={{ display: 'none' }}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      type="submit"
+                      onClick={handleAnnouncement}
+                      className=" 2xl:my-3 lg:my-2 mr-5 bg-white px-1 2xl:py-2  py-1 2xl:text-md lg:text-sm  font-semibold bg-dbeats-light  transform transition delay-50 duration-300 ease-in-out hover:scale-105 text-white border-0 lg:w-28 2xl:w-48 w-24 rounded-sm cursor-pointer "
+                    >
+                      POST
+                    </button>
+                    <div
+                      className="animate-spin rounded-full h-7 w-7 ml-3 border-t-2 border-b-2 bg-gradient-to-r from-green-400 to-blue-500 "
+                      hidden={props.loader}
+                    ></div>
                   </div>
                 </div>
               </div>
-              <Row className="w-full flex justify-center items-center">
+              {/* <Row className="w-full flex justify-center items-center">
                 <button
                   type="submit"
                   onClick={handleAnnouncement}
-                  className=" 2xl:my-3 lg:my-2  bg-white px-3 lg:py-2 py-1 2xl:text-lg lg:text-md  bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 text-white border-0 lg:w-56 2xl:w-96 w-24 rounded-sm cursor-pointer "
+                  className=" 2xl:my-3 lg:my-2  bg-white px-3 lg:py-2 py-1 2xl:text-lg lg:text-md  font-semibold bg-dbeats-light  transform transition delay-50 duration-300 ease-in-out hover:scale-105 text-white border-0 lg:w-56 2xl:w-80 w-24 rounded-sm cursor-pointer "
                 >
-                  Post
+                  POST
                 </button>
                 <div
                   className="animate-spin rounded-full h-7 w-7 ml-3 border-t-2 border-b-2 bg-gradient-to-r from-green-400 to-blue-500 "
                   hidden={props.loader}
                 ></div>
-              </Row>
+              </Row> */}
             </Container>
           </div>
         </div>

@@ -457,11 +457,11 @@ const NavBar = () => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Dropdown.Items className="absolute right-0 w-80 mt-2 origin-top-right bg-white dark:bg-dbeats-dark-alt  divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none w-max">
-                      <Dropdown.Item className="w-full text-gray-700 text-left 2xl:text-lg  text-md lg:text-sm  flex lg:flex-row flex-col justify-between align-center ring-1 rounded-md ring-white 2xl:h-24 lg:h-14 h-48 w-full">
-                        <div className="p-10 m-10 dark:border-2 dark:text-white ">
+                    <Dropdown.Items className="absolute right-0 w-80 lg:mt-6 2xl:mt-8 origin-top-right bg-white dark:bg-dbeats-dark-primary  divide-y divide-gray-100 rounded-md shadow-lg  focus:outline-none w-max">
+                      <Dropdown.Item className="w-full text-gray-700 text-left 2xl:text-lg text-md lg:text-xs  flex lg:flex-row flex-col justify-between align-center  rounded-md   2xl:px-3 2xl:py-4 lg:px-2 lg:py-3 py-2 px-3 w-full">
+                        <div className=" m-10  dark:text-white ">
                           <button
-                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light 2xl:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
+                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light  bg-dbeats-dark-alt 2xl:h-10 h-8 my-auto cursor-pointer px-3  hover:text-white dark:text-white"
                             onClick={() => {
                               handleShowAnnouncement();
                               handleCloseVideoUpload();
@@ -472,7 +472,7 @@ const NavBar = () => {
                           </button>
 
                           <button
-                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light 2xl:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
+                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light  bg-dbeats-dark-alt 2xl:h-10 h-8 my-auto cursor-pointer px-3  hover:text-white dark:text-white"
                             onClick={() => {
                               handleCloseAnnouncement();
                               handleShowVideoUpload();
@@ -482,7 +482,7 @@ const NavBar = () => {
                             Upload Video
                           </button>
                           <button
-                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light 2xl:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
+                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light  bg-dbeats-dark-alt 2xl:h-10 h-8 my-auto cursor-pointer px-3  hover:text-white dark:text-white"
                             onClick={() => {
                               handleCloseAnnouncement();
                               handleShowTrackUpload();
@@ -491,7 +491,7 @@ const NavBar = () => {
                           >
                             Upload Track
                           </button>
-                          <button className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light 2xl:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white">
+                          <button className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light  bg-dbeats-dark-alt 2xl:h-10 h-8 my-auto cursor-pointer px-3  hover:text-white dark:text-white">
                             Mint NFT
                           </button>
                         </div>
@@ -518,8 +518,8 @@ const NavBar = () => {
                         <div
                           className="bg-red-500 rounded-full shadow  
                         h-6 w-6 text-sm self-center text-center font-semibold  
-                        absolute -bottom-2  -right-2 dark:border-dbeats-dark-primary  
-                        border-red-300 border-2 text-white"
+                        absolute -bottom-2  -right-2  
+                         text-white"
                         >
                           {newNotification}
                         </div>
@@ -538,7 +538,7 @@ const NavBar = () => {
                     <Dropdown.Items
                       className="absolute right-0 w-96 mt-2 origin-top-right 
                     dark:bg-dbeats-dark-primary bg-white divide-y divide-gray-100 rounded-md shadow-lg 
-                    ring-1 ring-black ring-opacity-5 focus:outline-none"
+                     focus:outline-none"
                     >
                       {notification.map((value, i) => {
                         return (
@@ -554,7 +554,7 @@ const NavBar = () => {
                 </Dropdown>
                 <a
                   href={`/streamer/${user.username}`}
-                  className="border-dbeats-light 2xl:border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mx-2 "
+                  className="border-dbeats-light 2xl:border-1 invisible lg:visible text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mx-2 "
                 >
                   <div className="flex lg:py-1 2xl:py-2.5 py-1.5 2xl:px-3 lg:px-2 px-1.5">
                     <svg
