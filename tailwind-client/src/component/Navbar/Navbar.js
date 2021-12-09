@@ -420,7 +420,6 @@ const NavBar = () => {
                 )}
                 {filteredData.length !== 0 && (
                   <>
-                    <hr className=" px-2 dark:bg-white" />
                     {filteredData.slice(0, 15).map((value, key) => {
                       return (
                         <a
@@ -557,7 +556,7 @@ const NavBar = () => {
                     >
                       {notification.map((value, i) => {
                         return (
-                          <div className="px-1 py-1 " key={i}>
+                          <div className="px-1   " key={i}>
                             <Dropdown.Item className="w-full h-full self-center dark:bg-dbeats-dark-primary">
                               <NotificationContent data={value} />
                             </Dropdown.Item>

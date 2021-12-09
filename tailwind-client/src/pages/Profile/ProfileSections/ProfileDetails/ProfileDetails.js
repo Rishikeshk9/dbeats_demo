@@ -249,7 +249,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
       });
   };
 
-  const NavTabs = ['Posts', 'Videos', 'Music', 'Playlists', 'Reactions']; //, 'Subscribed Channels'
+  const NavTabs = ['Posts', 'Videos', 'Music', 'Activity', 'Playlists']; //, 'Subscribed Channels'
 
   const NavTabsTitle = ({ text }) => {
     if (text === 'Subscribed Channels') {
@@ -468,6 +468,31 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                 </div>
               </Tab.Panel>
 
+              <Tab.Panel>
+                <div className=" sm:px-5  pb-5">
+                  {user.your_reactions.length > 0 ? (
+                    <div>
+                      {user.your_reactions.map((playbackUser, i) => {
+                        ////console.log(playbackUser)
+                        return (
+                          <div key={i} className="">
+                            <ReactionCard
+                              reactno={i}
+                              playbackUserData={playbackUser}
+                              index={i}
+                              username={user.username}
+                              type="video"
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <p className="2xl:text-lg lg:text-sm dark:text-white">No Latest Activity</p>
+                  )}
+                </div>
+              </Tab.Panel>
+
               <Tab.Panel className="">
                 <div className="px-2 2xl:pt-5 lg:pt-2 pb-5">
                   {user.my_playlists && user.my_playlists.length > 0 ? (
@@ -499,31 +524,6 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                     </div>
                   ) : (
                     <p className="2xl:text-lg lg:text-sm dark:text-white">No Existing PlayLists</p>
-                  )}
-                </div>
-              </Tab.Panel>
-
-              <Tab.Panel>
-                <div className=" sm:px-5  pb-5">
-                  {user.your_reactions.length > 0 ? (
-                    <div>
-                      {user.your_reactions.map((playbackUser, i) => {
-                        ////console.log(playbackUser)
-                        return (
-                          <div key={i} className="">
-                            <ReactionCard
-                              reactno={i}
-                              playbackUserData={playbackUser}
-                              index={i}
-                              username={user.username}
-                              type="video"
-                            />
-                          </div>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <p className="2xl:text-lg lg:text-sm dark:text-white">No Reactions till now</p>
                   )}
                 </div>
               </Tab.Panel>

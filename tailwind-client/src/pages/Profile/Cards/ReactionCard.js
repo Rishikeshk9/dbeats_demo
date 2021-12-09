@@ -52,14 +52,16 @@ const ReactionCard = (props) => {
   //console.log(show);
 
   return (
-    <div id="tracks-section" className="py-0.5 ">
+    <div id="tracks-section" className="py-1 ">
       <div
-        className={`w-full  flex  lg:flex-row flex-col sm:py-3  pb-3 
+        className={`w-full  flex  lg:flex-row flex-col  sm:py-3 
     bg-gray-50 shadow-lg  rounded  dark:bg-dbeats-dark-secondary 
-    my-2 dark:text-gray-100 
+      dark:text-gray-100 
     lg:px-3 2xl:px-3`}
       >
-        <div className={`cursor-pointer lg:h-32 2xl:h-48 lg:w-1/3 w-full  my-auto `}>
+        <div
+          className={`cursor-pointer lg:h-32 2xl:h-48 lg:w-1/3 w-full  my-auto dark:bg-dbeats-dark-primary`}
+        >
           <a href={`/playback/${props.playbackUserData.link}`}>
             <ReactPlayer
               width="100%"

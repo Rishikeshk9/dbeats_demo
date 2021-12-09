@@ -31,11 +31,11 @@ const CarouselCard = (props) => {
   ////console.log(props.playbackUserData)
 
   return (
-    <div id="tracks-section" className="py-0.5 ">
+    <div id="tracks-section" className="py-1 ">
       <div
-        className={`w-full  flex  lg:flex-row flex-col sm:py-3 pb-3 
+        className={`w-full  flex  lg:flex-row flex-col  lg:py-3 
       bg-gray-50 shadow-lg  rounded  dark:bg-dbeats-dark-secondary 
-      my-2 dark:text-gray-100 
+        dark:text-gray-100 
       lg:px-3 2xl:px-3`}
       >
         <div
@@ -56,8 +56,8 @@ const CarouselCard = (props) => {
             />
           </a>
         </div>
-        <div className="col-start-1 row-start-3 py-1 px-5 w-full">
-          <p className="flex justify-between pt-2 sm:pb-1 text-black text-sm font-medium dark:text-gray-100">
+        <div className="col-start-1 row-start-3 py-2 px-5 w-full">
+          <p className="flex justify-between mt-0 sm:pb-1 text-black text-sm font-medium dark:text-gray-100 ">
             <div>
               <h4 className="playlist    uppercase text-gray-500 tracking-widest 2xl:text-md lg:text-xs text-xs pb-1 ">
                 {props.playbackUserData.category}
@@ -75,9 +75,9 @@ const CarouselCard = (props) => {
               </div>
             </div>
             <div>
-              <div className="2xl:text-2xl lg:text-lg text-gray-500 ">
+              <div className="2xl:text-2xl lg:text-lg text-gray-500 mt-0">
                 <button className="px-1">
-                  <i className="fas fa-share"></i>
+                  <i className="fas fa-share-alt hover:text-dbeats-light"></i>
                 </button>
               </div>
             </div>
