@@ -156,7 +156,7 @@ const Login = () => {
                 })`}
           </p>
           <img
-            className="2xl:w-12 2xl:h-12 lg:w-9 lg:h-9 rounded-full self-center"
+            className="2xl:w-12 2xl:h-12 lg:w-9 lg:h-9 h-9 w-9 rounded-full self-center"
             alt="metamask button"
             src="https://raw.githubusercontent.com/MetaMask/brand-resources/master/SVG/metamask-fox.svg"
           ></img>
@@ -188,7 +188,7 @@ const Login = () => {
         >
           <p className="mt-2">{!provider ? 'Login using ' : `MetaMask Connected (Click Again)`}</p>
           <img
-            className="2xl:w-12 2xl:h-12 lg:w-9 lg:h-9 rounded-full self-center"
+            className="2xl:w-12 2xl:h-12 lg:w-9 lg:h-9 h-9 w-9 rounded-full self-center"
             alt="metamask login"
             src="https://raw.githubusercontent.com/MetaMask/brand-resources/master/SVG/metamask-fox.svg"
           ></img>
@@ -232,20 +232,20 @@ const Login = () => {
   return (
     <>
       <div className={`${darkMode && 'dark'} `}>
-        <div className="bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary 2xl:pt-18 lg:pt-5">
-          <main className={` w-1/2 self-center mx-auto mt-24 `}>
+        <div className="bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary 2xl:pt-18 lg:pt-5 pt-5">
+          <main className={` lg:w-1/2 w-11/12 self-center mx-auto mt-24 `}>
             <div
-              className={`2xl:py-10 2xl:px-8 lg:px-3 lg:py-3 bg-white dark:bg-dbeats-dark-alt w-1/2   mx-auto     self-center 2xl:py-5 lg:py-3`}
+              className={`2xl:py-10 2xl:px-8 lg:px-3 lg:py-3 bg-white dark:bg-dbeats-dark-alt lg:w-1/2  w-11/12 mx-auto     self-center 2xl:py-5 lg:py-3`}
             >
               {login ? (
                 <div className="  w-full transition-all">
-                  <div className="flex flex-col justify-center   text-lg px-5">
-                    <div className="self-center  2xl:text-2xl lg:text-lg font-bold text-gray-900 dark:text-white">
+                  <div className="flex flex-col justify-center   text-lg px-5 pt-2 lg:pt-0">
+                    <div className="self-center  2xl:text-2xl lg:text-lg text-xl font-bold text-gray-900 dark:text-white">
                       SIGN UP
                     </div>
 
                     <input
-                      className="self-center my-2 rounded w-full mx-5  lg:h-8 2xl:h-10   border-0   dark:bg-dbeats-dark-primary bg-gray-100 text-gray-900 lg:text-xs 2xl:text-lg dark:text-white focus:ring-dbeats-light"
+                      className="self-center my-2 rounded w-full mx-5  lg:h-8 2xl:h-10   border-0   dark:bg-dbeats-dark-primary bg-gray-100 text-gray-900 lg:text-xs 2xl:text-lg  dark:text-white focus:ring-dbeats-light"
                       type="text"
                       placeholder="Name"
                       onChange={(e) => handleNameChange(e)}
@@ -290,7 +290,7 @@ const Login = () => {
                       </p>
                     </>
                     <div
-                      className="flex justify-center 2xl:mt-6 lg:mt-3 mb-2 cursor-pointer text-yellow-600 
+                      className="flex justify-center 2xl:mt-6 lg:mt-3 mt-3 mb-2 cursor-pointer text-yellow-600 
                     border border-yellow-600 bg-white dark:bg-dbeats-dark-secondary   
                     rounded hover:bg-yellow-600 dark:hover:bg-yellow-600 
                     dark:hover:bg-opacity-5 hover:bg-opacity-5 transform transition-all 
@@ -312,8 +312,8 @@ const Login = () => {
                           form_username === '' ||
                           form_password === '' ||
                           form_confirmPassword === ''
-                            ? 'flex justify-center  w-full  mx-3   flex my-3 py-2 2xl:px-24 lg:px-10 2xl:text-lg lg:text-sm text-center text-dbeats-light dark:text-white font-bold bg-dbeats-light bg-opacity-5 rounded relative cursor-default'
-                            : 'flex justify-center  w-full  mx-3   flex my-3 py-2 2xl:px-24 lg:px-10 2xl:text-lg lg:text-sm text-center text-dbeats-light dark:text-white font-bold bg-dbeats-light bg-opacity-5 hover:text-white hover:bg-dbeats-light border transition-all border-dbeats-light hover:scale-99 transform rounded relative'
+                            ? 'flex justify-center  w-full  mx-3   flex my-3 py-2 2xl:px-24 lg:px-10 2xl:text-lg lg:text-sm  text-center text-dbeats-light dark:text-white font-bold bg-dbeats-light bg-opacity-5 rounded relative cursor-default'
+                            : 'flex justify-center  w-full  mx-3   flex my-3 py-2 2xl:px-24 lg:px-10 2xl:text-lg lg:text-sm  text-center text-dbeats-light dark:text-white font-bold bg-dbeats-light bg-opacity-5 hover:text-white hover:bg-dbeats-light border transition-all border-dbeats-light hover:scale-99 transform rounded relative'
                         }`}
                         onClick={createStream}
                         disabled={
@@ -335,8 +335,8 @@ const Login = () => {
                 </div>
               ) : (
                 <div className="  w-full  ">
-                  <div className="flex flex-col justify-center   2xl:text-lg lg:texr-md px-5">
-                    <h1 className="self-center  2xl:text-2xl lg:text-md font-bold text-gray-900 dark:text-white">
+                  <div className="flex flex-col justify-center   2xl:text-lg lg:texr-md px-5 pt-2 lg:pt-0">
+                    <h1 className="self-center  2xl:text-2xl lg:text-md text-xl font-bold text-gray-900 dark:text-white">
                       SIGN IN
                     </h1>
                     <>
@@ -397,18 +397,18 @@ const Login = () => {
                       </button>
                     </div>
                     <a
-                      className="self-center 2xl:py-2 lg:py-0 2xl:text-lg lg:text-xs text-gray-900 dark:text-white"
+                      className="self-center 2xl:py-2 lg:py-0 mb-2 lg:mb-0 2xl:text-lg lg:text-xs text-gray-900 dark:text-white"
                       href="/#"
                     >
                       Forgot your password ?
                     </a>
-                    <hr className="2xl:my-3 lg:my-2 w-2/3 self-center" />
+                    <hr className="2xl:my-3 lg:my-2 w-2/3 self-center mb-4 lg:mb-0" />
 
                     <div
-                      className="flex justify-center 2xl:mt-6 lg:mt-2 py-2 cursor-pointer text-yellow-600 border border-yellow-600 
+                      className="flex justify-center 2xl:mt-6 lg:mt-5 py-2 cursor-pointer text-yellow-600 border border-yellow-600 
                     bg-white dark:bg-dbeats-dark-secondary 
                     rounded hover:bg-yellow-600 dark:hover:bg-yellow-600 dark:hover:bg-opacity-5 
-                    hover:bg-opacity-5 transform transition-all hover:scale-99"
+                    hover:bg-opacity-5 transform transition-all hover:scale-99 mb-3 lg:mb-0"
                     >
                       <div className="">
                         <LoginWalletButton
@@ -426,7 +426,7 @@ const Login = () => {
               {login ? (
                 <div>
                   <button
-                    className="rounded text-dbeats-light lg:text-xs 2xl:text-lg dark:text-gray-100 font-semibold"
+                    className="rounded text-dbeats-light mt-2 lg:mt-0 lg:text-xs 2xl:text-lg dark:text-gray-100 font-semibold"
                     id="signIn"
                     onClick={handleSignIn}
                   >
@@ -436,7 +436,7 @@ const Login = () => {
               ) : (
                 <div>
                   <button
-                    className="rounded text-dbeats-light lg:text-xs 2xl:text-lg dark:text-gray-100  font-semibold"
+                    className="rounded text-dbeats-light mt-2 lg:mt-0 lg:text-xs 2xl:text-lg dark:text-gray-100  font-semibold"
                     id="signUp"
                     onClick={handleSignUp}
                   >
@@ -445,12 +445,12 @@ const Login = () => {
                 </div>
               )}
             </div>
-            <div className="self-center text-center 2xl:mt-5 lg:mt-0 2xl:text-lg lg:text-sm dark:text-gray-500 font-semibold opacity-50">
+            <div className="self-center text-center 2xl:mt-0 lg:mt-0 2xl:text-lg lg:text-sm dark:text-gray-500 font-semibold opacity-50">
               powered by{' '}
               <img
                 src={moralisLogo}
                 alt="moralisLogo"
-                className="2xl:h-10 lg:h-8 rounded w-max  self-center mx-auto bg-blue-50 dark:bg-white p-2 dark:bg-opacity-75"
+                className="2xl:h-10 lg:h-8 h-9 rounded w-max  self-center mx-auto bg-blue-50 dark:bg-white p-2 dark:bg-opacity-75"
               ></img>
             </div>
           </main>
