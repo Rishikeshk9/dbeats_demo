@@ -197,7 +197,7 @@ const NavBar = () => {
     return (
       <div className="h-full my-1">
         <a
-          href={`http://localhost:3000/profile/${data.username}/posts`}
+          href={`https://beta.dbeats.live/profile/${data.username}/posts`}
           target="_blank"
           rel="noopener noreferrer"
           className="grid grid-cols-4 justify-center p-2 dark:bg-dbeats-dark-alt dark:hover:bg-dbeats-dark-secondary dark:text-white text-gray-500"
