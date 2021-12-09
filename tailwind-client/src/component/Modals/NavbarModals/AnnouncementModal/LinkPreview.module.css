@@ -29,8 +29,8 @@
 }
 
 .container {
-  background: rgb(238, 174, 202);
-  background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+  background: rgb(59, 130, 246);
+  background: radial-gradient(circle, rgba(59, 130, 246, 1) 24%, rgba(52, 211, 153, 1) 100%);
 }
 
 .card_container {

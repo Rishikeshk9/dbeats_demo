@@ -24,11 +24,16 @@ const TrackInfo = (props) => {
       setUserData(value.data);
       for (let i = 0; i < user.my_playlists.length; i++) {
         let getdata = user.my_playlists[i].playlistdata;
-        // //console.log('getdata', getdata);
+        console.log('getdata', getdata);
         for (let j = 0; j < getdata.length; j++) {
           // //console.log('usernames', getdata[j].username, '  ', value.data.username);
           // //console.log('index', getdata[j].index, '  ', track_id);
-          if (getdata[j].username === value.data.username && getdata[j].index === track_id) {
+          if (
+            getdata[j].username === value.data.username &&
+            getdata[j].index === track_id &&
+            getdata[j].data.trackId
+          ) {
+            console.log('hide');
             setHidePlaylistButton(true);
             return;
           }
@@ -83,13 +88,15 @@ const TrackInfo = (props) => {
             {userData ? (
               <>
                 <div className="flex justify-between">
-                  <p className="overflow-ellipsis mt-0 mb-1 md:mb-2 drop-shadow xl:text-3xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
+                  <p
+                    className="overflow-ellipsis mt-0 mb-1 md:mb-2 drop-shadow xl:text-3xl  font-extrabold 
+                  text-transparent bg-clip-text bg-gradient-to-r 
+                  from-green-400 to-blue-500"
+                  >
                     {userData.tracks[track_id].trackName}
                   </p>
                   <button
-                    onClick={() => {
-                      handleShowPlaylist();
-                    }}
+                    onClick={handleShowPlaylist}
                     hidden={hidePlaylistButton}
                     className="py-2 px-3 mr-10 bg-dbeats-light text-xl font-bold rounded-lg"
                   >

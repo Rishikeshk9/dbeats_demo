@@ -34,6 +34,7 @@
     "ipfs": "^0.55.4",
     "ipfs-http-client": "^50.1.2",
     "js-ipfs": "0.0.301",
+    "jsonwebtoken": "^8.5.1",
     "mime-types": "^2.1.32",
     "mongodb": "^4.0.1",
     "mongoose": "^5.13.5",

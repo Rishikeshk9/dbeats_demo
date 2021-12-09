@@ -7,11 +7,14 @@ const LinkPreview = ({ linkurl, setShowLinkPreview }) => {
   const [linkData, setLinkData] = useState(null);
 
   useEffect(() => {
+    setLinkData(null);
     fetchData();
   }, [linkurl]);
 
   const fetchData = async () => {
-    const { status, data, response } = await mql(`${linkurl}`);
+    const { status, data, response } = await mql(`${linkurl}`, {
+      animations: true,
+    });
 
     if (data.title.indexOf('Page Not Found') === -1) {
       setLinkData(data);
