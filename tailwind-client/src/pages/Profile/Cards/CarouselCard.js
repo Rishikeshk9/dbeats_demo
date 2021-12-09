@@ -31,14 +31,15 @@ const CarouselCard = (props) => {
   ////console.log(props.playbackUserData)
 
   return (
-    <div id="tracks-section" className={`pb-1.5 ${props.videono === 0 ? 'pt-1.5' : ''}`}>
+    <div id="tracks-section" className="py-0.5 ">
       <div
-        className="w-full h-auto  flex items-center lg:flex-row flex-col 2xl:py-3 2xl:px-3 
-      lg:py-1.5 lg:px-2 bg-white 2xl:rounded-xl lg:rounded-md  shadow-sm
-      dark:bg-dbeats-dark-secondary dark:text-gray-100 hover:scale-101 transform transition-all"
+        className={`w-full  flex  lg:flex-row flex-col sm:py-3 pb-3 
+      bg-gray-50 shadow-lg  rounded  dark:bg-dbeats-dark-secondary 
+      my-2 dark:text-gray-100 
+      lg:px-3 2xl:px-3`}
       >
         <div
-          className={`cursor-pointer  items-center h-52 lg:h-32 2xl:h-48 lg:w-1/3 w-full dark:bg-dbeats-dark-primary bg-gray-100 my-0 lg:my-2 2xl:my-2`}
+          className={`cursor-pointer lg:h-32 2xl:h-48 lg:w-1/3 w-full  my-auto dark:bg-dbeats-dark-primary `}
         >
           <a href={`/playback/${props.username}/${props.index}`}>
             <ReactPlayer
@@ -56,9 +57,9 @@ const CarouselCard = (props) => {
           </a>
         </div>
         <div className="col-start-1 row-start-3 py-1 px-5 w-full">
-          <p className="flex justify-between pb-1 text-black text-sm font-medium dark:text-gray-100">
+          <p className="flex justify-between pt-2 sm:pb-1 text-black text-sm font-medium dark:text-gray-100">
             <div>
-              <h4 className="playlist  mt-0  uppercase text-gray-500 tracking-widest 2xl:text-md lg:text-xs pb-2">
+              <h4 className="playlist    uppercase text-gray-500 tracking-widest 2xl:text-md lg:text-xs text-xs pb-1 ">
                 {props.playbackUserData.category}
               </h4>
               <div className="">

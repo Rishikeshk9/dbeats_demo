@@ -402,7 +402,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
 
             <Tab.Panels className="dark:bg-dbeats-dark-primary text-gray-900  ">
               <Tab.Panel className="">
-                <div className=" sm:px-5 pt-0 2xl:pt-5 lg:pt-2 pb-5">
+                <div className=" sm:px-5  pb-5">
                   {postsData && postsData.length > 0 ? (
                     <div>
                       {postsData.map((post, i) => {
@@ -420,7 +420,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                 </div>
               </Tab.Panel>
               <Tab.Panel className="">
-                <div className=" sm:px-5 pt-0 2xl:pt-5 lg:pt-2 pb-5">
+                <div className=" sm:px-5  pb-5">
                   {user.videos && user.videos.length > 0 ? (
                     <div>
                       {user.videos.map((playbackUser, i) => {
@@ -445,7 +445,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
               </Tab.Panel>
 
               <Tab.Panel className="">
-                <div className="sm:px-5 pt-0 2xl:pt-5 lg:pt-2 pb-5">
+                <div className="sm:px-5  pb-5">
                   {user.tracks && user.tracks.length > 0 ? (
                     <div className="w-full">
                       {user.tracks.map((track, i) => {
@@ -504,7 +504,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
               </Tab.Panel>
 
               <Tab.Panel>
-                <div className=" sm:px-5 pt-0 2xl:pt-5 lg:pt-2 pb-5">
+                <div className=" sm:px-5  pb-5">
                   {user.your_reactions.length > 0 ? (
                     <div>
                       {user.your_reactions.map((playbackUser, i) => {

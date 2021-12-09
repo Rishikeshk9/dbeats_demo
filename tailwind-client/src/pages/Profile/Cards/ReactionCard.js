@@ -52,10 +52,12 @@ const ReactionCard = (props) => {
   //console.log(show);
 
   return (
-    <div id="tracks-section" className={`pb-1.5 ${props.reactno === 0 ? 'pt-1.5' : ''}`}>
+    <div id="tracks-section" className="py-0.5 ">
       <div
-        className="w-full flex lg:flex-row flex-col 2xl:py-3 2xl:px-2 lg:p-1.5 bg-white shadow  
-      rounded dark:bg-dbeats-dark-secondary dark:text-gray-100 hover:scale-101 transform transition-all"
+        className={`w-full  flex  lg:flex-row flex-col sm:py-3  pb-3 
+    bg-gray-50 shadow-lg  rounded  dark:bg-dbeats-dark-secondary 
+    my-2 dark:text-gray-100 
+    lg:px-3 2xl:px-3`}
       >
         <div className={`cursor-pointer lg:h-32 2xl:h-48 lg:w-1/3 w-full  my-auto `}>
           <a href={`/playback/${props.playbackUserData.link}`}>

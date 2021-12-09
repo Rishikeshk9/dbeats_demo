@@ -37,7 +37,7 @@ const ChannelSection = (props) => {
   const [selected, setSelected] = useState(channels[0]);
 
   return (
-    <div className={`${darkMode && 'dark'} pt-3 h-full  hidden lg:block`}>
+    <div className={`${darkMode && 'dark'} pt-3 h-full  hidden lg:block  h-screen`}>
       <div
         id="recommended_channel"
         className="w-full h-full  pt-4 lg:col-span-1 hidden  lg:block sm:hidden mt-4  bg-gradient-to-l from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-l dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary"
@@ -51,13 +51,13 @@ const ChannelSection = (props) => {
           )}{' '}
         </div> */}
 
-        <div className="2xl:px-5 lg:px-2 2xl:pt-10 lg:pt-5">
-          <h5 className="font-semibold text-base dark:text-gray-200 w-full 2xl:text-xl lg:text-sm relative">
+        <div className="2xl:px-5 lg:px-2 2xl:pt-10 lg:pt-5 fixed ">
+          <h5 className="font-semibold text-base dark:text-gray-200 w-full 2xl:text-lg lg:text-sm relative pl-2">
             {' '}
             {props.user.name}&apos;s Channels
             {props.privateUser ? (
               <i
-                className="fas fa-plus 2xl:mr-2 lg:ml-2 2xl:ml-0  absolute right-0 cursor-pointer rounded p-2 -top-1 hover:text-white dark:hover:bg-dbeats-dark-primary hover:bg-dbeats-light"
+                className="fas fa-plus    cursor-pointer rounded p-2 -top-1 hover:text-white dark:hover:bg-dbeats-dark-secondary hover:bg-dbeats-light ml-2 dark:hover:text-dbeats-light"
                 onClick={handleShowChannelModal}
               ></i>
             ) : (
@@ -70,7 +70,7 @@ const ChannelSection = (props) => {
               <div key={i} className="  2xl:pb-2 2xl:pt-2 lg:my-1 lg:mt-3 2xl:mt-0">
                 <div>
                   <a href={`/profile/${props.user.username}/${channel.type}`}>
-                    <div className="font-semibold cursor-pointer 2xl:text-lg lg:text-xs dark:text-gray-200 hover:text-white w-full justify-between self-center hover:bg-dbeats-light dark:hover:bg-dbeats-dark-primary  rounded 2xl:p-2 lg:p-1.5 relative">
+                    <div className="text-gray-600   cursor-pointer 2xl:text-base lg:text-xs dark:text-gray-200 hover:text-white w-full justify-between self-center hover:bg-dbeats-light dark:hover:bg-dbeats-dark-secondary dark:hover:text-dbeats-light  rounded 2xl:p-2 lg:p-1.5 relative">
                       {' '}
                       {channel.type === 'text' ? <i className="fas fa-hashtag mr-2"></i> : ''}
                       {channel.type === 'voice' ? (
