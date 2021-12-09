@@ -455,12 +455,15 @@ const PlayBackInfo = (props) => {
               
             </Helmet> */}
           <div
-            className={`${
-              darkMode && 'dark'
-            }  grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row 2xl:pt-3 pt-3 lg:pt-0 lg:pb-50 2xl:mt-10 mt-10 lg:mt-12 lg:ml-11  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary`}
+            className={`${darkMode && 'dark'}  grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row 
+            2xl:pt-3 lg:pt-0 lg:pb-50 2xl:mt-14 mt-10 
+             lg:mt-12 lg:ml-11  
+             bg-gradient-to-b from-blue-50 via-blue-50 to-white  
+             dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  
+             dark:to-dbeats-dark-primary`}
           >
             <div className=" lg:col-span-2 dark:bg-dbeats-dark-alt text-black dark:text-white">
-              <div className="self-center 2xl:px-12 lg:px-5 w-screen lg:w-full 2xl:mt-1 lg:mt-2 mt-0.5">
+              <div className="self-center 2xl:px-12 lg:px-5 w-screen lg:w-full 2xl:mt-1 lg:mt-2 mt-2.5">
                 {userData ? <VideoPlayer playbackUrl={playbackUrl} creatorData={userData} /> : null}
               </div>
               <div className="2xl:mx-7 2xl:px-7 lg:px-2 lg:mx-4 px-3 dark:bg-dbeats-dark-alt">

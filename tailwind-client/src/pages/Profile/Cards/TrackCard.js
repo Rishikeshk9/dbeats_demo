@@ -36,7 +36,7 @@ const TrackCard = (props) => {
          mx-auto  rounded-lg  w-full hover:scale-101 transform transition-all"
         >
           <div
-            className="items-center mx-auto w-80 2xl:h-48 lg:h-32 h-44 
+            className="items-center mx-auto lg:w-80 2xl:w-80 2xl:h-48 lg:h-32 h-52 
           dark:bg-dbeats-dark-alt flex  cursor-pointer m-0 lg:mr-4 2xl:mr-4"
           >
             <Link
@@ -51,7 +51,7 @@ const TrackCard = (props) => {
               <img
                 id="album-artwork"
                 src={props.track.trackImage}
-                className="w-80 2xl:h-48 lg:h-28 h-44 rounded "
+                className=" mx-auto h-full w-auto"
                 alt=""
               ></img>
             </Link>

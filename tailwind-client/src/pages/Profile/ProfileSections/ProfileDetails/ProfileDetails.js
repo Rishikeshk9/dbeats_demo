@@ -445,7 +445,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
               </Tab.Panel>
 
               <Tab.Panel className="">
-                <div className="px-5 2xl:pt-5 lg:pt-2 pb-5">
+                <div className="sm:px-5 pt-0 2xl:pt-5 lg:pt-2 pb-5">
                   {user.tracks && user.tracks.length > 0 ? (
                     <div className="w-full">
                       {user.tracks.map((track, i) => {
@@ -469,7 +469,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
               </Tab.Panel>
 
               <Tab.Panel className="">
-                <div className="px-5 2xl:pt-5 lg:pt-2 pb-5">
+                <div className="px-2 2xl:pt-5 lg:pt-2 pb-5">
                   {user.my_playlists && user.my_playlists.length > 0 ? (
                     <div>
                       {user.my_playlists.map((playlist, i) => {
@@ -477,7 +477,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                         return (
                           <>
                             <div key={i} className="">
-                              <h2 className="dark:text-white 2xl:text-2xl lg:text-lg ml-5 mb-3">
+                              <h2 className="dark:text-white font-bold 2xl:text-2xl lg:text-lg text-md ml-2 my-2">
                                 {playlist.playlistname}
                               </h2>
                               <div>
@@ -492,7 +492,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                                 </Carousel>
                               </div>
                             </div>
-                            <hr className="2xl:my-7 lg:my-3" />
+                            <hr className="2xl:my-7 lg:my-3 opacity-30" />
                           </>
                         );
                       })}
