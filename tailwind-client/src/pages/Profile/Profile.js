@@ -121,7 +121,7 @@ const Profile = (props) => {
       {user ? (
         <div>
           <div id="outer-container" className="">
-            <div id="page-wrap" className={`${darkMode && 'dark'} grid lg:pl-18 grid-cols-6`}>
+            <div id="page-wrap" className={`${darkMode && 'dark'} grid lg:pl-16 grid-cols-6`}>
               <ChannelSection privateUser={privateUser} user={user} />
               <Switch>
                 <Route path={`/profile/:username/text`}>

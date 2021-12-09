@@ -53,7 +53,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
       case 'videos':
         setTabIndex(1);
         break;
-      case 'tracks':
+      case 'music':
         setTabIndex(2);
         break;
       case 'playlists':
@@ -428,6 +428,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                         return (
                           <div key={i}>
                             <CarouselCard
+                              videono={i}
                               playbackUserData={playbackUser}
                               index={i}
                               username={user.username}
@@ -451,7 +452,12 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                         ////console.log(playbackUser)
                         return (
                           <div key={i} className="w-full">
-                            <TrackCard track={track} index={i} username={user.username} />
+                            <TrackCard
+                              trackno={i}
+                              track={track}
+                              index={i}
+                              username={user.username}
+                            />
                           </div>
                         );
                       })}
@@ -506,6 +512,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                         return (
                           <div key={i} className="">
                             <ReactionCard
+                              reactno={i}
                               playbackUserData={playbackUser}
                               index={i}
                               username={user.username}

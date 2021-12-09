@@ -40,16 +40,16 @@ const ChannelSection = (props) => {
     <div className={`${darkMode && 'dark'} pt-3 h-full  hidden lg:block`}>
       <div
         id="recommended_channel"
-        className="w-full h-full  pt-8 lg:col-span-1 hidden  lg:block sm:hidden mt-4  bg-gradient-to-l from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-l dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary"
+        className="w-full h-full  pt-4 lg:col-span-1 hidden  lg:block sm:hidden mt-4  bg-gradient-to-l from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-l dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary"
       >
-        <div className="relative">
+        {/* <div className="relative">
           <img src={background} alt="background"></img>
           {props.privateUser ? (
             <i className="fas fa-edit absolute right-2 bottom-2 text-white p-3 rounded-full hover:bg-dbeats-dark-alt hover:opacity-100 opacity-25 cursor-pointer"></i>
           ) : (
             false
           )}{' '}
-        </div>
+        </div> */}
 
         <div className="2xl:px-5 lg:px-2 2xl:pt-10 lg:pt-5">
           <h5 className="font-semibold text-base dark:text-gray-200 w-full 2xl:text-xl lg:text-sm relative">

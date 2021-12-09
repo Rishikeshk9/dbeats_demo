@@ -131,7 +131,7 @@ export default function App() {
                   {/* <Route exact path="/" component={LandingPage} /> */}
                   <Route exact path="/loader" component={Loader} />
                   {/* <Route exact path="/home" component={VideoHome} />  */}
-                  <Route exact path="/streamer/:roomID" component={UserRoom} />
+                  {/* <Route exact path="/streamer/:roomID" component={UserRoom} /> */}
                   <Route exact path="/live/:username" component={PublicRoom} />
                   <Route exact path="/playback/:username/:video_id" component={Playback} />
                   <Route exact path="/profile/:username/:tab?" component={Profile} />

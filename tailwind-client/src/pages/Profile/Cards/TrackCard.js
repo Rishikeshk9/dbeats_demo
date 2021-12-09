@@ -24,12 +24,21 @@ const TrackCard = (props) => {
   return (
     <div
       id="tracks-section"
-      className={` text-gray-200   mx-auto  py-1 md:py-2 w-full  px-5 my-0 group`}
+      className={` text-gray-200   mx-auto  pb-1.5 ${
+        props.trackno === 0 ? 'pt-1.5' : ''
+      } w-full group`}
     >
       {/* header */}
       <div className=" group ">
-        <div className="bg-white  group dark:bg-dbeats-dark-primary dark:text-blue-300 shadow-md  flex p-2  mx-auto  rounded-lg  w-full hover:scale-101 transform transition-all">
-          <div className="items-center h-26 w-30 2xl:h-180 2xl:w-200 lg:h-90 my-auto lg:w-130 dark:bg-dbeats-dark-alt flex   cursor-pointer mr-4">
+        <div
+          className="bg-white flex  lg:flex-row flex-col  group dark:bg-dbeats-dark-secondary 
+        dark:text-blue-300 shadow-md  flex p-0 lg:p-2 2xl:p-2
+         mx-auto  rounded-lg  w-full hover:scale-101 transform transition-all"
+        >
+          <div
+            className="items-center mx-auto w-80 2xl:h-48 lg:h-32 h-44 
+          dark:bg-dbeats-dark-alt flex  cursor-pointer m-0 lg:mr-4 2xl:mr-4"
+          >
             <Link
               to={{
                 pathname: `/track/${props.username}/${props.index}`,
@@ -42,13 +51,13 @@ const TrackCard = (props) => {
               <img
                 id="album-artwork"
                 src={props.track.trackImage}
-                className="w-full h-full 2 rounded "
+                className="w-80 2xl:h-48 lg:h-28 h-44 rounded "
                 alt=""
               ></img>
             </Link>
           </div>
 
-          <div className="flex flex-col justify-center m-0 p-0  w-full  truncate  ">
+          <div className="flex flex-col justify-center m-0 p-2  w-full  truncate  ">
             {/* content */}
             <div className="flex justify-between w-full ">
               <h4 className="playlist  mt-0 2xl:pb-2.5 lg:pb-0.5 uppercase text-gray-500 tracking-widest 2xl:text-sm lg:text-xs">
@@ -78,7 +87,7 @@ const TrackCard = (props) => {
               <div className=" sm:flex 2xl:text-lg lg:text-md ">
                 <button
                   onClick={handlePlay}
-                  className=" cursor-pointer mr-2 uppercase font-bold  bg-gradient-to-r from-green-400 to-blue-500   text-white block 2xl:py-2 2xl:px-10 lg:px-7 lg:py-1   hover:scale-95 transform transition-all"
+                  className=" cursor-pointer mr-2 uppercase font-bold  bg-gradient-to-r from-green-400 to-blue-500   text-white block 2xl:py-2 2xl:px-10 lg:px-7 lg:py-1 py-1 px-5   hover:scale-95 transform transition-all"
                 >
                   <p className=" 2xl:text-lg lg:text-sm ">{`${play ? 'Pause' : 'Play'}`}</p>
                 </button>
