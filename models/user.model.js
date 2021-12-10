@@ -24,9 +24,16 @@ const userSchema = new Schema(
       trim: true,
       required: true,
     },
-    token: {
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    jwt_token: {
       type: String,
     },
+    resetToken: String,
+    expireToken: Date,
     wallet_id: { type: String, trim: true, default: null },
     password: {
       type: String,
@@ -104,7 +111,7 @@ userSchema.methods.generateAuthToken = async function () {
       { _id: this._id.toString() },
       'mynameissahilpunjabicomputerengineer',
     );
-    this.token = token;
+    this.jwt_token = token;
     await this.save();
     return token;
   } catch (error) {
