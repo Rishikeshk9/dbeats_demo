@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useReducer, useRef } from 'react';
 import Gun from 'gun';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 import './chatroom.css';
 
 //console.log('lslsls');

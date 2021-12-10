@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ChannelSection from './ProfileSections/ChannelSection';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { ShareModal } from '../../component/Modals/ShareModal/ShareModal';
-import { useParams } from 'react-router-dom';
-
-// For Routing
 import { Route, Switch, useRouteMatch } from 'react-router';
-import ChatRoom from './ProfileSections/ChatRoom/ChatRoom';
-import NFTStore from './ProfileSections/Store/NFT_Store';
-import ProfileDetails from './ProfileSections/ProfileDetails/ProfileDetails';
-import Ticket from './ProfileSections/Ticket/Ticket';
-import animationData from '../../lotties/error-animation.json';
+import { useParams } from 'react-router-dom';
+import { ShareModal } from '../../component/Modals/ShareModal/ShareModal';
 import PageNotFound from '../../component/PageNotFound/PageNotFound';
+import animationData from '../../lotties/error-animation.json';
+import ChannelSection from './ProfileSections/ChannelSection';
+import ChatRoom from './ProfileSections/ChatRoom/ChatRoom';
+import ProfileDetails from './ProfileSections/ProfileDetails/ProfileDetails';
+import NFTStore from './ProfileSections/Store/NFT_Store';
+import Ticket from './ProfileSections/Ticket/Ticket';
 
 const Profile = (props) => {
   // For Routing

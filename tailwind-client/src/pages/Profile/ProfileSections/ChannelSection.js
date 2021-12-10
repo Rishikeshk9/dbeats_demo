@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
 import { RadioGroup } from '@headlessui/react';
-import background from '../../../assets/images/wallpaper.jpg';
-import { Container, Row, Col } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import Modal from 'react-awesome-modal';
+import { Col, Container, Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+
 const ChannelSection = (props) => {
   const [showChannelModal, setShowChannelModal] = useState(false);
-
   const handleShowChannelModal = () => setShowChannelModal(true);
   const handleCloseChannelModal = () => setShowChannelModal(false);
 

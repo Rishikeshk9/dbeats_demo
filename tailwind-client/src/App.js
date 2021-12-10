@@ -38,6 +38,7 @@ const Playback = lazy(() => {
   });
 });
 
+// eslint-disable-next-line no-unused-vars
 const UserRoom = lazy(() => {
   return new Promise((resolve) => {
     setTimeout(
@@ -145,7 +146,7 @@ export default function App() {
                   <Route exact path="/live/:username">
                     <NavBar />
                     <PinnedPanel userdata={user} />
-                    <UserRoom />
+                    <PublicRoom />
                   </Route>
                   <Route exact path="/playback/:username/:video_id">
                     <NavBar />

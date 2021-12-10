@@ -1,20 +1,19 @@
 /* eslint-disable react/display-name */
-import React, { forwardRef } from 'react';
-import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import PauseIcon from '@material-ui/icons/Pause';
-import Slider from '@material-ui/core/Slider';
-import Tooltip from '@material-ui/core/Tooltip';
 import Grid from '@material-ui/core/Grid';
-import VolumeUp from '@material-ui/icons/VolumeUp';
+import IconButton from '@material-ui/core/IconButton';
+import Slider from '@material-ui/core/Slider';
+import { withStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import FullScreen from '@material-ui/icons/Fullscreen';
+import PauseIcon from '@material-ui/icons/Pause';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import VolumeDown from '@material-ui/icons/VolumeDown';
 import VolumeMute from '@material-ui/icons/VolumeOff';
-import FullScreen from '@material-ui/icons/Fullscreen';
-
+import VolumeUp from '@material-ui/icons/VolumeUp';
+import PropTypes from 'prop-types';
+import React, { forwardRef } from 'react';
 import classes from './videoPlayer.module.css';
 
 const PrettoSlider = withStyles({

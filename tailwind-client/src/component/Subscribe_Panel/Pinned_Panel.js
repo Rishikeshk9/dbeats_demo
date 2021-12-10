@@ -1,9 +1,8 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import personImg from '../../assets/images/profile.svg';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import personImg from '../../assets/images/profile.svg';
 
 const PinnedPanel = (props) => {
   const darkMode = useSelector((state) => state.toggleDarkMode);

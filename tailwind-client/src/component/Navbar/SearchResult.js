@@ -1,8 +1,8 @@
-import React from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
-import logo from '../../assets/images/logo.svg';
+import React from 'react';
 import { useSelector } from 'react-redux';
+import logo from '../../assets/images/logo.svg';
 import CarouselCard from '../../pages/Profile/Cards/CarouselCard';
 
 const SearchResult = () => {

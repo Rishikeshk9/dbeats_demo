@@ -8,7 +8,6 @@ const Moralis = require('moralis');
 
 const NewPassword = () => {
   // Web3
-  const bcrypt = require('bcryptjs');
   Moralis.initialize('RrKpMiHThO0v1tXiKcxJuBacU35i7UidwNwQq0as');
   Moralis.serverURL = 'https://58zywcsvxppw.usemoralis.com:2053/server';
 
@@ -16,10 +15,8 @@ const NewPassword = () => {
   const [form_password, setPassword] = useState('');
   const [form_confirmPassword, setConfirmPassword] = useState('');
   const [confirmPasswordCheck, setconfirmPasswordCheck] = useState(false);
-  const [loader, setLoader] = useState(true);
 
   const history = useHistory();
-  const [password, setPasword] = useState('');
   const { token } = useParams();
 
   const handlePasswordChange = (e) => {
@@ -113,10 +110,6 @@ const NewPassword = () => {
                       transition-all border-dbeats-light hover:scale-99 transform rounded relative"
                     >
                       Reset Password
-                      <div
-                        hidden={loader}
-                        className="w-6 h-6 ml-3 mt-0.5 align-center border-t-4 border-b-4 border-white rounded-full animate-spin"
-                      ></div>
                     </button>
                   </div>
                 </div>

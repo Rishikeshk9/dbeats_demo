@@ -6,11 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { toggleDarkMode } from '../../actions/index';
 import logoDark from '../../assets/images/dark-logo.svg';
-import logo from '../../assets/images/white-logo.svg';
 import CircleLogo from '../../assets/images/dbeats-logo.png';
-
+import logo from '../../assets/images/white-logo.svg';
 import useWeb3Modal from '../../hooks/useWeb3Modal';
-import { AnnouncementModal, UploadVideoModal, UploadTrackModal } from '../Modals/NavbarModals';
+import { AnnouncementModal, UploadTrackModal, UploadVideoModal } from '../Modals/NavbarModals';
 import Toggle from '../toggle.component';
 import classes from './Navbar.module.css';
 

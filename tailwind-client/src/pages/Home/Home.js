@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import Carousel from 'react-grid-carousel';
-import personImg from '../../assets/images/profile.svg';
-import PlayBackCard from './Cards/PlayBackCard';
-import LiveCard from './Cards/LiveCard';
-import ResponsiveCarousel from './Cards/HomeSlider';
-import { useSelector } from 'react-redux';
 import Lottie from 'react-lottie';
+import { useSelector } from 'react-redux';
+import personImg from '../../assets/images/profile.svg';
 import animationData from '../../lotties/gamers.json';
+import ResponsiveCarousel from './Cards/HomeSlider';
+import LiveCard from './Cards/LiveCard';
+import PlayBackCard from './Cards/PlayBackCard';
 // import {Helmet} from "react-helmet";
 
 const Home = () => {

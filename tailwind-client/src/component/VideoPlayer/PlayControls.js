@@ -1,10 +1,9 @@
-import React, { forwardRef } from 'react';
-import PropTypes from 'prop-types';
-import IconButton from '@material-ui/core/IconButton';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import PauseIcon from '@material-ui/icons/Pause';
 import Grid from '@material-ui/core/Grid';
-
+import IconButton from '@material-ui/core/IconButton';
+import PauseIcon from '@material-ui/icons/Pause';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PropTypes from 'prop-types';
+import React, { forwardRef } from 'react';
 import classes from './videoPlayer.module.css';
 
 // eslint-disable-next-line react/display-name

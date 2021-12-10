@@ -2,12 +2,12 @@ import axios from 'axios';
 import moment from 'moment';
 import { NFTStorage } from 'nft.storage';
 import React, { useState } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
-import classes from './LinkPreview.module.css';
 import { detectURLs, makeStorageClient } from '../uploadHelperFunction';
 import LinkPreview from './LinkPreview';
+import classes from './LinkPreview.module.css';
 
 moment().format();
 

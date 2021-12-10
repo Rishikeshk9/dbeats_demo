@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
 import axios from 'axios';
-
-import useWeb3Modal from '../../hooks/useWeb3Modal';
-import { useSelector } from 'react-redux';
-import moralisLogo from '../../assets/images/moralis-light.svg';
 //import Ticket from '../Profile/ProfileSections/Ticket/Ticket';
 import Cookies from 'js-cookie';
+import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import moralisLogo from '../../assets/images/moralis-light.svg';
+import useWeb3Modal from '../../hooks/useWeb3Modal';
 
 const Moralis = require('moralis');
 

@@ -9,9 +9,12 @@ const LinkPreview = ({ linkurl, setShowLinkPreview }) => {
   useEffect(() => {
     setLinkData(null);
     fetchData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [linkurl]);
 
   const fetchData = async () => {
+    // eslint-disable-next-line no-unused-vars
     const { status, data, response } = await mql(`${linkurl}`, {
       animations: true,
     });

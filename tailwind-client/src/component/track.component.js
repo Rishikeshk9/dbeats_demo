@@ -1,22 +1,19 @@
-import React, { useState } from 'react';
-//import Dropdown from "./dropdown.component";
-import axios from 'axios';
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import Noty from "noty";
 // import Multiselect from "multiselect-react-dropdown";
 // import logo from "../assets/graphics/DBeatsHori.png";
 import { Transition } from '@headlessui/react';
-import { useEffect } from 'react';
-//import Switch from "./switch.component";
-
-import { useSelector, useDispatch } from 'react-redux';
-import { toggleAudius } from '../actions/index';
-import PopUp from './popup.component';
-
-import BottomBar from './bottom-player.component';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
+//import Dropdown from "./dropdown.component";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+//import Switch from "./switch.component";
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleAudius } from '../actions/index';
 import logo from '../assets/images/logo.svg';
+import BottomBar from './bottom-player.component';
+import PopUp from './popup.component';
 
 export default function Track() {
   // constructor(props) {
