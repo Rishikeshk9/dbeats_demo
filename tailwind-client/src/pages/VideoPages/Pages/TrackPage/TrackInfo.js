@@ -4,10 +4,13 @@ import axios from 'axios';
 import TrackCard from './Track_Components/TrackCard';
 import AudioPlayer from './Track_Components/AudioPlayer';
 import { Playlist } from '../../../../component/Modals/PlaylistModals/PlaylistModal';
+import { useParams } from 'react-router-dom';
 
 const TrackInfo = (props) => {
-  const username = props.match.params.username;
-  const track_id = props.match.params.track_id;
+  let params = useParams();
+  const username = params.username;
+  const track_id = params.track_id;
+
   const user = JSON.parse(window.localStorage.getItem('user'));
   const darkMode = useSelector((darkmode) => darkmode.toggleDarkMode);
   const [userData, setUserData] = useState(null);

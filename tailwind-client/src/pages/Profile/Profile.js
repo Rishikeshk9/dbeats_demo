@@ -3,6 +3,8 @@ import axios from 'axios';
 import ChannelSection from './ProfileSections/ChannelSection';
 import { useSelector } from 'react-redux';
 import { ShareModal } from '../../component/Modals/ShareModal/ShareModal';
+import { useParams } from 'react-router-dom';
+
 // For Routing
 import { Route, Switch, useRouteMatch } from 'react-router';
 import ChatRoom from './ProfileSections/ChatRoom/ChatRoom';
@@ -16,9 +18,11 @@ const Profile = (props) => {
   // For Routing
 
   let match = useRouteMatch();
-  const tabname = props.match.params.tab;
-  const urlUsername = props.match.params.username;
+  let params = useParams();
+  const tabname = params.tab;
+  const urlUsername = params.username;
 
+  console.log(params);
   const [user, setUser] = useState(null);
   const [privateUser, setPrivate] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -38,7 +42,7 @@ const Profile = (props) => {
   useEffect(() => {
     let value = JSON.parse(window.localStorage.getItem('user'));
     if (value) {
-      if (value.username === props.match.params.username) {
+      if (value.username === urlUsername) {
         setUser(value);
         setSharable_data(`${process.env.REACT_APP_CLIENT_URL}/profile/${value.username}`);
         setPrivate(true);
@@ -56,17 +60,15 @@ const Profile = (props) => {
   }, []);
 
   const get_User = async () => {
-    await axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/user/${props.match.params.username}`)
-      .then((value) => {
-        if (value.data === '') {
-          setNotFound(true);
-        } else {
-          setUser(value.data);
-          setSharable_data(`${process.env.REACT_APP_CLIENT_URL}/profile/${value.data.username}`);
-          get_NFT(value.data);
-        }
-      });
+    await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${urlUsername}`).then((value) => {
+      if (value.data === '') {
+        setNotFound(true);
+      } else {
+        setUser(value.data);
+        setSharable_data(`${process.env.REACT_APP_CLIENT_URL}/profile/${value.data.username}`);
+        get_NFT(value.data);
+      }
+    });
   };
 
   const get_NFT = async (value) => {
