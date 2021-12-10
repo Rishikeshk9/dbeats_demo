@@ -1,26 +1,21 @@
-import '../node_modules/noty/lib/noty.css';
 import axios from 'axios';
-
-import '../node_modules/noty/lib/themes/metroui.css';
-import React, { useEffect } from 'react';
-
-import { Suspense, lazy } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Loader from './component/Loader/Loader';
-import './App.css';
-import NavBar from '../src/component/Navbar/Navbar';
-import Track from './component/track.component';
-import { useSelector, useDispatch } from 'react-redux';
+import '../node_modules/noty/lib/noty.css';
+import '../node_modules/noty/lib/themes/metroui.css';
 import { toggleDarkMode } from '../src/actions/index';
-import PinnedPanel from './component/Subscribe_Panel/Pinned_Panel';
-import Ticket from './pages/Profile/ProfileSections/Ticket/Ticket';
-import ChatRoom from './pages/Profile/ProfileSections/ChatRoom/ChatRoom';
-import PageNotFound from './component/PageNotFound/PageNotFound';
-
+import NavBar from '../src/component/Navbar/Navbar';
+import './App.css';
+import Loader from './component/Loader/Loader';
 //import Navbar from "./component/navbar.component";
 //import BottomBar from "./component/bottom-player.component";
-
 import NFTFeed from './component/nft.component';
+import PageNotFound from './component/PageNotFound/PageNotFound';
+import PinnedPanel from './component/Subscribe_Panel/Pinned_Panel';
+import Track from './component/track.component';
+import ChatRoom from './pages/Profile/ProfileSections/ChatRoom/ChatRoom';
+import Ticket from './pages/Profile/ProfileSections/Ticket/Ticket';
 
 const VideoHome = lazy(() => {
   return new Promise((resolve) => {
@@ -61,6 +56,12 @@ const Profile = lazy(() => {
 const Login = lazy(() => {
   return new Promise((resolve) => {
     setTimeout(() => resolve(import('./pages/Login/Login')), 1000);
+  });
+});
+
+const NewPassword = lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import('./pages/Login/NewPassword')), 1000);
   });
 });
 
@@ -118,29 +119,86 @@ export default function App() {
         <Suspense fallback={<Loader />}>
           <div className={`${darkMode && 'dark'}  `}>
             <div className=" h-full  dark:bg-gradient-to-b dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary   ">
-              <NavBar />
-              <PinnedPanel userdata={user} />
               <div className=" ">
                 <Switch>
-                  <Route exact path="/nft" component={() => <NFTFeed />} />
-                  <Route exact path="/" component={() => <VideoHome />} />
+                  <Route exact path="/">
+                    <NavBar />
+                    <PinnedPanel userdata={user} />
+                    <VideoHome />
+                  </Route>
+                  <Route exact path="/signup">
+                    <NavBar />
+                    <PinnedPanel userdata={user} />
+                    <Login />
+                  </Route>
+                  <Route exact path="/profile/:username/:tab?">
+                    <NavBar />
+                    <PinnedPanel userdata={user} />
+                    <Profile />
+                  </Route>
+                  <Route exact path="/search">
+                    <NavBar />
+                    <PinnedPanel userdata={user} />
+                    <SearchPage />
+                  </Route>
 
-                  <Route exact path="/upload" component={() => <UploadPage />} />
-                  <Route exact path="/music" component={() => <Track />} />
+                  <Route exact path="/live/:username">
+                    <NavBar />
+                    <PinnedPanel userdata={user} />
+                    <UserRoom />
+                  </Route>
+                  <Route exact path="/playback/:username/:video_id">
+                    <NavBar />
+                    <PinnedPanel userdata={user} />
+                    <Playback />
+                  </Route>
+                  <Route exact path="/track/:username/:track_id">
+                    <NavBar />
+                    <PinnedPanel userdata={user} />
+                    <TrackPlayback />
+                  </Route>
+                  <Route exact path="/chat/:username">
+                    <NavBar />
+                    <PinnedPanel userdata={user} />
+                    <ChatRoom />
+                  </Route>
 
+                  <Route exact path="/upload">
+                    <NavBar />
+                    <PinnedPanel userdata={user} />
+                    <UploadPage />
+                  </Route>
+                  <Route exact path="/music">
+                    <NavBar />
+                    <PinnedPanel userdata={user} />
+                    <Track />
+                  </Route>
+                  <Route exact path="/nft">
+                    <NavBar />
+                    <PinnedPanel userdata={user} />
+                    <NFTFeed />
+                  </Route>
+                  <Route exact path="/loader">
+                    <NavBar />
+                    <PinnedPanel userdata={user} />
+                    <Loader />
+                  </Route>
+                  <Route exact path="/unlock">
+                    <NavBar />
+                    <PinnedPanel userdata={user} />
+                    <Ticket />
+                  </Route>
+
+                  <Route exact path="/reset/:token" component={NewPassword} />
                   {/* <Route exact path="/" component={LandingPage} /> */}
-                  <Route exact path="/loader" component={Loader} />
                   {/* <Route exact path="/home" component={VideoHome} />  */}
                   {/* <Route exact path="/streamer/:roomID" component={UserRoom} /> */}
-                  <Route exact path="/live/:username" component={PublicRoom} />
-                  <Route exact path="/playback/:username/:video_id" component={Playback} />
-                  <Route exact path="/profile/:username/:tab?" component={Profile} />
-                  <Route exact path="/signup" component={Login} />
-                  <Route exact path="/search" component={() => <SearchPage />} />
-                  <Route exact path="/track/:username/:track_id" component={TrackPlayback} />
-                  <Route exact path="/chat/:username" component={ChatRoom} />
-                  <Route exact path="/unlock" component={Ticket} />
-                  <Route component={PageNotFound} />
+
+                  <Route>
+                    <NavBar />
+                    <PinnedPanel userdata={user} />
+                    <PageNotFound />
+                  </Route>
                 </Switch>
               </div>
             </div>

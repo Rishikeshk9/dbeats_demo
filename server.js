@@ -147,10 +147,12 @@ const DatabaseJSONStructure = {
 const trackRouter = require('./routes/track');
 
 var testAPIRouter = require('./routes/api_status');
-const userRouter = require('./routes/userRoutes');
+const userRouter = require('./routes/userRoutes/userRoutes');
+const userAuthRouters = require('./routes/userRoutes/userAuthRoutes');
 
 app.use('/track', trackRouter);
 app.use('/user', userRouter);
+app.use('/user', userAuthRouters);
 
 app.use('/API-status', testAPIRouter);
 
