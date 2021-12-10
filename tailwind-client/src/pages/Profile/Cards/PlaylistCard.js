@@ -37,7 +37,7 @@ const PlaylistCard = (props) => {
     <div className="w-full">
       {/* <a href={`/playback/${props.videoData.username}/0`}> */}
       {props.playlistData.data.trackId ? (
-        <div className={`cursor-pointer 2xl:h-48 lg:h-32 h-44 dark:bg-black w-full `}>
+        <div className={`cursor-pointer 2xl:h-48 lg:h-32 md:h-36 h-44 dark:bg-black w-full `}>
           <a href={`/track/${props.playlistData.username}/${props.playlistData.index}`}>
             <img
               src={props.playlistData.data.trackImage}
@@ -50,9 +50,12 @@ const PlaylistCard = (props) => {
         </div>
       ) : (
         <div
-          className={`flex items-center  cursor-pointer 2xl:h-48 lg:h-32 h-44 dark:bg-black w-full`}
+          className={`flex items-center justify-center cursor-pointer 2xl:h-48 lg:h-32 md:h-36 h-44 dark:bg-black w-full`}
         >
-          <a href={`/playback/${props.playlistData.username}/${props.playlistData.index}`}>
+          <a
+            href={`/playback/${props.playlistData.username}/${props.playlistData.index}`}
+            className="2xl:h-48 lg:h-32 md:h-36 h-44"
+          >
             <ReactPlayer
               width="100%"
               height="100%"
