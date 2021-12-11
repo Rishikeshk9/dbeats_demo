@@ -1,0 +1,4 @@
+ATLAS_URI= mongodb://root:supersapiens@cluster0-shard-00-00.p80zj.mongodb.net:27017,cluster0-shard-00-01.p80zj.mongodb.net:27017,cluster0-shard-00-02.p80zj.mongodb.net:27017/dbeats?replicaSet=atlas-4259e6-shard-0&ssl=true&authSource=admin
+PORT = 5000;
+LIVEPEER_KEY = d98e11c9-2267-4993-80da-6215d73b42c1
+WEB3STORAGE_TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDBhNzk3MkY3QTRDNUNkZDJlOENBQzE1RDJCZjJBRUFlQTg1QmM3MzEiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2Mjc1MTY1MTgyMjUsIm5hbWUiOiJEQmVhdHMifQ.16-okZlX7RmNcszqLq06lvzDkZ-Z8CHnmAIRXjQ2q5Q
