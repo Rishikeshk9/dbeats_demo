@@ -1,5 +1,5 @@
 import React from 'react';
-import NFTMarket from './NFTMarket';
+import NFTMarket from './Marketplace';
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import axios from 'axios';
@@ -75,7 +75,7 @@ export default function NFTStore() {
   if (loadingState === 'loaded' && !nfts.length)
     return <h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>;
   return (
-    <div className="w-full bg-gradient-to-b from-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-alt dark:to-dbeats-dark-alt mx-auto col-span-6 lg:col-span-5 md:col-span-6 xs:col-span-6 grid grid-flow-row   xl:grid-cols-4 lg:grid-cols-3  md:grid-cols-3 grid-cols-1  gap-2 gap-x-0 mt-20 sm:p-3">
+    <div className="w-full bg-gradient-to-b from-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-primary dark:to-dbeats-dark-primary mx-auto col-span-6 lg:col-span-5 md:col-span-6 xs:col-span-6 grid grid-flow-row   xl:grid-cols-4 lg:grid-cols-3  md:grid-cols-3 grid-cols-1  gap-2 gap-x-0 mt-20 sm:p-3">
       {nfts ? (
         <>
           {nfts.map((nft, i) => {

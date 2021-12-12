@@ -81,27 +81,31 @@ export default function CreateItem() {
   }
 
   return (
-    <div className={`${darkMode && 'dark'}  flex justify-center mt-10 `}>
-      <div className="w-full flex flex-col p-5">
+    <div className={`${darkMode && 'dark'}  flex justify-center  `}>
+      <div className="w-full flex flex-col px-5 pb-5">
         <input
+          required={true}
           placeholder="Asset Name"
           className="mt-8 border rounded p-4 dark:bg-dbeats-dark-secondary dark:text-white"
           onChange={(e) => updateFormInput({ ...formInput, name: e.target.value })}
         />
         <textarea
+          required={true}
           placeholder="Asset Description"
           className="mt-2 border rounded p-4 dark:bg-dbeats-dark-secondary dark:text-white"
           onChange={(e) => updateFormInput({ ...formInput, description: e.target.value })}
         />
         <input
-          placeholder="Asset Price in Eth"
+          required={true}
+          placeholder="Asset Price in MATIC"
           className="mt-2 border rounded p-4 dark:bg-dbeats-dark-secondary dark:text-white"
           onChange={(e) => updateFormInput({ ...formInput, price: e.target.value })}
         />
         <input
+          required={true}
           type="file"
           name="Asset"
-          className="my-4 text-white dark:text-gray-900"
+          className="my-4 dark:text-white text-gray-900"
           onChange={onChange}
         />
         {fileUrl && <img className="rounded mt-4" width="350" src={fileUrl} />}
