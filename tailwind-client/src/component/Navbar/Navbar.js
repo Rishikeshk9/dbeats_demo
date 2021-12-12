@@ -10,7 +10,12 @@ import logo from '../../assets/images/white-logo.svg';
 import CircleLogo from '../../assets/images/dbeats-logo.png';
 
 import useWeb3Modal from '../../hooks/useWeb3Modal';
-import { AnnouncementModal, UploadVideoModal, UploadTrackModal } from '../Modals/NavbarModals';
+import {
+  AnnouncementModal,
+  UploadVideoModal,
+  UploadTrackModal,
+  UploadNFTModal,
+} from '../Modals/NavbarModals';
 import Toggle from '../toggle.component';
 import classes from './Navbar.module.css';
 
@@ -36,6 +41,10 @@ const NavBar = () => {
   const [showTrackUpload, setShowTrackUpload] = useState(false);
   const handleCloseTrackUpload = () => setShowTrackUpload(false);
   const handleShowTrackUpload = () => setShowTrackUpload(true);
+
+  const [showNFTUpload, setShowNFTUpload] = useState(false);
+  const handleCloseNFTUpload = () => setShowNFTUpload(false);
+  const handleShowNFTUpload = () => setShowNFTUpload(true);
 
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.toggleDarkMode);
@@ -480,6 +489,7 @@ const NavBar = () => {
                               handleShowAnnouncement();
                               handleCloseVideoUpload();
                               handleCloseTrackUpload();
+                              handleCloseNFTUpload();
                             }}
                           >
                             Create Post
@@ -491,6 +501,7 @@ const NavBar = () => {
                               handleCloseAnnouncement();
                               handleShowVideoUpload();
                               handleCloseTrackUpload();
+                              handleCloseNFTUpload();
                             }}
                           >
                             Upload Video
@@ -501,11 +512,20 @@ const NavBar = () => {
                               handleCloseAnnouncement();
                               handleShowTrackUpload();
                               handleCloseVideoUpload();
+                              handleCloseNFTUpload();
                             }}
                           >
                             Upload Track
                           </button>
-                          <button className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light border-dbeats-light border  dark:bg-dbeats-dark-alt 2xl:h-10 h-8 my-auto cursor-pointer px-3  hover:text-white dark:text-white dark:hover:bg-dbeats-light">
+                          <button
+                            onClick={() => {
+                              handleShowNFTUpload();
+                              handleCloseVideoUpload();
+                              handleCloseTrackUpload();
+                              handleCloseAnnouncement();
+                            }}
+                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light border-dbeats-light border  dark:bg-dbeats-dark-alt 2xl:h-10 h-8 my-auto cursor-pointer px-3  hover:text-white dark:text-white dark:hover:bg-dbeats-light"
+                          >
                             Mint NFT
                           </button>
                         </div>
@@ -634,6 +654,15 @@ const NavBar = () => {
         setShowTrackUpload={setShowTrackUpload}
         handleCloseTrackUpload={handleCloseTrackUpload}
         handleShowTrackUpload={handleShowTrackUpload}
+        loader={loader}
+        setLoader={setLoader}
+      />
+
+      <UploadNFTModal
+        showNFTUpload={showNFTUpload}
+        setShowNFTUpload={setShowNFTUpload}
+        handleCloseNFTUpload={handleCloseNFTUpload}
+        handleShowNFTUpload={handleShowNFTUpload}
         loader={loader}
         setLoader={setLoader}
       />

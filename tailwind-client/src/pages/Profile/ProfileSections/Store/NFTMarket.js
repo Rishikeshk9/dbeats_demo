@@ -1,20 +1,15 @@
-import React from 'react';
-import NFTMarket from './NFTMarket';
-import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Web3Modal from 'web3modal';
+
 import { nftaddress, nftmarketaddress } from '../config';
+
 import NFT from '../../../../artifacts/contracts/NFT.sol/NFT.json';
 import Market from '../../../../artifacts/contracts/Market.sol/NFTMarket.json';
-import NFTCard from './NFTCard';
-// const CONTRACT_ADDRESS = '0x03160747b94be986261d9340d01128d4d5566383';
 
-export default function NFTStore() {
+export default function Home() {
   const [nfts, setNfts] = useState([]);
-  const [seeMore, setSeeMore] = useState(false);
-  const [nameSeeMore, setNameSeeMore] = useState(false);
-
   const [loadingState, setLoadingState] = useState('not-loaded');
   useEffect(() => {
     loadNFTs();
@@ -63,7 +58,6 @@ export default function NFTStore() {
     const contract = new ethers.Contract(nftmarketaddress, Market.abi, signer);
 
     /* user will be prompted to pay the asking proces to complete the transaction */
-    console.log(nft.price.toString());
     const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');
     const transaction = await contract.createMarketSale(nftaddress, nft.tokenId, {
       value: price,
@@ -71,31 +65,36 @@ export default function NFTStore() {
     await transaction.wait();
     loadNFTs();
   }
-
   if (loadingState === 'loaded' && !nfts.length)
     return <h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>;
   return (
-    <div className="w-full bg-gradient-to-b from-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-alt dark:to-dbeats-dark-alt mx-auto col-span-6 lg:col-span-5 md:col-span-6 xs:col-span-6 grid grid-flow-row   xl:grid-cols-4 lg:grid-cols-3  md:grid-cols-3 grid-cols-1  gap-2 gap-x-0 mt-20 sm:p-3">
-      {nfts ? (
-        <>
-          {nfts.map((nft, i) => {
-            // for covalent we have to set the contract address
-
-            if (nft) {
-              return (
-                <div
-                  key={i}
-                  className=" self-center  col-span-1   rounded-lg sm:mx-2 lg:m-2 transition-all duration-300 "
-                >
-                  <NFTCard nft={nft} buyNft={buyNft} />
-                  {/* <NFTMarket nft={nft}></NFTMarket> */}
+    <div className="flex justify-center mx-5">
+      <div className="px-4" style={{ maxWidth: '1600px' }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+          {nfts.map((nft, i) => (
+            <div key={i} className="border shadow rounded-xl overflow-hidden">
+              <img src={nft.image} />
+              <div className="p-4">
+                <p style={{ height: '64px' }} className="text-2xl font-semibold">
+                  {nft.name}
+                </p>
+                <div style={{ height: '70px', overflow: 'hidden' }}>
+                  <p className="text-gray-400">{nft.description}</p>
                 </div>
-              );
-            }
-            return 0;
-          })}
-        </>
-      ) : null}
+              </div>
+              <div className="p-4 bg-black">
+                <p className="text-2xl mb-4 font-bold text-white">{nft.price} ETH</p>
+                <button
+                  className="w-full bg-pink-500 text-white font-bold py-2 px-12 rounded"
+                  onClick={() => buyNft(nft)}
+                >
+                  Buy
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

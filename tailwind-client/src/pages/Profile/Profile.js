@@ -7,6 +7,8 @@ import { ShareModal } from '../../component/Modals/ShareModal/ShareModal';
 import { Route, Switch, useRouteMatch } from 'react-router';
 import ChatRoom from './ProfileSections/ChatRoom/ChatRoom';
 import NFTStore from './ProfileSections/Store/NFT_Store';
+
+import Dashboard from './ProfileSections/Ticket/dashboard';
 import ProfileDetails from './ProfileSections/ProfileDetails/ProfileDetails';
 import Ticket from './ProfileSections/Ticket/Ticket';
 import animationData from '../../lotties/error-animation.json';
@@ -14,7 +16,6 @@ import PageNotFound from '../../component/PageNotFound/PageNotFound';
 
 const Profile = (props) => {
   // For Routing
-
   let match = useRouteMatch();
   const tabname = props.match.params.tab;
   const urlUsername = props.match.params.username;
@@ -120,6 +121,8 @@ const Profile = (props) => {
     <>
       {user ? (
         <div>
+          {/* <Dashboard className="ml-20"></Dashboard> */}
+
           <div id="outer-container" className="">
             <div id="page-wrap" className={`${darkMode && 'dark'} grid lg:pl-16 grid-cols-6`}>
               <ChannelSection privateUser={privateUser} user={user} />

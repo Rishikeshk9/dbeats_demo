@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
-
-const NFTCard = ({ nft }) => {
+import maticLogo from '../../../../assets/graphics/polygon-matic-logo.svg';
+const NFTCard = ({ nft, buyNft }) => {
   //console.log(nft);
 
   const [seeMore, setSeeMore] = useState(false);
   const [nameSeeMore, setNameSeeMore] = useState(false);
 
   return (
-    <div className="dark:bg-gradient-to-b min-h-full  hover:border-gray-500 dark:from-dbeats-dark-secondary dark:to-dbeats-dark-secondary  dark:hover:bg-gradient-to-b  dark:hover:from-green-400 dark:hover:via-dbeats-dark-primary  dark:hover:to-dbeats-dark-primary bg-gradient-to-b from-white to-white dark:hover:bg-opacity-10 hover:bg-opacity-90 hover:bg-gradient-to-b hover:from-white hover:via-blue-50 hover:to-green-50   group  backdrop-blur-2xl  backdrop-filter dark:hover:backdrop-blur-2xl  dark:hover:backdrop-filter   shadow-sm  hover:shadow-md cursor-pointer w-full  rounded-lg flex flex-col items-center justify-center transition-all duration-300 ease-in-out">
-      <div className="relative mt-2 mx-2">
-        <div className=" h-full w-full max-h-100 lg:h-56    rounded-md overflow-hidden">
+    <div className="dark:bg-gradient-to-b min-h-full shadow-md  hover:border-gray-500 dark:from-dbeats-dark-secondary dark:to-dbeats-dark-secondary  dark:hover:bg-gradient-to-b  dark:hover:from-green-400 dark:hover:via-dbeats-dark-primary  dark:hover:to-dbeats-dark-primary bg-gradient-to-b from-white to-white dark:hover:bg-opacity-10 hover:bg-opacity-90 hover:bg-gradient-to-b hover:from-white hover:via-blue-50 hover:to-green-50   group  backdrop-blur-2xl  backdrop-filter dark:hover:backdrop-blur-2xl  dark:hover:backdrop-filter    hover:shadow-md cursor-pointer w-full  sm:rounded-lg flex flex-col items-center justify-center transition-all duration-300 ease-in-out">
+      <div className="relative sm:mt-2 sm:mx-2">
+        <div className=" h-full w-full max-h-100 lg:h-56    sm:rounded-md overflow-hidden">
           <img
-            // `https://ipfs.io/ipfs/` + nft.metadata.image.split('ipfs://')[1] for nftport
-            src={nft.metadata.image}
+            // `https://ipfs.io/ipfs/` + nft.image.split('ipfs://')[1] for nftport
+            src={nft.image}
             alt="ipfs"
-            className="object-cover w-full h-full"
+            className="object-cover  h-full"
           />
-          {nft.image}
         </div>
 
         <div className="absolute bottom-0 left-0 -mb-4 ml-3 flex flex-row">
-          <div className="h-10 w-10 flex items-center justify-center text-xl bg-white dark:bg-dbeats-dark-secondary  bg-opacity-20 dark:bg-opacity-10 dark:hover:bg-opacity-80  dark:backdrop-blur-md  backdrop-filter hover:bg-opacity-25  backdrop-blur-md hover:bg-red-500 text-red-300 hover:text-white rounded-2xl shadow-sm dark:shadow-md  transform-gpu translate-y-0 hover:-translate-y-1 transition-all duration-300 ease-in-out">
+          <div className="h-10 w-10 flex items-center justify-center text-xl bg-white dark:bg-dbeats-dark-secondary  bg-opacity-20 dark:bg-opacity-10 dark:hover:bg-opacity-80  dark:backdrop-blur-md  backdrop-filter hover:bg-opacity-25  backdrop-blur-md hover:text-red-500 text-white   rounded-2xl shadow-sm dark:shadow-md  transform-gpu translate-y-0 hover:-translate-y-1 transition-all duration-300 ease-in-out">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -46,6 +45,18 @@ const NFTCard = ({ nft }) => {
             </svg>
             <span className="group-hover:text-white text-white ml-2"></span>
           </div>
+          <div
+            onClick={() => buyNft(nft)}
+            className="h-10 w-16 ml-2 bg-white dark:bg-dbeats-dark-secondary bg-opacity-20  dark:bg-opacity-10 hover:bg-opacity-25 dark:hover:bg-opacity-80 dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md hover:bg-dbeats-light    grad flex items-center justify-center font-medium text-white hover:text-white rounded-2xl shadow-sm dark:shadow-md  transform-gpu translate-y-0 hover:-translate-y-1 transition-all duration-300 ease-in-out group"
+          >
+            <span className="group-hover:text-white text-white mx-1 flex">
+              {nft.price}{' '}
+              <img
+                className="h-5 w-5 ml-1 text-white self-center align-middle items-center"
+                src={maticLogo}
+              ></img>
+            </span>
+          </div>
         </div>
       </div>
 
@@ -56,7 +67,7 @@ const NFTCard = ({ nft }) => {
             className={`${!nameSeeMore ? 'line-clamp-2' : ''} mr-2 mt-1 `}
             style={{ wordBreak: 'break-words' }}
           >
-            {nft.metadata.name.split('\n').map(function (item) {
+            {nft.name.split('\n').map(function (item) {
               return (
                 <>
                   {item}
@@ -65,9 +76,9 @@ const NFTCard = ({ nft }) => {
               );
             })}
           </p>
-          {nft.metadata.name.split(/\r\n|\r|\n/).length > 2 ? (
+          {nft.name.split(/\r\n|\r|\n/).length > 2 ? (
             <p
-              className="cursor-pointer text-md hover:underline text-gray-600 pt-2"
+              className="cursor-pointer text-md hover:underline text-gray-600  "
               onClick={() => setNameSeeMore(!nameSeeMore)}
             >
               {nameSeeMore ? '...see less' : '...see more'}
@@ -76,13 +87,13 @@ const NFTCard = ({ nft }) => {
         </h1>
 
         {/* {nft.description} */}
-        {nft.metadata.description ? (
+        {nft.description ? (
           <div className=" leading-none text-base tracking-wider text-gray-900 dark:text-gray-200 mt-2">
             <p
               className={`${!seeMore ? 'line-clamp-1' : ''} mr-2`}
               style={{ wordBreak: 'break-words' }}
             >
-              {nft.metadata.description.split('\n').map(function (item) {
+              {nft.description.split('\n').map(function (item) {
                 return (
                   <>
                     {item}
@@ -91,7 +102,7 @@ const NFTCard = ({ nft }) => {
                 );
               })}
             </p>
-            {nft.metadata.description.split(/\r\n|\r|\n/).length > 2 ? (
+            {nft.description.split(/\r\n|\r|\n/).length > 2 ? (
               <p
                 className="cursor-pointer text-md hover:underline text-gray-600 mt-2"
                 onClick={() => setSeeMore(!seeMore)}
