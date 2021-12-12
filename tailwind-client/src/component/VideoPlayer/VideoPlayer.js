@@ -1,12 +1,10 @@
-import React, { useState, useRef } from 'react';
-
 import Container from '@material-ui/core/Container';
+import React, { useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
-
 import screenful from 'screenfull';
+import Footer from '../../pages/VideoPages/Footer/Footer';
 import FullControls from './FullControls';
 import PlayControls from './PlayControls';
-import Footer from '../../pages/VideoPages/Footer/Footer';
 import classes from './videoPlayer.module.css';
 
 const format = (seconds) => {

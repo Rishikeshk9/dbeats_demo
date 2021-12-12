@@ -46,14 +46,14 @@ const AnnouncementCard = (props) => {
   return (
     <div id="tracks-section" className="py-1 ">
       <div
-        className={`w-full  flex  lg:flex-row flex-col  py-3 
+        className={`w-full  flex  md:flex-row flex-col  py-3 
       bg-gray-50 shadow-lg  rounded  dark:bg-dbeats-dark-secondary 
         dark:text-gray-100 
-      lg:px-3 2xl:px-3`}
+      lg:px-3 2xl:px-3 md:p-2`}
       >
         {props.post.post_video || props.post.post_image ? (
           <div
-            className={`cursor-pointer mx-auto items-center lg:w-80 2xl:w-80 2xl:h-48 lg:h-32 h-52 dark:bg-dbeats-dark-primary bg-gray-100`}
+            className={`cursor-pointer mx-auto items-center lg:w-80 2xl:w-80 2xl:h-48 lg:h-32 md:w-96 h-52 dark:bg-dbeats-dark-primary bg-gray-100`}
             onMouseMove={handleMouseMove}
             onMouseLeave={hanldeMouseLeave}
           >

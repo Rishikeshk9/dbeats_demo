@@ -1,13 +1,20 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import Modal from 'react-modal';
-import { WhatsappIcon, WhatsappShareButton } from 'react-share';
-import { FacebookShareButton, FacebookIcon } from 'react-share';
-import { EmailShareButton, EmailIcon } from 'react-share';
-import { PinterestShareButton, PinterestIcon } from 'react-share';
-import { TelegramShareButton, TelegramIcon } from 'react-share';
+import { Col, Container, Row } from 'react-bootstrap';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Modal from 'react-modal';
+import { useSelector } from 'react-redux';
+import {
+  EmailIcon,
+  EmailShareButton,
+  FacebookIcon,
+  FacebookShareButton,
+  PinterestIcon,
+  PinterestShareButton,
+  TelegramIcon,
+  TelegramShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
+} from 'react-share';
 
 export const ShareModal = ({
   show,

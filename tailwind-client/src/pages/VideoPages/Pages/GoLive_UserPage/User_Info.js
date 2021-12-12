@@ -1,11 +1,11 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import classes from '../Info.module.css';
 import axios from 'axios';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import Modal from 'react-modal';
+import { useSelector } from 'react-redux';
 import { MultiStreamData } from '../../../../assets/Data';
 import VideoPlayer from '../../../../component/VideoPlayer/VideoPlayer';
-import { useSelector } from 'react-redux';
+import classes from '../Info.module.css';
 
 const UserInfo = () => {
   const [userStreams, setUserStreams] = useState([]);

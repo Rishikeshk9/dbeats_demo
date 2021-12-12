@@ -1,13 +1,12 @@
-import React from 'react';
-import classes from './Footer.module.css';
+import { IconButton, Slider, Tooltip } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { Slider, Tooltip, IconButton } from '@material-ui/core';
-
-import FastRewindIcon from '@material-ui/icons/FastRewind';
 import FastForwardIcon from '@material-ui/icons/FastForward';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import FastRewindIcon from '@material-ui/icons/FastRewind';
 import PauseIcon from '@material-ui/icons/Pause';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import React from 'react';
 import personImg from '../../../assets/images/profile.svg';
+import classes from './Footer.module.css';
 
 const PrettoSlider = withStyles({
   root: {

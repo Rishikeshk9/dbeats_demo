@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
 import axios from 'axios';
-
-import useWeb3Modal from '../../hooks/useWeb3Modal';
-import { useSelector } from 'react-redux';
-import moralisLogo from '../../assets/images/moralis-light.svg';
 //import Ticket from '../Profile/ProfileSections/Ticket/Ticket';
 import Cookies from 'js-cookie';
+import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import moralisLogo from '../../assets/images/moralis-light.svg';
+import useWeb3Modal from '../../hooks/useWeb3Modal';
 
 const Moralis = require('moralis');
 
@@ -26,6 +25,8 @@ const Login = () => {
   const [form_confirmPassword, setConfirmPassword] = useState('');
   const [login, setLogin] = useState(true);
   const [loader, setLoader] = useState(true);
+  const [resetPasswordEmail, setResetPasswordEmail] = useState('');
+  const [forgotPassword, setForgotPassword] = useState(false);
 
   //checks
   const [invalidUsername, setInvalidUsername] = useState(false);
@@ -220,13 +221,37 @@ const Login = () => {
     setConfirmPassword(e.target.value);
   };
 
+  const handleUserEmail = (e) => {
+    setResetPasswordEmail(e.target.value);
+  };
+
   const handleSignIn = () => {
     setLogin(false);
+    setForgotPassword(false);
   };
 
   const handleSignUp = () => {
     setLogin(true);
+    setForgotPassword(false);
   };
+
+  const handleResetPassword = () => {
+    console.log(resetPasswordEmail);
+    axios({
+      method: 'POST',
+      url: `${process.env.REACT_APP_SERVER_URL}/user/reset_password`,
+      data: { email: resetPasswordEmail },
+    })
+      .then((response) => {
+        if (response.data) {
+          alert('Password Reset Mail Send !!! ');
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   const darkMode = useSelector((darkmode) => darkmode.toggleDarkMode);
 
   return (
@@ -237,7 +262,7 @@ const Login = () => {
             <div
               className={`2xl:py-10 2xl:px-8 lg:px-3 lg:py-3 bg-white dark:bg-dbeats-dark-alt lg:w-1/2  w-11/12 mx-auto     self-center 2xl:py-5 lg:py-3`}
             >
-              {login ? (
+              {login && !forgotPassword ? (
                 <div className="  w-full transition-all">
                   <div className="flex flex-col justify-center   text-lg px-5 pt-2 lg:pt-0">
                     <div className="self-center  2xl:text-2xl lg:text-lg text-xl font-bold text-gray-900 dark:text-white">
@@ -333,7 +358,8 @@ const Login = () => {
                     </div>
                   </div>
                 </div>
-              ) : (
+              ) : null}
+              {!login && !forgotPassword ? (
                 <div className="  w-full  ">
                   <div className="flex flex-col justify-center   2xl:text-lg lg:texr-md px-5 pt-2 lg:pt-0">
                     <h1 className="self-center  2xl:text-2xl lg:text-md text-xl font-bold text-gray-900 dark:text-white">
@@ -396,12 +422,14 @@ const Login = () => {
                         ></div>
                       </button>
                     </div>
-                    <a
-                      className="self-center 2xl:py-2 lg:py-0 mb-2 lg:mb-0 2xl:text-lg lg:text-xs text-gray-900 dark:text-white"
-                      href="/#"
+                    <div
+                      className="self-center cursor-pointer 2xl:py-2 lg:py-0 mb-2 lg:mb-0 2xl:text-lg lg:text-xs text-gray-900 dark:text-white"
+                      onClick={() => {
+                        setForgotPassword(true);
+                      }}
                     >
                       Forgot your password ?
-                    </a>
+                    </div>
                     <hr className="2xl:my-3 lg:my-2 w-2/3 self-center mb-4 lg:mb-0" />
 
                     <div
@@ -420,7 +448,56 @@ const Login = () => {
                     </div>
                   </div>
                 </div>
-              )}
+              ) : null}
+              {forgotPassword ? (
+                <div className="  w-full  ">
+                  <div className="flex flex-col justify-center   2xl:text-lg lg:texr-md px-5 pt-2 lg:pt-0">
+                    <h1 className="self-center  2xl:text-2xl lg:text-md text-xl font-bold text-gray-900 dark:text-white">
+                      Forgot Password
+                    </h1>
+
+                    <input
+                      className={`self-center mt-2 mb-1 rounded w-full mx-5 lg:h-8 2xl:h-10 lg:text-xs 2xl:text-lg
+                        border-0  dark:bg-dbeats-dark-primary
+                        ${invalidUsername ? 'border-2 border-red-500 focus:ring-red-800' : ''} 
+                        bg-gray-100 text-gray-900 
+                        dark:text-white 
+                        focus:ring-dbeats-light
+                        `}
+                      type="email"
+                      placeholder="Enter Email"
+                      onChange={(e) => handleUserEmail(e)}
+                    />
+
+                    <div className="flex justify-center ">
+                      <button
+                        onClick={handleResetPassword}
+                        className="flex justify-center w-full  mx-3   flex my-3 py-2 2xl:px-24 lg:px-10 2xl:text-lg lg:text-sm  text-dbeats-light 
+                        dark:text-white font-bold bg-dbeats-light bg-opacity-5 
+                        hover:text-white hover:bg-dbeats-light border  
+                        transition-all border-dbeats-light hover:scale-99 transform rounded relative"
+                      >
+                        Forgot Password
+                        <div
+                          hidden={loader}
+                          className="w-6 h-6 absolute right-10 align-center border-t-4 border-b-4 border-white rounded-full animate-spin"
+                        ></div>
+                      </button>
+                    </div>
+                    <hr className="2xl:my-3 lg:my-2 w-2/3 self-center mb-4 lg:mb-0" />
+
+                    <div
+                      className="flex justify-center w-max mx-auto  flex my-3 py-2 2xl:px-24 lg:px-10 2xl:text-lg lg:text-sm  text-dbeats-light 
+                      dark:text-white font-bold bg-dbeats-light bg-opacity-5 
+                      hover:text-white hover:bg-dbeats-light border  
+                      transition-all border-dbeats-light hover:scale-99 transform rounded relative cursor-pointer"
+                      onClick={handleSignIn}
+                    >
+                      Sign In
+                    </div>
+                  </div>
+                </div>
+              ) : null}
             </div>
             <div className="text-center 2xl:p-5 lg:p-2 text-gray-900 dark:text-white">
               {login ? (

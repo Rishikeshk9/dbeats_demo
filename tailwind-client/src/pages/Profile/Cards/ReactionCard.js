@@ -54,13 +54,13 @@ const ReactionCard = (props) => {
   return (
     <div id="tracks-section" className="py-1 ">
       <div
-        className={`w-full  flex  lg:flex-row flex-col  sm:py-3 
+        className={`w-full  flex  md:flex-row flex-col  sm:py-3 
     bg-gray-50 shadow-lg  rounded  dark:bg-dbeats-dark-secondary 
       dark:text-gray-100 
-    lg:px-3 2xl:px-3`}
+    lg:px-3 2xl:px-3 md:p-2`}
       >
         <div
-          className={`cursor-pointer lg:h-32 2xl:h-48 lg:w-1/3 w-full  my-auto dark:bg-dbeats-dark-primary`}
+          className={`cursor-pointer lg:h-32 2xl:h-48 md:h-40 h-44 lg:w-1/3 w-full  my-auto dark:bg-dbeats-dark-primary`}
         >
           <a href={`/playback/${props.playbackUserData.link}`}>
             <ReactPlayer
@@ -80,20 +80,20 @@ const ReactionCard = (props) => {
         <div className="col-start-1 row-start-3 py-2 px-5 w-full">
           <p className="text-black text-sm font-medium dark:text-gray-100">
             <div className="px-2">
-              <p className="2xl:text-2xl lg:text-lg font-semibold">
+              <p className="2xl:text-2xl md:text-lg lg:text-lg font-semibold">
                 {props.playbackUserData.video.videoName} &nbsp;
                 <button className="px-1" onClick={handleShow}>
                   <i className="fas fa-share-alt text-gray-500 hover:text-dbeats-light"></i>
                 </button>
               </p>
 
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-xs  md:text-sm lg:text-xs text-gray-400 mt-1">
                 {props.playbackUserData.video.description}
               </p>
             </div>
             <hr className="my-3 opacity-20" />
             <div>
-              <div className="2xl:text-xl lg:text-lg text-gray-500 px-1">
+              <div className="2xl:text-xl lg:text-lg md:text-lg text-gray-500 px-1">
                 reacted &nbsp;
                 {like ? <i className="fas fa-heart text-red-700 animate-pulse ml-1"></i> : null}
                 {dislike ? <i className="fas fa-heart-broken text-purple-500 ml-1"></i> : null}

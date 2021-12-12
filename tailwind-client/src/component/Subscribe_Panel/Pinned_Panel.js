@@ -1,9 +1,8 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import personImg from '../../assets/images/profile.svg';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import personImg from '../../assets/images/profile.svg';
 
 const PinnedPanel = (props) => {
   const darkMode = useSelector((state) => state.toggleDarkMode);
@@ -20,10 +19,16 @@ const PinnedPanel = (props) => {
   };
 
   useEffect(() => {
-    if (props.userdata)
-      if (props.userdata.pinned) {
-        getPinnedData(props.userdata.pinned);
+    if (JSON.parse(window.localStorage.getItem('pinned_user'))) {
+      getPinnedData(JSON.parse(window.localStorage.getItem('pinned_user')));
+    } else {
+      if (props.userdata) {
+        if (props.userdata.pinned) {
+          window.localStorage.setItem('pinned_user', JSON.stringify(props.userdata.pinned));
+          getPinnedData(props.userdata.pinned);
+        }
       }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

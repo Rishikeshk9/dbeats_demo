@@ -24,13 +24,13 @@ const TrackCard = (props) => {
   return (
     <div id="tracks-section" className="py-1 ">
       <div
-        className={`w-full  flex  lg:flex-row flex-col  py-3 
+        className={`w-full  flex  md:flex-row flex-col  py-3 
       bg-gray-50 shadow-lg  rounded  dark:bg-dbeats-dark-secondary 
         dark:text-gray-100 
-      lg:px-3 2xl:px-3`}
+      lg:px-3 2xl:px-3 md:p-2`}
       >
         <div
-          className={`cursor-pointer mx-auto items-center lg:w-80 2xl:w-80 2xl:h-48 lg:h-32 h-52 dark:bg-dbeats-dark-primary bg-gray-100`}
+          className={`cursor-pointer mx-auto items-center lg:w-80 2xl:w-80 2xl:h-48 lg:h-32 md:h-36 h-52 dark:bg-dbeats-dark-primary bg-gray-100`}
         >
           <Link
             to={{
@@ -50,14 +50,14 @@ const TrackCard = (props) => {
           </Link>
         </div>
 
-        <div className={`px-5 w-full py-2`}>
+        <div className={`px-5 w-full py-2 md:ml-4 lg:ml-0`}>
           <p className="flex justify-between pb-1 text-black text-sm font-medium dark:text-gray-100">
             <div>
               <h4 className="playlist  mt-0  uppercase text-gray-500 tracking-widest 2xl:text-md lg:text-xs pb-1">
                 {props.track.genre}
               </h4>
               <div className="">
-                <p className="2xl:text-2xl lg:text-md font-semibold">{props.track.trackName}</p>
+                <p className="2xl:text-2xl lg:text-md md:text-lg font-semibold">{props.track.trackName}</p>
                 <div className="flex">
                   <p className="2xl:text-lg lg:text-xs text-gray-500 mr-2 mt-1">
                     {props.username}&nbsp;
@@ -74,7 +74,7 @@ const TrackCard = (props) => {
               </div>
             </div>
           </p>
-          <div className=" flex 2xl:mt-4 lg:mt-2 rounded bottom-0">
+          <div className=" flex 2xl:mt-4 lg:mt-2 md:mt-2 rounded bottom-0">
             <div className=" sm:flex 2xl:text-lg lg:text-md ">
               <button
                 onClick={handlePlay}

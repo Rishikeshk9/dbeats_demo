@@ -1,25 +1,31 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ChannelSection from './ProfileSections/ChannelSection';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { ShareModal } from '../../component/Modals/ShareModal/ShareModal';
-// For Routing
 import { Route, Switch, useRouteMatch } from 'react-router';
+import { useParams } from 'react-router-dom';
+import { ShareModal } from '../../component/Modals/ShareModal/ShareModal';
+import PageNotFound from '../../component/PageNotFound/PageNotFound';
+import animationData from '../../lotties/error-animation.json';
+import ChannelSection from './ProfileSections/ChannelSection';
 import ChatRoom from './ProfileSections/ChatRoom/ChatRoom';
+<<<<<<< HEAD
 import NFTStore from './ProfileSections/Store/NFT_Store';
 
 import Dashboard from './ProfileSections/Ticket/dashboard';
+=======
+>>>>>>> e9c200500814e2fa405702758c7158c3a03188ed
 import ProfileDetails from './ProfileSections/ProfileDetails/ProfileDetails';
+import NFTStore from './ProfileSections/Store/NFT_Store';
 import Ticket from './ProfileSections/Ticket/Ticket';
-import animationData from '../../lotties/error-animation.json';
-import PageNotFound from '../../component/PageNotFound/PageNotFound';
 
 const Profile = (props) => {
   // For Routing
   let match = useRouteMatch();
-  const tabname = props.match.params.tab;
-  const urlUsername = props.match.params.username;
+  let params = useParams();
+  const tabname = params.tab;
+  const urlUsername = params.username;
 
+  console.log(params);
   const [user, setUser] = useState(null);
   const [privateUser, setPrivate] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -39,7 +45,7 @@ const Profile = (props) => {
   useEffect(() => {
     let value = JSON.parse(window.localStorage.getItem('user'));
     if (value) {
-      if (value.username === props.match.params.username) {
+      if (value.username === urlUsername) {
         setUser(value);
         setSharable_data(`${process.env.REACT_APP_CLIENT_URL}/profile/${value.username}`);
         setPrivate(true);
@@ -57,17 +63,15 @@ const Profile = (props) => {
   }, []);
 
   const get_User = async () => {
-    await axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/user/${props.match.params.username}`)
-      .then((value) => {
-        if (value.data === '') {
-          setNotFound(true);
-        } else {
-          setUser(value.data);
-          setSharable_data(`${process.env.REACT_APP_CLIENT_URL}/profile/${value.data.username}`);
-          get_NFT(value.data);
-        }
-      });
+    await axios.get(`${process.env.REACT_APP_SERVER_URL}/user/${urlUsername}`).then((value) => {
+      if (value.data === '') {
+        setNotFound(true);
+      } else {
+        setUser(value.data);
+        setSharable_data(`${process.env.REACT_APP_CLIENT_URL}/profile/${value.data.username}`);
+        get_NFT(value.data);
+      }
+    });
   };
 
   const get_NFT = async (value) => {
@@ -125,7 +129,11 @@ const Profile = (props) => {
 
           <div id="outer-container" className="">
             <div id="page-wrap" className={`${darkMode && 'dark'} grid lg:pl-16 grid-cols-6`}>
-              <ChannelSection privateUser={privateUser} user={user} />
+              <ChannelSection
+                privateUser={privateUser}
+                user={user}
+                className="md:invisible lg:visible"
+              />
               <Switch>
                 <Route path={`/profile/:username/text`}>
                   <ChatRoom userp={user}></ChatRoom>

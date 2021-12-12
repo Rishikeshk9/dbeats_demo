@@ -298,9 +298,11 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
             <div className="w-full flex flex-col lg:flex-row 2xl:-mt-28 lg:-mt-20 -mt-20   ">
               <div className="w-full flex flex-col   z-1 mx-auto ">
                 <div className="  flex flex-col lg:flex-row justify-between   md:mt-20  mt-40  sm:-mt-24 text-gray-400   dark:bg-dbeats-dark-primary bg-white dark:backdrop-filter dark:backdrop-blur dark:bg-opacity-80  backdrop-filter  backdrop-blur  bg-opacity-90">
-                  <div className="dark:text-white  text-dbeats-dark-alt 2xl:py-4 lg:py-2.5   mx-auto lg:mx-0 px-10 ">
+                  <div className="dark:text-white  text-dbeats-dark-alt 2xl:py-4 lg:py-2.5    md:py-3 lg:mx-0 px-10 lg:px-10 md:px-4 ">
                     <div className="flex w-max lg:pt-0 items-center ">
-                      <span className="font-bold 2xl:text-3xl lg:text-xl mr-3 ">{user.name}</span>
+                      <span className="font-bold 2xl:text-3xl lg:text-xl md:text-xl mr-3 ">
+                        {user.name}
+                      </span>
                       {!privateUser ? (
                         <button
                           href="#"
@@ -335,10 +337,10 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                     </span>
                   </div>
 
-                  <div className="2xl::w-56 lg:w-44 w-full flex justify-center z-1 -mt-48  mb-24 2xl:mb-0 xl:mb-0 lg:mb-0 md:mb-20 sm:-mt-24">
+                  <div className="2xl::w-56 lg:w-44 w-full flex justify-center z-1 -mt-48  md:-mt-36 lg:-mt-20 2xl:-mt-24 mb-24 md:mb-8 2xl:mb-0 xl:mb-0 lg:mb-0  sm:-mt-24">
                     <div
                       className="2xl:px-1 2xl:py-1 shadow-sm 2xl:w-44 2xl:h-44 lg:w-32 
-                lg:h-32 h-28 w-28 bg-white   
+                lg:h-32 md:h-36 md:w-36 h-28 w-28 bg-white   
                 dark:bg-dbeats-dark-primary overflow-hidden rounded-full    z-500 "
                     >
                       <img
@@ -365,7 +367,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                     </div>
                   </div>
 
-                  <div className="lg:grid lg:grid-flow-rows lg:grid-cols-3  font-bold 2xl:text-xl lg:text-sm text-gray-20 lg:gap-4 flex justify-between items-center mb-2">
+                  <div className="lg:grid lg:grid-flow-rows lg:grid-cols-3  font-bold 2xl:text-xl lg:text-sm text-gray-20 lg:gap-4 flex justify-between items-center mb-2 md:mb-5">
                     <div className="mx-auto 2xl:px-4 px-2 flex flex-col lg:flex-row justify-center items-center">
                       <div className=" w-full mr-2 flex justify-center">
                         {user.videos ? user.videos.length : 0}{' '}
