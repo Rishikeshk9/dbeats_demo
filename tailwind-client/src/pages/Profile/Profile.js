@@ -8,12 +8,8 @@ import PageNotFound from '../../component/PageNotFound/PageNotFound';
 import animationData from '../../lotties/error-animation.json';
 import ChannelSection from './ProfileSections/ChannelSection';
 import ChatRoom from './ProfileSections/ChatRoom/ChatRoom';
-<<<<<<< HEAD
-import NFTStore from './ProfileSections/Store/NFT_Store';
 
 import Dashboard from './ProfileSections/Ticket/dashboard';
-=======
->>>>>>> e9c200500814e2fa405702758c7158c3a03188ed
 import ProfileDetails from './ProfileSections/ProfileDetails/ProfileDetails';
 import NFTStore from './ProfileSections/Store/NFT_Store';
 import Ticket from './ProfileSections/Ticket/Ticket';

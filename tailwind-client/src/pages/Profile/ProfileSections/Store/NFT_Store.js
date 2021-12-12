@@ -80,19 +80,8 @@ export default function NFTStore() {
         <>
           {nfts.map((nft, i) => {
             // for covalent we have to set the contract address
-<<<<<<< HEAD
 
             if (nft) {
-=======
-            if ('external_data' in nft) {
-              nft.metadata = nft.external_data;
-              nft.contract_address = '0x03160747b94be986261d9340d01128d4d5566383';
-            }
-            if (
-              nft.metadata &&
-              nft.contract_address === '0x03160747b94be986261d9340d01128d4d5566383'
-            ) {
->>>>>>> e9c200500814e2fa405702758c7158c3a03188ed
               return (
                 <div
                   key={i}
