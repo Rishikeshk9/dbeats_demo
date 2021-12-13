@@ -72,6 +72,7 @@
     "react-scripts": "^3.4.4",
     "react-share": "^4.4.0",
     "react-stacked-center-carousel": "^1.0.3",
+    "reactjs-popup": "^2.0.5",
     "screenfull": "^5.1.0",
     "tailwindcss-filters": "^3.0.0",
     "tailwindcss-important": "^1.0.0",
