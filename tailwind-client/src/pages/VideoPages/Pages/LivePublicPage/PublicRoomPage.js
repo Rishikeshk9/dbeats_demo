@@ -2,7 +2,7 @@ import React from 'react';
 import PublicInfo from './Public_Info';
 import { useParams } from 'react-router-dom';
 
-const PublicRoomPage = (props) => {
+const PublicRoomPage = () => {
   let params = useParams();
 
   return (

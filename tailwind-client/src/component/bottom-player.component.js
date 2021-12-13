@@ -21,7 +21,7 @@ const BottomBar = ({ songDetails, playing, firstPlayed, setState }) => {
   useEffect(() => {
     const seconds = Math.floor(audioPlayer.current.duration);
     setDuration(seconds);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [audioPlayer?.current?.loadedmetadata, audioPlayer?.current?.readyState]);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const BottomBar = ({ songDetails, playing, firstPlayed, setState }) => {
       }
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [playing, setState]);
 
   useEffect(() => {

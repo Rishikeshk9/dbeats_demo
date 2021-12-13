@@ -111,7 +111,8 @@ export default function App() {
         document.body.style.backgroundColor = '#fff';
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // eslint-disable-next-line
   }, []);
 
   return (

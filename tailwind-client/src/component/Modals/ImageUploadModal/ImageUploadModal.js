@@ -107,7 +107,7 @@ export const UploadCoverImageModal = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [wrapperRef]);
 
   const handleUpload = async (e) => {
@@ -296,7 +296,7 @@ export const UploadProfileImageModal = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [wrapperRef]);
 
   const handleUpload = async (e) => {

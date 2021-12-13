@@ -29,7 +29,7 @@ const PinnedPanel = (props) => {
         }
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   console.log(pinnedData);

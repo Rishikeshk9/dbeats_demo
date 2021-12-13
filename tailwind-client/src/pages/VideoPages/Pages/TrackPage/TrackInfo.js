@@ -6,7 +6,7 @@ import { Playlist } from '../../../../component/Modals/PlaylistModals/PlaylistMo
 import AudioPlayer from './Track_Components/AudioPlayer';
 import TrackCard from './Track_Components/TrackCard';
 
-const TrackInfo = (props) => {
+const TrackInfo = () => {
   let params = useParams();
   const username = params.username;
   const track_id = params.track_id;
@@ -72,11 +72,11 @@ const TrackInfo = (props) => {
   useEffect(() => {
     get_User();
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   return (

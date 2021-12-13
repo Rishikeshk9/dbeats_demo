@@ -107,7 +107,7 @@ export default function Track() {
       // Anything in here is fired on component unmount.
       audio.removeEventListener('ended', () => setState({ play: false }));
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   const pauseResume = async () => {

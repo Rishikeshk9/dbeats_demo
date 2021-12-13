@@ -1,19 +1,17 @@
-import React from 'react';
-import NFTMarket from './Marketplace';
-import { useEffect, useState } from 'react';
-import { ethers } from 'ethers';
 import axios from 'axios';
+import { ethers } from 'ethers';
+import React, { useEffect, useState } from 'react';
 import Web3Modal from 'web3modal';
-import { nftaddress, nftmarketaddress } from '../config';
-import NFT from '../../../../artifacts/contracts/NFT.sol/NFT.json';
 import Market from '../../../../artifacts/contracts/Market.sol/NFTMarket.json';
+import NFT from '../../../../artifacts/contracts/NFT.sol/NFT.json';
+import { nftaddress, nftmarketaddress } from '../config';
 import NFTCard from './NFTCard';
 // const CONTRACT_ADDRESS = '0x03160747b94be986261d9340d01128d4d5566383';
 
 export default function NFTStore() {
   const [nfts, setNfts] = useState([]);
-  const [seeMore, setSeeMore] = useState(false);
-  const [nameSeeMore, setNameSeeMore] = useState(false);
+  // const [seeMore, setSeeMore] = useState(false);
+  // const [nameSeeMore, setNameSeeMore] = useState(false);
 
   const [loadingState, setLoadingState] = useState('not-loaded');
   useEffect(() => {

@@ -2,7 +2,7 @@ import React from 'react';
 import UserInfo from './User_Info';
 import { useParams } from 'react-router-dom';
 
-const UserRoomPage = (props) => {
+const UserRoomPage = () => {
   let params = useParams();
   return (
     <>

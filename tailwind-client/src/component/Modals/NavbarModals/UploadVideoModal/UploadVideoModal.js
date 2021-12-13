@@ -139,7 +139,7 @@ const UploadVideoModal = (props) => {
       derivativeWorks: selectedDerivativeWorks,
       tags: tags,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [selectedCategory, selectedCommercialUse, selectedDerivativeWorks, selectedAttribution, tags]);
 
   const PostData = async (e) => {

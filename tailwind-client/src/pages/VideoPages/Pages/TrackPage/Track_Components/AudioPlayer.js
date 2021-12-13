@@ -15,7 +15,7 @@ const AudioPlayer = ({ userData }) => {
     const seconds = Math.floor(audioPlayer.current.duration);
     setDuration(seconds);
     progressRef.current.max = seconds;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [audioPlayer?.current?.loadedmetadata, audioPlayer?.current?.readyState]);
 
   useEffect(() => {

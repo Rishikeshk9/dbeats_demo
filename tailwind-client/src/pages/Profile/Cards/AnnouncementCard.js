@@ -30,7 +30,7 @@ const AnnouncementCard = (props) => {
     if (props.post.timestamp) {
       setTime(moment(Math.floor(props.post.timestamp)).fromNow());
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   // const convertTimestampToTime = () => {
@@ -40,7 +40,7 @@ const AnnouncementCard = (props) => {
 
   // useEffect(() => {
   //   convertTimestampToTime();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   // eslint-disable-next-line
   // }, []);
 
   return (

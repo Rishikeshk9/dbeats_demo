@@ -190,7 +190,7 @@ const NavBar = () => {
         setNotification(data.reverse());
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   //console.log(notification);

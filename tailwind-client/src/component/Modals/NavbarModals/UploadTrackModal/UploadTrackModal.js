@@ -284,7 +284,7 @@ const UploadTrackModal = (props) => {
       derivativeWorks: selectedDerivativeWorks,
       tags: tags,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [
     selectedGenre,
     selectedCommercialUse,

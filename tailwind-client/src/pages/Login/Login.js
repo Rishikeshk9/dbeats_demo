@@ -56,7 +56,7 @@ const Login = () => {
           setInvalidPassword(true);
         }
       })
-      .catch(function (error) {
+      .catch(function () {
         setInvalidUsername(true);
       });
     setLoader(true);
@@ -311,7 +311,7 @@ const Login = () => {
                             : 'hidden'
                         }`}
                       >
-                        Confirm Password doesn't match Password
+                        Confirm Password doesn&apos;t match Password
                       </p>
                     </>
                     <div

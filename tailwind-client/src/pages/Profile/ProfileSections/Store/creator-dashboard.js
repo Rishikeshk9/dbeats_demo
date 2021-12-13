@@ -1,15 +1,13 @@
-import { useState } from 'react';
 import { ethers } from 'ethers';
 import { create as ipfsHttpClient } from 'ipfs-http-client';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-
 //import { useRouter } from 'next/router';
 import Web3Modal from 'web3modal';
-import { nftaddress, nftmarketaddress } from '../config';
-
-import NFT from '../../../../artifacts/contracts/NFT.sol/NFT.json';
 import Market from '../../../../artifacts/contracts/Market.sol/NFTMarket.json';
+import NFT from '../../../../artifacts/contracts/NFT.sol/NFT.json';
+import { nftaddress, nftmarketaddress } from '../config';
 
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
 

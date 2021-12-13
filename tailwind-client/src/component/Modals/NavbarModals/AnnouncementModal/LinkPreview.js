@@ -10,7 +10,7 @@ const LinkPreview = ({ linkurl, setShowLinkPreview }) => {
     setLinkData(null);
     fetchData();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [linkurl]);
 
   const fetchData = async () => {

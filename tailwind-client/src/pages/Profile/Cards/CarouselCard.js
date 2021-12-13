@@ -25,7 +25,7 @@ const CarouselCard = (props) => {
 
   useEffect(() => {
     convertTimestampToTime();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   ////console.log(props.playbackUserData)

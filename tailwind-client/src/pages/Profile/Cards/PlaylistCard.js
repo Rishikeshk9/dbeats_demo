@@ -20,7 +20,7 @@ const PlaylistCard = (props) => {
     if (props.playlistData.data.trackId) {
       setAudio(new Audio(props.playlistData.data.link));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

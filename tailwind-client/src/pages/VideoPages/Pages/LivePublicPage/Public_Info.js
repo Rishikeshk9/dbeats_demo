@@ -133,7 +133,7 @@ const PublicInfo = (props) => {
     } else {
       setPrivate(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

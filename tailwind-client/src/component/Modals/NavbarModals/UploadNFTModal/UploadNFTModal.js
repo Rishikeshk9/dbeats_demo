@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
-
+import React from 'react';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
-
 import CreatorDashboard from '../../../../pages/Profile/ProfileSections/Store/creator-dashboard';
 
 const UploadNFTModal = (props) => {

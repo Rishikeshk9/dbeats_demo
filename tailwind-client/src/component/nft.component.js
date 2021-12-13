@@ -107,7 +107,7 @@ const Form = () => {
   useEffect(() => {
     // Anything in here is fired on component mount.
     //fetchNFTList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   function getMediaType(contentURI, mimeType) {

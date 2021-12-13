@@ -42,7 +42,7 @@ const UserInfo = () => {
     setPlaybackUrl(`https://cdn.livepeer.com/hls/${user.livepeer_data.playbackId}/index.m3u8`);
     //setName(user.livepeer_data.name);
     setUserStreams(user.livepeer_data);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
   ////console.log(multiStreamConnected)
 

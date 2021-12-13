@@ -8,13 +8,11 @@ import PageNotFound from '../../component/PageNotFound/PageNotFound';
 import animationData from '../../lotties/error-animation.json';
 import ChannelSection from './ProfileSections/ChannelSection';
 import ChatRoom from './ProfileSections/ChatRoom/ChatRoom';
-
-import Dashboard from './ProfileSections/Ticket/dashboard';
 import ProfileDetails from './ProfileSections/ProfileDetails/ProfileDetails';
 import NFTStore from './ProfileSections/Store/NFT_Store';
 import Ticket from './ProfileSections/Ticket/Ticket';
 
-const Profile = (props) => {
+const Profile = () => {
   // For Routing
   let match = useRouteMatch();
   let params = useParams();
@@ -55,7 +53,7 @@ const Profile = (props) => {
       setPrivate(false);
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   const get_User = async () => {

@@ -104,7 +104,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
       get_User();
       setPrivate(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   const get_User = async () => {

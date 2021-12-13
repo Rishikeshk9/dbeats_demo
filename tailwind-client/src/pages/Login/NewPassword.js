@@ -98,7 +98,7 @@ const NewPassword = () => {
                           : 'hidden'
                       }`}
                     >
-                      Confirm Password doesn't match Password
+                      Confirm Password doesn&apos;t match Password
                     </p>
                   </>
                   <div className="flex justify-center">
