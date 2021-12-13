@@ -1,2 +1,3 @@
-export const nftmarketaddress = '0x94eCC8C33157eC969EcC6d24D7B1DC34f97d1653';
-export const nftaddress = '0x49888BCfB991A425C22D3bFEA332ae3202eD847d';
+export const nftmarketaddress = '0xec61bd3BE36d279109Da98E4326b4C89619d1bC2';
+export const nftaddress = '0xddfE7cC83cEC7BF57C3c9dfec5596Fac6CC64b4E';
+export const rpc_url = 'https://matic-mumbai.chainstacklabs.com';

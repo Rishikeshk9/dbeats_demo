@@ -7,7 +7,7 @@ const NFTCard = ({ nft, buyNft }) => {
   const [nameSeeMore, setNameSeeMore] = useState(false);
 
   return (
-    <div className="dark:bg-gradient-to-b min-h-full shadow-md  hover:border-gray-500 dark:from-dbeats-dark-secondary dark:to-dbeats-dark-secondary  dark:hover:bg-gradient-to-b  dark:hover:from-green-400 dark:hover:via-dbeats-dark-secondary  dark:hover:to-dbeats-dark-alt sm:hover:scale-101 transform   bg-gradient-to-b from-white to-white dark:hover:bg-opacity-10 hover:bg-opacity-90 hover:bg-gradient-to-b hover:from-white hover:via-blue-50 hover:to-green-50   group  backdrop-blur-2xl  backdrop-filter dark:hover:backdrop-blur-2xl  dark:hover:backdrop-filter    hover:shadow-md cursor-pointer w-full  sm:rounded-lg flex flex-col items-center justify-center transition-all duration-200 ease-in-out">
+    <div className="dark:bg-gradient-to-b min-h-full  shadow-md  hover:border-gray-500 dark:from-dbeats-dark-secondary dark:to-dbeats-dark-secondary  dark:hover:bg-gradient-to-b  dark:hover:from-green-400 dark:hover:via-dbeats-dark-secondary  dark:hover:to-dbeats-dark-alt sm:hover:scale-101 transform   bg-gradient-to-b from-white to-white dark:hover:bg-opacity-10 hover:bg-opacity-90 hover:bg-gradient-to-b hover:from-white hover:via-blue-50 hover:to-green-50   group  backdrop-blur-2xl  backdrop-filter dark:hover:backdrop-blur-2xl  dark:hover:backdrop-filter    hover:shadow-md cursor-pointer    sm:rounded-lg flex flex-col items-center justify-center transition-all duration-200 ease-in-out">
       <div className="relative sm:mt-2 sm:mx-2">
         <div className=" h-full w-full max-h-100 lg:h-56    sm:rounded-md overflow-hidden">
           <img
@@ -33,7 +33,7 @@ const NFTCard = ({ nft, buyNft }) => {
               />
             </svg>
           </div>
-          <div className="h-10 w-16 ml-2 bg-white dark:bg-dbeats-dark-secondary bg-opacity-20  dark:bg-opacity-10 hover:bg-opacity-25 dark:hover:bg-opacity-80 dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md hover:bg-dbeats-light    grad flex items-center justify-center font-medium text-white hover:text-white rounded-2xl shadow-sm dark:shadow-md  transform-gpu translate-y-0 hover:-translate-y-1 transition-all duration-300 ease-in-out group">
+          <div className="h-10  ml-2 w-max   px-2 bg-white dark:bg-dbeats-dark-secondary bg-opacity-20  dark:bg-opacity-10 hover:bg-opacity-25 dark:hover:bg-opacity-80 dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md hover:bg-dbeats-light    grad flex items-center justify-center font-medium text-white hover:text-white rounded-2xl shadow-sm dark:shadow-md  transform-gpu translate-y-0 hover:-translate-y-1 transition-all duration-300 ease-in-out group">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -47,7 +47,7 @@ const NFTCard = ({ nft, buyNft }) => {
           </div>
           <div
             onClick={() => buyNft(nft)}
-            className="h-10 w-16 ml-2 bg-white dark:bg-dbeats-dark-secondary bg-opacity-20  dark:bg-opacity-10 hover:bg-opacity-25 dark:hover:bg-opacity-80 dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md hover:bg-dbeats-light    grad flex items-center justify-center font-medium text-white hover:text-white rounded-2xl shadow-sm dark:shadow-md  transform-gpu translate-y-0 hover:-translate-y-1 transition-all duration-300 ease-in-out group"
+            className="h-10w-max ml-2 px-2 bg-white dark:bg-dbeats-dark-secondary bg-opacity-20  dark:bg-opacity-10 hover:bg-opacity-25 dark:hover:bg-opacity-80 dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md hover:bg-dbeats-light    grad flex items-center justify-center font-medium text-white hover:text-white rounded-2xl shadow-sm dark:shadow-md  transform-gpu translate-y-0 hover:-translate-y-1 transition-all duration-300 ease-in-out group"
           >
             <span className="group-hover:text-white text-white mx-1 flex group ">
               {nft.price}{' '}
@@ -67,7 +67,7 @@ const NFTCard = ({ nft, buyNft }) => {
       <div className="pt-10 pb-6 w-full px-4" style={{ minHeight: '145px' }}>
         <h1 className="font-medium leading-none text-base tracking-wider text-gray-900 dark:text-white">
           <p
-            className={`${!nameSeeMore ? 'line-clamp-3' : ''} mr-2 mt-1 `}
+            className={`${!nameSeeMore ? 'line-clamp-2' : ''} mr-2 mt-1 `}
             style={{ wordBreak: 'break-words' }}
           >
             {nft.name.split('\n').map(function (item) {
@@ -79,7 +79,7 @@ const NFTCard = ({ nft, buyNft }) => {
               );
             })}
           </p>
-          {nft.name.split(/\r\n|\r|\n/).length > 2 ? (
+          {nft.name.split(/\r\n|\r|\n/).length > 1 ? (
             <p
               className="cursor-pointer text-md hover:underline text-gray-600  "
               onClick={() => setNameSeeMore(!nameSeeMore)}

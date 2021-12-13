@@ -7,6 +7,8 @@ import NFT from '../../../../artifacts/contracts/NFT.sol/NFT.json';
 import { nftaddress, nftmarketaddress } from '../config';
 import NFTCard from './NFTCard';
 // const CONTRACT_ADDRESS = '0x03160747b94be986261d9340d01128d4d5566383';
+import NFTMarket from './NFTMarket';
+import UserOwnedAssets from './UserOwnedAssets';
 
 export default function NFTStore() {
   const [nfts, setNfts] = useState([]);
@@ -70,30 +72,62 @@ export default function NFTStore() {
     loadNFTs();
   }
 
-  if (loadingState === 'loaded' && !nfts.length)
-    return <h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>;
-  return (
-    <div className="w-full bg-gradient-to-b from-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-primary dark:to-dbeats-dark-primary mx-auto col-span-6 lg:col-span-5 md:col-span-6 xs:col-span-6 grid grid-flow-row   xl:grid-cols-4 lg:grid-cols-3  md:grid-cols-3 grid-cols-1  gap-2 gap-x-0 mt-20 sm:p-3">
-      {nfts ? (
-        <>
-          {nfts.map((nft, i) => {
-            // for covalent we have to set the contract address
+  async function resellOwnedItem(nft, price) {
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = provider.getSigner();
+    const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, signer);
 
-            if (nft) {
-              return (
-                <div
-                  key={i}
-                  className=" self-center  col-span-1   rounded-lg sm:mx-2 lg:m-2 transition-all duration-300 "
-                >
-                  <NFTCard nft={nft} buyNft={buyNft} />
-                  {/* <NFTMarket nft={nft}></NFTMarket> */}
-                </div>
-              );
-            }
-            return 0;
-          })}
-        </>
-      ) : null}
-    </div>
+    const listingPrice = await marketContract.getListingPrice();
+    const tx = await marketContract.putItemToResell(
+      nftaddress,
+      nft.tokenId,
+      ethers.utils.parseUnits(price, 'ether'),
+      { value: listingPrice.toString() },
+    );
+    await tx.wait();
+  }
+
+  if (loadingState === 'loaded' && !nfts.length) {
+    return (
+      <div className="h-max lg:col-span-5 col-span-6 w-full mt-20  dark:bg-dbeats-dark-primary  ">
+        <h1 className="   text-gray-300 w-full flex ">NFTs owned by you </h1>
+        <UserOwnedAssets resellOwnedItem={resellOwnedItem}></UserOwnedAssets>
+        <h1 className=" text-gray-300 w-full flex mt-10">No items in marketplace</h1>
+      </div>
+    );
+  }
+  return (
+    <>
+      <div className="h-max lg:col-span-5 col-span-6 w-full mt-20  dark:bg-dbeats-dark-primary  ">
+        <h1 className="   text-gray-300 w-full flex px-3 ">NFTs owned by you </h1>
+        <UserOwnedAssets resellOwnedItem={resellOwnedItem}></UserOwnedAssets>
+        <h1 className="   text-gray-300 w-full flex      px-3">Marketplace </h1>
+
+        <div className="w-full bg-gradient-to-b from-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-primary dark:to-dbeats-dark-primary mx-auto col-span-6 lg:col-span-5 md:col-span-6 xs:col-span-6 grid grid-flow-row   xl:grid-cols-4 lg:grid-cols-3  md:grid-cols-3 grid-cols-1  gap-2 gap-x-0  sm:p-3">
+          {nfts ? (
+            <>
+              {nfts.map((nft, i) => {
+                // for covalent we have to set the contract address
+
+                if (nft) {
+                  return (
+                    <div
+                      key={i}
+                      className=" self-center  col-span-1   rounded-lg sm:mx-2  transition-all duration-300 "
+                    >
+                      <NFTCard nft={nft} buyNft={buyNft} />
+                      {/* <NFTMarket nft={nft}></NFTMarket> */}
+                    </div>
+                  );
+                }
+                return 0;
+              })}
+            </>
+          ) : null}
+        </div>
+      </div>
+    </>
   );
 }

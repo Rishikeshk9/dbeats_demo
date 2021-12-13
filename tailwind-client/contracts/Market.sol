@@ -5,6 +5,7 @@ pragma solidity ^0.8.3;
 import '@openzeppelin/contracts/utils/Counters.sol';
 import '@openzeppelin/contracts/security/ReentrancyGuard.sol';
 import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
+import './NFT.sol';
 
 import 'hardhat/console.sol';
 
@@ -41,6 +42,13 @@ contract NFTMarket is ReentrancyGuard {
         uint256 price,
         bool sold
     );
+    // to broadcast that the token is being sold again:
+    event ProductListed(uint256 indexed itemId);
+
+    modifier onlyItemOwner(uint256 id) {
+        require(idToMarketItem[id].owner == msg.sender, 'Only product owner can do this operation');
+        _;
+    }
 
     /* Returns the listing price of the contract */
     function getListingPrice() public view returns (uint256) {
@@ -90,6 +98,30 @@ contract NFTMarket is ReentrancyGuard {
         idToMarketItem[itemId].sold = true;
         _itemsSold.increment();
         payable(owner).transfer(listingPrice);
+    }
+
+    // the function to (re)list the token in the marketplace
+    function putItemToResell(
+        address nftContract,
+        uint256 itemId,
+        uint256 newPrice
+    ) public payable nonReentrant onlyItemOwner(itemId) {
+        uint256 tokenId = idToMarketItem[itemId].tokenId;
+        require(newPrice > 0, 'Price must be at least 1 wei');
+        require(msg.value == listingPrice, 'Price must be equal to listing price');
+        //instantiate a NFT contract object with the matching type
+        NFT tokenContract = NFT(nftContract);
+        //call the custom transfer token method
+        tokenContract.transferToken(msg.sender, address(this), tokenId);
+
+        address oldOwner = idToMarketItem[itemId].owner;
+        idToMarketItem[itemId].owner = payable(address(0));
+        idToMarketItem[itemId].seller = payable(oldOwner);
+        idToMarketItem[itemId].price = newPrice;
+        idToMarketItem[itemId].sold = false;
+        _itemsSold.decrement();
+
+        emit ProductListed(itemId);
     }
 
     /* Returns all unsold market items */

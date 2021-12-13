@@ -64,7 +64,7 @@ export default function Home() {
     loadNFTs();
   }
   if (loadingState === 'loaded' && !nfts.length)
-    return <h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>;
+    return <h1 className="px-20 py-10 text-3xl flex">No items in marketplace</h1>;
   return (
     <div className="flex justify-center mx-5">
       <div className="px-4" style={{ maxWidth: '1600px' }}>

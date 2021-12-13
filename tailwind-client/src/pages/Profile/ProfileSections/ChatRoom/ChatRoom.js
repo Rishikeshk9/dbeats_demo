@@ -72,7 +72,7 @@ function ChatRoom(props) {
   }
 
   return (
-    <div className="text-gray-400	 w-full box-border px-5 h-max lg:col-span-5 col-span-6 w-full mt-16 dark:bg-dbeats-dark-primary">
+    <div className="text-gray-400	 box-border px-5 h-max lg:col-span-5 col-span-6 w-full mt-16 dark:bg-dbeats-dark-primary">
       <div className="overflow-hidden">
         {/* <header className="chat-header">
           <h1>

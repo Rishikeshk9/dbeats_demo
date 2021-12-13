@@ -5,7 +5,7 @@ const privateKey =
   '3c9b2a377363b3a7181170f33c011c0d827b956ea633eec097e771238fe71869';
 
 module.exports = {
-  defaultNetwork: 'matic',
+  defaultNetwork: 'mumbai',
   networks: {
     hardhat: {
       chainId: 1337,
