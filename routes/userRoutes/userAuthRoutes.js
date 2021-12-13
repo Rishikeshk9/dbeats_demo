@@ -27,25 +27,17 @@ router.route('/add').post(async (req, res) => {
   const walletID = req.body.wallet_id;
   const fullName = req.body.name;
   const userName = req.body.username;
+  const userEmail = req.body.email;
   const livepeerData = req.body.livepeer_data;
   const password = req.body.password;
   const confirmPassword = req.body.confirm_password;
   const userId = Str.random(5);
 
-  let data = {
-    username: userName,
-    id: userId,
-    name: fullName,
-    wallet_id: walletID,
-    livepeer_data: livepeerData,
-    password: password,
-    confirm_password: confirmPassword,
-  };
-
   const newUser = new User({
     username: userName,
     id: userId,
     name: fullName,
+    email: userEmail,
     wallet_id: walletID,
     livepeer_data: livepeerData,
     password: password,
@@ -57,30 +49,6 @@ router.route('/add').post(async (req, res) => {
     .then(() => res.json(newUser))
     .catch((err) => {
       res.status(400).json('Error: ' + err);
-    });
-
-  let webTriggerUrl = `http://localhost:5000/user/triggernotification/${userName}`;
-
-  let webData = {
-    events: ['stream.started'],
-    url: webTriggerUrl,
-    name: `Dbeats webhooks`,
-  };
-
-  axios({
-    method: 'post',
-    url: 'https://livepeer.com/api/webhook',
-    data: webData,
-    headers: {
-      'content-type': 'application/json',
-      Authorization: AuthStr,
-    },
-  })
-    .then(function (response) {
-      res.send('success');
-    })
-    .catch(function (error) {
-      //console.log(error.data);
     });
 });
 
