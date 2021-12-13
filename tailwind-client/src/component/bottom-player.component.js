@@ -123,58 +123,63 @@ const BottomBar = ({ songDetails, playing, firstPlayed, setState }) => {
                   <img
                     id="album-artwork"
                     src={songDetails.artwork}
-                    className=" mr-4 sm:mr-0 h-full w-20   "
+                    className=" lg:mr-4 mr-1 h-full w-20   "
                     alt=""
                   ></img>
-                  <div className="self-center truncate w-full">
-                    <p className="capitalize font-bold whitespace-nowrap truncate">
-                      {songDetails.songTitle}
-                    </p>
-                    <p className="capitalize whitespace-nowrap truncate">{songDetails.author}</p>
-                  </div>
-                  {/* <audio key={songLink} autoPlay>
+                  <div className="flex flex-col lg:flex-row lg:justify-between lg:w-full">
+                    <div className="self-center truncate w-full">
+                      <p className="text-ellipsis overflow-ellipsis capitalize font-bold whitespace-nowrap truncate">
+                        {songDetails.songTitle}
+                      </p>
+                      <p className="capitalize whitespace-nowrap truncate">{songDetails.author}</p>
+                    </div>
+                    {/* <audio key={songLink} autoPlay>
                 <source src={songLink} type="audio/mpeg" />
               </audio> */}
 
-                  <div className="flex items-center self-center justify-center w-full  ">
-                    <div className="text-white text-lg pr-3">
-                      <span className="range-value text-white" ref={lableRef}></span>
-                      <span> / {duration && !isNaN(duration) && calculateTime(duration)}</span>
-                    </div>
-                    <div
-                      onClick={setState}
-                      className="cursor-pointer dark:hover:bg-dbeats-dark-secondary p-1 rounded"
-                    >
-                      {playing ? (
-                        <i className="fas mx-3  text-xl fa-pause    "></i>
-                      ) : (
-                        <i className="fas mx-3 cursor-pointer text-xl fa-play   "></i>
-                      )}
-                    </div>
+                    <div className="flex items-center md:self-center lg:justify-center w-full  ">
+                      <div className="text-white lg:text-lg text-sm pr-3">
+                        <span className="range-value text-white" ref={lableRef}></span>
+                        <span> / {duration && !isNaN(duration) && calculateTime(duration)}</span>
+                      </div>
+                      <div
+                        onClick={setState}
+                        className="cursor-pointer dark:hover:bg-dbeats-dark-secondary p-1 rounded"
+                      >
+                        {playing ? (
+                          <i className="fas mx-3  text-xl fa-pause    "></i>
+                        ) : (
+                          <i className="fas mx-3 cursor-pointer text-xl fa-play   "></i>
+                        )}
+                      </div>
 
-                    <i
-                      className="fas mx-3 fa-step-forward cursor-pointer"
-                      onClick={seekForward}
-                    ></i>
+                      <i
+                        className="fas mx-3 fa-step-forward cursor-pointer"
+                        onClick={seekForward}
+                      ></i>
 
-                    <div className="flex items-center">
-                      {!mute ? (
-                        <VolumeUp className="cursor-pointer mx-1" onClick={() => setMute(!mute)} />
-                      ) : (
-                        <VolumeMute
-                          className="cursor-pointer mx-1"
-                          onClick={() => setMute(!mute)}
-                        />
-                      )}
+                      <div className="flex md:visible invisible items-center">
+                        {!mute ? (
+                          <VolumeUp
+                            className="cursor-pointer mx-1"
+                            onClick={() => setMute(!mute)}
+                          />
+                        ) : (
+                          <VolumeMute
+                            className="cursor-pointer mx-1"
+                            onClick={() => setMute(!mute)}
+                          />
+                        )}
 
-                      <input
-                        ref={volumeRef}
-                        type="range"
-                        defaultValue="50"
-                        onChange={changeVolumeRange}
-                        className="appearance-none ml-2 cursor-pointer w-full h-1.5 bg-gradient-to-r from-green-400 to-blue-500  
+                        <input
+                          ref={volumeRef}
+                          type="range"
+                          defaultValue="50"
+                          onChange={changeVolumeRange}
+                          className="appearance-none ml-2 cursor-pointer w-full h-1.5 bg-gradient-to-r from-green-400 to-blue-500  
                         font-white rounded outline-none slider-thumb backdrop-filter  backdrop-blur-md"
-                      />
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
