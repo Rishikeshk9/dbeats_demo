@@ -776,10 +776,10 @@ const PlayBackInfo = (props) => {
                 <Row>
                   <h2 className="grid grid-cols-5 justify-around w-full 2xl:text-2xl lg:text-md py-4 2xl:py-4 lg:py-2  pt-7  text-center relative  ">
                     <div className="col-span-5 text-gray-900 dark:text-gray-100 font-bold">
-                      To react on Video Please Login
+                      Kindly Login
                     </div>
                     <div
-                      className="ml-5 cursor-pointer text-gray-900 dark:text-gray-100 dark:bg-dbeats-dark-primary absolute right-10 top-4 2xl:top-4 lg:top-2"
+                      className="ml-5 cursor-pointer text-gray-900 dark:text-gray-100 dark:bg-dbeats-dark-primary absolute right-10 top-7 2xl:top-4 lg:top-2"
                       onClick={handleLoginClose}
                     >
                       <i className="fas fa-times"></i>
@@ -789,7 +789,7 @@ const PlayBackInfo = (props) => {
                 <Row>
                   <a
                     href="/signup"
-                    className="block mx-auto 2xl:p-2 p-2 lg:p-1 mt-4 mb-2 2xl:w-96 lg:w-72 w-full lg:text-md 2xl:text-lg  text-white font-semibold rounded-lg bg-dbeats-light"
+                    className="block mx-auto 2xl:p-2 p-2 lg:p-1 mt-4 mb-2 2xl:w-96 lg:w-72 w-full lg:text-md 2xl:text-lg  text-white text-center font-semibold rounded-lg bg-dbeats-light"
                   >
                     Login
                   </a>

@@ -622,11 +622,11 @@ const NavBar = () => {
             ) : (
               <a
                 href="/signup"
-                className="shadow-sm px-2 py-1 2xl:px-3 lg:px-1.5 2xl:py-1 lg:py-0.5 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light dark:bg-gradient-to-r 
-                dark:from-dbeats-secondary-light dark:to-dbeats-light text-white rounded font-bold mx-2 flex"
+                className="shadow-sm px-2  2xl:px-3 lg:px-1.5 2xl:py-1 lg:py-0.5 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light dark:bg-gradient-to-r 
+                dark:from-dbeats-secondary-light dark:to-dbeats-light text-white rounded font-bold ml-2 md:mx-2 md:ml-0 flex"
               >
-                <i className="fas fa-sign-in-alt text-xs lg:text-sm 2xl:text-lg self-center mr-2"></i>
-                <span className="self-center text-xs lg:text-xs 2xl:text-lg">Sign Up</span>
+                <i className="fas fa-sign-in-alt text-xs lg:text-sm 2xl:text-lg self-center mr-2 hidden md:block"></i>
+                <span className="self-center text-sm lg:text-xs 2xl:text-lg">SignUp</span>
               </a>
             )}
           </div>
