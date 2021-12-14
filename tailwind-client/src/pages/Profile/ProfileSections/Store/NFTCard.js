@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import maticLogo from '../../../../assets/graphics/polygon-matic-logo.svg';
+import dbeatsLogoBnW from '../../../../assets/images/Logo/logo-blacknwhite.png';
+import { Image } from 'react-img-placeholder';
+
 const NFTCard = ({ nft, buyNft }) => {
   //console.log(nft);
 
@@ -9,13 +12,23 @@ const NFTCard = ({ nft, buyNft }) => {
   return (
     <div className="dark:bg-gradient-to-b min-h-full  shadow-md  hover:border-gray-500 dark:from-dbeats-dark-secondary dark:to-dbeats-dark-secondary  dark:hover:bg-gradient-to-b  dark:hover:from-green-400 dark:hover:via-dbeats-dark-secondary  dark:hover:to-dbeats-dark-alt sm:hover:scale-101 transform   bg-gradient-to-b from-white to-white dark:hover:bg-opacity-10 hover:bg-opacity-90 hover:bg-gradient-to-b hover:from-white hover:via-blue-50 hover:to-green-50   group  backdrop-blur-2xl  backdrop-filter dark:hover:backdrop-blur-2xl  dark:hover:backdrop-filter    hover:shadow-md cursor-pointer    sm:rounded-lg flex flex-col items-center justify-center transition-all duration-200 ease-in-out">
       <div className="relative sm:mt-2 sm:mx-2">
-        <div className=" h-full w-full max-h-100 lg:h-56    sm:rounded-md overflow-hidden">
-          <img
+        <div className=" h-full w-full max-h-100 md:h-56    sm:rounded-md overflow-hidden">
+          <Image
+            src={nft.image}
+            height={200}
+            width={200}
+            className="object-cover  h-full w-full"
+            alt={nft.name}
+            placeholderSrc={dbeatsLogoBnW}
+          />
+
+          {/* <img
             // `https://ipfs.io/ipfs/` + nft.image.split('ipfs://')[1] for nftport
             src={nft.image}
             alt="ipfs"
-            className="object-cover  h-full"
-          />
+            className="object-cover  h-full w-full"
+            background={dbeatsLogoBnW}
+          /> */}
         </div>
 
         <div className="absolute bottom-0 left-0 -mb-4 ml-3 flex flex-row">

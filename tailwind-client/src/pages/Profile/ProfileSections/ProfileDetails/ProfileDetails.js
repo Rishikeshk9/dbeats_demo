@@ -531,8 +531,11 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
               </Tab.Panel>
 
               {privateUser ? (
-                <Tab.Panel className="">
-                  <div className="px-5 2xl:pt-10 lg:pt-5 pb-5 grid grid-cols-4 grid-flow-row ">
+                <Tab.Panel className="px-5 2xl:pt-10 lg:pt-5 pb-5">
+                  <h2 className="text-white opacity-40">
+                    Pinned Channels will be shown on left sidebar.
+                  </h2>
+                  <div className=" grid grid-cols-2 sm:grid-cols-4 grid-flow-row ">
                     {user.followee_count ? (
                       <div>
                         {user.followee_count.map((following, i) => {
@@ -540,7 +543,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                           return (
                             <div
                               key={i}
-                              className="flex 2xl:text-lg lg:text-sm text-md shadow px-10 w-max lg:w-full  2xl:my-5 lg:my-2.5 py-2 dark:bg-dbeats-dark-primary dark:text-gray-100"
+                              className="flex 2xl:text-lg lg:text-sm text-md shadow  w-full  lg:w-full   my-3 lg:my-2.5 py-2 rounded dark:hover:bg-dbeats-dark-alt dark:bg-dbeats-dark-secondary dark:text-gray-100 "
                             >
                               {pinnedData.indexOf(following) > -1 ? (
                                 <i

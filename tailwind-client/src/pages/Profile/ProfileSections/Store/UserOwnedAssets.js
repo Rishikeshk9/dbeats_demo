@@ -9,6 +9,8 @@ import { nftmarketaddress, nftaddress } from '../config';
 
 import Market from '../../../../artifacts/contracts/Market.sol/NFTMarket.json';
 import NFT from '../../../../artifacts/contracts/NFT.sol/NFT.json';
+import dbeatsLogoBnW from '../../../../assets/images/Logo/logo-blacknwhite.png';
+import { Image } from 'react-img-placeholder';
 
 const MyAssets = ({ resellOwnedItem }) => {
   const [nfts, setNfts] = useState([]);
@@ -69,11 +71,13 @@ const MyAssets = ({ resellOwnedItem }) => {
             >
               <div className="relative sm:mt-2 sm:mx-2">
                 <div className=" h-full w-full max-h-100 lg:h-56    sm:rounded-md overflow-hidden">
-                  <img
-                    // `https://ipfs.io/ipfs/` + nft.image.split('ipfs://')[1] for nftport
+                  <Image
                     src={nft.image}
-                    alt="ipfs"
-                    className="object-cover  h-full"
+                    height={200}
+                    width={200}
+                    className="object-cover  h-full w-full"
+                    alt={nft.name}
+                    placeholderSrc={dbeatsLogoBnW}
                   />
                 </div>
 
