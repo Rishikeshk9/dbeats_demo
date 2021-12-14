@@ -121,8 +121,11 @@ const Profile = () => {
         <div>
           {/* <Dashboard className="ml-20"></Dashboard> */}
 
-          <div id="outer-container" className="">
-            <div id="page-wrap" className={`${darkMode && 'dark'} grid lg:pl-16 grid-cols-6`}>
+          <div id="outer-container" className={`${darkMode && 'dark'}`}>
+            <div
+              id="page-wrap"
+              className={` grid lg:pl-16 grid-cols-6  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary`}
+            >
               <ChannelSection
                 privateUser={privateUser}
                 user={user}

@@ -63,13 +63,13 @@ const MyAssets = ({ resellOwnedItem }) => {
   return (
     <div className="flex   min-w-full  ">
       <div className="sm:mt-2 sm:mx-2">
-        <div className="w-full bg-gradient-to-b from-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-primary dark:to-dbeats-dark-primary mx-auto col-span-6 lg:col-span-5 md:col-span-6 xs:col-span-6 grid grid-flow-row   xl:grid-cols-4 lg:grid-cols-3  md:grid-cols-3 grid-cols-1 gap-2 sm:gap-4 sm:p-3">
+        <div className="w-full    dark:bg-gradient-to-b dark:from-dbeats-dark-primary dark:to-dbeats-dark-primary mx-auto col-span-6 lg:col-span-5 md:col-span-6 xs:col-span-6 grid grid-flow-row   xl:grid-cols-4 lg:grid-cols-3  md:grid-cols-3 grid-cols-1 gap-2 sm:gap-4 sm:p-3">
           {nfts.map((nft, i) => (
             <div
               key={i}
               className="dark:bg-gradient-to-b min-h-full  shadow-md  hover:border-gray-500 dark:from-dbeats-dark-secondary dark:to-dbeats-dark-secondary  dark:hover:bg-gradient-to-b  dark:hover:from-green-400 dark:hover:via-dbeats-dark-secondary  dark:hover:to-dbeats-dark-alt sm:hover:scale-101 transform   bg-gradient-to-b from-white to-white dark:hover:bg-opacity-10 hover:bg-opacity-90 hover:bg-gradient-to-b hover:from-white hover:via-blue-50 hover:to-green-50   group  backdrop-blur-2xl  backdrop-filter dark:hover:backdrop-blur-2xl  dark:hover:backdrop-filter    hover:shadow-md cursor-pointer    sm:rounded-lg flex flex-col items-center justify-center transition-all duration-200 ease-in-out"
             >
-              <div className="relative sm:mt-2 sm:mx-2">
+              <div className="relative sm:mt-2 sm:mx-2 ">
                 <div className=" h-full w-full max-h-100 lg:h-56    sm:rounded-md overflow-hidden">
                   <Image
                     src={nft.image}

@@ -394,7 +394,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
             </div>
           </div>
         </div>
-        <div className="w-full relative mb-20 ">
+        <div className="w-full  relative mb-20 ">
           <Tab.Group defaultIndex={tabIndex}>
             <Tab.List className="flex  px-1  space-x-1 bg-white text-white  dark:bg-gradient-to-b  dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary bg-gradient-to-b    from-white  to-blue-50">
               {NavTabs.map((tab, idx) => {

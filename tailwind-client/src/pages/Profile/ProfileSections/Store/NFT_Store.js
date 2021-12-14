@@ -91,7 +91,7 @@ export default function NFTStore() {
 
   if (loadingState === 'loaded' && !nfts.length) {
     return (
-      <div className="h-max lg:col-span-5 col-span-6 w-full mt-20  dark:bg-dbeats-dark-primary  ">
+      <div className="h-max lg:col-span-5 col-span-6 w-full mt-20     ">
         <h1 className="   text-gray-300 w-full flex ">NFTs owned by you </h1>
         <UserOwnedAssets resellOwnedItem={resellOwnedItem}></UserOwnedAssets>
         <h1 className=" text-gray-300 w-full flex mt-10">No items in marketplace</h1>
@@ -100,12 +100,16 @@ export default function NFTStore() {
   }
   return (
     <>
-      <div className="h-max lg:col-span-5 col-span-6 w-full mt-20  dark:bg-dbeats-dark-primary  ">
-        <h1 className="   text-gray-300 w-full flex px-3 ">NFTs owned by you </h1>
+      <div className="h-full lg:col-span-5 col-span-6 w-full pt-20    ">
+        <h1 className="   dark:text-gray-300 w-full flex   text-dbeats-dark   px-3">
+          NFTs owned by you{' '}
+        </h1>
         <UserOwnedAssets resellOwnedItem={resellOwnedItem}></UserOwnedAssets>
-        <h1 className="   text-gray-300 w-full flex      px-3">Marketplace </h1>
+        <h1 className="   dark:text-gray-300 w-full flex   text-dbeats-dark   pt-5  px-3">
+          Marketplace{' '}
+        </h1>
 
-        <div className="w-full bg-gradient-to-b from-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-primary dark:to-dbeats-dark-primary mx-auto col-span-6 lg:col-span-5 md:col-span-6 xs:col-span-6 grid grid-flow-row   xl:grid-cols-4 lg:grid-cols-3  md:grid-cols-3 grid-cols-1  gap-2 gap-x-0  sm:p-3">
+        <div className="w-full   mx-auto col-span-6 lg:col-span-5 md:col-span-6 xs:col-span-6 grid grid-flow-row   xl:grid-cols-4 lg:grid-cols-3  md:grid-cols-3 grid-cols-1  gap-2 gap-x-0   sm:px-3 sm:py-5">
           {nfts ? (
             <>
               {nfts.map((nft, i) => {

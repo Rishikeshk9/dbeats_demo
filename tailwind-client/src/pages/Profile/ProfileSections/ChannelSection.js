@@ -36,10 +36,14 @@ const ChannelSection = (props) => {
   const [selected, setSelected] = useState(channels[0]);
 
   return (
-    <div className={`${darkMode && 'dark'} pt-3 pl-3 h-full  hidden lg:block  `}>
+    <div
+      className={`${
+        darkMode && 'dark'
+      } pl-3 h-full  hidden lg:block  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary`}
+    >
       <div
         id="recommended_channel"
-        className="w-full h-full  pt-4 lg:col-span-1 hidden  lg:block sm:hidden mt-4  bg-gradient-to-l from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-l dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary"
+        className="w-full h-full   pt-8 lg:col-span-1 hidden  lg:block sm:hidden  "
       >
         {/* <div className="relative">
           <img src={background} alt="background"></img>
