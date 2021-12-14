@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { React, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Web3Modal from 'web3modal';
 import maticLogo from '../../../../assets/graphics/polygon-matic-logo.svg';
