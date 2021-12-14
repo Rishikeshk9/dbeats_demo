@@ -69,29 +69,39 @@ const PlayBackCard = (props) => {
 
           <div className="col-start-1 row-start-3 pb-2 pt-4">
             <div className="flex   text-black text-sm font-medium">
-              <img
-                src={person}
-                alt=""
-                className="2xl:w-10 2xl:h-10 w-10 h-10 lg:w-7 lg:h-7 rounded-full mr-2 bg-gray-100 self-start"
-              />
+              <a href={`/profile/${props.playbackUserData.username}/`} className="mr-4">
+                <img
+                  src={
+                    props.playbackUserData.profile_image
+                      ? props.playbackUserData.profile_image
+                      : person
+                  }
+                  alt=""
+                  className="2xl:w-10 2xl:h-10 w-10 h-10 lg:w-7 lg:h-7 rounded-full  bg-gray-100 self-start"
+                />
+              </a>
               <div className="w-full flex  justify-between ">
                 <div>
-                  <span className="2xl:text-sm lg:text-xs text-sm font-semibold dark:text-gray-200">
+                  <span className=" text-base font-semibold dark:text-gray-200 mb-2">
                     {props.playbackUserData.videos[index].videoName.slice(0, 45)}
                     {props.playbackUserData.videos[index].videoName.length > 45 ? '...' : ''}
                   </span>
+                  {console.log(props.playbackUserData)}
                   <br />
                   <div className="w-full   ">
-                    <div className="2xl:text-sm lg:text-xs text-sm text-gray-500  ">
+                    <a
+                      href={`/profile/${props.playbackUserData.username}/`}
+                      className="2xl:text-sm lg:text-xs text-sm text-gray-500  mb-2"
+                    >
                       {props.playbackUserData.name}
-                    </div>{' '}
+                    </a>{' '}
                     <div className="2xl:text-sm lg:text-xs text-sm text-gray-500 pr-2 flex  ">
                       {time}
                     </div>
                   </div>
                 </div>
                 <div>
-                  <div className="  w-max ml-2 px-2 hover:p-2 justify-center  cursor-pointer  dark:bg-dbeats-dark-secondary  hover:bg-opacity-25 dark:hover:bg-opacity-80 dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md hover:bg-dbeats-light  dark:hover:bg-dbeats-dark-primary   grad flex items-center   font-medium text-white hover:text-white      transform-gpu translate-y-0 hover:-translate-y-1 transition-all duration-300 ease-in-out group">
+                  <div className="  w-max ml-2 p-2   justify-center  cursor-pointer  dark:bg-dbeats-dark-secondary  hover:bg-opacity-25 dark:hover:bg-opacity-80 dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md hover:bg-dbeats-light  dark:hover:bg-dbeats-dark-primary   grad flex items-center   font-medium text-white hover:text-white      transform-gpu  transition-all duration-300 ease-in-out group">
                     <span className="group-hover:text-white text-black dark:text-white mx-1 flex group ">
                       200
                       <img
