@@ -2,7 +2,7 @@ require('@nomiclabs/hardhat-waffle');
 const fs = require('fs');
 const privateKey =
   fs.readFileSync('.secret').toString().trim() ||
-  '3c9b2a377363b3a7181170f33c011c0d827b956ea633eec097e771238fe71869';
+  '7f413c5e312b32956d82218dfc2640ea72aa8087bedd977afc60ef486418f4ac';
 
 module.exports = {
   defaultNetwork: 'mumbai',
