@@ -39,7 +39,7 @@ const SearchResult = () => {
                             <a href={`/profile/${value.username}`}>
                               <img
                                 className="mx-auto   self-center  cursor-pointer"
-                                src={logo}
+                                src={value.profile}
                                 alt={`Profile ${i}`}
                               />
                             </a>

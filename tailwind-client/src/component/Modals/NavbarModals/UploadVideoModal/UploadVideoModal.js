@@ -5,7 +5,7 @@ import Chips from 'react-chips';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
 import Dropdown from '../../../dropdown.component';
-import { makeStorageClient } from '../uploadHelperFunction';
+import { makeStorageClient } from '../../../uploadHelperFunction';
 import { chipTheme, theme } from '../Theme';
 
 const UploadVideoModal = (props) => {

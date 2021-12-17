@@ -117,14 +117,19 @@ const NavBar = () => {
 
     alluser.map((value) => {
       if (value.videos) {
-        value.videos.map((video, index) => {
+        value.videos.map(async (video, index) => {
           if (video.videoName.toLowerCase().includes(searchWord.toLowerCase())) {
-            let data = {
-              username: value.username,
-              index: index,
-              video: video,
-            };
-            newVideoFilter.push(data);
+            await axios
+              .get(`${process.env.REACT_APP_SERVER_URL}/user/${value.username}`)
+              .then((resData) => {
+                let data = {
+                  username: value.username,
+                  index: index,
+                  video: video,
+                  profile: resData.profile_image,
+                };
+                newVideoFilter.push(data);
+              });
           }
           return 0;
         });

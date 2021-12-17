@@ -2,15 +2,21 @@ import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import classes from '../Profile.module.css';
 import moment from 'moment';
+import { detectURLs } from '../../../component/uploadHelperFunction';
 moment().format();
+
+const mql = require('@microlink/mql');
 
 const AnnouncementCard = (props) => {
   //console.log(props);
   const [playing, setPlaying] = useState(false);
+
   const [showImage, setShowImage] = useState(true);
   const [seeMore, setSeeMore] = useState(false);
+  const [showLinkPreview, setShowLinkPreview] = useState(false);
 
   const [time, setTime] = useState(null);
+  const [linkData, setLinkData] = useState(null);
 
   const handleMouseMove = () => {
     setPlaying(true);
@@ -30,8 +36,31 @@ const AnnouncementCard = (props) => {
     if (props.post.timestamp) {
       setTime(moment(Math.floor(props.post.timestamp)).fromNow());
     }
+
+    if (props.post.announcement && !props.post.post_image && !props.post.post_video) {
+      let url = detectURLs(props.post.announcement);
+      if (url && url.length > 0) {
+        fetchData(url[url.length - 1]);
+        setShowLinkPreview(true);
+      } else {
+        setShowLinkPreview(false);
+      }
+    }
     // eslint-disable-next-line
   }, []);
+
+  const fetchData = async (linkurl) => {
+    // eslint-disable-next-line
+    const { status, data, response } = await mql(`${linkurl}`, {
+      animations: true,
+    });
+
+    if (data.title.indexOf('Page Not Found') === -1) {
+      setLinkData(data);
+    } else {
+      setShowLinkPreview(false);
+    }
+  };
 
   // const convertTimestampToTime = () => {
   //   const timestamp = new Date(props.playbackUserData.time * 1000); // This would be the timestamp you want to format
@@ -80,7 +109,25 @@ const AnnouncementCard = (props) => {
               ) : null}
             </a>
           </div>
-        ) : null}
+        ) : (
+          <div
+            className={`cursor-pointer mx-auto items-center lg:w-80 2xl:w-80 2xl:h-48 lg:h-32 md:w-96 h-52 dark:bg-dbeats-dark-primary bg-gray-100`}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={hanldeMouseLeave}
+          >
+            <a href={props.post.link} target="_blank" rel="noopener noreferrer">
+              {showLinkPreview && linkData ? (
+                <>
+                  <img
+                    src={linkData.image.url}
+                    alt="announcement_info"
+                    className="mx-auto h-full w-auto"
+                  />
+                </>
+              ) : null}
+            </a>
+          </div>
+        )}
         <div className={`px-5 w-full py-2`}>
           <p className="flex w-full justify-between text-black text-sm font-medium dark:text-gray-100">
             <div className="w-full">
