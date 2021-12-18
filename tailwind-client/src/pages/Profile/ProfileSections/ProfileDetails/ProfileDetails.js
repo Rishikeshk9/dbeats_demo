@@ -53,7 +53,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
       case 'videos':
         setTabIndex(1);
         break;
-      case 'tracks':
+      case 'music':
         setTabIndex(2);
         break;
       case 'playlists':
@@ -104,7 +104,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
       get_User();
       setPrivate(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   const get_User = async () => {
@@ -249,7 +249,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
       });
   };
 
-  const NavTabs = ['Posts', 'Videos', 'Tracks', 'Playlists', 'Reactions', 'Subscribed Channels'];
+  const NavTabs = ['Posts', 'Videos', 'Music', 'Activity', 'Playlists']; //, 'Subscribed Channels'
 
   const NavTabsTitle = ({ text }) => {
     if (text === 'Subscribed Channels') {
@@ -274,11 +274,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
   };
 
   return (
-    <div
-      className={`${
-        darkMode && 'dark'
-      } 2xl:px-5 lg:px-2 h-max lg:col-span-5 col-span-6 w-full mt-16 `}
-    >
+    <div className={`${darkMode && 'dark'}   h-max lg:col-span-5 col-span-6 w-full   `}>
       <div id="display_details" className="   h-full">
         <div className="bg-white dark:bg-dbeats-dark-primary 2xl:pb-3 lg:pb-2">
           {privateUser ? (
@@ -299,47 +295,20 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
             <img src={coverImage} alt="backgroundImg" className="2xl:h-88 lg:h-56 h-56 w-full " />
           </div>
           <div className="w-full ">
-            <div className="w-full flex flex-col lg:flex-row 2xl:-mt-28 lg:-mt-20 -mt-20 lg:ml-5 ml-0">
-              <div className="2xl::w-56 lg:w-44 w-full flex justify-center z-1">
-                <div
-                  className="2xl:px-1 2xl:py-1 shadow-sm 2xl:w-44 2xl:h-44 lg:w-32 
-                lg:h-32 h-28 w-28 bg-white rounded-full 
-                dark:bg-dbeats-dark-primary overflow-hidden"
-                >
-                  <img
-                    src={profileImage}
-                    alt=""
-                    className="relative h-full w-full  align-middle items-center  rounded-full "
-                  />
-                  {privateUser ? (
-                    <div className="flex justify-end ">
-                      <div
-                        className="absolute dark:bg-dbeats-dark-alt dark:hover:bg-dbeats-dark dark:text-gray-400 hover:bg-gray-200
-                        hover:text-dbeats-light dark:hover:text-white text-dbeats-light bg-white  rounded-full z-2 -mt-8 mr-2"
-                      >
-                        <i
-                          className="fas fa-pen  2xl:p-2.5 lg:p-1.5 
-                     cursor-pointer"
-                          onClick={() => setShowUploadProfileImage(true)}
-                        ></i>
-                      </div>
-                    </div>
-                  ) : (
-                    false
-                  )}
-                </div>
-              </div>
-              <div className="w-full flex flex-col ml-3 2xl:mr-5 z-1 ">
-                <div className="flex flex-col lg:flex-row justify-between  mt-14 text-gray-400 2xl:px-10 lg:px-5 px-2 rounded-tl-lg  dark:bg-dbeats-dark-primary bg-white">
-                  <div className="dark:text-white  text-dbeats-dark-alt 2xl:py-4 lg:py-2.5">
+            <div className="w-full flex flex-col lg:flex-row 2xl:-mt-28 lg:-mt-20 -mt-20   ">
+              <div className="w-full flex flex-col   z-1 mx-auto ">
+                <div className="  flex flex-col lg:flex-row justify-between   md:mt-20  mt-40  sm:-mt-24 text-gray-400   dark:bg-dbeats-dark-primary bg-white dark:backdrop-filter dark:backdrop-blur dark:bg-opacity-80  backdrop-filter  backdrop-blur  bg-opacity-90">
+                  <div className="dark:text-white  text-dbeats-dark-alt 2xl:py-4 lg:py-2.5    md:py-3 lg:mx-0 px-10 lg:px-10 md:px-4 ">
                     <div className="flex w-max lg:pt-0 items-center ">
-                      <span className="font-bold 2xl:text-3xl lg:text-xl mr-3 ">{user.name}</span>
+                      <span className="font-bold 2xl:text-3xl lg:text-xl md:text-xl mr-3 ">
+                        {user.name}
+                      </span>
                       {!privateUser ? (
                         <button
                           href="#"
                           className="flex items-center no-underline cursor-pointer border-dbeats-light border-1  
                           text-dbeats-light hover:bg-dbeats-light 
-                          hover:text-white rounded font-bold mr-1 flex self-center py-1 2xl:px-3 lg:px-1.5 lg:text-sm 2xl:text-lg"
+                          hover:text-white rounded font-bold mr-1   self-center py-1 2xl:px-3 lg:px-1.5 lg:text-sm 2xl:text-lg"
                           onClick={trackFollowers}
                         >
                           <span>
@@ -355,18 +324,50 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                       <button
                         onClick={handleShow}
                         className="no-underline border text-dbeats-dark-alt 
-                        cursor-pointer dark:border-white border-1  dark:text-blue-50 
+                        cursor-pointer dark:border-white border-1 dark:border-opacity-20  dark:text-gray-200 
                         hover:bg-dbeats-light hover:text-white 
                         dark:hover:text-white rounded font-bold mr-1 
-                        flex self-center   py-1 2xl:px-3 lg:px-1.5 lg:text-xs 2xl:text-lg"
+                        flex self-center   py-1 2xl:px-3 lg:px-1.5  text-xs 2xl:text-lg  px-2"
                       >
                         <i className="fas fa-share-alt self-center mr-2 "></i> SHARE
                       </button>
                     </div>
-                    <span className="font-semibold 2xl:text-lg lg:text-sm">@{user.username}</span>
+                    <span className="font-semibold 2xl:text-lg lg:text-sm opacity-60">
+                      @{user.username}
+                    </span>
                   </div>
 
-                  <div className="lg:grid lg:grid-flow-rows lg:grid-cols-3  font-bold 2xl:text-xl lg:text-sm text-gray-20 lg:gap-4 flex justify-between items-center">
+                  <div className="2xl::w-56 lg:w-44 w-full flex justify-center z-1 -mt-48  md:-mt-36 lg:-mt-20 2xl:-mt-24 mb-24 md:mb-8 2xl:mb-0 xl:mb-0 lg:mb-0  sm:-mt-24">
+                    <div
+                      className="2xl:px-1 2xl:py-1 shadow-sm 2xl:w-44 2xl:h-44 lg:w-32 
+                lg:h-32 md:h-36 md:w-36 h-28 w-28 bg-white   
+                dark:bg-dbeats-dark-primary overflow-hidden rounded-full    z-500 "
+                    >
+                      <img
+                        src={profileImage}
+                        alt=""
+                        className="relative h-full w-full  align-middle items-center   rounded-full  z-500 "
+                      />
+                      {privateUser ? (
+                        <div className="flex justify-end ">
+                          <div
+                            className="absolute dark:bg-dbeats-dark-alt dark:hover:bg-dbeats-dark dark:text-gray-400 hover:bg-gray-200
+                        hover:text-dbeats-light dark:hover:text-white text-dbeats-light bg-white  rounded-full z-2 -mt-4 -mr-2 w-7 h-7 items-center"
+                          >
+                            <i
+                              className="fas fa-pen  2xl:p-2.5 lg:p-1.5 
+                     cursor-pointer align-middle items-center  "
+                              onClick={() => setShowUploadProfileImage(true)}
+                            ></i>
+                          </div>
+                        </div>
+                      ) : (
+                        false
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="lg:grid lg:grid-flow-rows lg:grid-cols-3  font-bold 2xl:text-xl lg:text-sm text-gray-20 lg:gap-4 flex justify-between items-center mb-2 md:mb-5">
                     <div className="mx-auto 2xl:px-4 px-2 flex flex-col lg:flex-row justify-center items-center">
                       <div className=" w-full mr-2 flex justify-center">
                         {user.videos ? user.videos.length : 0}{' '}
@@ -393,17 +394,17 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
             </div>
           </div>
         </div>
-        <div className="w-full relative mb-20 ">
+        <div className="w-full  relative mb-20 ">
           <Tab.Group defaultIndex={tabIndex}>
-            <Tab.List className="flex px-1  space-x-1 bg-white lg:flex-nowrap flex-wrap dark:bg-dbeats-dark-primary ">
+            <Tab.List className="flex  px-1  space-x-1 bg-white text-white  dark:bg-gradient-to-b  dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary bg-gradient-to-b    from-white  to-blue-50">
               {NavTabs.map((tab, idx) => {
                 return <NavTabsTitle text={tab} key={idx} />;
               })}
             </Tab.List>
 
-            <Tab.Panels className="dark:bg-dbeats-dark-alt w-full h-full  overflow-auto ">
+            <Tab.Panels className="dark:bg-dbeats-dark-primary text-gray-900  ">
               <Tab.Panel className="">
-                <div className="px-5 2xl:pt-10 lg:pt-5 pb-5">
+                <div className=" sm:px-5  pb-5">
                   {postsData && postsData.length > 0 ? (
                     <div>
                       {postsData.map((post, i) => {
@@ -421,7 +422,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                 </div>
               </Tab.Panel>
               <Tab.Panel className="">
-                <div className="px-5 2xl:pt-10 lg:pt-5 pb-5">
+                <div className=" sm:px-5  pb-5">
                   {user.videos && user.videos.length > 0 ? (
                     <div>
                       {user.videos.map((playbackUser, i) => {
@@ -429,6 +430,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                         return (
                           <div key={i}>
                             <CarouselCard
+                              videono={i}
                               playbackUserData={playbackUser}
                               index={i}
                               username={user.username}
@@ -445,26 +447,56 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
               </Tab.Panel>
 
               <Tab.Panel className="">
-                <div className="px-5 2xl:pt-10 lg:pt-5 pb-5">
+                <div className="sm:px-5  pb-5">
                   {user.tracks && user.tracks.length > 0 ? (
                     <div className="w-full">
                       {user.tracks.map((track, i) => {
                         ////console.log(playbackUser)
                         return (
                           <div key={i} className="w-full">
-                            <TrackCard track={track} index={i} username={user.username} />
+                            <TrackCard
+                              trackno={i}
+                              track={track}
+                              index={i}
+                              username={user.username}
+                            />
                           </div>
                         );
                       })}
                     </div>
                   ) : (
-                    <p className="2xl:text-lg lg:text-sm dark:text-white">No Tracks till now</p>
+                    <p className="2xl:text-lg lg:text-sm dark:text-white">No Music till now</p>
+                  )}
+                </div>
+              </Tab.Panel>
+
+              <Tab.Panel>
+                <div className=" sm:px-5  pb-5">
+                  {user.your_reactions.length > 0 ? (
+                    <div>
+                      {user.your_reactions.map((playbackUser, i) => {
+                        ////console.log(playbackUser)
+                        return (
+                          <div key={i} className="">
+                            <ReactionCard
+                              reactno={i}
+                              playbackUserData={playbackUser}
+                              index={i}
+                              username={user.username}
+                              type="video"
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <p className="2xl:text-lg lg:text-sm dark:text-white">No Latest Activity</p>
                   )}
                 </div>
               </Tab.Panel>
 
               <Tab.Panel className="">
-                <div className="px-5 2xl:pt-10 pb-5  lg:pt-5 ">
+                <div className="px-2 2xl:pt-5 lg:pt-2 pb-5">
                   {user.my_playlists && user.my_playlists.length > 0 ? (
                     <div>
                       {user.my_playlists.map((playlist, i) => {
@@ -472,7 +504,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                         return (
                           <>
                             <div key={i} className="">
-                              <h2 className="dark:text-white 2xl:text-2xl lg:text-lg ml-5 mb-3">
+                              <h2 className="dark:text-white font-bold 2xl:text-2xl lg:text-lg text-md ml-2 my-2">
                                 {playlist.playlistname}
                               </h2>
                               <div>
@@ -487,7 +519,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                                 </Carousel>
                               </div>
                             </div>
-                            <hr className="2xl:my-7 lg:my-3" />
+                            <hr className="2xl:my-7 lg:my-3 opacity-30" />
                           </>
                         );
                       })}
@@ -498,33 +530,12 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                 </div>
               </Tab.Panel>
 
-              <Tab.Panel>
-                <div className="px-5 2xl:pt-10 lg:pt-5 pb-5">
-                  {user.your_reactions.length > 0 ? (
-                    <div>
-                      {user.your_reactions.map((playbackUser, i) => {
-                        ////console.log(playbackUser)
-                        return (
-                          <div key={i} className="">
-                            <ReactionCard
-                              playbackUserData={playbackUser}
-                              index={i}
-                              username={user.username}
-                              type="video"
-                            />
-                          </div>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <p className="2xl:text-lg lg:text-sm dark:text-white">No Reactions till now</p>
-                  )}
-                </div>
-              </Tab.Panel>
-
               {privateUser ? (
-                <Tab.Panel className="">
-                  <div className="px-5 2xl:pt-10 lg:pt-5 pb-5 grid grid-cols-4 grid-flow-row ">
+                <Tab.Panel className="px-5 2xl:pt-10 lg:pt-5 pb-5">
+                  <h2 className="text-white opacity-40">
+                    Pinned Channels will be shown on left sidebar.
+                  </h2>
+                  <div className=" grid grid-cols-2 sm:grid-cols-4 grid-flow-row ">
                     {user.followee_count ? (
                       <div>
                         {user.followee_count.map((following, i) => {
@@ -532,7 +543,7 @@ const ProfileDetails = ({ setSharable_data, tabname, urlUsername, user, setShow,
                           return (
                             <div
                               key={i}
-                              className="flex 2xl:text-lg lg:text-sm text-md shadow px-10 w-max lg:w-full  2xl:my-5 lg:my-2.5 py-2 dark:bg-dbeats-dark-primary dark:text-gray-100"
+                              className="flex 2xl:text-lg lg:text-sm text-md shadow  w-full  lg:w-full   my-3 lg:my-2.5 py-2 rounded dark:hover:bg-dbeats-dark-alt dark:bg-dbeats-dark-secondary dark:text-gray-100 "
                             >
                               {pinnedData.indexOf(following) > -1 ? (
                                 <i

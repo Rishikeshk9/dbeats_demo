@@ -22,7 +22,7 @@ const Waves = ({ src, isPlaying, currentTime, setIsPlaying, setHidden }) => {
         }),
       );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -33,14 +33,14 @@ const Waves = ({ src, isPlaying, currentTime, setIsPlaying, setHidden }) => {
         wavesurfer.pause();
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [isPlaying]);
 
   useEffect(() => {
     if (wavesurfer) {
       wavesurfer.seekTo(currentTime / wavesurfer.getDuration());
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [currentTime]);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const Waves = ({ src, isPlaying, currentTime, setIsPlaying, setHidden }) => {
         window.history.replaceState({}, 'track', `/track/${data[index].username}/0`);
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [wavesurfer]);
 
   const loadAudio = () => {

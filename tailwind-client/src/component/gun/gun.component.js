@@ -39,7 +39,7 @@ export default function App() {
         createdAt: m.createdAt,
       });
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   // set a new message in gun, update the local state to reset the form field

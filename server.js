@@ -1,7 +1,5 @@
 const Moralis = require('moralis');
 const express = require('express');
-const Parse = require('parse/node');
-const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
 const { create, globSource } = require('ipfs-http-client');
@@ -42,12 +40,7 @@ const server = app.listen(port, () => {
 
 const uri = process.env.ATLAS_URI;
 
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-});
+mongoose.connect(uri);
 
 const connection = mongoose.connection;
 connection.once('open', () => {
@@ -147,10 +140,12 @@ const DatabaseJSONStructure = {
 const trackRouter = require('./routes/track');
 
 var testAPIRouter = require('./routes/api_status');
-const userRouter = require('./routes/userRoutes');
+const userRouter = require('./routes/userRoutes/userRoutes');
+const userAuthRouters = require('./routes/userRoutes/userAuthRoutes');
 
 app.use('/track', trackRouter);
 app.use('/user', userRouter);
+app.use('/user', userAuthRouters);
 
 app.use('/API-status', testAPIRouter);
 

@@ -1,29 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import { getLinkPreview } from 'link-preview-js';
+import React, { useEffect, useState } from 'react';
 import classes from './LinkPreview.module.css';
 
-const LinkPreview = ({ linkurl }) => {
+const mql = require('@microlink/mql');
+
+const LinkPreview = ({ linkurl, setShowLinkPreview }) => {
   const [linkData, setLinkData] = useState(null);
 
-  getLinkPreview(linkurl)
-    .then((data) => {
+  useEffect(() => {
+    setLinkData(null);
+    fetchData();
+
+    // eslint-disable-next-line
+  }, [linkurl]);
+
+  const fetchData = async () => {
+    // eslint-disable-next-line no-unused-vars
+    const { status, data, response } = await mql(`${linkurl}`, {
+      animations: true,
+    });
+
+    if (data.title.indexOf('Page Not Found') === -1) {
       setLinkData(data);
-    })
-    .catch();
+    } else {
+      setShowLinkPreview(false);
+    }
+  };
   return (
     <>
       {linkData ? (
         <div className={`${classes.container} w-full h-max py-6 flex`}>
           <div
-            className={`${classes.card_container} items-center rounded-lg w-96 h-max p-4  mx-auto bg-black text-white`}
+            className={` items-center rounded-lg w-96 h-max p-4  mx-auto bg-dbeats-dark-primary text-white`}
           >
-            <div className="flex items-center">
-              <img src={linkData.images[0]} height="100%" width="100%" alt="link_image" />
-            </div>
+            {linkData.image ? (
+              <div className="flex items-center h-44 bg-dbeats-dark-alt">
+                <img src={linkData.image.url} className="h-40 w-auto mx-auto" alt="link_image" />
+              </div>
+            ) : null}
             <div className="py-2">
               <div className="flex items-center pb-1 ">
-                <img src={linkData.favicons[0]} alt="logo" />
-                <div className="font-bold pl-1">{linkData.siteName}</div>
+                {linkData.logo ? (
+                  <img
+                    src={linkData.logo.url}
+                    alt="logo"
+                    height="20px"
+                    width="20px"
+                    className="rounded-sm"
+                  />
+                ) : null}
+
+                <div className="font-bold pl-1">{linkData.publisher}</div>
               </div>
               <div>
                 <div className="line-clamp-2 font-semibold text-sm">{linkData.title}</div>

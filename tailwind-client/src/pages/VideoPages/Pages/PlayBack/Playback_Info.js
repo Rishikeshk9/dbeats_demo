@@ -398,7 +398,7 @@ const PlayBackInfo = (props) => {
     } else {
       setPrivate(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -455,12 +455,15 @@ const PlayBackInfo = (props) => {
               
             </Helmet> */}
           <div
-            className={`${
-              darkMode && 'dark'
-            }  grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row 2xl:pt-3 pt-3 lg:pt-0 lg:pb-50 2xl:mt-10 mt-10 lg:mt-12 lg:ml-11  bg-gradient-to-b from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  dark:to-dbeats-dark-primary`}
+            className={`${darkMode && 'dark'}  grid sm:grid-cols-1 lg:grid-cols-3 grid-flow-row 
+            2xl:pt-3 lg:pt-0 lg:pb-50 2xl:mt-14 mt-10 
+             lg:mt-12 lg:ml-11  
+             bg-gradient-to-b from-blue-50 via-blue-50 to-white  
+             dark:bg-gradient-to-b dark:from-dbeats-dark-secondary  
+             dark:to-dbeats-dark-primary`}
           >
             <div className=" lg:col-span-2 dark:bg-dbeats-dark-alt text-black dark:text-white">
-              <div className="self-center 2xl:px-12 lg:px-5 w-screen lg:w-full 2xl:mt-1 lg:mt-2 mt-0.5">
+              <div className="self-center 2xl:px-12 lg:px-5 w-screen lg:w-full 2xl:mt-1 lg:mt-2 mt-2.5">
                 {userData ? <VideoPlayer playbackUrl={playbackUrl} creatorData={userData} /> : null}
               </div>
               <div className="2xl:mx-7 2xl:px-7 lg:px-2 lg:mx-4 px-3 dark:bg-dbeats-dark-alt">
@@ -773,10 +776,10 @@ const PlayBackInfo = (props) => {
                 <Row>
                   <h2 className="grid grid-cols-5 justify-around w-full 2xl:text-2xl lg:text-md py-4 2xl:py-4 lg:py-2  pt-7  text-center relative  ">
                     <div className="col-span-5 text-gray-900 dark:text-gray-100 font-bold">
-                      To react on Video Please Login
+                      Kindly Login
                     </div>
                     <div
-                      className="ml-5 cursor-pointer text-gray-900 dark:text-gray-100 dark:bg-dbeats-dark-primary absolute right-10 top-4 2xl:top-4 lg:top-2"
+                      className="ml-5 cursor-pointer text-gray-900 dark:text-gray-100 dark:bg-dbeats-dark-primary absolute right-10 top-7 2xl:top-4 lg:top-2"
                       onClick={handleLoginClose}
                     >
                       <i className="fas fa-times"></i>
@@ -786,7 +789,7 @@ const PlayBackInfo = (props) => {
                 <Row>
                   <a
                     href="/signup"
-                    className="block mx-auto 2xl:p-2 p-2 lg:p-1 mt-4 mb-2 2xl:w-96 lg:w-72 w-full lg:text-md 2xl:text-lg  text-white font-semibold rounded-lg bg-dbeats-light"
+                    className="block mx-auto 2xl:p-2 p-2 lg:p-1 mt-4 mb-2 2xl:w-96 lg:w-72 w-full lg:text-md 2xl:text-lg  text-white text-center font-semibold rounded-lg bg-dbeats-light"
                   >
                     Login
                   </a>

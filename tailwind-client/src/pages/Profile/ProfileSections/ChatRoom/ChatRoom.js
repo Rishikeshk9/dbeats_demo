@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useReducer, useRef } from 'react';
 import Gun from 'gun';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 import './chatroom.css';
 
 //console.log('lslsls');
@@ -49,7 +49,7 @@ function ChatRoom(props) {
     } else {
       window.history.replaceState({}, 'Home', '/');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   // set a new message in gun, update the local state to reset the form field
@@ -72,7 +72,7 @@ function ChatRoom(props) {
   }
 
   return (
-    <div className="text-gray-400	 w-full box-border px-5 h-max lg:col-span-5 col-span-6 w-full mt-16 dark:bg-dbeats-dark-primary">
+    <div className="text-gray-400	 box-border px-5 h-max lg:col-span-5 col-span-6 w-full mt-16 dark:bg-dbeats-dark-primary">
       <div className="overflow-hidden">
         {/* <header className="chat-header">
           <h1>

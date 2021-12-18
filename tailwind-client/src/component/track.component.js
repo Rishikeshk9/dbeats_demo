@@ -1,22 +1,19 @@
-import React, { useState } from 'react';
-//import Dropdown from "./dropdown.component";
-import axios from 'axios';
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import Noty from "noty";
 // import Multiselect from "multiselect-react-dropdown";
 // import logo from "../assets/graphics/DBeatsHori.png";
 import { Transition } from '@headlessui/react';
-import { useEffect } from 'react';
-//import Switch from "./switch.component";
-
-import { useSelector, useDispatch } from 'react-redux';
-import { toggleAudius } from '../actions/index';
-import PopUp from './popup.component';
-
-import BottomBar from './bottom-player.component';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
+//import Dropdown from "./dropdown.component";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+//import Switch from "./switch.component";
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleAudius } from '../actions/index';
 import logo from '../assets/images/logo.svg';
+import BottomBar from './bottom-player.component';
+import PopUp from './popup.component';
 
 export default function Track() {
   // constructor(props) {
@@ -110,7 +107,7 @@ export default function Track() {
       // Anything in here is fired on component unmount.
       audio.removeEventListener('ended', () => setState({ play: false }));
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   const pauseResume = async () => {
@@ -250,46 +247,46 @@ export default function Track() {
                   drag: true,
                   arrows: false,
                   rewind: true,
-                  perPage: 6,
+                  perPage: window.innerWidth >= '768' ? 6 : 4,
                 }}
-                className="w-2/3 mx-auto self-center p-5 m-5  "
+                className="lg:w-2/3 w-full mx-auto p-7 m-5 "
               >
-                <SplideSlide className=" px-5">
+                <SplideSlide className=" md:px-5">
                   <img className="mx-auto self-center" src={logo} alt="live 1" />
                 </SplideSlide>
-                <SplideSlide className=" px-5">
+                <SplideSlide className=" md:px-5">
                   <img className="mx-auto self-center" src={logo} alt="live 2" />
                 </SplideSlide>
-                <SplideSlide className=" px-5">
+                <SplideSlide className=" md:px-5">
                   <img className="mx-auto self-center" src={logo} alt="live 3" />
                 </SplideSlide>
-                <SplideSlide className=" px-5">
+                <SplideSlide className=" md:px-5">
                   <img className="mx-auto self-center" src={logo} alt="live 4" />
                 </SplideSlide>
-                <SplideSlide className=" px-5">
+                <SplideSlide className=" md:px-5">
                   <img className="mx-auto self-center" src={logo} alt="live 5" />
                 </SplideSlide>
-                <SplideSlide className=" px-5">
+                <SplideSlide className=" md:px-5">
                   <img className="mx-auto self-center" src={logo} alt="live 6" />
                 </SplideSlide>
-                <SplideSlide className=" px-5">
+                <SplideSlide className=" md:px-5">
                   <img className="mx-auto self-center" src={logo} alt="live 7" />
                 </SplideSlide>
-                <SplideSlide className=" px-5">
+                <SplideSlide className=" md:px-5">
                   <img className="mx-auto self-center" src={logo} alt="live 8" />
                 </SplideSlide>
-                <SplideSlide className=" px-5">
+                <SplideSlide className=" md:px-5">
                   <img className="mx-auto self-center" src={logo} alt="live 9" />
                 </SplideSlide>
-                <SplideSlide className=" px-5">
+                <SplideSlide className=" md:px-5">
                   <img className="mx-auto self-center" src={logo} alt="live 10" />
                 </SplideSlide>
               </Splide>{' '}
             </div>
-            <div className="flex  w-full md:w-2/3 justify-between px-5 self-center mx-auto">
+            <div className="flex  w-full lg:w-2/3 justify-between px-5 self-center mx-auto">
               <p
                 id="song-title"
-                className="mb-3   w-max    drop-shadow text-2xl  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 dark:from-white dark:to-gray-800"
+                className="mb-3   w-max    drop-shadow 2xl:text-2xl lg:text-lg md:text-md text-lg  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 dark:from-white dark:to-gray-800"
               >
                 TRENDING NOW
               </p>
@@ -332,12 +329,16 @@ export default function Track() {
                   return (
                     <div
                       id="tracks-section"
-                      className={` text-gray-200  md:w-2/3 mx-auto  py-1 md:py-2 w-full  px-5 my-0 group`}
+                      className={` text-gray-200  lg:w-2/3 w-full mx-auto  py-1 md:py-2 w-full  px-5 my-0 group `}
                       key={todo.id}
+                      style={{ zIndex: -1 }}
                     >
                       {/* header */}
-                      <div className=" group ">
-                        <div className="bg-white  group dark:bg-dbeats-dark-alt dark:text-blue-300 shadow-md  flex p-2  mx-auto  rounded-lg  w-full hover:scale-101 transform transition-all">
+                      <div className=" group " style={{ zIndex: -1 }}>
+                        <div
+                          className="bg-white  group dark:bg-dbeats-dark-alt dark:text-blue-300 shadow-md  flex p-2  mx-auto  rounded-lg  w-full hover:scale-101 transform transition-all "
+                          style={{ zIndex: -1 }}
+                        >
                           <div
                             onClick={() =>
                               playAudio(

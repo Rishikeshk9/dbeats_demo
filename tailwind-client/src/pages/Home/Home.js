@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import Carousel from 'react-grid-carousel';
-import personImg from '../../assets/images/profile.svg';
-import PlayBackCard from './Cards/PlayBackCard';
-import LiveCard from './Cards/LiveCard';
-import ResponsiveCarousel from './Cards/HomeSlider';
-import { useSelector } from 'react-redux';
 import Lottie from 'react-lottie';
+import { useSelector } from 'react-redux';
+import personImg from '../../assets/images/profile.svg';
 import animationData from '../../lotties/gamers.json';
+import ResponsiveCarousel from './Cards/HomeSlider';
+import LiveCard from './Cards/LiveCard';
+import PlayBackCard from './Cards/PlayBackCard';
 // import {Helmet} from "react-helmet";
 
 const Home = () => {
@@ -51,7 +51,7 @@ const Home = () => {
       setSlides(slidesValue);
     });
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   const fetchData = async () => {
@@ -84,7 +84,7 @@ const Home = () => {
               <div className="2xl:px-8 2xl:pt-10 lg:px-3 lg:pt-6 ">
                 <h5 className="font-semibold 2xl:text-base lg:text-xs dark:text-gray-200">
                   {' '}
-                  RECOMMENDED CHANNELS
+                  Latest mints
                 </h5>
                 {recommend_channels.map((channel, i) => {
                   return (
@@ -95,14 +95,25 @@ const Home = () => {
                         className="2xl:w-14 2xl:h-14 lg:h-10 lg:w-10 rounded-full mr-2 bg-gray-100 self-center"
                       />
                       <div>
-                        <span className="font-semibold 2xl:text-sm lg:text-xs dark:text-gray-200">
+                        <span className="dark:text-gray-200 2xl:text-sm lg:text-xs">
+                          {' '}
+                          Counter Strike{' '}
+                        </span>
+                        <span className="  2xl:text-sm lg:text-xs text-gray-400   flex">
                           {' '}
                           {channel.name}{' '}
-                        </span>
-                        <br />
-                        <span className="text-gray-400 2xl:text-sm lg:text-xs">
-                          {' '}
-                          Counter Strike...{' '}
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4  items-center self-center justify-center text-blue-500 mx-1"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
                         </span>
                       </div>
                     </div>
@@ -182,8 +193,8 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              <div className="bottom-0">
-                <div className="LottieButton opacity-10 mb-5 mt-10">
+              <div className="bottom-0  ">
+                <div className="LottieButton opacity-10 mb-5 mt-10 ">
                   <Lottie options={defaultOptions} height={200} width={300} />
                 </div>
                 <h3 className="text-black   capitalize text-center proxima-reg dark:text-white dark:text-opacity-20">

@@ -4,7 +4,7 @@
     <!-- For Smart Link  -->
 
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" href="%PUBLIC_URL%/dbeats.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <meta
       property="og:title"
@@ -28,6 +28,11 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link
+      rel="stylesheet"
+      href=" https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.8.10/tailwind.min.css"
+    />
+
     <script>
       (function (d, s) {
         var js = d.createElement(s),
@@ -54,7 +59,7 @@
 
     <title>DBeats</title>
   </head>
-  <body className="font-proxima-reg  ">
+  <body className="font-proxima-reg   ">
     <script>
       var unlockProtocolConfig = {
         network: 4,
@@ -72,7 +77,10 @@
     </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
 
-    <div id="root"></div>
+    <div
+      className="bg-gradient-to-l from-blue-50 via-blue-50 to-white  dark:bg-gradient-to-l dark:from-dbeats-dark-primary  dark:to-dbeats-dark-primary"
+      id="root"
+    ></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

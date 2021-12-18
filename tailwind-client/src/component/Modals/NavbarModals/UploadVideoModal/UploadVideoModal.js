@@ -5,7 +5,7 @@ import Chips from 'react-chips';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
 import Dropdown from '../../../dropdown.component';
-import { makeStorageClient } from '../uploadHelperFunction';
+import { makeStorageClient } from '../../../uploadHelperFunction';
 import { chipTheme, theme } from '../Theme';
 
 const UploadVideoModal = (props) => {
@@ -139,7 +139,7 @@ const UploadVideoModal = (props) => {
       derivativeWorks: selectedDerivativeWorks,
       tags: tags,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [selectedCategory, selectedCommercialUse, selectedDerivativeWorks, selectedAttribution, tags]);
 
   const PostData = async (e) => {

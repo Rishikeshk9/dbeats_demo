@@ -2,12 +2,12 @@ import axios from 'axios';
 import moment from 'moment';
 import { NFTStorage } from 'nft.storage';
 import React, { useState } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
-import classes from './LinkPreview.module.css';
-import { detectURLs, makeStorageClient } from '../uploadHelperFunction';
+import { detectURLs, makeStorageClient } from '../../../uploadHelperFunction';
 import LinkPreview from './LinkPreview';
+import classes from './LinkPreview.module.css';
 
 moment().format();
 
@@ -18,6 +18,7 @@ const AnnouncementModal = (props) => {
 
   //const [postImage, setPostImage] = useState(null);
   const [postImage, setPostImage] = useState(null);
+  const [showLinkPreview, setShowLinkPreview] = useState(false);
 
   const [announcement, setAnnouncement] = useState({
     announcementText: '',
@@ -40,8 +41,9 @@ const AnnouncementModal = (props) => {
     //getLinkPreview(url[url.length - 1]).then((data) => setLinkPreviewData(data));
     if (url && url.length > 0) {
       setLinkPreviewData(url[url.length - 1]);
+      setShowLinkPreview(true);
     } else {
-      setLinkPreviewData(null);
+      setShowLinkPreview(false);
     }
   };
 
@@ -181,6 +183,7 @@ const AnnouncementModal = (props) => {
     return client.put(files, { onRootCidReady, onStoredChunk });
   }
 
+  //TODO : Send linkPreview data to backed and save it in user announcement
   const handleAnnouncement = () => {
     props.setLoader(false);
     if (announcement.postImage !== null || announcement.postVideo !== null) {
@@ -258,31 +261,35 @@ const AnnouncementModal = (props) => {
       isOpen={props.showAnnouncement}
       className={
         darkMode
-          ? 'h-max lg:w-1/2 w-5/6 mx-auto  lg:mt-20 2xl:mt-40 mt-24 bg-dbeats-dark-primary rounded-xl'
-          : 'h-max lg:w-1/2 w-5/6 mx-auto  lg:mt-20 2xl:mt-40 mt-24 bg-gray-50 rounded-xl shadow-2xl'
+          ? 'h-max lg:w-1/2 w-5/6 mx-auto  lg:mt-20 2xl:mt-40 mt-24   rounded-xl z-500'
+          : 'h-max lg:w-1/2 w-5/6 mx-auto  lg:mt-20 2xl:mt-40 mt-24 bg-gray-50 rounded-xl shadow-2xl bg-white  dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-90  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md '
       }
     >
-      <div className={`${darkMode && 'dark'} p-1`}>
-        <div className="border border-gray-400 rounded-xl  dark:border-black dark:rounded-none">
-          <h2 className="grid grid-cols-5 justify-items-center rounded-t-xl dark:rounded-t-sm font-bold 2xl:text-2xl text-lg py-3 dark:bg-dbeats-dark-alt bg-white dark:text-white">
-            <div className="col-span-4 pl-14">Post Details</div>
-            <div className="mr-7 flex justify-end w-full" onClick={props.handleCloseAnnouncement}>
-              <i className="fas fa-times cursor-pointer"></i>
-            </div>
+      <div className={`${darkMode && 'dark'} `}>
+        <div className=" rounded-xl dark:rounded-none  ">
+          <h2 className=" justify-items-center rounded-t-xl dark:rounded-t-sm font-bold 2xl:text-2xl text-lg py-3 dark:bg-dbeats-dark-alt bg-white dark:text-white   dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-90  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md ">
+            <div className=" text-center font-bold">Post Details</div>
+            <i
+              className="fas fa-times cursor-pointer absolute -mt-6 ml-auto  right-0 mr-6"
+              onClick={props.handleCloseAnnouncement}
+            ></i>
           </h2>
           <div className="h-full w-full flex align-center ">
-            <Container className="2xl:px-12 2xl:pb-4 rounded-b-xl dark:rounded-b-sm  lg:px-7 lg:pb-2 h-full px-4 w-full dark:bg-dbeats-dark-alt overflow-y-auto lg:overflow-hidden">
-              <div className="align-center bg-white h-full">
-                <div className={`${classes.view_container} lg:h-44 2xl:h-80 h-48 overflow-y-auto`}>
+            <Container className="2xl:px-12 2xl:pb-4 rounded-b-xl dark:rounded-b-sm  lg:px-7 lg:pb-2 h-full px-4 w-full dark:bg-dbeats-dark-alt overflow-y-auto lg:overflow-hidden bg-white  dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-90  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md ">
+              <div className="align-center bg-gray-100 h-full dark:bg-dbeats-dark-alt">
+                <div className={`${classes.view_container} lg:h-72 2xl:h-96 h-48 overflow-y-auto`}>
                   <textarea
                     className={`${classes.textarea_container} h-5/6 w-full 
-                       lg:text-sm 2xl:text-lg border-b border-gray-300`}
+                     lg:text-sm 2xl:text-lg border-b border-gray-300 dark:bg-dbeats-dark-secondary`}
                     placeholder="Enter Announcement Details"
                     onChange={(e) => handleInputChange(e)}
                   ></textarea>
-                  {linkPreviewData ? (
+                  {showLinkPreview ? (
                     <>
-                      <LinkPreview linkurl={linkPreviewData} />
+                      <LinkPreview
+                        linkurl={linkPreviewData}
+                        setShowLinkPreview={setShowLinkPreview}
+                      />
                     </>
                   ) : (
                     <>
@@ -297,75 +304,90 @@ const AnnouncementModal = (props) => {
                           />
                         </div>
                       ) : (
-                        <span className="text-gray-400 text-md ml-4">Image Preview</span>
+                        <span className="text-gray-400 text-md ml-4 ">Image Preview</span>
                       )}
                     </>
                   )}
                 </div>
 
-                <div className="mx-2 mb-4 flex  items-center">
-                  <div className="mx-2">
-                    <input
-                      type="text"
-                      placeholder="Enter Event Link(Optional)"
-                      onChange={handleLinkChange}
-                      className=" w-64 h-8 my-1 rounded-md lg:text-sm 2xl:text-md border border-gray-200"
-                    />
-                  </div>
-                  <div className="mx-2">
-                    <i
-                      className="far fa-images text-xl cursor-pointer opacity-40 hover:opacity-100"
-                      onClick={() => {
-                        document.getElementById('post_announcement_image').click();
-                      }}
-                    ></i>
-                    <input
-                      id="post_announcement_image"
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageChange}
-                      onClick={(event) => {
-                        event.target.value = null;
-                      }}
-                      style={{ display: 'none' }}
-                    />
-                  </div>
-                  <div className="mx-2 flex items-center">
-                    <i
-                      className="fas fa-video text-xl cursor-pointer opacity-40 hover:opacity-100"
-                      onClick={() => {
-                        document.getElementById('post_announcement_video').click();
-                      }}
-                    ></i>
-                    <div className="mx-2 mb-1">
-                      {announcement.postVideo ? announcement.postVideo.name : null}
+                <div className="mx-2  flex  items-center w-full justify-between">
+                  <div className="flex items-center">
+                    <div className="mx-2">
+                      <input
+                        type="text"
+                        placeholder="Enter Event Link(Optional)"
+                        onChange={handleLinkChange}
+                        className=" w-64 h-8 my-1 rounded-sm lg:text-sm 2xl:text-md border border-gray-200"
+                      />
                     </div>
-                    <input
-                      id="post_announcement_video"
-                      type="file"
-                      accept="video/*"
-                      onChange={handleVideoChange}
-                      onClick={(event) => {
-                        event.target.value = null;
-                      }}
-                      style={{ display: 'none' }}
-                    />
+                    <div className="mx-2">
+                      <i
+                        className="far fa-images text-xl cursor-pointer opacity-40 hover:opacity-100"
+                        onClick={() => {
+                          document.getElementById('post_announcement_image').click();
+                        }}
+                      ></i>
+                      <input
+                        id="post_announcement_image"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        onClick={(event) => {
+                          event.target.value = null;
+                        }}
+                        style={{ display: 'none' }}
+                      />
+                    </div>
+                    <div className="mx-2 flex items-center">
+                      <i
+                        className="fas fa-video text-xl cursor-pointer opacity-40 hover:opacity-100"
+                        onClick={() => {
+                          document.getElementById('post_announcement_video').click();
+                        }}
+                      ></i>
+                      <div className="mx-2 mb-1">
+                        {announcement.postVideo ? announcement.postVideo.name : null}
+                      </div>
+                      <input
+                        id="post_announcement_video"
+                        type="file"
+                        accept="video/*"
+                        onChange={handleVideoChange}
+                        onClick={(event) => {
+                          event.target.value = null;
+                        }}
+                        style={{ display: 'none' }}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      type="submit"
+                      onClick={handleAnnouncement}
+                      className=" 2xl:my-3 lg:my-2 mr-5 bg-white px-1 2xl:py-2  py-1 2xl:text-md lg:text-sm  font-semibold bg-dbeats-light  transform transition delay-50 duration-300 ease-in-out hover:scale-105 text-white border-0 lg:w-28 2xl:w-48 w-24 rounded-sm cursor-pointer "
+                    >
+                      POST
+                    </button>
+                    <div
+                      className="animate-spin rounded-full h-7 w-7 ml-3 border-t-2 border-b-2 bg-gradient-to-r from-green-400 to-blue-500 "
+                      hidden={props.loader}
+                    ></div>
                   </div>
                 </div>
               </div>
-              <Row className="w-full flex justify-center items-center">
+              {/* <Row className="w-full flex justify-center items-center">
                 <button
                   type="submit"
                   onClick={handleAnnouncement}
-                  className=" 2xl:my-3 lg:my-2  bg-white px-3 lg:py-2 py-1 2xl:text-lg lg:text-md  bg-gradient-to-r from-green-400 to-blue-500 hover:bg-indigo-700 transform transition delay-50 duration-300 ease-in-out hover:scale-105 text-white border-0 lg:w-56 2xl:w-96 w-24 rounded-sm cursor-pointer "
+                  className=" 2xl:my-3 lg:my-2  bg-white px-3 lg:py-2 py-1 2xl:text-lg lg:text-md  font-semibold bg-dbeats-light  transform transition delay-50 duration-300 ease-in-out hover:scale-105 text-white border-0 lg:w-56 2xl:w-80 w-24 rounded-sm cursor-pointer "
                 >
-                  Post
+                  POST
                 </button>
                 <div
                   className="animate-spin rounded-full h-7 w-7 ml-3 border-t-2 border-b-2 bg-gradient-to-r from-green-400 to-blue-500 "
                   hidden={props.loader}
                 ></div>
-              </Row>
+              </Row> */}
             </Container>
           </div>
         </div>

@@ -1,10 +1,10 @@
 import axios from 'axios';
 import Noty from 'noty';
-import React, { useEffect, useRef, useState, useCallback } from 'react';
-import getCroppedImg from './cropImage';
-import Modal from 'react-modal';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Cropper from 'react-easy-crop';
+import Modal from 'react-modal';
 import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
+import getCroppedImg from './cropImage';
 import classes from './style.module.css';
 
 function makeStorageClient() {
@@ -107,7 +107,7 @@ export const UploadCoverImageModal = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [wrapperRef]);
 
   const handleUpload = async (e) => {
@@ -296,7 +296,7 @@ export const UploadProfileImageModal = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [wrapperRef]);
 
   const handleUpload = async (e) => {

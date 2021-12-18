@@ -6,9 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { toggleDarkMode } from '../../actions/index';
 import logoDark from '../../assets/images/dark-logo.svg';
+import CircleLogo from '../../assets/images/dbeats-logo.png';
 import logo from '../../assets/images/white-logo.svg';
 import useWeb3Modal from '../../hooks/useWeb3Modal';
-import { AnnouncementModal, UploadVideoModal, UploadTrackModal } from '../Modals/NavbarModals';
+import {
+  AnnouncementModal,
+  UploadVideoModal,
+  UploadTrackModal,
+  UploadNFTModal,
+} from '../Modals/NavbarModals';
 import Toggle from '../toggle.component';
 import classes from './Navbar.module.css';
 
@@ -34,6 +40,10 @@ const NavBar = () => {
   const [showTrackUpload, setShowTrackUpload] = useState(false);
   const handleCloseTrackUpload = () => setShowTrackUpload(false);
   const handleShowTrackUpload = () => setShowTrackUpload(true);
+
+  const [showNFTUpload, setShowNFTUpload] = useState(false);
+  const handleCloseNFTUpload = () => setShowNFTUpload(false);
+  const handleShowNFTUpload = () => setShowNFTUpload(true);
 
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.toggleDarkMode);
@@ -107,14 +117,19 @@ const NavBar = () => {
 
     alluser.map((value) => {
       if (value.videos) {
-        value.videos.map((video, index) => {
+        value.videos.map(async (video, index) => {
           if (video.videoName.toLowerCase().includes(searchWord.toLowerCase())) {
-            let data = {
-              username: value.username,
-              index: index,
-              video: video,
-            };
-            newVideoFilter.push(data);
+            await axios
+              .get(`${process.env.REACT_APP_SERVER_URL}/user/${value.username}`)
+              .then((resData) => {
+                let data = {
+                  username: value.username,
+                  index: index,
+                  video: video,
+                  profile: resData.profile_image,
+                };
+                newVideoFilter.push(data);
+              });
           }
           return 0;
         });
@@ -180,7 +195,7 @@ const NavBar = () => {
         setNotification(data.reverse());
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   //console.log(notification);
@@ -195,7 +210,7 @@ const NavBar = () => {
     return (
       <div className="h-full my-1">
         <a
-          href={`http://localhost:3000/profile/${data.username}/posts`}
+          href={`https://beta.dbeats.live/profile/${data.username}/posts`}
           target="_blank"
           rel="noopener noreferrer"
           className="grid grid-cols-4 justify-center p-2 dark:bg-dbeats-dark-alt dark:hover:bg-dbeats-dark-secondary dark:text-white text-gray-500"
@@ -300,7 +315,7 @@ const NavBar = () => {
         className={` w-max fixed top-0 ${darkMode && 'dark'} z-50 `}
       >
         <div
-          className={`2xl:p-3 lg:p-2 p-3 bg-white w-screen shadow-sm z-50  absolute dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-90  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md`}
+          className={`2xl:p-3 lg:p-2 p-3 w-screen shadow-sm z-50  absolute bg-white dark:bg-dbeats-dark-primary dark:text-gray-100  bg-opacity-60 dark:bg-opacity-90  dark:backdrop-filter  dark:backdrop-blur-md  backdrop-filter  backdrop-blur-md`}
         >
           <div className="flex w-full self-center">
             <div
@@ -310,7 +325,7 @@ const NavBar = () => {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-7 w-7 lg:h-5 lg:h-5 2xl:h-7 2xl:w-7 self-center"
+                className="h-7 w-7 lg:h-5  2xl:h-7 2xl:w-7 self-center"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -323,7 +338,7 @@ const NavBar = () => {
                 />
               </svg>
             </div>
-            <a href="/" className="flex self-center cursor-pointer">
+            <a href="/" className="  self-center cursor-pointer sm:flex hidden">
               <img
                 src={logo}
                 alt="dbeats_logo"
@@ -336,7 +351,20 @@ const NavBar = () => {
               ></img>
               <span className="mr-5 text-lg font-bold ml-2"> </span>
             </a>
-            <div className="w-1/3 mx-auto  self-center ">
+            <a href="/" className="flex self-center cursor-pointer sm:hidden ">
+              <img
+                src={CircleLogo}
+                alt="dbeats_logo"
+                className="h-10 lg:h-7 2xl:h-10 w-max dark:hidden"
+              ></img>
+              <img
+                src={CircleLogo}
+                alt="dbeats_logo"
+                className="h-10 lg:h-7 2xl:h-10 w-max hidden dark:block"
+              ></img>
+              <span className="mr-5 text-lg font-bold ml-2"> </span>
+            </a>
+            <div className="w-2/3 sm:w-1/3 mx-auto  self-center ">
               <div className="  self-center rounded-full  flex bg-gray-100 dark:bg-dbeats-dark-primary">
                 <input
                   type="text"
@@ -405,7 +433,6 @@ const NavBar = () => {
                 )}
                 {filteredData.length !== 0 && (
                   <>
-                    <hr className=" px-2 dark:bg-white" />
                     {filteredData.slice(0, 15).map((value, key) => {
                       return (
                         <a
@@ -457,41 +484,52 @@ const NavBar = () => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Dropdown.Items className="absolute right-0 w-80 mt-2 origin-top-right bg-white dark:bg-dbeats-dark-alt  divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none w-max">
-                      <Dropdown.Item className="w-full text-gray-700 text-left 2xl:text-lg  text-md lg:text-sm  flex lg:flex-row flex-col justify-between align-center ring-1 rounded-md ring-white 2xl:h-24 lg:h-14 h-48 w-full">
-                        <div className="p-10 m-10 dark:border-2 dark:text-white ">
+                    <Dropdown.Items className="absolute right-0   lg:mt-6 2xl:mt-8 origin-top-right  divide-y divide-gray-100 rounded-md shadow-lg  focus:outline-none w-max  ">
+                      <Dropdown.Item className="w-full text-gray-700 text-left 2xl:text-lg text-md lg:text-xs  flex lg:flex-row flex-col justify-between align-center  rounded-md   2xl:px-3 2xl:py-4 lg:px-2 lg:py-3 py-2 px-3  bg-white dark:bg-dbeats-dark-primary">
+                        <div className=" m-10  dark:text-white ">
                           <button
-                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light 2xl:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
+                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light border-dbeats-light border  dark:bg-dbeats-dark-alt 2xl:h-10 h-8 my-auto cursor-pointer px-3  hover:text-white dark:text-white dark:hover:bg-dbeats-light"
                             onClick={() => {
                               handleShowAnnouncement();
                               handleCloseVideoUpload();
                               handleCloseTrackUpload();
+                              handleCloseNFTUpload();
                             }}
                           >
                             Create Post
                           </button>
 
                           <button
-                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light 2xl:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
+                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light border-dbeats-light border  dark:bg-dbeats-dark-alt 2xl:h-10 h-8 my-auto cursor-pointer px-3  hover:text-white dark:text-white dark:hover:bg-dbeats-light"
                             onClick={() => {
                               handleCloseAnnouncement();
                               handleShowVideoUpload();
                               handleCloseTrackUpload();
+                              handleCloseNFTUpload();
                             }}
                           >
                             Upload Video
                           </button>
                           <button
-                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light 2xl:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white"
+                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light border-dbeats-light border  dark:bg-dbeats-dark-alt 2xl:h-10 h-8 my-auto cursor-pointer px-3  hover:text-white dark:text-white dark:hover:bg-dbeats-light"
                             onClick={() => {
                               handleCloseAnnouncement();
                               handleShowTrackUpload();
                               handleCloseVideoUpload();
+                              handleCloseNFTUpload();
                             }}
                           >
                             Upload Track
                           </button>
-                          <button className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light 2xl:h-10 h-8 my-auto cursor-pointer px-3 border-2 hover:text-white dark:text-white">
+                          <button
+                            onClick={() => {
+                              handleShowNFTUpload();
+                              handleCloseVideoUpload();
+                              handleCloseTrackUpload();
+                              handleCloseAnnouncement();
+                            }}
+                            className="lg:mx-2 2xl:mx-3 mx-4 rounded hover:bg-dbeats-light border-dbeats-light border  dark:bg-dbeats-dark-alt 2xl:h-10 h-8 my-auto cursor-pointer px-3  hover:text-white dark:text-white dark:hover:bg-dbeats-light"
+                          >
                             Mint NFT
                           </button>
                         </div>
@@ -503,12 +541,12 @@ const NavBar = () => {
             ) : null}
             {user ? (
               <div id="login-btn" className="flex items-center">
-                <Dropdown as="div" className="relative inline-block text-left lg:mr-2 self-center">
+                <Dropdown as="div" className="relative inline-block text-left  self-center">
                   <Dropdown.Button className="flex h-full items-center">
                     <div onClick={handleNotification}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="2xl:h-7 2xl:w-7 w-5 h-5 text-dbeats-light cursor-pointer z-50 self-center -z-1"
+                        className="2xl:h-7 2xl:w-7 w-5 h-5 text-dbeats-light cursor-pointer z-50 self-center  "
                         viewBox="0 0 20 20"
                         fill="currentColor"
                       >
@@ -518,8 +556,8 @@ const NavBar = () => {
                         <div
                           className="bg-red-500 rounded-full shadow  
                         h-6 w-6 text-sm self-center text-center font-semibold  
-                        absolute -bottom-2  -right-2 dark:border-dbeats-dark-primary  
-                        border-red-300 border-2 text-white"
+                        absolute -bottom-2  -right-2  
+                         text-white"
                         >
                           {newNotification}
                         </div>
@@ -538,11 +576,11 @@ const NavBar = () => {
                     <Dropdown.Items
                       className="absolute right-0 w-96 mt-2 origin-top-right 
                     dark:bg-dbeats-dark-primary bg-white divide-y divide-gray-100 rounded-md shadow-lg 
-                    ring-1 ring-black ring-opacity-5 focus:outline-none"
+                     focus:outline-none"
                     >
                       {notification.map((value, i) => {
                         return (
-                          <div className="px-1 py-1 " key={i}>
+                          <div className="px-1   " key={i}>
                             <Dropdown.Item className="w-full h-full self-center dark:bg-dbeats-dark-primary">
                               <NotificationContent data={value} />
                             </Dropdown.Item>
@@ -554,9 +592,9 @@ const NavBar = () => {
                 </Dropdown>
                 <a
                   href={`/streamer/${user.username}`}
-                  className="border-dbeats-light 2xl:border-1  text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mx-2 "
+                  className="border-dbeats-light 2xl:border-1 invisible lg:visible text-dbeats-light hover:bg-dbeats-light hover:text-white rounded font-bold mx-2 "
                 >
-                  <div className="flex lg:py-1 2xl:py-2.5 py-1.5 2xl:px-3 lg:px-2 px-1.5">
+                  <div className="flex lg:py-1 2xl:py-2.5 py-1.5 2xl:px-3 lg:px-2 px-1.5 hidden">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-5 w-5 lg:self-center mt-1 lg:mt-0 md:mr-2"
@@ -565,9 +603,7 @@ const NavBar = () => {
                     >
                       <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
                     </svg>
-                    <span className="self-center md:flex hidden lg:text-xs 2xl:text-lg ">
-                      Go Live
-                    </span>
+                    <span className="self-center md:flex   lg:text-xs 2xl:text-lg ">Go Live</span>
                   </div>
                 </a>
                 <a
@@ -591,10 +627,11 @@ const NavBar = () => {
             ) : (
               <a
                 href="/signup"
-                className="shadow-sm 2xl:px-3 lg:px-1.5 2xl:py-1 lg:py-0.5 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light dark:bg-gradient-to-r dark:from-dbeats-secondary-light dark:to-dbeats-light text-white rounded font-bold mx-2 flex"
+                className="shadow-sm px-2  2xl:px-3 lg:px-1.5 2xl:py-1 lg:py-0.5 bg-gradient-to-r from-dbeats-secondary-light to-dbeats-light dark:bg-gradient-to-r 
+                dark:from-dbeats-secondary-light dark:to-dbeats-light text-white rounded font-bold ml-2 md:mx-2 md:ml-0 flex"
               >
-                <i className="fas fa-sign-in-alt lg:text-sm 2xl:text-lg self-center mr-2"></i>
-                <span className="self-center lg:text-xs 2xl:text-lg">Sign Up</span>
+                <i className="fas fa-sign-in-alt text-xs lg:text-sm 2xl:text-lg self-center mr-2 hidden md:block"></i>
+                <span className="self-center text-sm lg:text-xs 2xl:text-lg">SignUp</span>
               </a>
             )}
           </div>
@@ -621,6 +658,15 @@ const NavBar = () => {
         setShowTrackUpload={setShowTrackUpload}
         handleCloseTrackUpload={handleCloseTrackUpload}
         handleShowTrackUpload={handleShowTrackUpload}
+        loader={loader}
+        setLoader={setLoader}
+      />
+
+      <UploadNFTModal
+        showNFTUpload={showNFTUpload}
+        setShowNFTUpload={setShowNFTUpload}
+        handleCloseNFTUpload={handleCloseNFTUpload}
+        handleShowNFTUpload={handleShowNFTUpload}
         loader={loader}
         setLoader={setLoader}
       />

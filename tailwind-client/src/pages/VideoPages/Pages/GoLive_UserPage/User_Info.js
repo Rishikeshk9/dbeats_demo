@@ -1,11 +1,11 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import classes from '../Info.module.css';
 import axios from 'axios';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import Modal from 'react-modal';
+import { useSelector } from 'react-redux';
 import { MultiStreamData } from '../../../../assets/Data';
 import VideoPlayer from '../../../../component/VideoPlayer/VideoPlayer';
-import { useSelector } from 'react-redux';
+import classes from '../Info.module.css';
 
 const UserInfo = () => {
   const [userStreams, setUserStreams] = useState([]);
@@ -42,7 +42,7 @@ const UserInfo = () => {
     setPlaybackUrl(`https://cdn.livepeer.com/hls/${user.livepeer_data.playbackId}/index.m3u8`);
     //setName(user.livepeer_data.name);
     setUserStreams(user.livepeer_data);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
   ////console.log(multiStreamConnected)
 

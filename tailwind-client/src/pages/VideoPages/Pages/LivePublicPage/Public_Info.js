@@ -1,22 +1,21 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import classes from '../Info.module.css';
+import { Web3Provider } from '@ethersproject/providers';
+import { Menu, Transition } from '@headlessui/react';
+import SuperfluidSDK from '@superfluid-finance/js-sdk';
 //import playimg from "../../../assets/images/telegram.png";
 import axios from 'axios';
-import VideoPlayer from '../../../../component/VideoPlayer/VideoPlayer';
-import { Container, Row } from 'react-bootstrap';
-import LiveCard from './LiveCard';
+import React, { Fragment, useEffect, useState } from 'react';
 import Modal from 'react-awesome-modal';
-import { Menu, Transition } from '@headlessui/react';
+import { Container, Row } from 'react-bootstrap';
+import Lottie from 'react-lottie';
 import { useSelector } from 'react-redux';
 import superfluid from '../../../../assets/images/superfluid-black.svg';
-import animationData from '../../../../lotties/fans.json';
-import animationDataConfetti from '../../../../lotties/confetti.json';
-import animationDataGiraffee from '../../../../lotties/giraffee.json';
-
-import Lottie from 'react-lottie';
-import SuperfluidSDK from '@superfluid-finance/js-sdk';
-import { Web3Provider } from '@ethersproject/providers';
 import { ShareModal } from '../../../../component/Modals/ShareModal/ShareModal';
+import VideoPlayer from '../../../../component/VideoPlayer/VideoPlayer';
+import animationDataConfetti from '../../../../lotties/confetti.json';
+import animationData from '../../../../lotties/fans.json';
+import animationDataGiraffee from '../../../../lotties/giraffee.json';
+import classes from '../Info.module.css';
+import LiveCard from './LiveCard';
 
 const PublicInfo = (props) => {
   let sharable_data = `https://dbeats-demo.vercel.app /live/${props.stream_id}`;
@@ -134,7 +133,7 @@ const PublicInfo = (props) => {
     } else {
       setPrivate(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

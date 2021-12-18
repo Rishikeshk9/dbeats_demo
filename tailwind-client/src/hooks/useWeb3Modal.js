@@ -7,7 +7,7 @@ import Web3Modal from 'web3modal';
 // You can get a key for free at https://infura.io/register
 //const INFURA_ID =  "https://polygon-mumbai.infura.io/v3/a186bf6fba224d889e3facc647134699";
 
-const NETWORK_NAME = 'polygon-mumbai';
+const NETWORK_NAME = 'mainnet';
 
 const useWeb3Modal = (config = {}) => {
   const [provider, setProvider] = useState();

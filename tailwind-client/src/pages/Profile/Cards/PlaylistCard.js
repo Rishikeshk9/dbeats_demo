@@ -20,7 +20,7 @@ const PlaylistCard = (props) => {
     if (props.playlistData.data.trackId) {
       setAudio(new Audio(props.playlistData.data.link));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -37,20 +37,25 @@ const PlaylistCard = (props) => {
     <div className="w-full">
       {/* <a href={`/playback/${props.videoData.username}/0`}> */}
       {props.playlistData.data.trackId ? (
-        <div className={`cursor-pointer h-32 bg-dbeats-dark-primary`}>
+        <div className={`cursor-pointer 2xl:h-48 lg:h-32 md:h-36 h-44 dark:bg-black w-full `}>
           <a href={`/track/${props.playlistData.username}/${props.playlistData.index}`}>
             <img
               src={props.playlistData.data.trackImage}
               alt=""
-              className="w-full h-52"
+              className="h-full mx-auto"
               onMouseMove={handleMouseMove}
               onMouseLeave={hanldeMouseLeave}
             />
           </a>
         </div>
       ) : (
-        <div className={`cursor-pointer 2xl:h-48 lg:h-32 bg-dbeats-dark-primary w-full`}>
-          <a href={`/playback/${props.playlistData.username}/${props.playlistData.index}`}>
+        <div
+          className={`flex items-center justify-center cursor-pointer 2xl:h-48 lg:h-32 md:h-36 h-44 dark:bg-black w-full`}
+        >
+          <a
+            href={`/playback/${props.playlistData.username}/${props.playlistData.index}`}
+            className="2xl:h-48 lg:h-32 md:h-36 h-44"
+          >
             <ReactPlayer
               width="100%"
               height="100%"
@@ -72,7 +77,7 @@ const PlaylistCard = (props) => {
           <img
             src={person}
             alt=""
-            className="2xl:w-10 2xl:h-10 lg:h-7 lg:w-7 rounded-full mr-2 bg-gray-100"
+            className="2xl:w-10 2xl:h-10 lg:h-7 lg:w-7 h-5 w-5 rounded-full mr-2 bg-gray-100"
           />
           <div>
             <span className="2xl:text-lg lg:text-xs font-semibold dark:text-gray-200">

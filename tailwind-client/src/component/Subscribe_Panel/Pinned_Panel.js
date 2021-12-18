@@ -1,9 +1,8 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import personImg from '../../assets/images/profile.svg';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import personImg from '../../assets/images/profile.svg';
 
 const PinnedPanel = (props) => {
   const darkMode = useSelector((state) => state.toggleDarkMode);
@@ -20,11 +19,17 @@ const PinnedPanel = (props) => {
   };
 
   useEffect(() => {
-    if (props.userdata)
-      if (props.userdata.pinned) {
-        getPinnedData(props.userdata.pinned);
+    if (JSON.parse(window.localStorage.getItem('pinned_user'))) {
+      getPinnedData(JSON.parse(window.localStorage.getItem('pinned_user')));
+    } else {
+      if (props.userdata) {
+        if (props.userdata.pinned) {
+          window.localStorage.setItem('pinned_user', JSON.stringify(props.userdata.pinned));
+          getPinnedData(props.userdata.pinned);
+        }
       }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }
+    // eslint-disable-next-line
   }, []);
 
   console.log(pinnedData);
@@ -33,7 +38,7 @@ const PinnedPanel = (props) => {
   return (
     <div className={` w-full fixed top-0 ${darkMode && 'dark'} z-2 -ml-1`}>
       <div
-        className={`hidden lg:block pt-16 bg-white w-max shadow-sm z-10 h-full fixed dark:bg-dbeats-dark-primary 2xl:px-3 lg:px-2  dark:text-gray-100  flex flex-col justify-center `}
+        className={`hidden lg:block pt-16 bg-white w-max shadow  z-10 h-full fixed dark:bg-dbeats-dark-primary 2xl:px-3 lg:px-2  dark:text-gray-100  flex flex-col justify-center `}
       >
         {/* Subscribed User Avatar */}
         {pinnedData.map((pinnedUser, i) => {
@@ -44,7 +49,7 @@ const PinnedPanel = (props) => {
                 overlay={
                   <Tooltip
                     id="button-tooltip-2"
-                    className="bg-blue-50 shadow-md dark:bg-dbeats-dark-primary z-20 ml-16 -mt-10 mb-1 px-3 py-1 rounded-lg"
+                    className="bg-blue-50 shadow-md dark:bg-dbeats-dark-primary   z-20 ml-16 -mt-10 mb-1 px-3 py-1 rounded-lg"
                   >
                     <span className="text-md">{pinnedUser.username}</span>
                   </Tooltip>

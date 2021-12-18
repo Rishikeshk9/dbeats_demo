@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import axios from 'axios';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
+import { useSelector } from 'react-redux';
 
 const user = JSON.parse(window.localStorage.getItem('user'));
 
