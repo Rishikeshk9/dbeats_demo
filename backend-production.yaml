@@ -27,7 +27,7 @@ spec:
         imagePullPolicy: Always
         readinessProbe:
           httpGet:
-            path: /healthz
+            path: /usr/src/app
             port: 8080
         command: ["sh", "-c", "node server.js"]
         ports:
