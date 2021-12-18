@@ -1,7 +1,5 @@
 const Moralis = require('moralis');
 const express = require('express');
-const Parse = require('parse/node');
-const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
 const { create, globSource } = require('ipfs-http-client');
@@ -42,12 +40,7 @@ const server = app.listen(port, () => {
 
 const uri = process.env.ATLAS_URI;
 
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-});
+mongoose.connect(uri);
 
 const connection = mongoose.connection;
 connection.once('open', () => {

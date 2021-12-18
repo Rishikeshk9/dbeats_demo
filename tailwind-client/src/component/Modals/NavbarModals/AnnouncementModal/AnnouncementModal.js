@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
-import { detectURLs, makeStorageClient } from '../uploadHelperFunction';
+import { detectURLs, makeStorageClient } from '../../../uploadHelperFunction';
 import LinkPreview from './LinkPreview';
 import classes from './LinkPreview.module.css';
 
@@ -183,6 +183,7 @@ const AnnouncementModal = (props) => {
     return client.put(files, { onRootCidReady, onStoredChunk });
   }
 
+  //TODO : Send linkPreview data to backed and save it in user announcement
   const handleAnnouncement = () => {
     props.setLoader(false);
     if (announcement.postImage !== null || announcement.postVideo !== null) {
