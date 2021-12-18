@@ -13,6 +13,7 @@ contract NFTMarket is ReentrancyGuard {
     using Counters for Counters.Counter;
     Counters.Counter private _itemIds;
     Counters.Counter private _itemsSold;
+    bytes4 private constant _INTERFACE_ID_ERC2981 = 0x2a55205a;
 
     address payable owner;
     uint256 listingPrice = 0.025 ether;
@@ -188,5 +189,10 @@ contract NFTMarket is ReentrancyGuard {
             }
         }
         return items;
+    }
+
+    function checkRoyalties(address _contract) internal returns (bool) {
+        bool success = IERC165(_contract).supportsInterface(_INTERFACE_ID_ERC2981);
+        return success;
     }
 }
