@@ -147,7 +147,7 @@ app.use('/track', trackRouter);
 app.use('/user', userRouter);
 app.use('/user', userAuthRouters);
 
-app.use('/API-status', testAPIRouter);
+app.use('/status-api', testAPIRouter);
 
 // create a GET route
 app.get('/express_backend', (req, res) => {
